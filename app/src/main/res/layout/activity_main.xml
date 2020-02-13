@@ -39,6 +39,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/MainActivity_email_et"
         android:hint="Contraseña"/>
-
-
+    
 </RelativeLayout>
