@@ -12,10 +12,11 @@
         android:id="@+id/MainActivity_titol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rol &amp; Play"
-        android:textSize="36sp"
+        android:fontFamily="@font/chantelli_antiqua"
         android:gravity="center_horizontal"
-        />
+        android:text="Rol &amp; Play"
+        android:textColor="@color/colorPrimary"
+        android:textSize="42sp" />
 
     <ImageView
         android:id="@+id/MainActivity_logo"
@@ -25,19 +26,39 @@
         android:layout_below="@id/MainActivity_titol"
         android:layout_marginTop="20dp"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/RegistrarActivity_email_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="40dp">
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/MainActivity_email_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/MainActivity_logo"
         android:hint="Correo electrónico"/>
 
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/RegistrarActivity_password_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/RegistrarActivity_email_TIL">
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/MainActivity_password_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/MainActivity_email_et"
-        android:hint="Contraseña"/>
-    
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </RelativeLayout>
