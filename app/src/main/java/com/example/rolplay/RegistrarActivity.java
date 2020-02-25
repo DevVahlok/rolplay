@@ -37,9 +37,9 @@ public class RegistrarActivity extends AppCompatActivity {
             }
         });
 
-        //TO DO: Botón hacia atrás en barra superior (o no incluir barra superior???)
-        //TO DO: Comprobación de 2 inputs contraseña sean iguales
-        //TO DO: Registro en FireBase
+        //TODO: Botón hacia atrás en barra superior (o no incluir barra superior???)
+        //TODO: Comprobación de 2 inputs contraseña sean iguales
+        //TODO: Registro en FireBase
 
     }
 }

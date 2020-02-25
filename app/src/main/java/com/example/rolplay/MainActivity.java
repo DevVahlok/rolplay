@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TO DO: Crear activity Inicio (cuando ya haya iniciado sesión)
-        //TO DO: startActivity de Inicio
-        //TO DO: Comprobar login en Firebase
+        //TODO: Crear activity Inicio (cuando ya haya iniciado sesión)
+        //TODO: startActivity de Inicio
+        //TODO: Comprobar login en Firebase
 
     }
 }
