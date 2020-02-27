@@ -5,5 +5,6 @@
     <color name="colorSecondaryDark">#26262b</color>
     <color name="colorTertiaryDark">#202225</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorBlanco">#FFFFFF</color>
 
 </resources>

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Declaración de variables
     private TextView mTitulo;
-    private Button mBotonRegistrar, mBotonEntrar;
+    private Button mBotonRegistrar, mBotonEntrar, mBotonRecuperarPassword;
     private TextInputEditText mTextInputCorreo, mTextInputPassword;
     private FirebaseAuth mAuth;
 
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mBotonRegistrar = findViewById(R.id.MainActivity_registrar_btn);
         mTextInputCorreo = findViewById(R.id.MainActivity_email_et);
         mTextInputPassword = findViewById(R.id.MainActivity_password_et);
+        mBotonRecuperarPassword = findViewById(R.id.MainActivity_recuperar_password_btn);
         mAuth = FirebaseAuth.getInstance();
 
         //Cambio de pantalla a 'LoginActivity'
@@ -45,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,RegistrarActivity.class));
+            }
+        });
+        
+        mBotonRecuperarPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

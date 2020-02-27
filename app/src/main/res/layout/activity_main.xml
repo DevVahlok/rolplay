@@ -81,10 +81,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/MainActivity_entrar_btn"
+            android:id="@+id/MainActivity_recuperar_password_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/RegistrarActivity_password_TIL"
+            android:text="¿Has olvidado la contraseña?"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryDark"
+            style="?android:attr/borderlessButtonStyle"
+            android:gravity="right"/>
+
+        <Button
+            android:id="@+id/MainActivity_entrar_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/MainActivity_recuperar_password_btn"
             android:layout_marginTop="20dp"
             android:background="@color/colorSecondaryDark"
             android:paddingTop="20dp"
