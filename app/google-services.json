@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "717255629281-0oorkt73dmvu9cpepofts0c709cf0tr8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rolplay",
+            "certificate_hash": "c37cb594dbea470be1cde5ee70481cef7875842d"
+          }
+        },
+        {
           "client_id": "717255629281-a7grmaadskdcoo39ld5u3itohd5qgire.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
