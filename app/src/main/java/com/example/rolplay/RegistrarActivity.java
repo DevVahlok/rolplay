@@ -25,6 +25,7 @@ public class RegistrarActivity extends AppCompatActivity {
     private Button mBotonRegistrar;
     private TextInputEditText mTextInputCorreo, mTextInputPassword, mTextInputConfirmPassword;
     private FirebaseAuth mAuth;
+    private DialogCarga mDialogCarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class RegistrarActivity extends AppCompatActivity {
         mTextInputPassword = findViewById(R.id.RegistrarActivity_password_et);
         mTextInputConfirmPassword = findViewById(R.id.RegistrarActivity_confirmPassword_et);
         mAuth = FirebaseAuth.getInstance();
+        mDialogCarga = new DialogCarga();
 
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +62,18 @@ public class RegistrarActivity extends AppCompatActivity {
         });
 
         //TODO: Botón hacia atrás en barra superior (o no incluir barra superior???)
+        //TODO: Comprobar longitud de 6 carácteres antes de que salga el error default de Google
 
     }
 
     private void RegistrarUsuari(String email, String pass) {
+        mDialogCarga.show(getSupportFragmentManager(),null);
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-
+                            mDialogCarga.dismiss();
                             startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
 
                             Toast.makeText(RegistrarActivity.this, "OK", Toast.LENGTH_SHORT).show();
@@ -77,12 +81,14 @@ public class RegistrarActivity extends AppCompatActivity {
                             finish();
 
                         }else{
+                            mDialogCarga.dismiss();
                             Toast.makeText(RegistrarActivity.this, "Creación de usuario fallida", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                mDialogCarga.dismiss();
                 Toast.makeText(RegistrarActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
