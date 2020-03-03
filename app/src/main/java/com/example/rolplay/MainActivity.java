@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Crear activity Inicio (cuando ya haya iniciado sesión)
+        //TODO: DialogCarga al iniciar sesión
 
     }
 
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     startActivity(new Intent(MainActivity.this,InicioActivity.class));
-                    finish();
                 }else{
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
