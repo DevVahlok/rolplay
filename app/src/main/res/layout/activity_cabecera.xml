@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/chantelli_antiqua"
             android:gravity="center_horizontal"
-            android:text="Datos del personaje"
+            android:text="@string/datosPersonaje"
             android:textColor="@color/colorPrimary"
             android:textSize="38sp"
             android:layout_marginTop="20dp"/>
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Nombre" />
+                android:hint="@string/nombre" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Clase" />
+            android:hint="@string/clase" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +74,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Trasfondo"/>
+            android:hint="@string/trasfondo"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/CabeceraActivity_alineamientoPersonaje_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/colorPrimary"
+        app:hintTextColor="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/CabeceraActivity_alineamientoPersonaje_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/alineamiento"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,11 +101,11 @@
         android:id="@+id/CabeceraActivity_tituloRaza"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Raza"
+        android:text="@string/raza"
         android:paddingTop="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"/>
+        android:layout_below="@+id/CabeceraActivity_alineamientoPersonaje_TIL"/>
 
     <Spinner
         android:id="@+id/CabeceraActivity_raza_dropdown"
@@ -99,7 +118,7 @@
         android:id="@+id/CabeceraActivity_tituloNivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nivel 0"
+        android:text="@string/nivelPersonaje"
         android:paddingTop="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
@@ -112,18 +131,18 @@
         android:layout_below="@id/CabeceraActivity_tituloNivel"
         android:progress="0"
         android:paddingTop="10dp"
-        style="@android:style/Widget.ProgressBar.Horizontal"/>
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progressDrawable="@layout/progressbar_naranja"/>
 
     <TextView
         android:id="@+id/CabeceraActivity_tituloExperiencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 / 0 exp"
+        android:text="@string/experiencia"
         android:paddingTop="3dp"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
         android:layout_alignRight="@id/CabeceraActivity_nivel_barraProgreso"/>
-
 
 </RelativeLayout>

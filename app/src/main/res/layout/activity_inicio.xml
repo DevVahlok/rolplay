@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/chantelli_antiqua"
         android:gravity="center_horizontal"
-        android:text="Ficha"
+        android:text="@string/ficha"
         android:textColor="@color/colorPrimary"
         android:textSize="42sp"
         android:layout_marginTop="20dp"/>
 
     <ImageView
         android:id="@+id/ActivityInicio_FotoFicha"
+        android:contentDescription="@string/ficha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ficha_personaje"
@@ -30,9 +31,9 @@
         android:layout_width="400dp"
         android:layout_height="70dp"
         android:text=""
-        android:layout_alignRight="@id/ActivityInicio_FotoFicha"
+        android:layout_alignEnd="@id/ActivityInicio_FotoFicha"
         android:layout_marginTop="100dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
@@ -43,7 +44,7 @@
         android:text=""
         android:layout_below="@+id/ActivityInicio_cabecera_btn"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
@@ -54,7 +55,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_puntosHabilidad_btn"
         android:layout_marginTop="175dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
@@ -65,7 +66,7 @@
         android:text=""
         android:layout_below="@+id/ActivityInicio_puntosHabilidad_btn"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
@@ -76,7 +77,7 @@
         android:text=""
         android:layout_below="@+id/ActivityInicio_habilidadesBonificadores2_btn"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
@@ -87,7 +88,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
         android:layout_marginBottom="40dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"
         android:layout_above="@+id/ActivityInicio_textoInferior_et"/>
@@ -99,7 +100,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"
         android:layout_above="@+id/ActivityInicio_equipo_btn"/>
@@ -111,7 +112,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
         android:layout_marginBottom="4dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"
         android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"/>
@@ -123,7 +124,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
         android:layout_marginBottom="3dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"
         android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"/>
@@ -135,7 +136,7 @@
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"
         android:layout_below="@id/ActivityInicio_personalidad_btn"/>
@@ -144,7 +145,7 @@
         android:id="@+id/ActivityInicio_textoInferior_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pulsa en un apartado para ver en detalle"
+        android:text="@string/pulsaApartadoVerDetalle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
@@ -153,22 +154,24 @@
 
     <ImageView
         android:id="@+id/ActivityInicio_FlechaArribaDer_img"
+        android:contentDescription="@string/pulsaApartadoVerDetalle"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:srcCompat="@drawable/flecha_arriba"
         android:layout_toEndOf="@id/ActivityInicio_textoInferior_et"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginStart="8dp"/>
 
     <ImageView
         android:id="@+id/ActivityInicio_FlechaArribaIzq_img"
+        android:contentDescription="@string/pulsaApartadoVerDetalle"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:srcCompat="@drawable/flecha_arriba"
         android:layout_toStartOf="@id/ActivityInicio_textoInferior_et"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginEnd="8dp"/>
 
 </RelativeLayout>
