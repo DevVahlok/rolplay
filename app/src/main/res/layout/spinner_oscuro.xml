@@ -6,5 +6,5 @@
     android:gravity="left"
     android:textColor="@color/colorBlanco"
     android:background="@color/colorPrimaryDark"
-    android:padding="5dip"
-    />
+
+    android:padding="5dip"/>

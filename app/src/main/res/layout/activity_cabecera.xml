@@ -78,13 +78,52 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloRaza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Raza"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"/>
+
     <Spinner
         android:id="@+id/CabeceraActivity_raza_dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
-        android:layout_marginTop="20dp"/>
+        android:layout_below="@+id/CabeceraActivity_tituloRaza"/>
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloNivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nivel 0"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_below="@+id/CabeceraActivity_raza_dropdown"/>
+
+    <ProgressBar
+        android:id="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CabeceraActivity_tituloNivel"
+        android:progress="0"
+        android:paddingTop="10dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloExperiencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 / 0 exp"
+        android:paddingTop="3dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:layout_alignRight="@id/CabeceraActivity_nivel_barraProgreso"/>
+
 
 </RelativeLayout>
