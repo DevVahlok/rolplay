@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/mainlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".InicioActivity"></activity>
+        <activity
+            android:name=".CabeceraActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".InicioActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RegistrarActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

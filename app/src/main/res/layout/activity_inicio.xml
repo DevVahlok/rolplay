@@ -7,17 +7,27 @@
     tools:context=".InicioActivity"
     android:background="@color/colorPrimaryDark">
 
+    <TextView
+        android:id="@+id/InicioActivity_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="Ficha"
+        android:textColor="@color/colorPrimary"
+        android:textSize="42sp"
+        android:layout_marginTop="20dp"/>
+
     <ImageView
         android:id="@+id/ActivityInicio_FotoFicha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/fichaPersonaje"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-47dp" />
+        app:srcCompat="@drawable/ficha_personaje"
+        android:paddingTop="10dp"/>
 
     <Button
         android:id="@+id/ActivityInicio_cabecera_btn"
-        android:layout_width="390dp"
+        android:layout_width="400dp"
         android:layout_height="70dp"
         android:text=""
         android:layout_alignRight="@id/ActivityInicio_FotoFicha"
@@ -28,8 +38,8 @@
 
     <Button
         android:id="@+id/ActivityInicio_puntosHabilidad_btn"
-        android:layout_width="42dp"
-        android:layout_height="315dp"
+        android:layout_width="45dp"
+        android:layout_height="325dp"
         android:text=""
         android:layout_below="@+id/ActivityInicio_cabecera_btn"
         android:layout_marginTop="5dp"
@@ -39,24 +49,126 @@
 
     <Button
         android:id="@+id/ActivityInicio_habilidadesBonificadores1_btn"
-        android:layout_width="80dp"
-        android:layout_height="339dp"
+        android:layout_width="82dp"
+        android:layout_height="352dp"
         android:text=""
         android:layout_toEndOf="@+id/ActivityInicio_puntosHabilidad_btn"
         android:layout_marginTop="175dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="2dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/ActivityInicio_habilidadesBonificadores2_btn"
         android:layout_width="46dp"
-        android:layout_height="21dp"
+        android:layout_height="22dp"
         android:text=""
         android:layout_below="@+id/ActivityInicio_puntosHabilidad_btn"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="12dp"
         android:backgroundTint="@android:color/transparent"
         style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:layout_width="130dp"
+        android:layout_height="105dp"
+        android:text=""
+        android:layout_below="@+id/ActivityInicio_habilidadesBonificadores2_btn"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_equipo_btn"
+        android:layout_width="132dp"
+        android:layout_height="128dp"
+        android:text=""
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="3dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_above="@+id/ActivityInicio_textoInferior_et"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_ataquesConjuros_btn"
+        android:layout_width="133dp"
+        android:layout_height="144dp"
+        android:text=""
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="3dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_above="@+id/ActivityInicio_equipo_btn"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_combate_btn"
+        android:layout_width="133dp"
+        android:layout_height="180dp"
+        android:text=""
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="3dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_personalidad_btn"
+        android:layout_width="133dp"
+        android:layout_height="180dp"
+        android:text=""
+        android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"/>
+
+    <Button
+        android:id="@+id/ActivityInicio_rasgosAtributos_btn"
+        android:layout_width="133dp"
+        android:layout_height="279dp"
+        android:text=""
+        android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="3dp"
+        android:backgroundTint="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_below="@id/ActivityInicio_personalidad_btn"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_textoInferior_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulsa en un apartado para ver en detalle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:paddingBottom="35dp"/>
+
+    <ImageView
+        android:id="@+id/ActivityInicio_FlechaArribaDer_img"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/flecha_arriba"
+        android:layout_toEndOf="@id/ActivityInicio_textoInferior_et"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="8dp"/>
+
+    <ImageView
+        android:id="@+id/ActivityInicio_FlechaArribaIzq_img"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/flecha_arriba"
+        android:layout_toStartOf="@id/ActivityInicio_textoInferior_et"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="8dp"/>
 
 </RelativeLayout>
