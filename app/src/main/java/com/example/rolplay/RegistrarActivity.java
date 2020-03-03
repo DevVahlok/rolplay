@@ -60,6 +60,7 @@ public class RegistrarActivity extends AppCompatActivity {
         });
 
         //TODO: Botón hacia atrás en barra superior (o no incluir barra superior???)
+        //TODO: TORNERO HAZME EL PUTO DIALOG PARA QUE LO META CON LOS COLORES QUE TE PUTO MOLEN PUTO SUBNORMAL...
 
     }
 
@@ -72,7 +73,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
                             startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
 
-                            Toast.makeText(RegistrarActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrarActivity.this, "", Toast.LENGTH_SHORT).show();
 
                             finish();
 
