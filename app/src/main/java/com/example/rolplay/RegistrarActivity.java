@@ -24,6 +24,7 @@ public class RegistrarActivity extends AppCompatActivity {
     private TextView mTitulo;
     private Button mBotonRegistrar;
     private TextInputEditText mTextInputCorreo, mTextInputPassword, mTextInputConfirmPassword;
+
     private FirebaseAuth mAuth;
     private DialogCarga mDialogCarga;
 
@@ -35,12 +36,15 @@ public class RegistrarActivity extends AppCompatActivity {
         //Inicialización de variables
         mTitulo = findViewById(R.id.RegistrarActivity_titulo);
         mBotonRegistrar = findViewById(R.id.RegistrarActivity_registrar_btn);
+
         mTextInputCorreo = findViewById(R.id.RegistrarActivity_email_et);
         mTextInputPassword = findViewById(R.id.RegistrarActivity_password_et);
         mTextInputConfirmPassword = findViewById(R.id.RegistrarActivity_confirmPassword_et);
+
         mAuth = FirebaseAuth.getInstance();
         mDialogCarga = new DialogCarga();
 
+        //Boton de registrar
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,30 +52,42 @@ public class RegistrarActivity extends AppCompatActivity {
                 String pass = mTextInputPassword.getText().toString();
                 String confirmpass = mTextInputConfirmPassword.getText().toString();
 
+                //Comprobaciones de mail y password
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
                     mTextInputCorreo.setError("El formato del email no es correcto.");
                     mTextInputCorreo.setFocusable(true);
+
+                }else if(pass.length()<=6){
+
+                    mTextInputPassword.setError("La contraseña es demasiado corta");
+                    mTextInputPassword.setFocusable(true);
+
                 }else if(!pass.equals(confirmpass)){
+
                     mTextInputPassword.setError("No coinciden las contraseñas");
                     mTextInputPassword.setFocusable(true);
                     mTextInputConfirmPassword.setFocusable(true);
+
                 }else{
                     RegistrarUsuari(email, pass);
                 }
             }
         });
 
-        //TODO: Comprobar longitud de 6 carácteres antes de que salga el error default de Google
-
     }
 
+    //Accion de registrar
     private void RegistrarUsuari(String email, String pass) {
+
         mDialogCarga.show(getSupportFragmentManager(),null);
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+
+                            //Caso de que registre correctamente
                             mDialogCarga.dismiss();
                             startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
 
@@ -80,16 +96,22 @@ public class RegistrarActivity extends AppCompatActivity {
                             finish();
 
                         }else{
+
+                            //Caso de que falle el registro
                             mDialogCarga.dismiss();
                             Toast.makeText(RegistrarActivity.this, "Creación de usuario fallida", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                mDialogCarga.dismiss();
-                Toast.makeText(RegistrarActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    //Fallo en firebase
+                    mDialogCarga.dismiss();
+                    Toast.makeText(RegistrarActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
     }
 }
