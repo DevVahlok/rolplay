@@ -61,7 +61,6 @@ public class RegistrarActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Botón hacia atrás en barra superior (o no incluir barra superior???)
         //TODO: Comprobar longitud de 6 carácteres antes de que salga el error default de Google
 
     }

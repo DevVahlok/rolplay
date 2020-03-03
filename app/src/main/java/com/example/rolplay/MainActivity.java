@@ -71,10 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        //TODO: startActivity de Inicio
-        //TODO: Crear activity Inicio (cuando ya haya iniciado sesión)
-        //TODO: Comprobar login en Firebase
+        //TODO: DialogCarga al iniciar sesión
 
     }
 
