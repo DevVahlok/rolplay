@@ -11,7 +11,7 @@
         android:id="@+id/ActivityInicio_FotoFicha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/fichaPersonaje"
+        app:srcCompat="@drawable/ficha_personaje"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-47dp" />
 
