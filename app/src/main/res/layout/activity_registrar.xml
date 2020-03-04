@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/chantelli_antiqua"
             android:gravity="center_horizontal"
-            android:text="Registrarse"
+            android:text="@string/registrarse"
             android:textColor="@color/colorPrimary"
             android:textSize="42sp"
             android:layout_marginTop="100dp"/>
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Correo Electrónico" />
+                android:hint="@string/correoElectronico" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/RegistrarActivity_email_et"
-                android:hint="Contraseña"
+                android:hint="@string/contrasena"
                 android:inputType="textPassword"
                 android:background="@android:color/transparent"/>
 
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/RegistrarActivity_confirmPassword_et"
-                android:hint="Repetir contraseña"
+                android:hint="@string/repetirContrasena"
                 android:inputType="textPassword"
                 android:background="@android:color/transparent"/>
 
@@ -100,7 +100,7 @@
             android:background="@color/colorSecondaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:text="Registrarse"
+            android:text="@string/registrarse"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
