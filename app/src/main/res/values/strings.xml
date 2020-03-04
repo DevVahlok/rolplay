@@ -1,3 +1,28 @@
 <resources>
+
+    <!-- Genéricos App -->
     <string name="app_name">Rol &amp; Play</string>
+    <string name="entrar">Entrar</string>
+    <string name="cargando">Cargando…</string>
+
+    <!-- Control de cuentas -->
+    <string name="correoElectronico">Correo Electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="repetirContrasena">Repetir Contraseña</string>
+    <string name="hasOlvidadoContrasena">¿Has olvidado la contraseña?</string>
+    <string name="noTienesCuentaRegistrate">¿No tienes cuenta de Rol &amp; Play? Regístrate.</string>
+    <string name="registrarse">Registrarse</string>
+
+    <!-- Ficha personaje-->
+    <string name="datosPersonaje">Datos del personaje</string>
+    <string name="nombre">Nombre</string>
+    <string name="clase">Clase</string>
+    <string name="trasfondo">Trasfondo</string>
+    <string name="alineamiento">Alineamiento</string>
+    <string name="raza">Raza</string>
+    <string name="nivelPersonaje">Nivel %1$s</string>
+    <string name="experiencia">%1$s / %2$s exp</string>
+    <string name="ficha">Ficha</string>
+    <string name="pulsaApartadoVerDetalle">Pulsa en un apartado para ver en detalle</string>
+
 </resources>
