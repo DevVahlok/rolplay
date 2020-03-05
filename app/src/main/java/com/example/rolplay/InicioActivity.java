@@ -58,6 +58,7 @@ public class InicioActivity extends AppCompatActivity {
         mExperienciaPersonaje_TV.setText("500 / 1500 exp");
         mNombreJugador_TV.setText("Vahlokillo");
 
+        //TODO: LOPD (en una activity nueva tipo párrafo info?)
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +87,6 @@ public class InicioActivity extends AppCompatActivity {
                 Toast.makeText(InicioActivity.this, "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
             }
         });
-
-        //TODO: 9 +1 botones (sabiduría percepción pasiva va en habilidades+tiradas de salvación)
 
     }
 }
