@@ -11,16 +11,16 @@
         android:theme="@style/Theme.MyApp">
         <activity
             android:name=".CabeceraActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="nosensor"/>
         <activity
             android:name=".InicioActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="nosensor"/>
         <activity
             android:name=".RegistrarActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="nosensor"/>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
