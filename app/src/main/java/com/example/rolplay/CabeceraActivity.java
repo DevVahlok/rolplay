@@ -67,8 +67,7 @@ public class CabeceraActivity extends AppCompatActivity {
             }
         });
 
-
-
+        //TODO: LOPD
 
         //Setea Array al dropdown de Raza
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_oscuro, Razas);

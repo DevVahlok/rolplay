@@ -45,6 +45,12 @@ public class InicioActivity extends AppCompatActivity {
         mAlineamientoPersonaje_TV = findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
         mExperienciaPersonaje_TV = findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
         mNombreJugador_TV = findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+        mBotonPestanaCompetenciasIdiomas = findViewById(R.id.ActivityInicio_competenciasIdiomas_btn);
+        mBotonPestanaEquipo = findViewById(R.id.ActivityInicio_competenciasIdiomas_btn);
+        mBotonPestanaAtaquesConjuros = findViewById(R.id.ActivityInicio_ataquesConjuros_btn);
+        mBotonPestanaCombate = findViewById(R.id.ActivityInicio_combate_btn);
+        mBotonPestanaPersonalidad = findViewById(R.id.ActivityInicio_personalidad_btn);
+        mBotonPestanaRasgosAtributos = findViewById(R.id.ActivityInicio_rasgosAtributos_btn);
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
