@@ -143,6 +143,6 @@
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
-        android:layout_alignRight="@id/CabeceraActivity_nivel_barraProgreso"/>
+        android:layout_alignEnd="@id/CabeceraActivity_nivel_barraProgreso"/>
 
 </RelativeLayout>

@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.nio.file.Files;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -22,23 +21,46 @@ public class InicioActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private TextView mNombreJugador_TV, mTrasfondoPersonaje_TV, mClaseNivelPersonaje_TV, mRazaPersonaje_TV,
+            mAlineamientoPersonaje_TV, mExperienciaPersonaje_TV, mNombrePersonaje_TV;
+
+    private FirebaseUser mUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        //Incialización de variables
         mAuth = FirebaseAuth.getInstance();
 
         mBotonPestanaCabecera = findViewById(R.id.ActivityInicio_cabecera_btn);
         mBotonPestanaPuntosHabilidad = findViewById(R.id.ActivityInicio_puntosHabilidad_btn);
         mBotonPestanaHabilidadesBonificadores1 = findViewById(R.id.ActivityInicio_habilidadesBonificadores1_btn);
         mBotonPestanaHabilidadesBonificadores2 = findViewById(R.id.ActivityInicio_habilidadesBonificadores2_btn);
-        mBotonPestanaCompetenciasIdiomas = findViewById(R.id.ActivityInicio_competenciasIdiomas_btn);
-        mBotonPestanaEquipo = findViewById(R.id.ActivityInicio_equipo_btn);
-        mBotonPestanaAtaquesConjuros = findViewById(R.id.ActivityInicio_ataquesConjuros_btn);
-        mBotonPestanaCombate = findViewById(R.id.ActivityInicio_combate_btn);
-        mBotonPestanaPersonalidad = findViewById(R.id.ActivityInicio_personalidad_btn);
-        mBotonPestanaRasgosAtributos = findViewById(R.id.ActivityInicio_rasgosAtributos_btn);
+        mNombreJugador_TV = findViewById(R.id.ActivityInicio_nombreJugador_TV);
+        mClaseNivelPersonaje_TV = findViewById(R.id.ActivityInicio_claseNivelPersonaje_TV);
+        mTrasfondoPersonaje_TV = findViewById(R.id.ActivityInicio_trasfondoPersonaje_TV);
+        mRazaPersonaje_TV = findViewById(R.id.ActivityInicio_razaPersonaje_TV);
+        mAlineamientoPersonaje_TV = findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
+        mExperienciaPersonaje_TV = findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
+        mNombreJugador_TV = findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUsuario = mAuth.getCurrentUser();
+
+        //TODO: Setear datos de Firebase en los siguientes campos
+        //Seteo datos en ficha
+        //ALERTA: DATOS DE PLACEHOLDER, SUSTITUIR POR BBDD DE FIREBASE
+        mNombreJugador_TV.setText(mUsuario.getEmail());
+        mClaseNivelPersonaje_TV.setText("Brujo 4");
+        mTrasfondoPersonaje_TV.setText("Soldado");
+        mRazaPersonaje_TV.setText("Dracónido");
+        //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
+        mAlineamientoPersonaje_TV.setText("Neutral Bueno");
+        mExperienciaPersonaje_TV.setText("500 / 1500 exp");
+        mNombreJugador_TV.setText("Vahlokillo");
+
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override

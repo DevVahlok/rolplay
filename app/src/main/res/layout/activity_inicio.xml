@@ -153,25 +153,92 @@
         android:paddingBottom="35dp"/>
 
     <ImageView
-        android:id="@+id/ActivityInicio_FlechaArribaDer_img"
-        android:contentDescription="@string/pulsaApartadoVerDetalle"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:srcCompat="@drawable/flecha_arriba"
-        android:layout_toEndOf="@id/ActivityInicio_textoInferior_et"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="35dp"
-        android:layout_marginStart="8dp"/>
-
-    <ImageView
         android:id="@+id/ActivityInicio_FlechaArribaIzq_img"
         android:contentDescription="@string/pulsaApartadoVerDetalle"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        app:srcCompat="@drawable/flecha_arriba"
+        app:srcCompat="@drawable/info"
         android:layout_toStartOf="@id/ActivityInicio_textoInferior_et"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
         android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_nombreJugador_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/correoElectronico"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginTop="142dp"
+        android:layout_marginStart="325dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_trasfondoPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trasfondo"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginTop="142dp"
+        android:layout_marginStart="260dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_claseNivelPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clase"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginTop="142dp"
+        android:layout_marginStart="180dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_razaPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/raza"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_below="@id/ActivityInicio_claseNivelPersonaje_TV"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="190dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_alineamientoPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alineamiento"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_below="@id/ActivityInicio_trasfondoPersonaje_TV"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="270dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_experienciaPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/experiencia"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp"
+        android:layout_below="@id/ActivityInicio_nombreJugador_TV"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="340dp"/>
+
+    <TextView
+        android:id="@+id/ActivityInicio_NombrePersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre"
+        android:textColor="@color/colorBlanco"
+        android:textSize="10sp"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginTop="152dp"
+        android:layout_marginStart="40dp"/>
+
 
 </RelativeLayout>
