@@ -1,12 +1,15 @@
 package com.example.rolplay;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegistrarActivity extends AppCompatActivity {
+public class RegistrarFragment extends Fragment {
 
     //Declaración de variables
     private TextView mTitulo;
@@ -27,22 +30,29 @@ public class RegistrarActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DialogCarga mDialogCarga;
+    private LoginFragment mLoginFragment;
+
+    public RegistrarFragment() {
+
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrar);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_registrar, container, false);
 
         //Inicialización de variables
-        mTitulo = findViewById(R.id.RegistrarActivity_titulo);
-        mBotonRegistrar = findViewById(R.id.RegistrarActivity_registrar_btn);
+        mTitulo = v.findViewById(R.id.RegistrarActivity_titulo);
+        mBotonRegistrar = v.findViewById(R.id.RegistrarActivity_registrar_btn);
 
-        mTextInputCorreo = findViewById(R.id.RegistrarActivity_email_et);
-        mTextInputPassword = findViewById(R.id.RegistrarActivity_password_et);
-        mTextInputConfirmPassword = findViewById(R.id.RegistrarActivity_confirmPassword_et);
+        mTextInputCorreo = v.findViewById(R.id.RegistrarActivity_email_et);
+        mTextInputPassword = v.findViewById(R.id.RegistrarActivity_password_et);
+        mTextInputConfirmPassword = v.findViewById(R.id.RegistrarActivity_confirmPassword_et);
 
         mAuth = FirebaseAuth.getInstance();
         mDialogCarga = new DialogCarga();
+        mLoginFragment = new LoginFragment();
 
         //Boton de registrar
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -75,43 +85,45 @@ public class RegistrarActivity extends AppCompatActivity {
             }
         });
 
+        return v;
     }
 
     //Accion de registrar
     private void RegistrarUsuari(String email, String pass) {
 
-        mDialogCarga.show(getSupportFragmentManager(),null);
+        mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
         mAuth.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
                             //Caso de que registre correctamente
                             mDialogCarga.dismiss();
-                            startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
 
-                            Toast.makeText(RegistrarActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
 
-                            finish();
+                            getActivity().finish();
 
                         }else{
 
                             //Caso de que falle el registro
                             mDialogCarga.dismiss();
-                            Toast.makeText(RegistrarActivity.this, "Creación de usuario fallida", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Creación de usuario fallida", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
-                    //Fallo en firebase
-                    mDialogCarga.dismiss();
-                    Toast.makeText(RegistrarActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
+                //Fallo en firebase
+                mDialogCarga.dismiss();
+                Toast.makeText(getActivity(), e.getMessage(),Toast.LENGTH_SHORT).show();
 
-                }
-            });
+            }
+        });
     }
+
 }

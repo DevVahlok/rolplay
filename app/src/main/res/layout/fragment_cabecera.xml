@@ -6,39 +6,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CabeceraActivity"
     android:background="@color/colorPrimaryDark"
     android:padding="30dp">
 
     <TextView
-            android:id="@+id/CabeceraActivity_titulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/chantelli_antiqua"
-            android:gravity="center_horizontal"
-            android:text="@string/datosPersonaje"
-            android:textColor="@color/colorPrimary"
-            android:textSize="38sp"
-            android:layout_marginTop="20dp"/>
+        android:id="@+id/CabeceraActivity_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="@string/datosPersonaje"
+        android:textColor="@color/colorPrimary"
+        android:textSize="38sp"
+        android:layout_marginTop="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
 
-            android:id="@+id/CabeceraActivity_nombrePersonaje_TIL"
+        android:id="@+id/CabeceraActivity_nombrePersonaje_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_titulo"
+        android:layout_marginTop="50dp"
+        android:textColorHint="@color/colorPrimary"
+        app:hintTextColor="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/CabeceraActivity_nombrePersonaje_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/CabeceraActivity_titulo"
-            android:layout_marginTop="50dp"
-            android:textColorHint="@color/colorPrimary"
-            app:hintTextColor="@color/colorPrimary">
+            android:background="@android:color/transparent"
+            android:hint="@string/nombre" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/CabeceraActivity_nombrePersonaje_ET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/nombre" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
 
