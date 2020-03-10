@@ -1,15 +1,19 @@
 package com.example.rolplay;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class CabeceraActivity extends AppCompatActivity {
+public class CabeceraFragment extends Fragment {
 
     //Declaración de variables
     private EditText mNombrePersonajeET, mClasePersonajeET, mTrasfondoPersonajeET, mAlineamientoPersonajeET;
@@ -18,23 +22,28 @@ public class CabeceraActivity extends AppCompatActivity {
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
 
+    public CabeceraFragment() {
+
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cabecera);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_cabecera, container, false);
 
         //Inicialización de variables
-        mNombrePersonajeET = findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
-        mDropdownRaza = findViewById(R.id.CabeceraActivity_raza_dropdown);
-        mNivel_ET = findViewById(R.id.CabeceraActivity_tituloNivel);
-        mExperiencia_ET = findViewById(R.id.CabeceraActivity_tituloExperiencia);
-        mBarraProgreso = findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
+        mNombrePersonajeET = v.findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
+        mDropdownRaza = v.findViewById(R.id.CabeceraActivity_raza_dropdown);
+        mNivel_ET = v.findViewById(R.id.CabeceraActivity_tituloNivel);
+        mExperiencia_ET = v.findViewById(R.id.CabeceraActivity_tituloExperiencia);
+        mBarraProgreso = v.findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
 
         //TODO: Recoger lista de razas de FireBase
         String[] listaRazas = new String[]{"Bardo","Brujo","Bárbaro","Clérigo","Druida","Explorador","Guerrero","Hechicero","Mago","Paladín","Pícaro"};
 
         //Setea Array al dropdown de Raza
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_oscuro, listaRazas);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaRazas);
         mDropdownRaza.setAdapter(adapter);
 
         //TODO: Recoger Nivel y Experiencia de Firebase
@@ -50,5 +59,6 @@ public class CabeceraActivity extends AppCompatActivity {
         mExperiencia_ET.setText(getString(R.string.experiencia,Integer.toString(mProgresoExperiencia),Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
 
+        return v;
     }
 }

@@ -1,10 +1,13 @@
 package com.example.rolplay;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioFragment extends Fragment {
 
     //Declaración de variables
     private Button mBotonPestanaCabecera, mBotonPestanaPuntosHabilidad, mBotonPestanaHabilidadesBonificadores1,
@@ -24,24 +27,31 @@ public class InicioActivity extends AppCompatActivity {
 
     private FirebaseUser mUsuario;
     private FirebaseAuth mAuth;
+    private CabeceraFragment mCabeceraFragment;
+
+    public InicioFragment() {
+
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         //Incialización de variables
-        mBotonPestanaCabecera = findViewById(R.id.ActivityInicio_cabecera_btn);
-        mBotonPestanaPuntosHabilidad = findViewById(R.id.ActivityInicio_puntosHabilidad_btn);
-        mBotonPestanaHabilidadesBonificadores1 = findViewById(R.id.ActivityInicio_habilidadesBonificadores1_btn);
-        mBotonPestanaHabilidadesBonificadores2 = findViewById(R.id.ActivityInicio_habilidadesBonificadores2_btn);
-        mNombreJugador_TV = findViewById(R.id.ActivityInicio_nombreJugador_TV);
-        mClaseNivelPersonaje_TV = findViewById(R.id.ActivityInicio_claseNivelPersonaje_TV);
-        mTrasfondoPersonaje_TV = findViewById(R.id.ActivityInicio_trasfondoPersonaje_TV);
-        mRazaPersonaje_TV = findViewById(R.id.ActivityInicio_razaPersonaje_TV);
-        mAlineamientoPersonaje_TV = findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
-        mExperienciaPersonaje_TV = findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
-        mNombreJugador_TV = findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+        mBotonPestanaCabecera = v.findViewById(R.id.ActivityInicio_cabecera_btn);
+        mBotonPestanaPuntosHabilidad = v.findViewById(R.id.ActivityInicio_puntosHabilidad_btn);
+        mBotonPestanaHabilidadesBonificadores1 = v.findViewById(R.id.ActivityInicio_habilidadesBonificadores1_btn);
+        mBotonPestanaHabilidadesBonificadores2 = v.findViewById(R.id.ActivityInicio_habilidadesBonificadores2_btn);
+        mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_nombreJugador_TV);
+        mClaseNivelPersonaje_TV = v.findViewById(R.id.ActivityInicio_claseNivelPersonaje_TV);
+        mTrasfondoPersonaje_TV = v.findViewById(R.id.ActivityInicio_trasfondoPersonaje_TV);
+        mRazaPersonaje_TV = v.findViewById(R.id.ActivityInicio_razaPersonaje_TV);
+        mAlineamientoPersonaje_TV = v.findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
+        mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
+        mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+        mCabeceraFragment = new CabeceraFragment();
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -63,30 +73,31 @@ public class InicioActivity extends AppCompatActivity {
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(InicioActivity.this, CabeceraActivity.class));
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mCabeceraFragment).commit();
             }
         });
 
         mBotonPestanaPuntosHabilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InicioActivity.this, "Puntos Habilidad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Puntos Habilidad", Toast.LENGTH_SHORT).show();
             }
         });
 
         mBotonPestanaHabilidadesBonificadores1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InicioActivity.this, "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
             }
         });
 
         mBotonPestanaHabilidadesBonificadores2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InicioActivity.this, "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
             }
         });
 
+        return v;
     }
 }

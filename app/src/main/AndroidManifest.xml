@@ -10,22 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
-            android:name=".CabeceraActivity"
-            android:screenOrientation="nosensor"/>
-        <activity
-            android:name=".InicioActivity"
-            android:screenOrientation="nosensor"/>
-        <activity
-            android:name=".RegistrarActivity"
-            android:screenOrientation="nosensor"/>
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="nosensor">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
     </application>
 
