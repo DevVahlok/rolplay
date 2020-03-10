@@ -35,7 +35,8 @@ public class CabeceraActivity extends AppCompatActivity {
     private ProgressBar mBarraProgreso;
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase  mDatabase;
+    private DatabaseReference mRazas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +49,20 @@ public class CabeceraActivity extends AppCompatActivity {
         mNivel_ET = findViewById(R.id.CabeceraActivity_tituloNivel);
         mExperiencia_ET = findViewById(R.id.CabeceraActivity_tituloExperiencia);
         mBarraProgreso = findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance();
 
         //TODO: Recoger lista de razas de FireBase
         String[] listaRazas = new String[]{"Bardo","Brujo","Bárbaro","Clérigo","Druida","Explorador","Guerrero","Hechicero","Mago","Paladín","Pícaro"};
 
-        final DatabaseReference mRazas = mDatabase.child("DungeonAndDragons").child("Raza");
+        mRazas = mDatabase.getReference();
 
-        FirebaseHelper db = new FirebaseHelper(mRazas);
 
-        final ArrayList Razas = db.retrieve();
 
-        mDatabase.child("DungeonAndDragons").child("Raza").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRazas.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    Razas.add(ds.getKey());
-                }
+                showData(dataSnapshot);
             }
 
             @Override
@@ -74,11 +72,6 @@ public class CabeceraActivity extends AppCompatActivity {
         });
 
 
-
-
-        //Setea Array al dropdown de Raza
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_oscuro, Razas);
-        mDropdownRaza.setAdapter(adapter);
 
         //TODO: Recoger Nivel y Experiencia de Firebase
         mExperienciaTotal = 100;
@@ -93,99 +86,44 @@ public class CabeceraActivity extends AppCompatActivity {
         mExperiencia_ET.setText(getString(R.string.experiencia,Integer.toString(mProgresoExperiencia),Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
     }
-}
 
-class FirebaseHelper {
+    private void showData(DataSnapshot dataSnapshot) {
 
-    DatabaseReference db;
-    Boolean saved=null;
-    ArrayList<String> spacecrafts=new ArrayList<>();
+        for (DataSnapshot ds : dataSnapshot.getChildren()){
+            Raza r = new Raza();
+            r.setDraco(ds.child("Raza").getValue(Raza.class).getDraco());
+            r.setElfo(ds.child("Raza").getValue(Raza.class).getElfo());
+            r.setEnano(ds.child("Raza").getValue(Raza.class).getEnano());
+            r.setGnomo(ds.child("Raza").getValue(Raza.class).getGnomo());
+            r.setHumano(ds.child("Raza").getValue(Raza.class).getHumano());
+            r.setMediano(ds.child("Raza").getValue(Raza.class).getMediano());
+            r.setSemiorco(ds.child("Raza").getValue(Raza.class).getSemiorco());
+            r.setSemielfo(ds.child("Raza").getValue(Raza.class).getSemielfo());
+            r.setTiflin(ds.child("Raza").getValue(Raza.class).getTiflin());
 
-    public FirebaseHelper(DatabaseReference db) {
-        this.db = db;
-    }
+            //Setea Array al dropdown de Raza
+            ArrayList<String> array = new ArrayList<>();
+            array.add(r.getDraco());
+            array.add(r.getElfo());
+            array.add(r.getEnano());
+            array.add(r.getGnomo());
+            array.add(r.getHumano());
+            array.add(r.getMediano());
+            array.add(r.getSemielfo());
+            array.add(r.getSemiorco());
+            array.add(r.getTiflin());
 
-    //WRITE
-    public Boolean save(Spacecraft spacecraft)
-    {
-        if(spacecraft==null)
-        {
-            saved=false;
-        }else
-        {
-            try
-            {
-                db.child("Spacecraft").push().setValue(spacecraft);
-                saved=true;
+            String[] array1 = new String[]{r.getDraco(), r.getElfo(), r.getEnano(), r.getGnomo(), r.getHumano(), r.getMediano(), r.getSemielfo(), r.getSemiorco(), r.getTiflin()};
 
-            }catch (DatabaseException e)
-            {
-                e.printStackTrace();
-                saved=false;
-            }
-        }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_oscuro, array1);
+            mDropdownRaza.setAdapter(adapter);
 
-        return saved;
-    }
-
-    //READ
-    public ArrayList<String> retrieve()
-    {
-        db.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return spacecrafts;
-    }
-
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
-        spacecrafts.clear();
-
-        for (DataSnapshot ds : dataSnapshot.getChildren())
-        {
-            String name=ds.getKey();
-            spacecrafts.add(name);
         }
     }
-}
 
-class Spacecraft {
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    String name;
-
-    public Spacecraft() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
