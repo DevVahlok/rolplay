@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/RegistrarActivity_layoutBase"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/RegistrarActivity_layoutArriba"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegistrarActivity"
+        android:paddingTop="40dp"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/RegistrarActivity_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/registrarse"
+            android:textColor="@color/colorPrimary"
+            android:textSize="42sp"
+            android:layout_marginTop="100dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/RegistrarActivity_email_TIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RegistrarActivity_titulo"
+            android:layout_marginTop="50dp"
+            android:textColorHint="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/RegistrarActivity_email_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/correoElectronico" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/RegistrarActivity_password_TIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/RegistrarActivity_email_TIL"
+            app:hintTextColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/RegistrarActivity_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RegistrarActivity_email_et"
+                android:hint="@string/contrasena"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/RegistrarActivity_confirmPassword_TIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/RegistrarActivity_password_TIL"
+            app:hintTextColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/RegistrarActivity_confirmPassword_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RegistrarActivity_confirmPassword_et"
+                android:hint="@string/repetirContrasena"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/RegistrarActivity_registrar_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RegistrarActivity_confirmPassword_TIL"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorSecondaryDark"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="@string/registrarse"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:backgroundTint="@color/colorSecondaryDark"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
