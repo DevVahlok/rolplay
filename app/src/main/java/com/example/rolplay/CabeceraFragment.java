@@ -13,6 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.ArrayList;
+
 public class CabeceraFragment extends Fragment {
 
     //Declaración de variables
@@ -61,4 +65,40 @@ public class CabeceraFragment extends Fragment {
 
         return v;
     }
+
+
+    private void showData(DataSnapshot dataSnapshot) {
+
+        for (DataSnapshot ds : dataSnapshot.getChildren()){
+            Raza r = new Raza();
+            r.setDraco(ds.child("Raza").getValue(Raza.class).getDraco());
+            r.setElfo(ds.child("Raza").getValue(Raza.class).getElfo());
+            r.setEnano(ds.child("Raza").getValue(Raza.class).getEnano());
+            r.setGnomo(ds.child("Raza").getValue(Raza.class).getGnomo());
+            r.setHumano(ds.child("Raza").getValue(Raza.class).getHumano());
+            r.setMediano(ds.child("Raza").getValue(Raza.class).getMediano());
+            r.setSemiorco(ds.child("Raza").getValue(Raza.class).getSemiorco());
+            r.setSemielfo(ds.child("Raza").getValue(Raza.class).getSemielfo());
+            r.setTiflin(ds.child("Raza").getValue(Raza.class).getTiflin());
+
+            //Setea Array al dropdown de Raza
+            ArrayList<String> array = new ArrayList<>();
+            array.add(r.getDraco());
+            array.add(r.getElfo());
+            array.add(r.getEnano());
+            array.add(r.getGnomo());
+            array.add(r.getHumano());
+            array.add(r.getMediano());
+            array.add(r.getSemielfo());
+            array.add(r.getSemiorco());
+            array.add(r.getTiflin());
+
+            String[] array1 = new String[]{r.getDraco(), r.getElfo(), r.getEnano(), r.getGnomo(), r.getHumano(), r.getMediano(), r.getSemielfo(), r.getSemiorco(), r.getTiflin()};
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, array);
+            mDropdownRaza.setAdapter(adapter);
+
+        }
+    }
+
 }

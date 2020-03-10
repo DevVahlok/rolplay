@@ -100,4 +100,21 @@ public class InicioFragment extends Fragment {
 
         return v;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ComprobarEstatUsuari();
+    }
+
+    private void ComprobarEstatUsuari() {
+
+        FirebaseUser usuari = mAuth.getCurrentUser();
+
+        if (usuari!=null){
+            //TODO: Cargar datos de Firebase respectivos a la ficha
+        }else{
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        }
+    }
 }
