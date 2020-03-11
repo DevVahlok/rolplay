@@ -1,15 +1,12 @@
 package com.example.rolplay;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.InputType;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -89,7 +86,7 @@ public class LoginFragment extends Fragment {
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mRegistrarFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mRegistrarFragment).addToBackStack(null).commit();
             }
         });
 
@@ -205,7 +202,7 @@ public class LoginFragment extends Fragment {
 
                     //Login funciona correctamente
                     mDialogCarga.dismiss();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mInicioFragment).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mInicioFragment,"inicio_fragment").commit();
 
                 }else{
 

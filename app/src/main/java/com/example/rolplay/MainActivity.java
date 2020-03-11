@@ -1,12 +1,12 @@
 package com.example.rolplay;
-
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
     //Declaración de variables
-    private LoginFragment mLoginFragment;
+    private InicioFragment mInicioFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,13 +14,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Inicialización de variables
-        mLoginFragment = new LoginFragment();
+        mInicioFragment = new InicioFragment();
 
-        //Inicia el fragment del Login
-        getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
+        //Inicia el fragment de Inicio
+        getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mInicioFragment,"login_fragment").commit();
 
-        //TODO: Hacer que al darle hacia atrás te devuelva a InicioFragment
+    }
 
+    @Override
+    public void onBackPressed() {
+
+        //Recupera el fragment por tag
+        Fragment inicioFragment = getSupportFragmentManager().findFragmentByTag("inicio_fragment");
+        Fragment loginFragment = getSupportFragmentManager().findFragmentByTag("login_fragment");
+
+        //Si el usuario se encuentra en la pantalla de inicio o en la de login, se cierra la aplicación
+        if (inicioFragment!=null && inicioFragment.isVisible()){
+            cerrarApp();
+        }else if(loginFragment!=null && loginFragment.isVisible()) {
+            cerrarApp();
+        }else {
+            //Si no, va al anterior fragment
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
+    //Cierra la app correctamente
+    public void cerrarApp(){
+        this.finish();
+        System.exit(0);
     }
 
 }

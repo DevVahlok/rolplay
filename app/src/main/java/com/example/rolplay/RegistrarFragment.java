@@ -100,7 +100,7 @@ public class RegistrarFragment extends Fragment {
 
                             //Caso de que registre correctamente
                             mDialogCarga.dismiss();
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).addToBackStack(null).commit();
 
                             Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
 
@@ -124,6 +124,13 @@ public class RegistrarFragment extends Fragment {
 
             }
         });
+
+
     }
 
+
+
+
 }
+
+

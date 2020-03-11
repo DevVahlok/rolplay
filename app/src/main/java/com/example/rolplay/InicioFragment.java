@@ -28,6 +28,7 @@ public class InicioFragment extends Fragment {
     private FirebaseUser mUsuario;
     private FirebaseAuth mAuth;
     private CabeceraFragment mCabeceraFragment;
+    private LoginFragment mLoginFragment;
 
     public InicioFragment() {
 
@@ -52,6 +53,7 @@ public class InicioFragment extends Fragment {
         mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
         mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
         mCabeceraFragment = new CabeceraFragment();
+        mLoginFragment = new LoginFragment();
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -59,7 +61,7 @@ public class InicioFragment extends Fragment {
         //TODO: Setear datos de Firebase en los siguientes campos
         //Seteo datos en ficha
         //ALERTA: DATOS DE PLACEHOLDER, SUSTITUIR POR BBDD DE FIREBASE
-        mNombreJugador_TV.setText(mUsuario.getEmail());
+
         mClaseNivelPersonaje_TV.setText("Brujo 4");
         mTrasfondoPersonaje_TV.setText("Soldado");
         mRazaPersonaje_TV.setText("Dracónido");
@@ -73,7 +75,7 @@ public class InicioFragment extends Fragment {
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mCabeceraFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mCabeceraFragment).addToBackStack(null).commit();
             }
         });
 
@@ -114,7 +116,8 @@ public class InicioFragment extends Fragment {
         if (usuari!=null){
             //TODO: Cargar datos de Firebase respectivos a la ficha
         }else{
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            //Pasa a la pantalla de Login si el usuario no está logueado
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
         }
     }
 }
