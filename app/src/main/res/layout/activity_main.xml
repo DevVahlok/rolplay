@@ -1,132 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/MainActivity_layoutBase"
+<androidx.drawerlayout.widget.DrawerLayout android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimaryDark"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:openDrawer="start"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/MainActivity_layoutArriba"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:paddingTop="40dp"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
-        android:background="@color/colorPrimaryDark">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/MainActivity_titulo"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/chantelli_antiqua"
-            android:gravity="center_horizontal"
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimary"
-            android:textSize="42sp" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            android:elevation="4dp"/>
 
-        <ImageView
-            android:id="@+id/MainActivity_logo"
-            android:contentDescription="@string/app_name"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/MainActivity_titulo"
-            android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/mainlogo" />
+            android:layout_height="match_parent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+    </LinearLayout>
 
-            android:id="@+id/RegistrarActivity_email_TIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingTop="40dp"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|left"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
 
-            app:hintTextColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/MainActivity_email_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/MainActivity_logo"
-                android:hint="@string/correoElectronico"
-                android:background="@android:color/transparent"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-
-            android:id="@+id/RegistrarActivity_password_TIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/RegistrarActivity_email_TIL"
-            app:hintTextColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/MainActivity_password_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/MainActivity_email_et"
-                android:hint="@string/contrasena"
-                android:inputType="textPassword"
-                android:background="@android:color/transparent"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/MainActivity_recuperar_password_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/RegistrarActivity_password_TIL"
-            android:text="@string/hasOlvidadoContrasena"
-            android:textSize="15sp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
-            style="?android:attr/borderlessButtonStyle"
-            android:gravity="right"/>
-
-        <Button
-            android:id="@+id/MainActivity_entrar_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/MainActivity_recuperar_password_btn"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorSecondaryDark"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="@string/entrar"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorSecondaryDark"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/MainActivity_layoutAbajo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MainActivity">
-
-        <Button
-            android:id="@+id/MainActivity_registrar_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/noTienesCuentaRegistrate"
-            android:textSize="15sp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
-            style="?android:attr/borderlessButtonStyle"
-            android:paddingTop="20dp"/>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
