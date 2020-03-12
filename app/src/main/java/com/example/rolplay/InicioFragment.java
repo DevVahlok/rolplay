@@ -75,7 +75,7 @@ public class InicioFragment extends Fragment {
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mCabeceraFragment).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mCabeceraFragment).addToBackStack(null).commit();
             }
         });
 
@@ -117,7 +117,7 @@ public class InicioFragment extends Fragment {
             //TODO: Cargar datos de Firebase respectivos a la ficha
         }else{
             //Pasa a la pantalla de Login si el usuario no está logueado
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mLoginFragment,"login_fragment").commit();
         }
     }
 }

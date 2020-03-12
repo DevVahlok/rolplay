@@ -1,6 +1,8 @@
 package com.example.rolplay;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
         mInicioFragment = new InicioFragment();
 
         //Inicia el fragment de Inicio
-        getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mInicioFragment,"login_fragment").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mInicioFragment,"inicio_fragment").commit();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
     }
 

@@ -86,7 +86,7 @@ public class LoginFragment extends Fragment {
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mRegistrarFragment).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mRegistrarFragment).addToBackStack(null).commit();
             }
         });
 
@@ -202,7 +202,7 @@ public class LoginFragment extends Fragment {
 
                     //Login funciona correctamente
                     mDialogCarga.dismiss();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mInicioFragment,"inicio_fragment").commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mInicioFragment,"inicio_fragment").commit();
 
                 }else{
 
