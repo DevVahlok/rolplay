@@ -1,11 +1,11 @@
 package com.example.rolplay;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +68,7 @@ public class RegistrarFragment extends Fragment {
                     mTextInputCorreo.setError("El formato del email no es correcto.");
                     mTextInputCorreo.setFocusable(true);
 
-                }else if(pass.length()<=6){
+                }else if(pass.length()<6){
 
                     mTextInputPassword.setError("La contraseña es demasiado corta");
                     mTextInputPassword.setFocusable(true);
@@ -100,7 +100,7 @@ public class RegistrarFragment extends Fragment {
 
                             //Caso de que registre correctamente
                             mDialogCarga.dismiss();
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mLoginFragment).commit();
+                            startActivity(new Intent(getActivity(), ContenedorInicioActivity.class));
 
                             Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
 
@@ -124,6 +124,13 @@ public class RegistrarFragment extends Fragment {
 
             }
         });
+
+
     }
 
+
+
+
 }
+
+

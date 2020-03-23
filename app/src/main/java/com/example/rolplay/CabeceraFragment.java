@@ -27,7 +27,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
     //Declaración de variables
     private EditText mNombrePersonajeET, mClasePersonajeET, mTrasfondoPersonajeET, mAlineamientoPersonajeET;
-    private Spinner mDropdownRaza;
+    private Spinner mDropdownRaza, mDropdownClase, mDropdownAlineamiento;
     private ProgressBar mBarraProgreso;
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
@@ -49,13 +49,25 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mNivel_ET = v.findViewById(R.id.CabeceraActivity_tituloNivel);
         mExperiencia_ET = v.findViewById(R.id.CabeceraActivity_tituloExperiencia);
         mBarraProgreso = v.findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
+        mDropdownClase = v.findViewById(R.id.CabeceraActivity_clase_dropdown);
+        mDropdownAlineamiento = v.findViewById(R.id.CabeceraActivity_alineamiento_dropdown);
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
 
         Log.d("----------------------------------", mRazas.toString());
 
         //TODO: Recoger lista de razas de FireBase
-        String[] listaRazas = new String[]{"Bardo","Brujo","Bárbaro","Clérigo","Druida","Explorador","Guerrero","Hechicero","Mago","Paladín","Pícaro"};
+        String[] listaRazas = new String[]{"Dracónido","Elfo","Enano","Gnomo","Humano","Mediano","Semielfo","Semiorco","Tiefling"};
+        String[] listaClases = new String[]{"Bardo","Brujo","Bárbaro","Clérigo","Druida","Explorador","Guerrero","Hechicero","Mago","Paladín","Pícaro"};
+        String[] listaAlineamiento = new String[]{"Legal bueno","Legal neutral","Legal malvado","Neutral bueno","Neutral","Neutral malvado","Caótico bueno","Caótico neutral","Caótico malvado"};
+
+        //Setea Array al dropdown de Alineamiento
+        ArrayAdapter<String> adapterAlineamiento = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaAlineamiento);
+        mDropdownAlineamiento.setAdapter(adapterAlineamiento);
+
+        //Setea Array al dropdown de Clase
+        ArrayAdapter<String> adapterClase = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaClases);
+        mDropdownClase.setAdapter(adapterClase);
 
         ValueEventListener event = new ValueEventListener() {
             @Override
@@ -109,8 +121,8 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         Log.d("----------------------------------", "Hola despues de londata");
 
         //Setea Array al dropdown de Raza
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaRazas);
-        mDropdownRaza.setAdapter(adapter);
+        ArrayAdapter<String> adapterRaza = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaRazas);
+        mDropdownRaza.setAdapter(adapterRaza);
 
         //TODO: Recoger Nivel y Experiencia de Firebase
         mExperienciaTotal = 100;
@@ -171,5 +183,4 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
             }
         });
 
-    }
 }

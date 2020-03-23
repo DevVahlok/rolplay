@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class InicioFragment extends Fragment {
 
     //Declaración de variables
@@ -28,6 +30,7 @@ public class InicioFragment extends Fragment {
     private FirebaseUser mUsuario;
     private FirebaseAuth mAuth;
     private CabeceraFragment mCabeceraFragment;
+    private LoginFragment mLoginFragment;
 
     public InicioFragment() {
 
@@ -52,6 +55,7 @@ public class InicioFragment extends Fragment {
         mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
         mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
         mCabeceraFragment = new CabeceraFragment();
+        mLoginFragment = new LoginFragment();
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -59,7 +63,7 @@ public class InicioFragment extends Fragment {
         //TODO: Setear datos de Firebase en los siguientes campos
         //Seteo datos en ficha
         //ALERTA: DATOS DE PLACEHOLDER, SUSTITUIR POR BBDD DE FIREBASE
-        mNombreJugador_TV.setText(mUsuario.getEmail());
+
         mClaseNivelPersonaje_TV.setText("Brujo 4");
         mTrasfondoPersonaje_TV.setText("Soldado");
         mRazaPersonaje_TV.setText("Dracónido");
@@ -68,12 +72,14 @@ public class InicioFragment extends Fragment {
         mExperienciaPersonaje_TV.setText("500 / 1500 exp");
         mNombreJugador_TV.setText("Vahlokillo");
 
-        //TODO: LOPD (en una activity nueva tipo párrafo info?)
+        //TODO: LOPD (en un fragment tipo párrafo info?)
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.FragmentActual, mCabeceraFragment).commit();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("cabecera");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mCabeceraFragment).addToBackStack(null).commit();
             }
         });
 
@@ -114,7 +120,9 @@ public class InicioFragment extends Fragment {
         if (usuari!=null){
             //TODO: Cargar datos de Firebase respectivos a la ficha
         }else{
+            //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
         }
     }
 }
