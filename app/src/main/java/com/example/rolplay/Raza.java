@@ -88,4 +88,6 @@ public class Raza {
     public void setTiflin(String tiflin) {
         Tiflin = tiflin;
     }
+
+
 }
