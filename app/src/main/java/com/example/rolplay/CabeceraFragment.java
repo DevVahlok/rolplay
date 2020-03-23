@@ -57,9 +57,9 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         Log.d("----------------------------------", mRazas.toString());
 
         //TODO: Recoger lista de razas de FireBase
-        String[] listaRazas = new String[]{"Dracónido","Elfo","Enano","Gnomo","Humano","Mediano","Semielfo","Semiorco","Tiefling"};
-        String[] listaClases = new String[]{"Bardo","Brujo","Bárbaro","Clérigo","Druida","Explorador","Guerrero","Hechicero","Mago","Paladín","Pícaro"};
-        String[] listaAlineamiento = new String[]{"Legal bueno","Legal neutral","Legal malvado","Neutral bueno","Neutral","Neutral malvado","Caótico bueno","Caótico neutral","Caótico malvado"};
+        String[] listaRazas = new String[]{"Dracónido", "Elfo", "Enano", "Gnomo", "Humano", "Mediano", "Semielfo", "Semiorco", "Tiefling"};
+        String[] listaClases = new String[]{"Bardo", "Brujo", "Bárbaro", "Clérigo", "Druida", "Explorador", "Guerrero", "Hechicero", "Mago", "Paladín", "Pícaro"};
+        String[] listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
         //Setea Array al dropdown de Alineamiento
         ArrayAdapter<String> adapterAlineamiento = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaAlineamiento);
@@ -117,7 +117,6 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         });
 
 
-
         Log.d("----------------------------------", "Hola despues de londata");
 
         //Setea Array al dropdown de Raza
@@ -134,7 +133,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mBarraProgreso.setProgress(mProgresoExperiencia);
 
         //Actualización de los valores en pantalla
-        mExperiencia_ET.setText(getString(R.string.experiencia,Integer.toString(mProgresoExperiencia),Integer.toString(mExperienciaTotal)));
+        mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
 
         return v;
@@ -145,7 +144,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
         Log.d("----------------------------------", "Abans del for");
 
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
             String raza = "" + ds.getKey();
             Log.d("----------------------------------", raza);
@@ -183,4 +182,5 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
             }
         });
 
+    }
 }
