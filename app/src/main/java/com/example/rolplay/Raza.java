@@ -1,7 +1,5 @@
 package com.example.rolplay;
 
-import java.util.ArrayList;
-
 public class Raza {
 
     private String Draco;

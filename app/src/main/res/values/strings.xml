@@ -4,6 +4,8 @@
     <string name="app_name">Rol &amp; Play</string>
     <string name="entrar">Entrar</string>
     <string name="cargando">Cargando…</string>
+    <string name="navigation_drawer_open">Abrir la navegación lateral</string>
+    <string name="navigation_drawer_close">Cerrar la navegación lateral</string>
 
     <!-- Control de cuentas -->
     <string name="correoElectronico">Correo Electrónico</string>
@@ -25,7 +27,20 @@
     <string name="ficha">Ficha</string>
     <string name="pulsaApartadoVerDetalle">Pulsa en un apartado para ver en detalle</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Menú lateral -->
+    <string name="caracteristicasGenerales">Características generales</string>
+    <string name="puntosHabilidad">Puntos de habilidad</string>
+    <string name="habilidadesBonificadores">Habilidades y bonificadores</string>
+    <string name="combate">Combate</string>
+    <string name="ataquesConjuros">Ataques y conjuros</string>
+    <string name="personalidad">Personalidad</string>
+    <string name="rasgosAtributos">Rasgos y atributos</string>
+    <string name="competenciasIdiomas">Competencias e idiomas</string>
+    <string name="lanzarDados">Lanzar dados</string>
+    <string name="otros">Otros</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="salirPersonaje">Salir del personaje</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="politicasCondiciones">Políticas y condiciones</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.rolplay;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -202,7 +203,8 @@ public class LoginFragment extends Fragment {
 
                     //Login funciona correctamente
                     mDialogCarga.dismiss();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mInicioFragment,"inicio_fragment").commit();
+                    startActivity(new Intent(getActivity(), ContenedorInicioActivity.class));
+                    getActivity().finish();
 
                 }else{
 

@@ -174,7 +174,7 @@
         android:textColor="@color/colorBlanco"
         android:textSize="7sp"
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="114dp"
         android:layout_marginStart="325dp"/>
 
     <TextView
@@ -185,7 +185,7 @@
         android:textColor="@color/colorBlanco"
         android:textSize="7sp"
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="114dp"
         android:layout_marginStart="260dp"/>
 
     <TextView
@@ -196,7 +196,7 @@
         android:textColor="@color/colorBlanco"
         android:textSize="7sp"
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="114dp"
         android:layout_marginStart="180dp"/>
 
     <TextView
@@ -240,7 +240,7 @@
         android:textColor="@color/colorBlanco"
         android:textSize="10sp"
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="124dp"
         android:layout_marginStart="40dp"/>
 
 </RelativeLayout>

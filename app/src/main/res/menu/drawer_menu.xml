@@ -6,37 +6,83 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_message"
+            android:id="@+id/nav_ficha"
             android:icon="@drawable/ic_test"
-            android:title="Message" />
+            android:title="@string/ficha" />
 
         <item
-            android:id="@+id/nav_chat"
+            android:id="@+id/nav_cabecera"
             android:icon="@drawable/ic_test"
-            android:title="Chat" />
+            android:title="@string/caracteristicasGenerales" />
 
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_puntosHabilidad"
             android:icon="@drawable/ic_test"
-            android:title="Profile" />
+            android:title="@string/puntosHabilidad" />
+
+        <item
+            android:id="@+id/nav_habilidadesBonificadores"
+            android:icon="@drawable/ic_test"
+            android:title="@string/habilidadesBonificadores" />
+
+        <item
+            android:id="@+id/nav_combate"
+            android:icon="@drawable/ic_test"
+            android:title="@string/combate" />
+
+        <item
+            android:id="@+id/nav_ataquesConjuros"
+            android:icon="@drawable/ic_test"
+            android:title="@string/ataquesConjuros" />
+
+        <item
+            android:id="@+id/nav_personalidad"
+            android:icon="@drawable/ic_test"
+            android:title="@string/personalidad" />
+
+        <item
+            android:id="@+id/nav_rasgosAtributos"
+            android:icon="@drawable/ic_test"
+            android:title="@string/rasgosAtributos" />
+
+        <item
+            android:id="@+id/nav_competenciasIdiomas"
+            android:icon="@drawable/ic_test"
+            android:title="@string/competenciasIdiomas" />
 
     </group>
 
-    <!-- a partir de ahora estos botones no se seleccionarán, solo harán acciones
-     (maybe meter cerrar sesión / salir de personaje?)
-     -->
-    <item android:title="Communicate">
+    <item android:title="@string/otros">
+
+        <menu>
+            <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_lanzarDados"
+                android:icon="@drawable/ic_test"
+                android:title="@string/lanzarDados"/>
+            </group>
+        </menu>
+
+
+    </item>
+
+    <item android:title="@string/cuenta">
 
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_salirPersonaje"
                 android:icon="@drawable/ic_test"
-                android:title="Share" />
+                android:title="@string/salirPersonaje" />
 
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_politicasCondiciones"
                 android:icon="@drawable/ic_test"
-                android:title="Send" />
+                android:title="@string/politicasCondiciones"/>
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_test"
+                android:title="@string/logout" />
 
         </menu>
 

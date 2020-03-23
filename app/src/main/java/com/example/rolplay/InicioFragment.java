@@ -117,7 +117,8 @@ public class InicioFragment extends Fragment {
             //TODO: Cargar datos de Firebase respectivos a la ficha
         }else{
             //Pasa a la pantalla de Login si el usuario no está logueado
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mLoginFragment,"login_fragment").commit();
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
         }
     }
 }
