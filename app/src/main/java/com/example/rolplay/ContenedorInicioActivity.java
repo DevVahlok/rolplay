@@ -22,7 +22,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private InicioFragment mInicioFragment;
     private DrawerLayout drawer;
     private FirebaseAuth mAuth;
-    private NavigationView navigationView;
+    public NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +150,44 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             startActivity(new Intent(this, MainActivity.class));
             this.finish();
         }
+    }
+
+    public void modificarNavegacionLateral(String apartado){
+
+        //Pone como seleccionado el apartado del botón pulsado de la ficha
+        switch (apartado) {
+            case "cabecera":
+                navigationView.setCheckedItem(R.id.nav_cabecera);
+                break;
+            case "puntosHabilidad":
+                navigationView.setCheckedItem(R.id.nav_puntosHabilidad);
+                break;
+            case "habilidadesBonificadores":
+                navigationView.setCheckedItem(R.id.nav_habilidadesBonificadores);
+                break;
+            case "combate":
+                navigationView.setCheckedItem(R.id.nav_combate);
+                break;
+            case "ataquesConjuros":
+                navigationView.setCheckedItem(R.id.nav_ataquesConjuros);
+                break;
+            case "personalidad":
+                navigationView.setCheckedItem(R.id.nav_personalidad);
+                break;
+            case "rasgosAtributos":
+                navigationView.setCheckedItem(R.id.nav_rasgosAtributos);
+                break;
+            case "competenciasIdiomas":
+                navigationView.setCheckedItem(R.id.nav_competenciasIdiomas);
+                break;
+            case "lanzarDados":
+                navigationView.setCheckedItem(R.id.nav_lanzarDados);
+                break;
+            default:
+                navigationView.setCheckedItem(R.id.nav_ficha);
+                break;
+        }
+
     }
 
 }

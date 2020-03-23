@@ -39,31 +39,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-
-        android:id="@+id/CabeceraActivity_clasePersonaje_TIL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/CabeceraActivity_nombrePersonaje_TIL"
-        android:layout_marginTop="20dp"
-        android:textColorHint="@color/colorPrimary"
-        app:hintTextColor="@color/colorPrimary">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/CabeceraActivity_clasePersonaje_ET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/clase" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/CabeceraActivity_clasePersonaje_TIL"
+        android:layout_below="@+id/CabeceraActivity_nombrePersonaje_TIL"
         android:layout_marginTop="20dp"
         android:textColorHint="@color/colorPrimary"
         app:hintTextColor="@color/colorPrimary">
@@ -77,24 +59,39 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloAlineamiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alineamiento"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"/>
 
-        android:id="@+id/CabeceraActivity_alineamientoPersonaje_TIL"
+    <Spinner
+        android:id="@+id/CabeceraActivity_alineamiento_dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
-        android:layout_marginTop="20dp"
-        android:textColorHint="@color/colorPrimary"
-        app:hintTextColor="@color/colorPrimary">
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/CabeceraActivity_tituloAlineamiento"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/CabeceraActivity_alineamientoPersonaje_ET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/alineamiento"/>
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloClase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clase"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_below="@+id/CabeceraActivity_alineamiento_dropdown"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <Spinner
+        android:id="@+id/CabeceraActivity_clase_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/CabeceraActivity_tituloClase"/>
 
     <TextView
         android:id="@+id/CabeceraActivity_tituloRaza"
@@ -104,7 +101,7 @@
         android:paddingTop="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:layout_below="@+id/CabeceraActivity_alineamientoPersonaje_TIL"/>
+        android:layout_below="@+id/CabeceraActivity_clase_dropdown"/>
 
     <Spinner
         android:id="@+id/CabeceraActivity_raza_dropdown"

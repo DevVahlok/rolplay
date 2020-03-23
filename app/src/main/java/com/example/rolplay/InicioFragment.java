@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class InicioFragment extends Fragment {
 
     //Declaración de variables
@@ -70,11 +72,13 @@ public class InicioFragment extends Fragment {
         mExperienciaPersonaje_TV.setText("500 / 1500 exp");
         mNombreJugador_TV.setText("Vahlokillo");
 
-        //TODO: LOPD (en una activity nueva tipo párrafo info?)
+        //TODO: LOPD (en un fragment tipo párrafo info?)
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("cabecera");
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mCabeceraFragment).addToBackStack(null).commit();
             }
         });
