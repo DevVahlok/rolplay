@@ -8,18 +8,14 @@ import androidx.fragment.app.Fragment;
 public class MainActivity extends AppCompatActivity {
 
     //Declaración de variables
-    private LoginFragment mLoginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Inicialización de variables
-        mLoginFragment = new LoginFragment();
-
         //Inicia el fragment de Inicio
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mLoginFragment, "login_fragment").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment(), "login_fragment").commit();
 
     }
 

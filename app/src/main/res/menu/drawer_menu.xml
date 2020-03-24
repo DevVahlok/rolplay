@@ -7,47 +7,52 @@
 
         <item
             android:id="@+id/nav_ficha"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_ficha"
             android:title="@string/ficha" />
 
         <item
             android:id="@+id/nav_cabecera"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_datos_personaje"
             android:title="@string/datosPersonaje" />
 
         <item
             android:id="@+id/nav_puntosHabilidad"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_puntos_habilidad"
             android:title="@string/puntosHabilidad" />
 
         <item
             android:id="@+id/nav_habilidadesBonificadores"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_habilidades_bonificadores"
             android:title="@string/habilidadesBonificadores" />
 
         <item
             android:id="@+id/nav_combate"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_combate"
             android:title="@string/combate" />
 
         <item
+            android:id="@+id/nav_equipo"
+            android:icon="@drawable/ic_equipo"
+            android:title="@string/equipo" />
+
+        <item
             android:id="@+id/nav_ataquesConjuros"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_ataques_conjuros"
             android:title="@string/ataquesConjuros" />
 
         <item
             android:id="@+id/nav_personalidad"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_personalidad"
             android:title="@string/personalidad" />
 
         <item
             android:id="@+id/nav_rasgosAtributos"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_rasgos_atributos"
             android:title="@string/rasgosAtributos" />
 
         <item
             android:id="@+id/nav_competenciasIdiomas"
-            android:icon="@drawable/ic_test"
+            android:icon="@drawable/ic_competencias_idiomas"
             android:title="@string/competenciasIdiomas" />
 
     </group>
@@ -58,11 +63,10 @@
             <group android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_lanzarDados"
-                android:icon="@drawable/ic_test"
+                android:icon="@drawable/ic_dice"
                 android:title="@string/lanzarDados"/>
             </group>
         </menu>
-
 
     </item>
 
@@ -71,17 +75,17 @@
         <menu>
             <item
                 android:id="@+id/nav_salirPersonaje"
-                android:icon="@drawable/ic_test"
+                android:icon="@drawable/ic_salir_personaje"
                 android:title="@string/salirPersonaje" />
 
             <item
                 android:id="@+id/nav_politicasCondiciones"
-                android:icon="@drawable/ic_test"
+                android:icon="@drawable/ic_lopd"
                 android:title="@string/politicasCondiciones"/>
 
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_test"
+                android:icon="@drawable/ic_logout"
                 android:title="@string/logout" />
 
         </menu>

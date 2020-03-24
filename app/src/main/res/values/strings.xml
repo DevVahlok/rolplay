@@ -31,6 +31,7 @@
     <string name="puntosHabilidad">Puntos de habilidad</string>
     <string name="habilidadesBonificadores">Habilidades y bonificadores</string>
     <string name="combate">Combate</string>
+    <string name="equipo">Equipo</string>
     <string name="ataquesConjuros">Ataques y conjuros</string>
     <string name="personalidad">Personalidad</string>
     <string name="rasgosAtributos">Rasgos y atributos</string>
@@ -41,5 +42,13 @@
     <string name="salirPersonaje">Salir del personaje</string>
     <string name="logout">Cerrar sesión</string>
     <string name="politicasCondiciones">Políticas y condiciones</string>
+
+    <!-- Puntos de habilidad -->
+    <string name="fuerza">Fuerza</string>
+    <string name="destreza">Destreza</string>
+    <string name="constitucion">Constitución</string>
+    <string name="inteligencia">Inteligencia</string>
+    <string name="sabiduria">Sabiduría</string>
+    <string name="carisma">Carisma</string>
 
 </resources>

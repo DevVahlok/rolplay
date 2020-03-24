@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_test" />
+        android:id="@+id/nav_header_banner"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="@string/ficha"
+        app:srcCompat="@drawable/banner_dungeons_and_dragons"
+        android:paddingTop="10dp"
+        />
 
     <TextView
+        android:id="@+id/nav_header_nombrePersonaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
         android:text="Nombre personaje"
+        android:layout_below="@+id/nav_header_banner"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
+        android:id="@+id/nav_header_correoElectronico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Correo electrónico"/>
+        android:text="Correo electrónico"
+        android:layout_below="@+id/nav_header_nombrePersonaje"/>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="50"
+        android:layout_toEndOf="@+id/nav_header_correoElectronico"
+        android:layout_alignBottom="@+id/nav_header_nombrePersonaje"
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progressDrawable="@layout/progressbar_gris"/>
+
+    <TextView
+        android:id="@+id/nav_header_nivelPersonaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nivel 4"
+        android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:layout_alignEnd="@+id/CabeceraActivity_nivel_barraProgreso"/>
+
+</RelativeLayout>
