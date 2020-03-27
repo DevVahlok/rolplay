@@ -29,8 +29,6 @@ public class InicioFragment extends Fragment {
 
     private FirebaseUser mUsuario;
     private FirebaseAuth mAuth;
-    private CabeceraFragment mCabeceraFragment;
-    private LoginFragment mLoginFragment;
 
     public InicioFragment() {
 
@@ -54,16 +52,13 @@ public class InicioFragment extends Fragment {
         mAlineamientoPersonaje_TV = v.findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
         mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
         mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
-        mCabeceraFragment = new CabeceraFragment();
-        mLoginFragment = new LoginFragment();
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
 
         //TODO: Setear datos de Firebase en los siguientes campos
-        //Seteo datos en ficha
-        //ALERTA: DATOS DE PLACEHOLDER, SUSTITUIR POR BBDD DE FIREBASE
 
+        //Seteo datos en ficha
         mClaseNivelPersonaje_TV.setText("Brujo 4");
         mTrasfondoPersonaje_TV.setText("Soldado");
         mRazaPersonaje_TV.setText("Dracónido");
@@ -79,28 +74,34 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("cabecera");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mCabeceraFragment).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CabeceraFragment()).addToBackStack(null).commit();
             }
         });
 
         mBotonPestanaPuntosHabilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Puntos Habilidad", Toast.LENGTH_SHORT).show();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("puntosHabilidad");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).addToBackStack(null).commit();
             }
         });
 
         mBotonPestanaHabilidadesBonificadores1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
             }
         });
 
         mBotonPestanaHabilidadesBonificadores2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
             }
         });
 

@@ -27,10 +27,8 @@ public class RegistrarFragment extends Fragment {
     private TextView mTitulo;
     private Button mBotonRegistrar;
     private TextInputEditText mTextInputCorreo, mTextInputPassword, mTextInputConfirmPassword;
-
     private FirebaseAuth mAuth;
     private DialogCarga mDialogCarga;
-    private LoginFragment mLoginFragment;
 
     public RegistrarFragment() {
 
@@ -52,7 +50,6 @@ public class RegistrarFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mDialogCarga = new DialogCarga();
-        mLoginFragment = new LoginFragment();
 
         //Boton de registrar
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {

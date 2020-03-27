@@ -3,6 +3,8 @@ package com.example.rolplay;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,10 +21,12 @@ import com.google.firebase.auth.FirebaseUser;
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Declaración de variables
-    private InicioFragment mInicioFragment;
     private DrawerLayout drawer;
     private FirebaseAuth mAuth;
     public NavigationView navigationView;
+    private TextView mNivelPersonajeNavBar, mNombrePersonaje, mCorreoElectronico;
+    public int mNivel;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,29 +34,41 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         setContentView(R.layout.activity_contenedor_inicio);
 
         //Inicialización de variables
-        mInicioFragment = new InicioFragment();
         mAuth = FirebaseAuth.getInstance();
         drawer = findViewById(R.id.drawer_layout);
+
 
         //Activa la barra superior
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         //Inicia el fragment de Inicio
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mInicioFragment, "inicio_fragment").commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
             navigationView.setCheckedItem(R.id.nav_ficha);
+
         }
+
+        //Declaración de variables de la cabecera de la barra de navegación
+        headerView = navigationView.getHeaderView(0);
+        mNivelPersonajeNavBar = headerView.findViewById(R.id.nav_header_nivelPersonaje);
+        mNombrePersonaje = headerView.findViewById(R.id.nav_header_nombrePersonaje);
+        mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
+
+        //TODO: Reemplazar placeholders por datos de Firebase
+        //Seteo de datos del header de la navegación lateral
+        mNivel = 4;
+        mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
+        mNombrePersonaje.setText("Vahlokillo");
+        mCorreoElectronico.setText("psps@psps.com");
 
     }
 
@@ -61,7 +77,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //TODO: Fragments de cada apartado
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.nav_ficha:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
@@ -70,13 +86,16 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CabeceraFragment()).commit();
                 break;
             case R.id.nav_puntosHabilidad:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).commit();
                 break;
             case R.id.nav_habilidadesBonificadores:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
                 break;
             case R.id.nav_combate:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).commit();
+                break;
+            case R.id.nav_equipo:
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).commit();
                 break;
             case R.id.nav_ataquesConjuros:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();
@@ -96,8 +115,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case R.id.nav_salirPersonaje:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuPersonajesFragment()).commit();
                 break;
-            case R.id.nav_politicasCondiciones:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PoliticasCondicionesFragment()).commit();
+            case R.id.nav_configuracion:
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
                 break;
             case R.id.nav_logout:
                 //TODO: Dialog preguntando si está segur@ de cerrar sesión.
@@ -118,15 +137,15 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         Fragment inicioFragment = getSupportFragmentManager().findFragmentByTag("inicio_fragment");
 
         //Cierra el menú lateral si está abierto
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             //Si el usuario se encuentra en la pantalla de inicio o en la de login, se cierra la aplicación
-            if (inicioFragment!=null && inicioFragment.isVisible()){
+            if (inicioFragment != null && inicioFragment.isVisible()) {
                 cerrarApp();
-            }else {
+            } else {
                 //Si no, va al fragment de la ficha
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(),"inicio_fragment").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
                 navigationView.setCheckedItem(R.id.nav_ficha);
             }
         }
@@ -134,7 +153,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     }
 
     //Cierra la app correctamente
-    public void cerrarApp(){
+    public void cerrarApp() {
         this.finish();
         System.exit(0);
     }
@@ -143,16 +162,16 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         FirebaseUser usuari = mAuth.getCurrentUser();
 
-        if (usuari!=null){
+        if (usuari != null) {
             //TODO: Cargar datos de Firebase respectivos a la ficha
-        }else{
+        } else {
             //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(this, MainActivity.class));
             this.finish();
         }
     }
 
-    public void modificarNavegacionLateral(String apartado){
+    public void modificarNavegacionLateral(String apartado) {
 
         //Pone como seleccionado el apartado del botón pulsado de la ficha
         switch (apartado) {
@@ -168,6 +187,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case "combate":
                 navigationView.setCheckedItem(R.id.nav_combate);
                 break;
+            case "equipo":
+                navigationView.setCheckedItem(R.id.nav_equipo);
+                break;
             case "ataquesConjuros":
                 navigationView.setCheckedItem(R.id.nav_ataquesConjuros);
                 break;
@@ -179,9 +201,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case "competenciasIdiomas":
                 navigationView.setCheckedItem(R.id.nav_competenciasIdiomas);
-                break;
-            case "lanzarDados":
-                navigationView.setCheckedItem(R.id.nav_lanzarDados);
                 break;
             default:
                 navigationView.setCheckedItem(R.id.nav_ficha);

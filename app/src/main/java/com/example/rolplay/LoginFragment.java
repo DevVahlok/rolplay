@@ -35,8 +35,6 @@ public class LoginFragment extends Fragment {
     private TextInputEditText mTextInputCorreo, mTextInputPassword;
     private FirebaseAuth mAuth;
     private DialogCarga mDialogCarga;
-    private RegistrarFragment mRegistrarFragment;
-    private InicioFragment mInicioFragment;
 
     //Constructor vacío del Fragment
     public LoginFragment() {
@@ -60,8 +58,6 @@ public class LoginFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mDialogCarga = new DialogCarga();
-        mRegistrarFragment = new RegistrarFragment();
-        mInicioFragment = new InicioFragment();
 
         //Cambio de pantalla a 'LoginActivity'
         mBotonEntrar.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +83,7 @@ public class LoginFragment extends Fragment {
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mRegistrarFragment).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrarFragment()).addToBackStack(null).commit();
             }
         });
 
