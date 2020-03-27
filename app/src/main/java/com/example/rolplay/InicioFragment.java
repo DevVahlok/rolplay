@@ -90,14 +90,18 @@ public class InicioFragment extends Fragment {
         mBotonPestanaHabilidadesBonificadores1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
             }
         });
 
         mBotonPestanaHabilidadesBonificadores2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Habilidades y Bonificadores", Toast.LENGTH_SHORT).show();
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
             }
         });
 

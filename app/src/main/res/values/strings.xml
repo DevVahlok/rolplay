@@ -42,6 +42,7 @@
     <string name="salirPersonaje">Salir del personaje</string>
     <string name="logout">Cerrar sesión</string>
     <string name="politicasCondiciones">Políticas y condiciones</string>
+    <string name="configuracion">Configuración</string>
 
     <!-- Puntos de habilidad -->
     <string name="fuerza">Fuerza</string>
@@ -50,5 +51,30 @@
     <string name="inteligencia">Inteligencia</string>
     <string name="sabiduria">Sabiduría</string>
     <string name="carisma">Carisma</string>
+
+    <!-- Habilidades y Bonificadores -->
+    <string name="inspiracion">Inspiración</string>
+    <string name="bonificadorCompetencia">Bonificador por \n competencia</string>
+    <string name="tiradasSalvacion">Tiradas de salvación</string>
+    <string name="habilidades">Habilidades</string>
+    <string name="acrobacias">Acrobacias</string>
+    <string name="atletismo">Atletismo</string>
+    <string name="conocimientoArcano">Conocimiento Arcano</string>
+    <string name="engaño">Engaño</string>
+    <string name="historia">Historia</string>
+    <string name="interpretacion">Interpretación</string>
+    <string name="intimidacion">Intimidación</string>
+    <string name="investigacion">Investigación</string>
+    <string name="juegoManos">Juego de manos</string>
+    <string name="medicina">Medicina</string>
+    <string name="naturaleza">Naturaleza</string>
+    <string name="percepcion">Percepción</string>
+    <string name="perspicacia">Perspicacia</string>
+    <string name="persuasion">Persuasión</string>
+    <string name="religion">Religión</string>
+    <string name="sigilo">Sigilo</string>
+    <string name="supervivencia">Supervivencia</string>
+    <string name="tratoAnimales">Trato con animales</string>
+    <string name="sabiduriaPercepcionPasiva">Sabiduría\n (percepción) pasiva</string>
 
 </resources>

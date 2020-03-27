@@ -48,6 +48,8 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
         View v = inflater.inflate(R.layout.fragment_cabecera, container, false);
 
+        //TODO: Raúl: bug -> Al entrar a cabecera y cambiar a ficha antes de carguen los datos de firebase, peta la app (maybe cargar todos los datos de firebase en Ficha en lugar de cada uno en su apartado?)
+
         //Inicialización de variables
         mNombrePersonajeET = v.findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
         mDropdownRaza = v.findViewById(R.id.CabeceraActivity_raza_dropdown);

@@ -89,7 +89,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).commit();
                 break;
             case R.id.nav_habilidadesBonificadores:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
                 break;
             case R.id.nav_combate:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).commit();
@@ -115,8 +115,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case R.id.nav_salirPersonaje:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuPersonajesFragment()).commit();
                 break;
-            case R.id.nav_politicasCondiciones:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PoliticasCondicionesFragment()).commit();
+            case R.id.nav_configuracion:
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
                 break;
             case R.id.nav_logout:
                 //TODO: Dialog preguntando si está segur@ de cerrar sesión.
@@ -201,9 +201,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case "competenciasIdiomas":
                 navigationView.setCheckedItem(R.id.nav_competenciasIdiomas);
-                break;
-            case "lanzarDados":
-                navigationView.setCheckedItem(R.id.nav_lanzarDados);
                 break;
             default:
                 navigationView.setCheckedItem(R.id.nav_ficha);
