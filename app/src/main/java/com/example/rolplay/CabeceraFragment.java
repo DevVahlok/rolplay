@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
@@ -37,6 +40,8 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
+    private FirebaseAuth mAuth;
+    private View v;
 
     public CabeceraFragment() {
 
@@ -46,7 +51,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_cabecera, container, false);
+        v = inflater.inflate(R.layout.fragment_cabecera, container, false);
 
         //TODO: Raúl: bug -> Al entrar a cabecera y cambiar a ficha antes de carguen los datos de firebase, peta la app (maybe cargar todos los datos de firebase en Ficha en lugar de cada uno en su apartado?)
 
@@ -58,6 +63,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mBarraProgreso = v.findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
         mDropdownClase = v.findViewById(R.id.CabeceraActivity_clase_dropdown);
         mDropdownAlineamiento = v.findViewById(R.id.CabeceraActivity_alineamiento_dropdown);
+        mTrasfondoPersonajeET = v.findViewById(R.id.CabeceraActivity_trasfondoPersonaje_ET);
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
@@ -69,12 +75,8 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         String[] listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
         //Setea Array al dropdown de Alineamiento
-        ArrayAdapter<String> adapterAlineamiento = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaAlineamiento);
+        final ArrayAdapter<String> adapterAlineamiento = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaAlineamiento);
         mDropdownAlineamiento.setAdapter(adapterAlineamiento);
-
-        //Setea Array al dropdown de Clase
-        ArrayAdapter<String> adapterClase = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaClases);
-        mDropdownClase.setAdapter(adapterClase);
 
         mRazas.addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,6 +113,26 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mBarraProgreso.setProgress(mProgresoExperiencia);
 
         //Actualización de los valores en pantalla
+        mAuth= FirebaseAuth.getInstance();
+        mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mNombrePersonajeET.setText((String)dataSnapshot.child("Nombre").getValue());
+                    mTrasfondoPersonajeET.setText((String)dataSnapshot.child("Trasfondo").getValue());
+                    int aux = adapterAlineamiento.getPosition((String)dataSnapshot.child("Alineamiento").getValue());
+                    mDropdownAlineamiento.setSelection(aux);
+                    aux = Razas.indexOf(dataSnapshot.child("Raza").getValue());
+                    mDropdownRaza.setSelection(aux);
+                    aux = Clases.indexOf(dataSnapshot.child("Clase").getValue());
+                    mDropdownClase.setSelection(aux);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
 
@@ -146,4 +168,34 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        //Inicialización de variables
+        mNombrePersonajeET = v.findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
+        mDropdownRaza = v.findViewById(R.id.CabeceraActivity_raza_dropdown);
+        mNivel_ET = v.findViewById(R.id.CabeceraActivity_tituloNivel);
+        mExperiencia_ET = v.findViewById(R.id.CabeceraActivity_tituloExperiencia);
+        mBarraProgreso = v.findViewById(R.id.CabeceraActivity_nivel_barraProgreso);
+        mDropdownClase = v.findViewById(R.id.CabeceraActivity_clase_dropdown);
+        mDropdownAlineamiento = v.findViewById(R.id.CabeceraActivity_alineamiento_dropdown);
+        mTrasfondoPersonajeET = v.findViewById(R.id.CabeceraActivity_trasfondoPersonaje_ET);
+        mDatabase = FirebaseDatabase.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+        HashMap<Object, String> hashMap = new HashMap<>();
+
+        hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
+        hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
+        hashMap.put("Nivel",mNombrePersonajeET.getText().toString().trim());
+        hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
+        hashMap.put("Clase",mDropdownClase.getSelectedItem().toString().trim());
+        hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
+
+        mDatabase.getReference("users/"+usuariActual.getUid()).setValue(hashMap);
+
+    }
 }
