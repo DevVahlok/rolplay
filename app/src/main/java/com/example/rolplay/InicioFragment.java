@@ -76,7 +76,7 @@ public class InicioFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
 
-        //TODO: Setear datos de Firebase en los siguientes campos
+        //Posicionar en el JSON de Firebase
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
@@ -101,19 +101,22 @@ public class InicioFragment extends Fragment {
             }
         });
 
+        //Cargar listas de los dropdowns
+        //Razas
         cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaRazas = value;
             }
         });
+        //Clases
         cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaClases=value;
             }
         });
-
+        //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
 
@@ -127,6 +130,8 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("cabecera");
+
+                //Pasa los datos al fragment de destino
                 Bundle bundle = new Bundle();
                 bundle.putString("Nombre", (String) mNombreJugador_TV.getText());
                 bundle.putString("Trasfondo", (String) mTrasfondoPersonaje_TV.getText());
@@ -172,6 +177,8 @@ public class InicioFragment extends Fragment {
         return v;
     }
 
+
+    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
     private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
