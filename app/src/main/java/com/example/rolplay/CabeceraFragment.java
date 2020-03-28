@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CabeceraFragment extends Fragment implements OnGetDataListener {
+public class CabeceraFragment extends Fragment {
 
     //Declaración de variables
     private EditText mNombrePersonajeET, mClasePersonajeET, mTrasfondoPersonajeET, mAlineamientoPersonajeET;
@@ -53,7 +53,7 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
 
         v = inflater.inflate(R.layout.fragment_cabecera, container, false);
 
-        //TODO: Raúl: bug -> Al entrar a cabecera y cambiar a ficha antes de carguen los datos de firebase, peta la app (maybe cargar todos los datos de firebase en Ficha en lugar de cada uno en su apartado?)
+        Bundle recuperados = getArguments();
 
         //Inicialización de variables
         mNombrePersonajeET = v.findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
@@ -65,42 +65,16 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mDropdownAlineamiento = v.findViewById(R.id.CabeceraActivity_alineamiento_dropdown);
         mTrasfondoPersonajeET = v.findViewById(R.id.CabeceraActivity_trasfondoPersonaje_ET);
         mDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
-        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-        final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Raza");
 
-        Log.d("----------------------------------", mRazas.toString());
+        listaRazas = recuperados.getStringArray("Razas");
+        listaClases = recuperados.getStringArray("Clases");
+        listaAlineamiento = recuperados.getStringArray("Alineamientos");
+        mNombrePersonajeET.setText(recuperados.getString("Nombre"));
+        mTrasfondoPersonajeET.setText(recuperados.getString("Trasfondo"));
 
-        //TODO: Recoger lista de razas de FireBase
-        String[] listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
-
-        //Setea Array al dropdown de Alineamiento
-        final ArrayAdapter<String> adapterAlineamiento = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, listaAlineamiento);
-        mDropdownAlineamiento.setAdapter(adapterAlineamiento);
-
-        mRazas.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot, Razas, listaRazas, mDropdownRaza);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        mClases.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot, Clases, listaClases, mDropdownClase);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        creadorAdapter(listaRazas, mDropdownRaza, recuperados.getString("Raza"));
+        creadorAdapter(listaClases, mDropdownClase, recuperados.getString("Clase"));
+        creadorAdapter(listaAlineamiento, mDropdownAlineamiento, recuperados.getString("Alineamiento"));
 
 
         //TODO: Recoger Nivel y Experiencia de Firebase
@@ -112,61 +86,25 @@ public class CabeceraFragment extends Fragment implements OnGetDataListener {
         mBarraProgreso.setMax(mExperienciaTotal);
         mBarraProgreso.setProgress(mProgresoExperiencia);
 
-        //Actualización de los valores en pantalla
-        mAuth= FirebaseAuth.getInstance();
-        mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mNombrePersonajeET.setText((String)dataSnapshot.child("Nombre").getValue());
-                    mTrasfondoPersonajeET.setText((String)dataSnapshot.child("Trasfondo").getValue());
-                    int aux = adapterAlineamiento.getPosition((String)dataSnapshot.child("Alineamiento").getValue());
-                    mDropdownAlineamiento.setSelection(aux);
-                    aux = Razas.indexOf(dataSnapshot.child("Raza").getValue());
-                    mDropdownRaza.setSelection(aux);
-                    aux = Clases.indexOf(dataSnapshot.child("Clase").getValue());
-                    mDropdownClase.setSelection(aux);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
 
         return v;
     }
 
-
-    private void showData(DataSnapshot dataSnapshot, ArrayList<String> AL, String[] SS, Spinner Spin) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-            String valor = "" + ds.getKey();
-            AL.add(valor);
-            SS= AL.toArray(SS);
-
-        }
-        //Setea Array al dropdown de Raza
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, SS);
-        Spin.setAdapter(adapter);
+    private void creadorAdapter(String[] lista, Spinner dropdown, String s) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, lista);
+        dropdown.setAdapter(adapter);
+        int aux = adapter.getPosition(s);
+        dropdown.setSelection(aux);
     }
 
-    @Override
-    public void onSuccess(DataSnapshot dataSnapshot) {
-
-    }
 
     @Override
     public void onStart() {
         super.onStart();
     }
 
-    @Override
-    public void onFailure() {
-
-    }
 
     @Override
     public void onPause() {
