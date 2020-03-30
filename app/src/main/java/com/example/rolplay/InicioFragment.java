@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.QuickContactBadge;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,8 @@ public class InicioFragment extends Fragment {
         mAlineamientoPersonaje_TV = v.findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
         mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
         mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+        mBotonPestanaCombate = v.findViewById(R.id.ActivityInicio_combate_btn);
+        mBotonPestanaEquipo = v.findViewById(R.id.ActivityInicio_equipo_btn);
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -84,7 +87,8 @@ public class InicioFragment extends Fragment {
 
         //Seteo datos en ficha
         mAuth= FirebaseAuth.getInstance();
-        mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        ComprobarEstatUsuari();
+        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mNombreJugador_TV.setText((String)dataSnapshot.child("Nombre").getValue());
@@ -171,6 +175,24 @@ public class InicioFragment extends Fragment {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mBotonPestanaCombate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("combate");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mBotonPestanaEquipo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Cambia de Fragment y lo marca en la navegación lateral
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("equipo");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).addToBackStack(null).commit();
             }
         });
 

@@ -1,9 +1,12 @@
 package com.example.rolplay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -92,10 +97,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
                 break;
             case R.id.nav_combate:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).commit();
                 break;
             case R.id.nav_equipo:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).commit();
                 break;
             case R.id.nav_ataquesConjuros:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();

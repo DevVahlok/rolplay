@@ -27,6 +27,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LoginFragment extends Fragment {
 
     //Declaración de variables
@@ -63,8 +65,8 @@ public class LoginFragment extends Fragment {
         mBotonEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mTextInputCorreo.getText().toString();
-                String pass = mTextInputPassword.getText().toString();
+                String email = Objects.requireNonNull(mTextInputCorreo.getText()).toString();
+                String pass = Objects.requireNonNull(mTextInputPassword.getText()).toString();
 
                 //Comprobaciones de email y password
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
@@ -83,7 +85,7 @@ public class LoginFragment extends Fragment {
         mBotonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrarFragment()).addToBackStack(null).commit();
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegistrarFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -102,10 +104,10 @@ public class LoginFragment extends Fragment {
     //Función para crear dinámicamente un dialog
     private void MostrarRecuperarPassword() {
 
-        AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         TextView title = new TextView(getActivity());
-        title.setText("Recuperar password");
+        title.setText(getString(R.string.recuperarPassword));
         title.setTextColor(getActivity().getColor(R.color.colorPrimary));
         title.setTextSize(20);
         title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -127,7 +129,7 @@ public class LoginFragment extends Fragment {
         constructrorDialog.setView(linearLayout);
 
         //Botón para recuperar password
-        constructrorDialog.setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
+        constructrorDialog.setPositiveButton(getString(R.string.recuperar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String email = emailET.getText().toString().trim();
@@ -140,7 +142,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        constructrorDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -150,13 +152,13 @@ public class LoginFragment extends Fragment {
         AlertDialog recuperacion = constructrorDialog.create();
         recuperacion.show();
 
-        recuperacion.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+        Objects.requireNonNull(recuperacion.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
 
     }
 
     //Recuperación de contraseña
     private void IniciarRecuperacionPassword(String email) {
-        mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
+        mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
 
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -191,7 +193,7 @@ public class LoginFragment extends Fragment {
     private void LoginUsuari(String email, String pass) {
 
         //Carga del dialog y accion de login
-        mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
+        mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

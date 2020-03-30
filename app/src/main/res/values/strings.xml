@@ -7,6 +7,8 @@
     <string name="navigation_drawer_open">Abrir la navegación lateral</string>
     <string name="navigation_drawer_close">Cerrar la navegación lateral</string>
     <string name="pulsaApartadoVerDetalle">Pulsa en un apartado para ver en detalle</string>
+    <string name="anadir">Añadir</string>
+    <string name="cancelar">Cancelar</string>
 
     <!-- Control de cuentas -->
     <string name="correoElectronico">Correo Electrónico</string>
@@ -15,6 +17,8 @@
     <string name="hasOlvidadoContrasena">¿Has olvidado la contraseña?</string>
     <string name="noTienesCuentaRegistrate">¿No tienes cuenta de Rol &amp; Play? Regístrate.</string>
     <string name="registrarse">Registrarse</string>
+    <string name="recuperarPassword">Recuperar password</string>
+    <string name="recuperar">Recuperar</string>
 
     <!-- Ficha personaje -->
     <string name="nombre">Nombre</string>
@@ -76,5 +80,16 @@
     <string name="supervivencia">Supervivencia</string>
     <string name="tratoAnimales">Trato con animales</string>
     <string name="sabiduriaPercepcionPasiva">Sabiduría\n (percepción) pasiva</string>
+
+    <!-- Equipo -->
+    <string name="objeto">Objeto</string>
+    <string name="costeEquipo">Coste: %1$s</string>
+    <string name="pesoEquipo">Peso: %1$slb</string>
+    <string name="piezasCobre">Piezas\nde cobre</string>
+    <string name="piezasPlata">Piezas\nde plata</string>
+    <string name="piezasEsmeralda">Piezas\nde esmeralda</string>
+    <string name="piezasOro">Piezas\nde oro</string>
+    <string name="piezasPlatino">Piezas\nde platino</string>
+    <string name="anadirObjeto">Añadir objeto</string>
 
 </resources>
