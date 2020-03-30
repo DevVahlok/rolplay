@@ -35,8 +35,6 @@ public class CabeceraFragment extends Fragment {
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
     private FirebaseDatabase mDatabase;
-    private ArrayList<String> Razas = new ArrayList<String>();
-    private ArrayList<String> Clases = new ArrayList<String>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};

@@ -3,6 +3,7 @@ package com.example.rolplay;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +21,33 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Declaración de variables
     private DrawerLayout drawer;
     private FirebaseAuth mAuth;
+    private FirebaseUser mUsuario;
+    private FirebaseDatabase mDatabase;
     public NavigationView navigationView;
     private TextView mNivelPersonajeNavBar, mNombrePersonaje, mCorreoElectronico;
     public int mNivel;
     private View headerView;
+    private ArrayList<String> Razas = new ArrayList<String>();
+    private ArrayList<String> Clases = new ArrayList<String>();
+    private String[] listaRazas = new String[] {};
+    private String[] listaClases = new String[] {};
+    private String[] listaAlineamiento = new String[] {};
+    private String Trasfondo, Alineamiento, Raza, Clase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mAuth = FirebaseAuth.getInstance();
         drawer = findViewById(R.id.drawer_layout);
 
+        mUsuario = mAuth.getCurrentUser();
+
+        //Posicionar en el JSON de Firebase
+        mDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
+        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
+        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
         //Activa la barra superior
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -68,13 +91,71 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mNombrePersonaje = headerView.findViewById(R.id.nav_header_nombrePersonaje);
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
 
-        //TODO: Reemplazar placeholders por datos de Firebase
         //Seteo de datos del header de la navegación lateral
+        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mNombrePersonaje.setText((String)dataSnapshot.child("Nombre").getValue());
+                Trasfondo = (String)dataSnapshot.child("Trasfondo").getValue();
+                Alineamiento =(String)dataSnapshot.child("Alineamiento").getValue();
+                Raza = (String)dataSnapshot.child("Raza").getValue();
+                Clase = (String)dataSnapshot.child("Clase").getValue();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         mNivel = 4;
+        //TODO: Poner el sistema de nivel correcto
         mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
-        mNombrePersonaje.setText("Vahlokillo");
         mCorreoElectronico.setText("psps@psps.com");
 
+        //Cargar listas de los dropdowns
+        //Razas
+        cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaRazas = value;
+            }
+        });
+        //Clases
+        cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaClases=value;
+            }
+        });
+        //Alineamiento
+        listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
+
+
+    }
+
+    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
+    private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
+        mDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] result = new String[] {};
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String valor = "" + ds.getKey();
+                    ALS.add(valor);
+                    result = ALS.toArray(SS);
+
+                }
+                callback.onCallback(result);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", databaseError.getMessage());
+            }
+        });
     }
 
     @Override
@@ -88,7 +169,19 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
                 break;
             case R.id.nav_cabecera:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CabeceraFragment()).commit();
+                //Pasa los datos al fragment de destino
+                Bundle bundle = new Bundle();
+                bundle.putString("Nombre", (String) mNombrePersonaje.getText());
+                bundle.putString("Trasfondo", Trasfondo);
+                bundle.putString("Raza", Raza);
+                bundle.putString("Clase", Clase);
+                bundle.putString("Alineamiento", Alineamiento);
+                bundle.putStringArray("Razas", listaRazas);
+                bundle.putStringArray("Clases", listaClases);
+                bundle.putStringArray("Alineamientos", listaAlineamiento);
+                Fragment Cabecera = new CabeceraFragment();
+                Cabecera.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera).addToBackStack(null).commit();
                 break;
             case R.id.nav_puntosHabilidad:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).commit();
