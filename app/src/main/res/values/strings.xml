@@ -9,6 +9,7 @@
     <string name="pulsaApartadoVerDetalle">Pulsa en un apartado para ver en detalle</string>
     <string name="anadir">Añadir</string>
     <string name="cancelar">Cancelar</string>
+    <string name="editar">Editar</string>
 
     <!-- Control de cuentas -->
     <string name="correoElectronico">Correo Electrónico</string>
@@ -80,6 +81,8 @@
     <string name="supervivencia">Supervivencia</string>
     <string name="tratoAnimales">Trato con animales</string>
     <string name="sabiduriaPercepcionPasiva">Sabiduría\n (percepción) pasiva</string>
+    <string name="simboloSumar">+</string>
+    <string name="simboloRestar">-</string>
 
     <!-- Equipo -->
     <string name="objeto">Objeto</string>
@@ -91,5 +94,18 @@
     <string name="piezasOro">Piezas\nde oro</string>
     <string name="piezasPlatino">Piezas\nde platino</string>
     <string name="anadirObjeto">Añadir objeto</string>
+
+    <!-- Combate -->
+    <string name="claseArmadura">Clase de\narmadura</string>
+    <string name="iniciativa">Iniciativa</string>
+    <string name="velocidad">Velocidad</string>
+    <string name="puntosGolpeActuales">Puntos de golpe actuales:</string>
+    <string name="puntosGolpeTemporales">Puntos de golpe temporales:</string>
+    <string name="total">Total:</string>
+    <string name="dadosGolpe">Dados de golpe:</string>
+    <string name="exitos">Éxitos</string>
+    <string name="fallos">Fallos</string>
+    <string name="salvacionesContraMuerte">Salvaciones contra muerte</string>
+    <string name="barraDiagonal">/</string>
 
 </resources>
