@@ -127,6 +127,8 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             listaDatos.add(new ItemEquipo("Objeto: "+i,i*3,i+7,"hey"));
         }
 
+        //TODO: Guardar peso total de los items en una variable y establecerlo en Firebase
+
         //Añade los objetos equipados al Recycler
         adapter = new AdapterRecyclerEquipo(listaDatos, this, getContext());
         recycler.setAdapter(adapter);
