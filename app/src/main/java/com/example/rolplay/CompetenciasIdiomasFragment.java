@@ -89,6 +89,8 @@ public class CompetenciasIdiomasFragment extends Fragment {
 
             En 'Rango militar' y 'especialidad' solo permitir 1 palabra (deshabilitando botones de añadir)
 
+            Si el contenido es 0, deshabilitar el botón de restar
+
          */
 
         return v;
