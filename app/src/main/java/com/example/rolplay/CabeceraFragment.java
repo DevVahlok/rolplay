@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CabeceraFragment extends Fragment {
 
@@ -93,7 +94,7 @@ public class CabeceraFragment extends Fragment {
     }
 
     private void creadorAdapter(String[] lista, Spinner dropdown, String s) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_oscuro, lista);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, lista);
         dropdown.setAdapter(adapter);
         int aux = adapter.getPosition(s);
         dropdown.setSelection(aux);

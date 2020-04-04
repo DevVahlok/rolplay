@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/AtaquesConjuros_layoutBase"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/AtaquesConjuros_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="@string/ataquesConjuros"
+        android:textColor="@color/colorPrimary"
+        android:textSize="38sp" />
+
+</RelativeLayout>

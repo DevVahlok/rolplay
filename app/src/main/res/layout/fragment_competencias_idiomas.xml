@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/CompetenciasIdiomas_layoutBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/competenciasIdiomas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_idiomas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/CompetenciasIdiomas_titulo"
+            android:text="@string/idiomas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_idiomas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/CompetenciasIdiomas_titulo"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_idiomas"
+            android:text="Común, Druídico"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="35dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarIdioma"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_idiomas" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarIdioma"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarIdioma"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_idiomas"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_armadura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarIdioma"
+            android:text="@string/armadura"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_armadura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_armadura"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_armadura"
+            android:text="Todas, Escudos"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarArmadura"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_armadura" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarArmadura"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarArmadura"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_armadura"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_armas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarArmadura"
+            android:paddingTop="20dp"
+            android:text="@string/armas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_armas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_armas"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_armas"
+            android:text="Sencillas, Marciales "
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="50dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarArmas"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_armas" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarArmas"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarArmas"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_armas"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_herramientas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarArmas"
+            android:paddingTop="20dp"
+            android:text="@string/herramientas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_herramientas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_herramientas"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_herramientas"
+            android:text="Juego (naipes) "
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarHerramientas"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_herramientas" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarHerramientas"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarHerramientas"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_herramientas"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_especialidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarHerramientas"
+            android:paddingTop="20dp"
+            android:text="@string/especialidad"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_especialidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_especialidad"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_herramientas"
+            android:text="Caballería"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarEspecialidad"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_especialidad" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarEspecialidad"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarHerramientas"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_especialidad"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_rangoMilitar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarEspecialidad"
+            android:paddingTop="20dp"
+            android:text="@string/rangoMilitar"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_rangoMilitar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_rangoMilitar"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_rangoMilitar"
+            android:text="Capitán"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarRangoMilitar"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_rangoMilitar" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarRangoMilitar"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarHerramientas"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_rangoMilitar"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_texto_otras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/HabilidadesBonificadores_botonRestarRangoMilitar"
+            android:paddingTop="20dp"
+            android:text="@string/otras"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/CompetenciasIdiomas_valor_otras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_otras"
+            android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_otras"
+            android:text="Competente con carro"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp"
+            android:paddingStart="55dp"
+            android:paddingEnd="0dp"/>
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonSumarOtras"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloSumar"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_otras" />
+
+        <Button
+            android:id="@+id/HabilidadesBonificadores_botonRestarOtras"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/simboloRestar"
+            android:layout_toEndOf="@+id/HabilidadesBonificadores_botonSumarOtras"
+            android:layout_below="@+id/CompetenciasIdiomas_texto_otras"
+            android:layout_marginStart="15dp"/>
+
+    </RelativeLayout>
+</ScrollView>

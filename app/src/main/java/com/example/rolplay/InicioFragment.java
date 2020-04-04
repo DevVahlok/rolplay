@@ -75,6 +75,8 @@ public class InicioFragment extends Fragment {
         mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
         mBotonPestanaCombate = v.findViewById(R.id.ActivityInicio_combate_btn);
         mBotonPestanaEquipo = v.findViewById(R.id.ActivityInicio_equipo_btn);
+        mBotonPestanaAtaquesConjuros = v.findViewById(R.id.ActivityInicio_ataquesConjuros_btn);
+        mBotonPestanaCompetenciasIdiomas = v.findViewById(R.id.ActivityInicio_competenciasIdiomas_btn);
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -193,6 +195,22 @@ public class InicioFragment extends Fragment {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("equipo");
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mBotonPestanaAtaquesConjuros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("ataquesConjuros");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mBotonPestanaCompetenciasIdiomas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("competenciasIdiomas");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CompetenciasIdiomasFragment()).addToBackStack(null).commit();
             }
         });
 
