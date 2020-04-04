@@ -108,4 +108,13 @@
     <string name="salvacionesContraMuerte">Salvaciones contra muerte</string>
     <string name="barraDiagonal">/</string>
 
+    <!-- Competencias e idiomas -->
+    <string name="idiomas">Idiomas:</string>
+    <string name="armadura">Armadura:</string>
+    <string name="armas">Armas:</string>
+    <string name="herramientas">Herramientas:</string>
+    <string name="especialidad">Especialidad:</string>
+    <string name="rangoMilitar">Rango militar:</string>
+    <string name="otras">Otras:</string>
+
 </resources>

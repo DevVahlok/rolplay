@@ -48,16 +48,16 @@
             android:layout_marginStart="55dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonRestarInspiracion"
+            android:id="@+id/HabilidadesBonificadores_botonSumarInspiracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloSumar"
             android:layout_toEndOf="@+id/HabilidadesBonificadores_MarcoInspiracion"
-            android:layout_above="@+id/HabilidadesBonificadores_botonSumarInspiracion"
+            android:layout_above="@+id/HabilidadesBonificadores_botonRestarInspiracion"
             android:layout_marginStart="15dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonSumarInspiracion"
+            android:id="@+id/HabilidadesBonificadores_botonRestarInspiracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloRestar"
@@ -97,16 +97,16 @@
             android:layout_marginStart="100dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonRestarBonificadorCompetencia"
+            android:id="@+id/HabilidadesBonificadores_botonSumarBonificadorCompetencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloSumar"
             android:layout_toEndOf="@+id/HabilidadesBonificadores_MarcoBonificadorCompetencia"
-            android:layout_above="@+id/HabilidadesBonificadores_botonSumarBonificadorCompetencia"
+            android:layout_above="@+id/HabilidadesBonificadores_botonRestarBonificadorCompetencia"
             android:layout_marginStart="15dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonSumarBonificadorCompetencia"
+            android:id="@+id/HabilidadesBonificadores_botonRestarBonificadorCompetencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloRestar"
@@ -870,16 +870,16 @@
             android:layout_marginStart="100dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonRestarBonificadorSabiduriaPercepcionPasiva"
+            android:id="@+id/HabilidadesBonificadores_botonSumarBonificadorSabiduriaPercepcionPasiva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloSumar"
             android:layout_toEndOf="@+id/HabilidadesBonificadores_MarcoSabiduriaPercepcionPasiva"
-            android:layout_above="@+id/HabilidadesBonificadores_botonSumarSabiduriaPercepcionPasiva"
+            android:layout_above="@+id/HabilidadesBonificadores_botonRestarSabiduriaPercepcionPasiva"
             android:layout_marginStart="15dp"/>
 
         <Button
-            android:id="@+id/HabilidadesBonificadores_botonSumarSabiduriaPercepcionPasiva"
+            android:id="@+id/HabilidadesBonificadores_botonRestarSabiduriaPercepcionPasiva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simboloRestar"
