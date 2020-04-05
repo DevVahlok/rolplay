@@ -47,7 +47,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
-    private String Trasfondo, Alineamiento, Raza, Clase;
+    private String Trasfondo, Alineamiento, Raza, Clase, ClaseDeArmadura, Iniciativa, Velocidad,
+            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe;
+    private int SalvacionesMuerte, Nivel, PuntosExperiencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
+        final DatabaseReference mCombate = mDatabase.getReference().child("DungeonAndDragons/Plantilla/Combate");
         //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
         //Activa la barra superior
@@ -100,7 +103,17 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Alineamiento =(String)dataSnapshot.child("Alineamiento").getValue();
                 Raza = (String)dataSnapshot.child("Raza").getValue();
                 Clase = (String)dataSnapshot.child("Clase").getValue();
-
+                Nivel = Integer.parseInt((String)dataSnapshot.child("Nivel").getValue());
+                PuntosExperiencia = Integer.parseInt((String)dataSnapshot.child("Puntos de Experiencia").getValue());
+                ClaseDeArmadura = (String)dataSnapshot.child("Clase de Armadura").getValue();
+                Iniciativa =(String)dataSnapshot.child("Iniciativa").getValue();
+                Velocidad = (String)dataSnapshot.child("Velocidad").getValue();
+                PuntosGolpeActuales = (String)dataSnapshot.child("Puntos de Golpe Actuales").getValue();
+                PuntosGolpeMaximos = (String)dataSnapshot.child("Puntos de Golpe Máximos").getValue();
+                PuntosGolpeTemporales =(String)dataSnapshot.child("Puntos de Golpe Temporales").getValue();
+                DadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Valor").getValue();
+                TotalDadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Total").getValue();
+                SalvacionesMuerte = Integer.parseInt((String)dataSnapshot.child("Salvaciones de Muerte").getValue());
             }
 
             @Override
@@ -162,7 +175,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         //TODO: Fragments de cada apartado
-
+        Bundle bundle;
         switch (item.getItemId()) {
 
             case R.id.nav_ficha:
@@ -170,12 +183,14 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_cabecera:
                 //Pasa los datos al fragment de destino
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putString("Nombre", (String) mNombrePersonaje.getText());
                 bundle.putString("Trasfondo", Trasfondo);
                 bundle.putString("Raza", Raza);
                 bundle.putString("Clase", Clase);
                 bundle.putString("Alineamiento", Alineamiento);
+                bundle.putInt("Nivel", Nivel);
+                bundle.putInt("Puntos de Experiencia", PuntosExperiencia);
                 bundle.putStringArray("Razas", listaRazas);
                 bundle.putStringArray("Clases", listaClases);
                 bundle.putStringArray("Alineamientos", listaAlineamiento);
@@ -190,7 +205,19 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
                 break;
             case R.id.nav_combate:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).commit();
+                //Pasa los datos al fragment de destino
+                bundle = new Bundle();
+                bundle.putString("Clase de Armadura", ClaseDeArmadura);
+                bundle.putString("Iniciativa", Iniciativa);
+                bundle.putString("Velocidad", Velocidad);
+                bundle.putString("Puntos de Golpe Actuales", PuntosGolpeActuales);
+                bundle.putString("Puntos de Golpe Máximos", PuntosGolpeMaximos);
+                bundle.putString("Puntos de Golpe Temporales", PuntosGolpeTemporales);
+                bundle.putString("Dado de Golpe/Valor", DadoGolpe);
+                bundle.putString("Dado de Golpe/Total", TotalDadoGolpe);
+                Fragment Combate = new CombateFragment();
+                Combate.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Combate).addToBackStack(null).commit();
                 break;
             case R.id.nav_equipo:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).commit();

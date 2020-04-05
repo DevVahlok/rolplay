@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -76,10 +77,9 @@ public class CabeceraFragment extends Fragment {
         creadorAdapter(listaAlineamiento, mDropdownAlineamiento, recuperados.getString("Alineamiento"));
 
 
-        //TODO: Recoger Nivel y Experiencia de Firebase
         mExperienciaTotal = 100;
-        mProgresoExperiencia = 50;
-        mNivel = 4;
+        mProgresoExperiencia = recuperados.getInt("Puntos de Experiencia");
+        mNivel = recuperados.getInt("Nivel");
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
         mBarraProgreso.setMax(mExperienciaTotal);
@@ -127,10 +127,11 @@ public class CabeceraFragment extends Fragment {
 
         hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
         hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
-        hashMap.put("Nivel",mNombrePersonajeET.getText().toString().trim());
         hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
         hashMap.put("Clase",mDropdownClase.getSelectedItem().toString().trim());
         hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
+        hashMap.put("Nivel", Integer.toString(mNivel));
+        hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
 
         mDatabase.getReference("users/"+usuariActual.getUid()).setValue(hashMap);
 
