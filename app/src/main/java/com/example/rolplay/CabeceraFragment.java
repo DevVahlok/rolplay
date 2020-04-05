@@ -77,9 +77,9 @@ public class CabeceraFragment extends Fragment {
         creadorAdapter(listaAlineamiento, mDropdownAlineamiento, recuperados.getString("Alineamiento"));
 
 
-        mExperienciaTotal = 100;
         mProgresoExperiencia = recuperados.getInt("Puntos de Experiencia");
         mNivel = recuperados.getInt("Nivel");
+        mExperienciaTotal = mNivel * (mNivel-1) * 500;
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
         mBarraProgreso.setMax(mExperienciaTotal);
