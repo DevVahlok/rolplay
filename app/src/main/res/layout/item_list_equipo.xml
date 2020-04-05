@@ -75,7 +75,7 @@
 
     <ImageView
         android:id="@+id/ListaEquipo_borrar"
-        android:contentDescription="@string/objeto"
+        android:contentDescription="@string/cerrar"
         app:srcCompat="@drawable/ic_cross"
         android:layout_width="30dp"
         android:layout_height="30dp"

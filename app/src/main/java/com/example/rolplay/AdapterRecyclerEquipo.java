@@ -1,7 +1,6 @@
 package com.example.rolplay;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     //Declaración de variables
     private ArrayList<ItemEquipo> listaDatos;
-    public ImageView imgViewRemoveIcon;
+    private ImageView imgViewRemoveIcon;
     private OnItemListener mOnItemListener;
     private Context context;
 

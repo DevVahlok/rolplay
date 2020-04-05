@@ -10,6 +10,7 @@
     <string name="anadir">Añadir</string>
     <string name="cancelar">Cancelar</string>
     <string name="editar">Editar</string>
+    <string name="cerrar">Cerrar</string>
 
     <!-- Control de cuentas -->
     <string name="correoElectronico">Correo Electrónico</string>
@@ -123,5 +124,8 @@
     <string name="vinculos">Vínculos</string>
     <string name="defectos">Defectos</string>
     <string name="editarTexto">Editar texto</string>
+
+    <!-- Rasgos y atributos -->
+    <string name="anadirRasgoAtributo">Añadir rasgo / atributo</string>
 
 </resources>

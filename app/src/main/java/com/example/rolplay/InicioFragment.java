@@ -78,6 +78,7 @@ public class InicioFragment extends Fragment {
         mBotonPestanaAtaquesConjuros = v.findViewById(R.id.ActivityInicio_ataquesConjuros_btn);
         mBotonPestanaCompetenciasIdiomas = v.findViewById(R.id.ActivityInicio_competenciasIdiomas_btn);
         mBotonPestanaPersonalidad = v.findViewById(R.id.ActivityInicio_personalidad_btn);
+        mBotonPestanaRasgosAtributos = v.findViewById(R.id.ActivityInicio_rasgosAtributos_btn);
 
         mAuth = FirebaseAuth.getInstance();
         mUsuario = mAuth.getCurrentUser();
@@ -220,6 +221,14 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("personalidad");
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonalidadFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mBotonPestanaRasgosAtributos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("rasgosAtributos");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RasgosAtributosFragment()).addToBackStack(null).commit();
             }
         });
 
