@@ -117,4 +117,11 @@
     <string name="rangoMilitar">Rango militar:</string>
     <string name="otras">Otras:</string>
 
+    <!-- Personalidad -->
+    <string name="rasgosPersonalidad">Rasgos de personalidad</string>
+    <string name="ideales">Ideales</string>
+    <string name="vinculos">Vínculos</string>
+    <string name="defectos">Defectos</string>
+    <string name="editarTexto">Editar texto</string>
+
 </resources>
