@@ -47,9 +47,27 @@ public class InicioFragment extends Fragment {
     private FirebaseDatabase mDatabase;
     private ArrayList<String> Razas = new ArrayList<String>();
     private ArrayList<String> Clases = new ArrayList<String>();
+    private ArrayList<String> Objetos = new ArrayList<String>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
+    private String[] listaObjetos = new String[] {};
+    private String[] listaArmaduras = new String[] {};
+    private String[] listaArmas = new String[] {};
+    private String[] listaHerramientas = new String[] {};
+    private String[] listaMercancias = new String[] {};
+    private String[] listaMisceláneo = new String[] {};
+    private String[] listaMonturas = new String[] {};
+    private String[] listaArmadurasLigeras = new String[] {};
+    private String[] listaArmadurasMedias = new String[] {};
+    private String[] listaArmadurasPesadas = new String[] {};
+    private String[] listaArmasDM = new String[] {};
+    private String[] listaArmasDS = new String[] {};
+    private String[] listaArmasCM = new String[] {};
+    private String[] listaArmasCS = new String[] {};
+    private String ClaseDeArmadura, Iniciativa, Velocidad,
+            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe;
+    private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     public InicioFragment() {
 
@@ -86,6 +104,7 @@ public class InicioFragment extends Fragment {
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
         //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
+        final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
 
         //Seteo datos en ficha
         mAuth= FirebaseAuth.getInstance();
@@ -98,7 +117,22 @@ public class InicioFragment extends Fragment {
                 mAlineamientoPersonaje_TV.setText((String)dataSnapshot.child("Alineamiento").getValue());
                 mRazaPersonaje_TV.setText((String)dataSnapshot.child("Raza").getValue());
                 mClaseNivelPersonaje_TV.setText((String)dataSnapshot.child("Clase").getValue());
-
+                Nivel = Integer.parseInt((String)dataSnapshot.child("Nivel").getValue());
+                PuntosExperiencia = Integer.parseInt((String)dataSnapshot.child("Puntos de Experiencia").getValue());
+                ClaseDeArmadura = (String)dataSnapshot.child("Clase de Armadura").getValue();
+                Iniciativa =(String)dataSnapshot.child("Iniciativa").getValue();
+                Velocidad = (String)dataSnapshot.child("Velocidad").getValue();
+                PuntosGolpeActuales = (String)dataSnapshot.child("Puntos de Golpe Actuales").getValue();
+                PuntosGolpeMaximos = (String)dataSnapshot.child("Puntos de Golpe Máximos").getValue();
+                PuntosGolpeTemporales =(String)dataSnapshot.child("Puntos de Golpe Temporales").getValue();
+                DadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Valor").getValue();
+                TotalDadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Total").getValue();
+                SalvacionesMuerte = Integer.parseInt((String)dataSnapshot.child("Salvaciones de Muerte").getValue());
+                PCobre = Integer.parseInt((String)dataSnapshot.child("Piezas de cobre").getValue());
+                PPlata = Integer.parseInt((String)dataSnapshot.child("Piezas de plata").getValue());
+                PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
+                POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
+                PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
             }
 
             @Override
@@ -125,6 +159,127 @@ public class InicioFragment extends Fragment {
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
+        cargarSpinners(mObjetos.child(""), Objetos, listaObjetos, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaObjetos = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras"), Objetos, listaArmaduras, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmaduras = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Ligeras"), Objetos, listaArmadurasLigeras, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasLigeras = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Medias"), Objetos, listaArmadurasMedias, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasMedias = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Pesadas"), Objetos, listaArmadurasPesadas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasPesadas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Escudos"), Objetos, listaObjetos, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaObjetos = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmasDM, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasDM = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia simples"), Objetos, listaArmasDS, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasDS = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas cuerpo cuerpo marciales"), Objetos, listaArmasCM, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasCM = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas cuerpo cuerpo simples"), Objetos, listaArmasCS, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasCS = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Herramientas de artesano"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Instrumentos musicales"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Set de juego"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Mercancias"), Objetos, listaMercancias, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMercancias = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Misceláneo"), Objetos, listaMisceláneo, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMisceláneo = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
+
 
         //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
         mExperienciaPersonaje_TV.setText("500 / 1500 exp");
@@ -144,6 +299,8 @@ public class InicioFragment extends Fragment {
                 bundle.putString("Raza", (String) mRazaPersonaje_TV.getText());
                 bundle.putString("Clase", (String) mClaseNivelPersonaje_TV.getText());
                 bundle.putString("Alineamiento", (String) mAlineamientoPersonaje_TV.getText());
+                bundle.putInt("Nivel", Nivel);
+                bundle.putInt("Puntos de Experiencia", PuntosExperiencia);
                 bundle.putStringArray("Razas", listaRazas);
                 bundle.putStringArray("Clases", listaClases);
                 bundle.putStringArray("Alineamientos", listaAlineamiento);
@@ -184,8 +341,21 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
+                //Pasa los datos al fragment de destino
+                Bundle bundle = new Bundle();
+                bundle.putString("Clase de Armadura", ClaseDeArmadura);
+                bundle.putString("Iniciativa", Iniciativa);
+                bundle.putString("Velocidad", Velocidad);
+                bundle.putString("Puntos de Golpe Actuales", PuntosGolpeActuales);
+                bundle.putString("Puntos de Golpe Máximos", PuntosGolpeMaximos);
+                bundle.putString("Puntos de Golpe Temporales", PuntosGolpeTemporales);
+                bundle.putString("Dado de Golpe/Valor", DadoGolpe);
+                bundle.putString("Dado de Golpe/Total", TotalDadoGolpe);
+                bundle.putInt("Salvacion", SalvacionesMuerte);
+                Fragment Combate = new CombateFragment();
+                Combate.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("combate");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CombateFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Combate).addToBackStack(null).commit();
             }
         });
 
@@ -193,8 +363,33 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
+                //Pasa los datos al fragment de destino
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("Lista De Objetos",listaObjetos);
+                bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
+                bundle.putStringArray("Lista De ArmMed",listaArmadurasMedias);
+                bundle.putStringArray("Lista De ArmPes",listaArmadurasPesadas);
+                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArray("Lista De Herram",listaHerramientas);
+                bundle.putStringArray("Lista De Merc",listaMercancias);
+                bundle.putStringArray("Lista De Misc",listaMisceláneo);
+                bundle.putStringArray("Lista De Mont",listaMonturas);
+                bundle.putStringArray("Lista De Armaduras",listaArmaduras);
+                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putInt("Piezas de cobre", PCobre);
+                bundle.putInt("Piezas de plata", PPlata);
+                bundle.putInt("Piezas de esmeralda", PEsmeralda);
+                bundle.putInt("Piezas de oro", POro);
+                bundle.putInt("Piezas de platino", PPlatino);
+
+                Log.d("---------------",String.valueOf(listaObjetos.length));
+                Fragment Equipo = new EquipoFragment();
+                Equipo.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("equipo");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Equipo).addToBackStack(null).commit();
             }
         });
 
@@ -224,6 +419,7 @@ public class InicioFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String[] result = new String[] {};
+                ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
@@ -232,7 +428,7 @@ public class InicioFragment extends Fragment {
 
                 }
                   callback.onCallback(result);
-
+                ALS.clear();
             }
 
             @Override

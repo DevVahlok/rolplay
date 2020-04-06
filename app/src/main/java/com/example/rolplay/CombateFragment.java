@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,8 @@ public class CombateFragment extends Fragment {
         mIniciativa = v.findViewById(R.id.Combate_valor_iniciativa);
         mVelocidad = v.findViewById(R.id.Combate_valor_velocidad);
         mGolpesActuales = v.findViewById(R.id.Combate_golpeActuales_valor);
-        mGolpesTemporales = v.findViewById(R.id.Combate_golpeMaximo_valor);
-        mGolpesTotales = v.findViewById(R.id.Combate_golpeTemporal_valor);
+        mGolpesTemporales = v.findViewById(R.id.Combate_golpeTemporal_valor);
+        mGolpesTotales = v.findViewById(R.id.Combate_golpeMaximo_valor);
         mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
         mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
 
@@ -53,7 +54,7 @@ public class CombateFragment extends Fragment {
         mGolpesTotales.setText(recuperados.getString("Puntos de Golpe Máximos"));
         mDadoGolpe.setText(recuperados.getString("Dado de Golpe/Valor"));
         mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
-        mSalvaciones = recuperados.getInt("Salvaciones de Muerte");
+        mSalvaciones = recuperados.getInt("Salvacion");
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
 
         //Iniciativa: random entre 1 y 20 + modificador [cuadrado] de Destreza
@@ -95,6 +96,11 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito2.setEnabled(false);
+                mCheckboxExito3.setEnabled(false);
+                mCheckboxFallo2.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 1:
                 mCheckboxExito1.setChecked(true);
@@ -103,6 +109,10 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito3.setEnabled(false);
+                mCheckboxFallo2.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 2:
                 mCheckboxExito1.setChecked(true);
@@ -111,6 +121,9 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxFallo2.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 3:
                 mCheckboxExito1.setChecked(true);
@@ -119,6 +132,9 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxFallo2.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 4:
                 mCheckboxExito1.setChecked(false);
@@ -127,6 +143,10 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito2.setEnabled(false);
+                mCheckboxExito3.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 5:
                 mCheckboxExito1.setChecked(true);
@@ -135,6 +155,9 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito3.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 6:
                 mCheckboxExito1.setChecked(true);
@@ -143,6 +166,8 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 7:
                 mCheckboxExito1.setChecked(true);
@@ -151,6 +176,8 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxFallo3.setEnabled(false);
                 break;
             case 8:
                 mCheckboxExito1.setChecked(false);
@@ -159,6 +186,9 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito2.setEnabled(false);
+                mCheckboxExito3.setEnabled(false);
                 break;
             case 9:
                 mCheckboxExito1.setChecked(true);
@@ -167,6 +197,8 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito3.setEnabled(false);
                 break;
             case 10:
                 mCheckboxExito1.setChecked(true);
@@ -191,6 +223,9 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(true);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito2.setEnabled(false);
+                mCheckboxExito3.setEnabled(false);
                 break;
             case 13:
                 mCheckboxExito1.setChecked(true);
@@ -199,6 +234,8 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(true);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito3.setEnabled(false);
                 break;
             case 14:
                 mCheckboxExito1.setChecked(true);
@@ -224,8 +261,14 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
+                //Desactiva los checkbox 2 y 3 por defecto
+                mCheckboxExito2.setEnabled(false);
+                mCheckboxExito3.setEnabled(false);
+                mCheckboxFallo2.setEnabled(false);
+                mCheckboxFallo3.setEnabled(false);
                 break;
         }
+
         //OnClick listener de los checkbox
         mCheckboxExito1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,6 +278,8 @@ public class CombateFragment extends Fragment {
                 }else{
                     mCheckboxExito2.setEnabled(false);
                     mCheckboxExito2.setChecked(false);
+                    mCheckboxExito3.setEnabled(false);
+                    mCheckboxExito3.setChecked(false);
                 }
             }
         });
@@ -257,6 +302,8 @@ public class CombateFragment extends Fragment {
                 }else{
                     mCheckboxFallo2.setEnabled(false);
                     mCheckboxFallo2.setChecked(false);
+                    mCheckboxFallo3.setEnabled(false);
+                    mCheckboxFallo3.setChecked(false);
                 }
             }
         });
@@ -271,12 +318,6 @@ public class CombateFragment extends Fragment {
                 }
             }
         });
-
-        //Desactiva los checkbox 2 y 3 por defecto
-        mCheckboxExito2.setEnabled(false);
-        mCheckboxExito3.setEnabled(false);
-        mCheckboxFallo2.setEnabled(false);
-        mCheckboxFallo3.setEnabled(false);
 
         return v;
     }

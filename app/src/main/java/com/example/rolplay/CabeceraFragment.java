@@ -79,7 +79,7 @@ public class CabeceraFragment extends Fragment {
 
         mProgresoExperiencia = recuperados.getInt("Puntos de Experiencia");
         mNivel = recuperados.getInt("Nivel");
-        mExperienciaTotal = mNivel * (mNivel-1) * 500;
+        mExperienciaTotal = mNivel * (mNivel+1) * 500;
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
         mBarraProgreso.setMax(mExperienciaTotal);
@@ -123,7 +123,7 @@ public class CabeceraFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuariActual = mAuth.getCurrentUser();
 
-        HashMap<Object, String> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
 
         hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
         hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
@@ -133,7 +133,7 @@ public class CabeceraFragment extends Fragment {
         hashMap.put("Nivel", Integer.toString(mNivel));
         hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
 
-        mDatabase.getReference("users/"+usuariActual.getUid()).setValue(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
 
     }
 }

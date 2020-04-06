@@ -2,6 +2,7 @@ package com.example.rolplay;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,16 +42,32 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private FirebaseDatabase mDatabase;
     public NavigationView navigationView;
     private TextView mNivelPersonajeNavBar, mNombrePersonaje, mCorreoElectronico;
-    public int mNivel;
     private View headerView;
     private ArrayList<String> Razas = new ArrayList<String>();
     private ArrayList<String> Clases = new ArrayList<String>();
+    private ArrayList<String> Objetos = new ArrayList<String>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
+    private String[] listaObjetos = new String[] {};
+    private String[] listaArmaduras = new String[] {};
+    private String[] listaArmas = new String[] {};
+    private String[] listaHerramientas = new String[] {};
+    private String[] listaMercancias = new String[] {};
+    private String[] listaMisceláneo = new String[] {};
+    private String[] listaMonturas = new String[] {};
+    private String[] listaArmadurasLigeras = new String[] {};
+    private String[] listaArmadurasMedias = new String[] {};
+    private String[] listaArmadurasPesadas = new String[] {};
+    private String[] listaArmasDM = new String[] {};
+    private String[] listaArmasDS = new String[] {};
+    private String[] listaArmasCM = new String[] {};
+    private String[] listaArmasCS = new String[] {};
     private String Trasfondo, Alineamiento, Raza, Clase, ClaseDeArmadura, Iniciativa, Velocidad,
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe;
-    private int SalvacionesMuerte, Nivel, PuntosExperiencia;
+    private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
+
+    private DialogCarga mDialogCarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +85,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
         final DatabaseReference mCombate = mDatabase.getReference().child("DungeonAndDragons/Plantilla/Combate");
+        final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
         //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
         //Activa la barra superior
@@ -93,6 +112,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mNivelPersonajeNavBar = headerView.findViewById(R.id.nav_header_nivelPersonaje);
         mNombrePersonaje = headerView.findViewById(R.id.nav_header_nombrePersonaje);
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
+        mDialogCarga = new DialogCarga();
 
         //Seteo de datos del header de la navegación lateral
         mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
@@ -103,7 +123,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Alineamiento =(String)dataSnapshot.child("Alineamiento").getValue();
                 Raza = (String)dataSnapshot.child("Raza").getValue();
                 Clase = (String)dataSnapshot.child("Clase").getValue();
-                Nivel = Integer.parseInt((String)dataSnapshot.child("Nivel").getValue());
+                mNivel = Integer.parseInt((String)dataSnapshot.child("Nivel").getValue());
                 PuntosExperiencia = Integer.parseInt((String)dataSnapshot.child("Puntos de Experiencia").getValue());
                 ClaseDeArmadura = (String)dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa =(String)dataSnapshot.child("Iniciativa").getValue();
@@ -114,6 +134,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 DadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Total").getValue();
                 SalvacionesMuerte = Integer.parseInt((String)dataSnapshot.child("Salvaciones de Muerte").getValue());
+                PCobre = Integer.parseInt((String)dataSnapshot.child("Piezas de cobre").getValue());
+                PPlata = Integer.parseInt((String)dataSnapshot.child("Piezas de plata").getValue());
+                PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
+                POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
+                PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
             }
 
             @Override
@@ -121,12 +146,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
-        mNivel = 4;
-        //TODO: Poner el sistema de nivel correcto
+
         mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
-        mCorreoElectronico.setText("psps@psps.com");
+        mCorreoElectronico.setText(mUsuario.getEmail());
 
         //Cargar listas de los dropdowns
+        mDialogCarga.show(getSupportFragmentManager(), null);
         //Razas
         cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
             @Override
@@ -144,6 +169,128 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
+        cargarSpinners(mObjetos, Objetos, listaObjetos, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaObjetos = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras"), Objetos, listaArmaduras, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmaduras = value;
+            }
+        });
+
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Ligeras"), Objetos, listaArmadurasLigeras, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasLigeras = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Medias"), Objetos, listaArmadurasMedias, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasMedias = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Armaduras Pesadas"), Objetos, listaArmadurasPesadas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmadurasPesadas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armaduras/Escudos"), Objetos, listaObjetos, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaObjetos = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmasDM, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasDM = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas a distancia simples"), Objetos, listaArmasDS, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasDS = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas cuerpo cuerpo marciales"), Objetos, listaArmasCM, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasCM = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Armas/Armas cuerpo cuerpo simples"), Objetos, listaArmasCS, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaArmasCS = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Herramientas de artesano"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Instrumentos musicales"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas/Set de juego"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Herramientas"), Objetos, listaHerramientas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaHerramientas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Mercancias"), Objetos, listaMercancias, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMercancias = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Misceláneo"), Objetos, listaMisceláneo, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMisceláneo = value;
+                mDialogCarga.dismiss();
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturas = value;
+            }
+        });
 
     }
 
@@ -189,7 +336,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Raza", Raza);
                 bundle.putString("Clase", Clase);
                 bundle.putString("Alineamiento", Alineamiento);
-                bundle.putInt("Nivel", Nivel);
+                bundle.putInt("Nivel", mNivel);
                 bundle.putInt("Puntos de Experiencia", PuntosExperiencia);
                 bundle.putStringArray("Razas", listaRazas);
                 bundle.putStringArray("Clases", listaClases);
@@ -215,12 +362,35 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Puntos de Golpe Temporales", PuntosGolpeTemporales);
                 bundle.putString("Dado de Golpe/Valor", DadoGolpe);
                 bundle.putString("Dado de Golpe/Total", TotalDadoGolpe);
+                bundle.putInt("Salvacion", SalvacionesMuerte);
                 Fragment Combate = new CombateFragment();
                 Combate.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Combate).addToBackStack(null).commit();
                 break;
             case R.id.nav_equipo:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EquipoFragment()).commit();
+                bundle = new Bundle();
+                bundle.putStringArray("Lista De Objetos",listaObjetos);
+                bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
+                bundle.putStringArray("Lista De ArmMed",listaArmadurasMedias);
+                bundle.putStringArray("Lista De ArmPes",listaArmadurasPesadas);
+                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArray("Lista De Herram",listaHerramientas);
+                bundle.putStringArray("Lista De Merc",listaMercancias);
+                bundle.putStringArray("Lista De Misc",listaMisceláneo);
+                bundle.putStringArray("Lista De Mont",listaMonturas);
+                bundle.putStringArray("Lista De Armaduras",listaArmaduras);
+                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putInt("Piezas de cobre", PCobre);
+                bundle.putInt("Piezas de plata", PPlata);
+                bundle.putInt("Piezas de esmeralda", PEsmeralda);
+                bundle.putInt("Piezas de oro", POro);
+                bundle.putInt("Piezas de platino", PPlatino);
+                Fragment Equipo = new EquipoFragment();
+                Equipo.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Equipo).addToBackStack(null).commit();
                 break;
             case R.id.nav_ataquesConjuros:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();
