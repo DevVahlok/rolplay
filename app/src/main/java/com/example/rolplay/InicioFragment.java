@@ -364,6 +364,7 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 //Pasa los datos al fragment de destino
+                //TODO que si sales y entras coja bien las cosas
                 Bundle bundle = new Bundle();
                 bundle.putStringArray("Lista De Objetos",listaObjetos);
                 bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
