@@ -128,4 +128,12 @@
     <!-- Rasgos y atributos -->
     <string name="anadirRasgoAtributo">Añadir rasgo / atributo</string>
 
+    <!-- Ataques y conjuros -->
+    <string name="anadirAtaque">Añadir ataque</string>
+    <string name="anadirConjuro">Añadir conjuro</string>
+    <string name="ataques">Ataques</string>
+    <string name="conjuros">Conjuros</string>
+    <string name="danyoAtaque">Daño: %1$s</string>
+    <string name="propiedadesAtaque">Propiedades: %1$s</string>
+
 </resources>

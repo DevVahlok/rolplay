@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/ListaAtaque_barra_fondo"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_fondo_hexagono_xl"
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        android:layout_marginTop="25dp"/>
+
+    <ImageView
+        android:id="@+id/ListaAtaque_fondo_foto"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_hexagono"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="82dp"/>
+
+    <ImageView
+        android:id="@+id/ListaAtaque_foto"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_placeholder_ataque"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginStart="25dp"/>
+
+    <TextView
+        android:id="@+id/ListaAtaque_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ataques"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/ListaAtaque_fondo_foto"/>
+
+    <TextView
+        android:id="@+id/ListaAtaque_coste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/costeEquipo"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaAtaque_nombre"
+        android:layout_toEndOf="@id/ListaAtaque_fondo_foto"/>
+
+    <ImageView
+        android:id="@+id/ListaAtaque_foto_moneda"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_monedas_oro"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/ListaAtaque_coste"
+        android:layout_alignBottom="@id/ListaAtaque_coste"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/ListaAtaque_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pesoEquipo"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaAtaque_coste"
+        android:layout_toEndOf="@id/ListaAtaque_fondo_foto"/>
+
+    <TextView
+        android:id="@+id/ListaAtaque_danyo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/danyoAtaque"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaAtaque_peso"
+        android:layout_toEndOf="@id/ListaAtaque_fondo_foto"/>
+
+    <TextView
+        android:id="@+id/ListaAtaque_propiedades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/propiedadesAtaque"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaAtaque_danyo"
+        android:layout_toEndOf="@id/ListaAtaque_fondo_foto"/>
+
+    <ImageView
+        android:id="@+id/ListaAtaque_borrar"
+        android:contentDescription="@string/cerrar"
+        app:srcCompat="@drawable/ic_cross"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="35dp"/>
+
+</RelativeLayout>

@@ -36,7 +36,7 @@
             android:id="@+id/RasgosAtributos_anadirObjeto_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/anadirObjeto"
+            android:text="@string/anadirRasgoAtributo"
             android:layout_below="@id/RasgosAtributos_Recycler"
             android:layout_marginTop="20dp"/>
 

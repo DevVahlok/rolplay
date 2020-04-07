@@ -29,6 +29,7 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
     private TextView valorTexto;
     private AdapterRecyclerRasgosAtributos adapter;
 
+    //Constructor
     public RasgosAtributosFragment() {
 
     }

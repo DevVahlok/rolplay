@@ -1,22 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/AtaquesConjuros_layoutBase"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:padding="30dp">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/AtaquesConjuros_titulo"
+    <RelativeLayout
+        android:id="@+id/AtaquesConjuros_layoutBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
-        android:fontFamily="@font/chantelli_antiqua"
-        android:gravity="center_horizontal"
-        android:text="@string/ataquesConjuros"
-        android:textColor="@color/colorPrimary"
-        android:textSize="38sp" />
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:padding="30dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/AtaquesConjuros_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/ataquesConjuros"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp" />
+
+        <TextView
+            android:id="@+id/AtaquesConjuros_texto_Ataques"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ataques"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/AtaquesConjuros_titulo"/>
+
+        <View
+            android:id="@+id/AtaquesConjuros_barra_Ataques"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/AtaquesConjuros_texto_Ataques"
+            android:layout_marginTop="5dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AtaquesConjuros_Recycler_ataque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/AtaquesConjuros_barra_Ataques" />
+
+        <Button
+            android:id="@+id/AtaquesConjuros_anadirAtaque_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/anadirAtaque"
+            android:layout_below="@id/AtaquesConjuros_Recycler_ataque"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/AtaquesConjuros_texto_Conjuros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/conjuros"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/AtaquesConjuros_anadirAtaque_btn"/>
+
+        <View
+            android:id="@+id/AtaquesConjuros_barra_Conjuros"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/AtaquesConjuros_texto_Conjuros"
+            android:layout_marginTop="5dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AtaquesConjuros_Recycler_conjuros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/AtaquesConjuros_barra_Conjuros" />
+
+        <Button
+            android:id="@+id/AtaquesConjuros_anadirConjuro_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/anadirConjuro"
+            android:layout_below="@id/AtaquesConjuros_Recycler_conjuros"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+</ScrollView>
