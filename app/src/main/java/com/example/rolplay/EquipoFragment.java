@@ -79,8 +79,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         mDialogCarga = new DialogCarga();
 
-        final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
-
         //Al pulsar el botón de añadir objeto
         mBotonAnadirObjeto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,13 +99,18 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
 
+                final TextView subtitle = new TextView(getActivity());
+                subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                subtitle.setTextSize(16);
+                subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                subtitle.setPadding(10,10,10,0);
                 final Spinner spinnerObjeto = new Spinner(getActivity());
 
                 //Añade la lista de objetos al spinner
                 listaObjetos = recuperados.getStringArray("Lista De Objetos");
-//                listaObjetos = new String[]{"Armaduras","Armas","Herramientas","Mercancias","Misceláneo","Misceláneo","Monturas y Vehículos"};
                 creadorAdapter(listaObjetos,spinnerObjeto);
 
+                final DatabaseReference[] mObjetos = {mDatabase.getReference("DungeonAndDragons/Objeto")};
                 spinnerObjeto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -118,31 +121,83 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Armaduras"));
                                     spinnerObjeto.setAdapter(adapter);
                                     auxiliar=0;
+                                    subtitle.setText("Armaduras");
                                     break;
                                 case "Armas":
                                     ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Armas"));
                                     spinnerObjeto.setAdapter(adapter1);
+                                    auxiliar=0;
+                                    subtitle.setText("Armas");
+                                    break;
+                                case "Armaduras Ligeras":
+                                    ArrayAdapter<String> adapter11 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmLig"));
+                                    spinnerObjeto.setAdapter(adapter11);
+                                    auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Ligeras");
+                                    break;
+                                case "Armaduras Medias":
+                                    ArrayAdapter<String> adapter12 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmMed"));
+                                    spinnerObjeto.setAdapter(adapter12);
+                                    auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Medias");
+                                    break;
+                                case "Armaduras Pesadas":
+                                    ArrayAdapter<String> adapter13 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmPes"));
+                                    spinnerObjeto.setAdapter(adapter13);
+                                    mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Pesadas");
+                                    auxiliar=0;
+                                    break;
+                                case "Armas a distancia marciales":
+                                    ArrayAdapter<String> adapter21 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmDM"));
+                                    spinnerObjeto.setAdapter(adapter21);
+                                    mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia marciales");
+                                    auxiliar=0;
+                                    break;
+                                case "Armas a distancia simples":
+                                    ArrayAdapter<String> adapter22 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmDS"));
+                                    spinnerObjeto.setAdapter(adapter22);
+                                    mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia simples");
+                                    auxiliar=0;
+                                    break;
+                                case "Armas cuerpo cuerpo marciales":
+                                    ArrayAdapter<String> adapter23 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmCM"));
+                                    spinnerObjeto.setAdapter(adapter23);
+                                    mObjetos[0] = mObjetos[0].child("Armas/Armas cuerpo cuerpo marciales");
+                                    auxiliar=0;
+                                    break;
+                                case "Armas cuerpo cuerpo simples":
+                                    ArrayAdapter<String> adapter24 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmCS"));
+                                    spinnerObjeto.setAdapter(adapter24);
+                                    mObjetos[0] = mObjetos[0].child("Armas cuerpo cuerpo simples");
                                     auxiliar=0;
                                     break;
                                 case "Herramientas":
                                     ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Herram"));
                                     spinnerObjeto.setAdapter(adapter2);
                                     auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Herramientas");
+                                    subtitle.setText("Herramientas");
                                     break;
                                 case "Mercancias":
                                     ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Merc"));
                                     spinnerObjeto.setAdapter(adapter3);
                                     auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Mercancias");
+                                    subtitle.setText("Mercancias");
                                     break;
                                 case "Misceláneo":
                                     ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Misc"));
                                     spinnerObjeto.setAdapter(adapter4);
                                     auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Misceláneo");
+                                    subtitle.setText("Misceláneo");
                                     break;
                                 case "Monturas y Vehículos":
                                     ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Mont"));
                                     spinnerObjeto.setAdapter(adapter5);
                                     auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Monturas y Vehículos");
+                                    subtitle.setText("Monturas y Vehículos");
                                     break;
                             }
 
@@ -156,6 +211,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     }
                 });
 
+                linearLayout.addView(subtitle);
                 linearLayout.addView(spinnerObjeto);
                 linearLayout.setPadding(120,10,120,10);
 
@@ -167,19 +223,22 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+
                         final int[] coste = new int[1];
                         final int[] peso = new int[1];
-                        cogerObjeto(mDatabase, spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
+                        cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
                              @Override
                              public void onCallback(String[] value) {
-
+                                coste[0] = Integer.parseInt(value[0]);
+                                peso[0] = Integer.parseInt(value[1]);
+                                 Log.d("--------------", String.valueOf(coste[0]));
+                                 Log.d("--------------", String.valueOf(peso[0]));
+                                 //Añade objeto al Recycle
+                                 listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), coste[0], peso[0],".."));
+                                 adapter.notifyItemInserted(listaDatos.size() - 1);
+                                 mDialogCarga.dismiss();
                              }
                          });
-
-                        //Añade objeto al Recycle
-                        listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), coste[0], peso[0],".."));
-                        adapter.notifyItemInserted(listaDatos.size() - 1);
-                        mDialogCarga.dismiss();
                     }
 
 
@@ -195,7 +254,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 //Enseña el dialog de 'Añadir objeto'
                 AlertDialog anadirObjeto = constructrorDialog.create();
                 anadirObjeto.show();
-
                 Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
 
             }
@@ -236,23 +294,30 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     }
 
 
-    private void cogerObjeto(FirebaseDatabase mDatabase, final String s, final MyCallback myCallback) {
-        DatabaseReference mData = mDatabase.getReference("DungeonAndDragons/Clases/Objeto");
-        mData.addValueEventListener(new ValueEventListener() {
+    private void cogerObjeto(DatabaseReference mDatabase, final String s, final MyCallback myCallback) {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String valor = "" + ds.getKey();
                     if(valor.equals(s)) {
                         String[] result;
-                        String coste = (String) dataSnapshot.child("Coste").getValue();
-                        String peso = (String) dataSnapshot.child("Peso").getValue();
+                        String coste, peso;
+                        try {
+                            coste = (String) ds.child("Coste").getValue();
+                        }catch (Exception e){
+                            Long cost = (Long) ds.child("Coste").getValue();
+                            coste = cost.toString();
+                        }
+                        try {
+                            peso = (String) ds.child("Peso").getValue();
+                        }catch (Exception e){
+                            Long cost = (Long) ds.child("Peso").getValue();
+                            peso = cost.toString();
+                        }
                         result = new String[]{coste, peso};
                         myCallback.onCallback(result);
-
-                        Log.d("---------------asdfas",peso);
                     }
-                    Log.d("---------------asdfas",valor);
                 }
 
             }

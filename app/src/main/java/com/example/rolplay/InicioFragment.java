@@ -195,7 +195,7 @@ public class InicioFragment extends Fragment {
                 listaObjetos = value;
             }
         });
-        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Armas"), Objetos, listaArmas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaArmas = value;
@@ -384,8 +384,6 @@ public class InicioFragment extends Fragment {
                 bundle.putInt("Piezas de esmeralda", PEsmeralda);
                 bundle.putInt("Piezas de oro", POro);
                 bundle.putInt("Piezas de platino", PPlatino);
-
-                Log.d("---------------",String.valueOf(listaObjetos.length));
                 Fragment Equipo = new EquipoFragment();
                 Equipo.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("equipo");

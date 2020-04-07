@@ -206,7 +206,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaObjetos = value;
             }
         });
-        cargarSpinners(mObjetos.child("Armas/Armas a distancia marciales"), Objetos, listaArmas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Armas"), Objetos, listaArmas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaArmas = value;
