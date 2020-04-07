@@ -1,18 +1,23 @@
 package com.example.rolplay;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -410,9 +415,48 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
                 break;
             case R.id.nav_logout:
-                //TODO: Dialog preguntando si está segur@ de cerrar sesión.
-                mAuth.signOut();
-                ComprobarEstatUsuari();
+
+                //Muestra un dialog para que el usuario selecciona cuál quiere añadir
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(this));
+
+                TextView title = new TextView(this);
+                title.setText(getString(R.string.estasSegurxQuieresCerrarSesion));
+                title.setTextColor(this.getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0,40,0,0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(this);
+
+                linearLayout.setPadding(120,10,120,10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.cerrarSesion), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAuth.signOut();
+                        ComprobarEstatUsuari();
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Cerrar sesión'
+                AlertDialog anadirObjeto = constructrorDialog.create();
+                anadirObjeto.show();
+
+                Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
                 break;
 
         }

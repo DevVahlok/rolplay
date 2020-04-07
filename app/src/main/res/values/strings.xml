@@ -49,6 +49,8 @@
     <string name="logout">Cerrar sesión</string>
     <string name="politicasCondiciones">Políticas y condiciones</string>
     <string name="configuracion">Configuración</string>
+    <string name="estasSegurxQuieresCerrarSesion">¿Estás segur@ de que quieres cerrar sesión?</string>
+    <string name="cerrarSesion">Cerrar sesión</string>
 
     <!-- Puntos de habilidad -->
     <string name="fuerza">Fuerza</string>
