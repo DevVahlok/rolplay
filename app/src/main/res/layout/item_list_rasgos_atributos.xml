@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/RasgosAtributos_barra_fondo"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_fondo_hexagono"
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/RasgosAtributos_valor"
+        android:layout_width="280dp"
+        android:layout_height="75dp"
+        android:text="@string/rasgosAtributos"
+        android:layout_marginTop="35dp"
+        android:textSize="20sp"
+        android:layout_marginStart="45dp"
+        android:layout_alignStart="@+id/RasgosAtributos_barra_fondo" />
+
+    <ImageView
+        android:id="@+id/RasgosAtributos_borrar"
+        android:contentDescription="@string/cerrar"
+        app:srcCompat="@drawable/ic_cross"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"/>
+
+</RelativeLayout>

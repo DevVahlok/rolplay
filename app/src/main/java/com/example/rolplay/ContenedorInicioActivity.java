@@ -396,10 +396,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();
                 break;
             case R.id.nav_personalidad:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonalidadoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonalidadFragment()).commit();
                 break;
             case R.id.nav_rasgosAtributos:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RasgosAtributosFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RasgosAtributosFragment()).commit();
                 break;
             case R.id.nav_competenciasIdiomas:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CompetenciasIdiomasFragment()).commit();

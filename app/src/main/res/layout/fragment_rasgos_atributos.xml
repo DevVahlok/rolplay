@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/RasgosAtributos_layoutBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/RasgosAtributos_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/rasgosAtributos"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RasgosAtributos_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RasgosAtributos_titulo" />
+
+        <Button
+            android:id="@+id/RasgosAtributos_anadirObjeto_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/anadirRasgoAtributo"
+            android:layout_below="@id/RasgosAtributos_Recycler"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+</ScrollView>
