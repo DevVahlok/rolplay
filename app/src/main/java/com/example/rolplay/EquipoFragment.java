@@ -231,8 +231,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                              public void onCallback(String[] value) {
                                 coste[0] = Integer.parseInt(value[0]);
                                 peso[0] = Integer.parseInt(value[1]);
-                                 Log.d("--------------", String.valueOf(coste[0]));
-                                 Log.d("--------------", String.valueOf(peso[0]));
                                  //Añade objeto al Recycle
                                  listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), coste[0], peso[0],".."));
                                  adapter.notifyItemInserted(listaDatos.size() - 1);
