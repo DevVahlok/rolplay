@@ -100,6 +100,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        ComprobarEstatUsuari();
+        
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
