@@ -101,7 +101,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         toggle.syncState();
 
         ComprobarEstatUsuari();
-        
+
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
@@ -200,12 +200,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             @Override
             public void onCallback(String[] value) {
                 listaArmadurasPesadas = value;
-            }
-        });
-        cargarSpinners(mObjetos.child("Armaduras/Escudos"), Objetos, listaObjetos, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaObjetos = value;
             }
         });
         cargarSpinners(mObjetos.child("Armas"), Objetos, listaArmas, new MyCallback() {

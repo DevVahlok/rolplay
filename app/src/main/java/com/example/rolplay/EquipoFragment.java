@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.OnItemListener {
@@ -52,6 +55,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private String[] listaObjetos = new String[] {};
     private ArrayList<String> Objetos = new ArrayList<String>();
     private DialogCarga mDialogCarga;
+    private View v;
 
     private int auxiliar = 0;
 
@@ -64,7 +68,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_equipo, container, false);
+        v = inflater.inflate(R.layout.fragment_equipo, container, false);
 
         final Bundle recuperados = getArguments();
 
@@ -217,22 +221,17 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
                 constructrorDialog.setView(linearLayout);
 
-
                 //Botón de añadir
                 constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
 
-                        final int[] coste = new int[1];
-                        final int[] peso = new int[1];
                         cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
                              @Override
                              public void onCallback(String[] value) {
-                                coste[0] = Integer.parseInt(value[0]);
-                                peso[0] = Integer.parseInt(value[1]);
                                  //Añade objeto al Recycle
-                                 listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), coste[0], peso[0],".."));
+                                 listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]),value[2]));
                                  adapter.notifyItemInserted(listaDatos.size() - 1);
                                  mDialogCarga.dismiss();
                              }
@@ -261,9 +260,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         //TODO: Recuperar objetos de la ficha de Firebase
         //Rellena el Recycler con los objetos
-        for (int i = 0; i < 3; i++) {
-            listaDatos.add(new ItemEquipo("Objeto: "+i,i*3,i+7,"hey"));
-        }
+
 
         //TODO: Guardar peso total de los items en una variable y establecerlo en Firebase
 
@@ -300,20 +297,35 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     String valor = "" + ds.getKey();
                     if(valor.equals(s)) {
                         String[] result;
-                        String coste, peso;
+                        String coste, peso, url;
                         try {
                             coste = (String) ds.child("Coste").getValue();
                         }catch (Exception e){
-                            Long cost = (Long) ds.child("Coste").getValue();
-                            coste = cost.toString();
+                            try {
+                                Long cost = (Long) ds.child("Coste").getValue();
+                                coste = cost.toString();
+
+                            }catch (Exception ex){
+                                coste="0";
+                            }
                         }
                         try {
                             peso = (String) ds.child("Peso").getValue();
                         }catch (Exception e){
-                            Long cost = (Long) ds.child("Peso").getValue();
-                            peso = cost.toString();
+                            try {
+                                Long cost = (Long) ds.child("Peso").getValue();
+                                peso = cost.toString();
+
+                            }catch (Exception ex){
+                                peso="0";
+                            }
                         }
-                        result = new String[]{coste, peso};
+                        try {
+                            url = (String) ds.child("URL").getValue();
+                        }catch (Exception e){
+                            url ="..";
+                        }
+                        result = new String[]{coste, peso, url};
                         myCallback.onCallback(result);
                     }
                 }
@@ -325,6 +337,19 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Equipo",listaDatos);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
 }
 

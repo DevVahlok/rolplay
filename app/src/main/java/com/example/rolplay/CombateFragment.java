@@ -14,6 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
 public class CombateFragment extends Fragment {
 
     //Declaración de variables
@@ -24,6 +30,9 @@ public class CombateFragment extends Fragment {
     private EditText mGolpesActuales, mGolpesTotales, mGolpesTemporales, mDadoGolpe,
                         mDadoTotal;
     private int mSalvaciones;
+    private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
+    private View v;
 
     public CombateFragment() {
 
@@ -34,7 +43,7 @@ public class CombateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_combate, container, false);
+        v = inflater.inflate(R.layout.fragment_combate, container, false);
         Bundle recuperados = getArguments();
 
         mClaseArmadura = v.findViewById(R.id.Combate_valor_inspiracion);
@@ -320,5 +329,78 @@ public class CombateFragment extends Fragment {
         });
 
         return v;
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Inicialización de variables
+        mClaseArmadura = v.findViewById(R.id.Combate_valor_inspiracion);
+        mIniciativa = v.findViewById(R.id.Combate_valor_iniciativa);
+        mVelocidad = v.findViewById(R.id.Combate_valor_velocidad);
+        mGolpesActuales = v.findViewById(R.id.Combate_golpeActuales_valor);
+        mGolpesTemporales = v.findViewById(R.id.Combate_golpeTemporal_valor);
+        mGolpesTotales = v.findViewById(R.id.Combate_golpeMaximo_valor);
+        mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
+        mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
+        mCheckboxExito1 = v.findViewById(R.id.Combate_exito_checkbox_1);
+        mCheckboxExito2 = v.findViewById(R.id.Combate_exito_checkbox_2);
+        mCheckboxExito3 = v.findViewById(R.id.Combate_exito_checkbox_3);
+        mCheckboxFallo1 = v.findViewById(R.id.Combate_fallo_checkbox_1);
+        mCheckboxFallo2 = v.findViewById(R.id.Combate_fallo_checkbox_2);
+        mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
+        int salvacio;
+        if (!mCheckboxFallo1.isChecked() && !mCheckboxExito1.isChecked()){
+            salvacio=0;
+        }else if(!mCheckboxFallo1.isChecked() && !mCheckboxExito2.isChecked()){
+            salvacio=1;
+        }else if(!mCheckboxFallo1.isChecked() && !mCheckboxExito3.isChecked()){
+            salvacio=2;
+        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito1.isChecked()){
+            salvacio=4;
+        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito2.isChecked()){
+            salvacio=5;
+        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito3.isChecked()){
+            salvacio=6;
+        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()){
+            salvacio=8;
+        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()){
+            salvacio=9;
+        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()){
+            salvacio=10;
+        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()){
+            salvacio=12;
+        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()){
+            salvacio=13;
+        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()){
+            salvacio=14;
+        }else if(!mCheckboxFallo1.isChecked() && mCheckboxExito3.isChecked()){
+            salvacio=3;
+        }else if(!mCheckboxFallo2.isChecked() && mCheckboxExito3.isChecked()){
+            salvacio=7;
+        }else if(!mCheckboxFallo3.isChecked() && mCheckboxExito3.isChecked()){
+            salvacio=11;
+        }else {
+            salvacio=15;
+        }
+        mDatabase = FirebaseDatabase.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        hashMap.put("Clase de Armadura", mClaseArmadura.getText().toString().trim());
+        hashMap.put("Iniciativa", mIniciativa.getText().toString().trim());
+        hashMap.put("Velocidad",mVelocidad.getText().toString().trim());
+        hashMap.put("Puntos de Golpe Actuales",mGolpesActuales.getText().toString().trim());
+        hashMap.put("Puntos de Golpe Máximos",mGolpesTotales.getText().toString().trim());
+        hashMap.put("Puntos de Golpe Temporales", mGolpesTemporales.getText().toString().trim());
+        hashMap.put("Dado de Golpe/Valor", mDadoGolpe.getText().toString().trim());
+        hashMap.put("Dado de Golpe/Total", mDadoTotal.getText().toString().trim());
+        hashMap.put("Salvaciones de Muerte", String.valueOf(salvacio));
+
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
 }

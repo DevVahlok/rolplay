@@ -1,6 +1,7 @@
 package com.example.rolplay;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -98,8 +101,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             mNombreEquipo.setText(s.getNombre());
             mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo,Integer.toString(s.getCoste())));
             mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
-            //TODO: Añadir imágenes de Storage de Firebase
-            //mFotoEquipo.setImageResource(s.getUrl());
+            Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
 
         }
 

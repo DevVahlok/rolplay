@@ -191,12 +191,6 @@ public class InicioFragment extends Fragment {
                 listaArmadurasPesadas = value;
             }
         });
-        cargarSpinners(mObjetos.child("Armaduras/Escudos"), Objetos, listaObjetos, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaObjetos = value;
-            }
-        });
         cargarSpinners(mObjetos.child("Armas"), Objetos, listaArmas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
