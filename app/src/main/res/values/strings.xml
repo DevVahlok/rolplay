@@ -97,6 +97,7 @@
     <string name="piezasOro">Piezas\nde oro</string>
     <string name="piezasPlatino">Piezas\nde platino</string>
     <string name="anadirObjeto">Añadir objeto</string>
+    <string name="modificarMonedas">Modificar monedas</string>
 
     <!-- Combate -->
     <string name="claseArmadura">Clase de\narmadura</string>
@@ -137,5 +138,16 @@
     <string name="conjuros">Conjuros</string>
     <string name="danyoAtaque">Daño: %1$s</string>
     <string name="propiedadesAtaque">Propiedades: %1$s</string>
+
+    <!-- Lanzar dados -->
+    <string name="unodcuatro">1d4</string>
+    <string name="unodocho">1d8</string>
+    <string name="unoddiez">1d10</string>
+    <string name="unoddoce">1d12</string>
+    <string name="unodveinte">1d20</string>
+    <string name="unodcien">1d100</string>
+    <string name="unodundefined">1d?</string>
+    <string name="lanzar">¡Lanzar!</string>
+    <string name="uno">1</string>
 
 </resources>

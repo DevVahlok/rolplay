@@ -157,6 +157,14 @@
             app:srcCompat="@drawable/ic_fondo_moneda_platino"
             android:layout_centerHorizontal="true"/>
 
+        <Button
+            android:id="@+id/Equipo_modificarMonedas_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/modificarMonedas"
+            android:layout_below="@id/Equipo_Marco_moneda_platino"
+            android:layout_marginTop="20dp"/>
+
         <TextView
             android:id="@+id/Equipo_texto_moneda_platino"
             android:layout_width="wrap_content"
@@ -183,7 +191,8 @@
             android:id="@+id/Equipo_Recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Equipo_Marco_moneda_platino" />
+            android:layout_below="@+id/Equipo_modificarMonedas_btn"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/Equipo_anadirObjeto_btn"
