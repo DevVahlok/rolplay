@@ -47,7 +47,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     //Declaración de variables
     private ArrayList<ItemEquipo> listaDatos;
     private RecyclerView recycler;
-    private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
+    private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo, mMonCobre, mMonPlata, mMonEsmeralda, mMonOro, mMonPlatino;
     private ImageView mFotoEquipo;
     private Button mBotonAnadirObjeto;
     private AdapterRecyclerEquipo adapter;
@@ -57,7 +57,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private DialogCarga mDialogCarga;
     private View v;
 
-    private int auxiliar = 0;
+    private int auxiliar = 0, pesoTotal=0;;
 
     //Constructor
     public EquipoFragment() {
@@ -79,6 +79,11 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         mCosteEquipo = v.findViewById(R.id.listaEquipo_coste);
         mPesoEquipo = v.findViewById(R.id.listaEquipo_peso);
         mBotonAnadirObjeto = v.findViewById(R.id.Equipo_anadirObjeto_btn);
+        mMonCobre = v.findViewById(R.id.Equipo_moneda_cobre);
+        mMonPlata = v.findViewById(R.id.Equipo_moneda_plata);
+        mMonEsmeralda = v.findViewById(R.id.Equipo_moneda_esmeralda);
+        mMonOro = v.findViewById(R.id.Equipo_moneda_oro);
+        mMonPlatino = v.findViewById(R.id.Equipo_moneda_platino);
         mDatabase = FirebaseDatabase.getInstance();
 
         mDialogCarga = new DialogCarga();
@@ -232,10 +237,12 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                              public void onCallback(String[] value) {
                                  //Añade objeto al Recycle
                                  listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]),value[2]));
+                                 pesoTotal+=Integer.parseInt(value[1]);
                                  adapter.notifyItemInserted(listaDatos.size() - 1);
                                  mDialogCarga.dismiss();
                              }
                          });
+
                     }
 
 
@@ -256,13 +263,21 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             }
         });
 
+        mMonCobre.setText(String.valueOf(recuperados.getInt("Piezas de cobre")));
+        mMonPlata.setText(String.valueOf(recuperados.getInt("Piezas de plata")));
+        mMonEsmeralda.setText(String.valueOf(recuperados.getInt("Piezas de esmeralda")));
+        mMonOro.setText(String.valueOf(recuperados.getInt("Piezas de oro")));
+        mMonPlatino.setText(String.valueOf(recuperados.getInt("Piezas de platino")));
+
+        //Rellena el Recycler con los objetos
         listaDatos = new ArrayList<ItemEquipo>();
 
-        //TODO: Recuperar objetos de la ficha de Firebase
-        //Rellena el Recycler con los objetos
+        ArrayList<String> aux = recuperados.getStringArrayList("Equipo");
+        for(int i=0; i<aux.size()/4;i++){
+            listaDatos.add(new ItemEquipo(aux.get(i*4), Integer.parseInt(aux.get((i*4)+1)), Integer.parseInt(aux.get((i*4)+2)), aux.get((i*4)+3)));
+            pesoTotal+=Integer.parseInt(aux.get((i*4)+2));
+        }
 
-
-        //TODO: Guardar peso total de los items en una variable y establecerlo en Firebase
 
         //Añade los objetos equipados al Recycler
         adapter = new AdapterRecyclerEquipo(listaDatos, this, getContext());
@@ -276,6 +291,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     public void onItemClick(int position) {
 
         //Elimina el objeto del recycler
+        pesoTotal-=listaDatos.get(position).getPeso();
         listaDatos.remove(position);
         adapter.notifyItemRemoved(position);
     }
@@ -349,6 +365,12 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Equipo",listaDatos);
+        hashMap.put("Piezas de cobre",mMonCobre.getText().toString());
+        hashMap.put("Piezas de plata",mMonPlata.getText().toString());
+        hashMap.put("Piezas de esmeralda",mMonEsmeralda.getText().toString());
+        hashMap.put("Piezas de oro",mMonOro.getText().toString());
+        hashMap.put("Piezas de platino",mMonPlatino.getText().toString());
+        hashMap.put("Peso total",String.valueOf(pesoTotal));
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
 }

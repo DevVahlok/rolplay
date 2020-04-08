@@ -48,6 +48,7 @@ public class InicioFragment extends Fragment {
     private ArrayList<String> Razas = new ArrayList<String>();
     private ArrayList<String> Clases = new ArrayList<String>();
     private ArrayList<String> Objetos = new ArrayList<String>();
+    private ArrayList<String> Equipo = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -275,7 +276,23 @@ public class InicioFragment extends Fragment {
                 listaMonturas = value;
             }
         });
+        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Equipo");
+        mEquipo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Equipo.add((String)ds.child("nombre").getValue());
+                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
+                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
+                    Equipo.add((String)ds.child("url").getValue());
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
         mExperienciaPersonaje_TV.setText("500 / 1500 exp");
@@ -381,6 +398,7 @@ public class InicioFragment extends Fragment {
                 bundle.putInt("Piezas de esmeralda", PEsmeralda);
                 bundle.putInt("Piezas de oro", POro);
                 bundle.putInt("Piezas de platino", PPlatino);
+                bundle.putStringArrayList("Equipo", Equipo);
                 Fragment Equipo = new EquipoFragment();
                 Equipo.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("equipo");

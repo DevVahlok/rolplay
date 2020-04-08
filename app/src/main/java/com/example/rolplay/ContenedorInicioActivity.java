@@ -51,6 +51,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ArrayList<String> Razas = new ArrayList<String>();
     private ArrayList<String> Clases = new ArrayList<String>();
     private ArrayList<String> Objetos = new ArrayList<String>();
+    private ArrayList<String> Equipo = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -146,6 +147,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
                 POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
                 PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
+
             }
 
             @Override
@@ -292,6 +294,23 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaMonturas = value;
             }
         });
+        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Equipo");
+        mEquipo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Equipo.add((String)ds.child("nombre").getValue());
+                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
+                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
+                    Equipo.add((String)ds.child("url").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -389,6 +408,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putInt("Piezas de esmeralda", PEsmeralda);
                 bundle.putInt("Piezas de oro", POro);
                 bundle.putInt("Piezas de platino", PPlatino);
+                bundle.putStringArrayList("Equipo", Equipo);
                 Fragment Equipo = new EquipoFragment();
                 Equipo.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Equipo).addToBackStack(null).commit();
