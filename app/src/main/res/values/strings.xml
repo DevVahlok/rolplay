@@ -141,6 +141,7 @@
 
     <!-- Lanzar dados -->
     <string name="unodcuatro">1d4</string>
+    <string name="unodseis">1d6</string>
     <string name="unodocho">1d8</string>
     <string name="unoddiez">1d10</string>
     <string name="unoddoce">1d12</string>
