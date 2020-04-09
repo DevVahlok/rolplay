@@ -88,6 +88,8 @@ public class CabeceraFragment extends Fragment {
         mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
         mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
 
+        //TODO: Al darle al botón de sumar exp, abrir dialog preguntando por una cantidad y 3 botones: sumar, restar, cancelar (a ver si podemos hacer que NO se cierre el dialog al darle a sumar/restar, solo al cancelar)
+
         return v;
     }
 

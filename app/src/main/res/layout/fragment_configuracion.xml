@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/LanzarDados_layoutBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/Configuracion_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/configuracion"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_ajustesGenerales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_titulo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/ajustesGenerales"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_ajustesGenerales"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Configuracion_texto_ajustesGenerales"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_sonido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_ajustesGenerales"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/sonido"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <Switch
+            android:id="@+id/Configuracion_switch_sonido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Configuracion_texto_sonido"
+            android:layout_marginStart="40dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_sonido" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_newsletter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_sonido"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/recibirNoticiasCorreo"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/Configuracion_checkbox_newsletter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Configuracion_texto_newsletter"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_newsletter" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_cuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_newsletter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="@string/ajustesCuenta"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_cuenta"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Configuracion_texto_cuenta"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_cambiarContrasenya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_cuenta"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/cambiarContrasenya"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_otrasEstadisticas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_cambiarContrasenya"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="@string/otrasEstadisticas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_otrasEstadisticas"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Configuracion_texto_otrasEstadisticas"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_dadosLanzados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_otrasEstadisticas"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/dadosLanzados"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_valor_dadosLanzados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_otrasEstadisticas"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_dadosLanzados"
+            android:text="0"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_personajesCreados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_dadosLanzados"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/personajesCreados"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_valor_personajesCreados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_dadosLanzados"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_personajesCreados"
+            android:text="0"
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_informacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_personajesCreados"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="@string/informacion"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_informacion"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Configuracion_texto_informacion"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Configuracion_texto_politicaDatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_informacion"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/politicaDatos"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/Configuracion_link_politicaDatos"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_cadena"
+            android:contentDescription="@string/politicaDatos"
+            android:layout_toEndOf="@+id/Configuracion_texto_politicaDatos"
+            android:layout_alignBottom="@id/Configuracion_texto_politicaDatos"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/Configuracion_texto_condicionesUso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_politicaDatos"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/condicionesUso"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/Configuracion_link_condicionesUso"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_cadena"
+            android:contentDescription="@string/condicionesUso"
+            android:layout_toEndOf="@+id/Configuracion_texto_condicionesUso"
+            android:layout_alignBottom="@id/Configuracion_texto_condicionesUso"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/Configuracion_texto_api"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Configuracion_texto_condicionesUso"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/accedeApi"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/Configuracion_link_api"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_cadena"
+            android:contentDescription="@string/accedeApi"
+            android:layout_toEndOf="@+id/Configuracion_texto_api"
+            android:layout_alignBottom="@id/Configuracion_texto_api"
+            android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+</ScrollView>
