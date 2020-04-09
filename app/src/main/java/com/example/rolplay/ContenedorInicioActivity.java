@@ -52,6 +52,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ArrayList<String> Clases = new ArrayList<String>();
     private ArrayList<String> Objetos = new ArrayList<String>();
     private ArrayList<String> Equipo = new ArrayList<>();
+    private ArrayList<String> Rasgos = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -70,7 +71,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private String[] listaArmasCM = new String[] {};
     private String[] listaArmasCS = new String[] {};
     private String Trasfondo, Alineamiento, Raza, Clase, ClaseDeArmadura, Iniciativa, Velocidad,
-            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe;
+            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
+            RasgosPersonalidad, Ideales, Defectos, Vinculos;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     private DialogCarga mDialogCarga;
@@ -90,7 +92,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-        final DatabaseReference mCombate = mDatabase.getReference().child("DungeonAndDragons/Plantilla/Combate");
         final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
         //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
@@ -122,6 +123,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
         mDialogCarga = new DialogCarga();
 
+        //TODO Inicializar campos en firebase para poder cogerlos y guardarlos
         //Seteo de datos del header de la navegación lateral
         mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,7 +149,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
                 POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
                 PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
-
+                RasgosPersonalidad = (String)dataSnapshot.child("Rasgos de Personalidad").getValue();
+                Ideales = (String)dataSnapshot.child("Ideales").getValue();
+                Vinculos = (String)dataSnapshot.child("Vínculos").getValue();
+                Defectos = (String)dataSnapshot.child("Defectos").getValue();
             }
 
             @Override
@@ -178,6 +183,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
+        //Cargamos todos los objetos de Equipo
         cargarSpinners(mObjetos, Objetos, listaObjetos, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
@@ -190,7 +196,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaArmaduras = value;
             }
         });
-
         cargarSpinners(mObjetos.child("Armaduras/Armaduras Ligeras"), Objetos, listaArmadurasLigeras, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
@@ -294,6 +299,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaMonturas = value;
             }
         });
+
+        //Nos posicionamos en la ruta de firebase y guardamos en un arrayList los datos deseados
         final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
@@ -303,6 +310,21 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     Equipo.add(((Long)ds.child("coste").getValue()).toString());
                     Equipo.add(((Long)ds.child("peso").getValue()).toString());
                     Equipo.add((String)ds.child("url").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Rasgos");
+        mRasgos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Rasgos.add((String)ds.getValue());
                 }
             }
 
@@ -417,10 +439,21 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();
                 break;
             case R.id.nav_personalidad:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonalidadFragment()).commit();
+                bundle = new Bundle();
+                bundle.putString("Rasgos de Personalidad",RasgosPersonalidad);
+                bundle.putString("Ideales",Ideales);
+                bundle.putString("Vínculos",Vinculos);
+                bundle.putString("Defectos", Defectos);
+                Fragment Personalidad = new PersonalidadFragment();
+                Personalidad.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Personalidad).commit();
                 break;
             case R.id.nav_rasgosAtributos:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RasgosAtributosFragment()).commit();
+                bundle = new Bundle();
+                bundle.putStringArrayList("Rasgos y Atributos",Rasgos );
+                Fragment RasgosYAtributos = new RasgosAtributosFragment();
+                RasgosYAtributos.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RasgosYAtributos).commit();
                 break;
             case R.id.nav_competenciasIdiomas:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CompetenciasIdiomasFragment()).commit();

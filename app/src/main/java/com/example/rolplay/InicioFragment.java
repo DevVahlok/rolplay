@@ -45,10 +45,11 @@ public class InicioFragment extends Fragment {
     private FirebaseUser mUsuario;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
-    private ArrayList<String> Razas = new ArrayList<String>();
-    private ArrayList<String> Clases = new ArrayList<String>();
-    private ArrayList<String> Objetos = new ArrayList<String>();
+    private ArrayList<String> Razas = new ArrayList<>();
+    private ArrayList<String> Clases = new ArrayList<>();
+    private ArrayList<String> Objetos = new ArrayList<>();
     private ArrayList<String> Equipo = new ArrayList<>();
+    private ArrayList<String> Rasgos = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -67,7 +68,8 @@ public class InicioFragment extends Fragment {
     private String[] listaArmasCM = new String[] {};
     private String[] listaArmasCS = new String[] {};
     private String ClaseDeArmadura, Iniciativa, Velocidad,
-            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe;
+            PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
+            RasgosPersonalidad, Ideales, Defectos, Vinculos;
     private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     public InicioFragment() {
@@ -136,6 +138,10 @@ public class InicioFragment extends Fragment {
                 PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
                 POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
                 PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
+                RasgosPersonalidad = (String)dataSnapshot.child("Rasgos de Personalidad").getValue();
+                Ideales = (String)dataSnapshot.child("Ideales").getValue();
+                Vinculos = (String)dataSnapshot.child("Vínculos").getValue();
+                Defectos = (String)dataSnapshot.child("Defectos").getValue();
             }
 
             @Override
@@ -246,7 +252,7 @@ public class InicioFragment extends Fragment {
                 listaHerramientas = value;
             }
         });
-        cargarSpinners(mObjetos.child("Mercancias"), Objetos, listaMercancias, new MyCallback() {
+        cargarSpinners(mObjetos.child("Mercancías"), Objetos, listaMercancias, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaMercancias = value;
@@ -276,6 +282,7 @@ public class InicioFragment extends Fragment {
                 listaMonturas = value;
             }
         });
+
         final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
@@ -285,6 +292,21 @@ public class InicioFragment extends Fragment {
                     Equipo.add(((Long)ds.child("coste").getValue()).toString());
                     Equipo.add(((Long)ds.child("peso").getValue()).toString());
                     Equipo.add((String)ds.child("url").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Rasgos");
+        mRasgos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Rasgos.add((String)ds.getValue());
                 }
             }
 
@@ -377,7 +399,6 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 //Pasa los datos al fragment de destino
-                //TODO que si sales y entras coja bien las cosas
                 Bundle bundle = new Bundle();
                 bundle.putStringArray("Lista De Objetos",listaObjetos);
                 bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
@@ -425,16 +446,27 @@ public class InicioFragment extends Fragment {
         mBotonPestanaPersonalidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Rasgos de Personalidad",RasgosPersonalidad);
+                bundle.putString("Ideales",Ideales);
+                bundle.putString("Vínculos",Vinculos);
+                bundle.putString("Defectos", Defectos);
+                Fragment Personalidad = new PersonalidadFragment();
+                Personalidad.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("personalidad");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonalidadFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Personalidad).addToBackStack(null).commit();
             }
         });
 
         mBotonPestanaRasgosAtributos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("Rasgos y Atributos",Rasgos );
+                Fragment RasgosYAtributos = new RasgosAtributosFragment();
+                RasgosYAtributos.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("rasgosAtributos");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RasgosAtributosFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RasgosYAtributos).addToBackStack(null).commit();
             }
         });
 

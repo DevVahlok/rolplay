@@ -17,7 +17,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class RasgosAtributosFragment extends Fragment  implements AdapterRecyclerRasgosAtributos.OnItemListener{
@@ -28,6 +33,8 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
     private Button mBotonAnadirObjeto;
     private TextView valorTexto;
     private AdapterRecyclerRasgosAtributos adapter;
+    private View v;
+    private FirebaseDatabase mDatabase;
 
     //Constructor
     public RasgosAtributosFragment() {
@@ -39,20 +46,17 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_rasgos_atributos, container, false);
+        v = inflater.inflate(R.layout.fragment_rasgos_atributos, container, false);
 
+        final Bundle recuperados = getArguments();
         //Inicialización de variables
         recycler = v.findViewById(R.id.RasgosAtributos_Recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
         mBotonAnadirObjeto = v.findViewById(R.id.RasgosAtributos_anadirObjeto_btn);
         valorTexto = v.findViewById(R.id.RasgosAtributos_valor);
-        listaRasgosAtributos = new ArrayList<String>();
+        listaRasgosAtributos = recuperados.getStringArrayList("Rasgos y Atributos");
 
         //Limitación de los Rasgos / Atributos a 84 carácteres ~
-
-        for (int i=0;i<3;i++){
-            listaRasgosAtributos.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."+i);
-        }
 
         adapter = new AdapterRecyclerRasgosAtributos(listaRasgosAtributos,this, getContext());
         recycler.setAdapter(adapter);
@@ -121,5 +125,18 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
         //Elimina el objeto del recycler
         listaRasgosAtributos.remove(position);
         adapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Rasgos",listaRasgosAtributos);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
 }

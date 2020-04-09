@@ -11,9 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.InputType;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +18,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +47,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private AdapterRecyclerEquipo adapter;
     private FirebaseDatabase mDatabase;
     private String[] listaObjetos = new String[] {};
-    private ArrayList<String> Objetos = new ArrayList<String>();
     private DialogCarga mDialogCarga;
     private View v;
 
@@ -187,12 +180,12 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Herramientas");
                                     subtitle.setText("Herramientas");
                                     break;
-                                case "Mercancias":
+                                case "Mercancías":
                                     ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Merc"));
                                     spinnerObjeto.setAdapter(adapter3);
                                     auxiliar=0;
-                                    mObjetos[0] = mObjetos[0].child("Mercancias");
-                                    subtitle.setText("Mercancias");
+                                    mObjetos[0] = mObjetos[0].child("Mercancías");
+                                    subtitle.setText("Mercancías");
                                     break;
                                 case "Misceláneo":
                                     ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De Misc"));
@@ -231,7 +224,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
-
                         cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
                              @Override
                              public void onCallback(String[] value) {
