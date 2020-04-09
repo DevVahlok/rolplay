@@ -151,4 +151,18 @@
     <string name="lanzar">¡Lanzar!</string>
     <string name="uno">1</string>
 
+    <!-- Configuración -->
+    <string name="ajustesGenerales">Ajustes generales</string>
+    <string name="sonido">Sonido</string>
+    <string name="recibirNoticiasCorreo">Quiero recibir noticias al correo</string>
+    <string name="ajustesCuenta">Ajustes de cuenta</string>
+    <string name="otrasEstadisticas">Otras estadísticas</string>
+    <string name="dadosLanzados">Dados lanzados:</string>
+    <string name="personajesCreados">Personajes creados en total:</string>
+    <string name="informacion">Información</string>
+    <string name="politicaDatos">Política de datos</string>
+    <string name="condicionesUso">Condiciones de uso</string>
+    <string name="accedeApi">Accede a la API</string>
+    <string name="cambiarContrasenya"><u>Cambiar contraseña</u></string>
+
 </resources>

@@ -25,7 +25,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="38sp" />
 
-        <!-- Texto naranjita pequeño abajo a la derecha del texto blanco -->
         <TextView
             android:id="@+id/Personalidad_texto_RasgosPersonalidad"
             android:layout_width="wrap_content"

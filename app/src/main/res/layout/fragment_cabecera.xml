@@ -127,7 +127,16 @@
         android:progress="0"
         android:paddingTop="10dp"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:progressDrawable="@layout/progressbar_naranja"/>
+        android:progressDrawable="@layout/progressbar_naranja"
+        android:layout_marginEnd="50dp"/>
+
+    <Button
+        android:id="@+id/CabeceraActivity_botonSumarExp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="@string/simboloSumar"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/CabeceraActivity_tituloNivel" />
 
     <TextView
         android:id="@+id/CabeceraActivity_tituloExperiencia"
@@ -139,6 +148,5 @@
         android:textSize="14sp"
         android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
         android:layout_alignEnd="@id/CabeceraActivity_nivel_barraProgreso"/>
-
 
 </RelativeLayout>

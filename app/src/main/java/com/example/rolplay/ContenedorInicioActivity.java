@@ -465,7 +465,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuPersonajesFragment()).commit();
                 break;
             case R.id.nav_configuracion:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
                 break;
             case R.id.nav_logout:
 
