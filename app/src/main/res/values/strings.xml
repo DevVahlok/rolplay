@@ -8,6 +8,7 @@
     <string name="navigation_drawer_close">Cerrar la navegación lateral</string>
     <string name="pulsaApartadoVerDetalle">Pulsa en un apartado para ver en detalle</string>
     <string name="anadir">Añadir</string>
+    <string name="modificar">Modificar</string>
     <string name="cancelar">Cancelar</string>
     <string name="editar">Editar</string>
     <string name="cerrar">Cerrar</string>
@@ -150,6 +151,18 @@
     <string name="unodundefined">1d?</string>
     <string name="lanzar">¡Lanzar!</string>
     <string name="uno">1</string>
+
+    <!-- Valores -->
+    <string name="menoscinco">-5</string>
+    <string name="menoscuatro">-4</string>
+    <string name="menostres">-3</string>
+    <string name="menosdos">-2</string>
+    <string name="menosuno">-1</string>
+    <string name="zero">0</string>
+    <string name="masuno">+1</string>
+    <string name="masdos">+2</string>
+    <string name="mastres">+3</string>
+    <string name="mascuatro">+4</string>
 
     <!-- Configuración -->
     <string name="ajustesGenerales">Ajustes generales</string>

@@ -69,7 +69,9 @@ public class InicioFragment extends Fragment {
     private String[] listaArmasCS = new String[] {};
     private String ClaseDeArmadura, Iniciativa, Velocidad,
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
-            RasgosPersonalidad, Ideales, Defectos, Vinculos;
+            RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
+            mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
+            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus;
     private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     public InicioFragment() {
@@ -142,6 +144,18 @@ public class InicioFragment extends Fragment {
                 Ideales = (String)dataSnapshot.child("Ideales").getValue();
                 Vinculos = (String)dataSnapshot.child("Vínculos").getValue();
                 Defectos = (String)dataSnapshot.child("Defectos").getValue();
+                mFuerzaPuntos = (String)dataSnapshot.child("Fuerza puntos").getValue();
+                mFuerzaBonus = (String)dataSnapshot.child("Fuerza bonus").getValue();
+                mDestrezaPuntos = (String)dataSnapshot.child("Destreza puntos").getValue();
+                mDestrezaBonus = (String)dataSnapshot.child("Destreza bonus").getValue();
+                mConstitucionPuntos = (String)dataSnapshot.child("Constitucion puntos").getValue();
+                mConstitucionBonus = (String)dataSnapshot.child("Constitucion bonus").getValue();
+                mInteligenciaPuntos = (String)dataSnapshot.child("Inteligencia puntos").getValue();
+                mInteligenciaBonus = (String)dataSnapshot.child("Inteligencia bonus").getValue();
+                mSabiduriaPuntos = (String)dataSnapshot.child("Sabiduria puntos").getValue();
+                mSabiduriaBonus = (String)dataSnapshot.child("Sabiduria bonus").getValue();
+                mCarismaPuntos = (String)dataSnapshot.child("Carisma puntos").getValue();
+                mCarismaBonus = (String)dataSnapshot.child("Carisma bonus").getValue();
             }
 
             @Override
@@ -228,24 +242,6 @@ public class InicioFragment extends Fragment {
                 listaArmasCS = value;
             }
         });
-        cargarSpinners(mObjetos.child("Herramientas/Herramientas de artesano"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
-        cargarSpinners(mObjetos.child("Herramientas/Instrumentos musicales"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
-        cargarSpinners(mObjetos.child("Herramientas/Set de juego"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
         cargarSpinners(mObjetos.child("Herramientas"), Objetos, listaHerramientas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
@@ -316,8 +312,10 @@ public class InicioFragment extends Fragment {
             }
         });
 
+
+
         //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
-        mExperienciaPersonaje_TV.setText("500 / 1500 exp");
+        mExperienciaPersonaje_TV.setText(PuntosExperiencia+" / "+(Nivel * (Nivel+1)*500)+" exp");
 
         //TODO: LOPD (en un fragment tipo párrafo info?)
 
@@ -350,7 +348,23 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("puntosHabilidad");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).addToBackStack(null).commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Fuerza puntos", mFuerzaPuntos);
+                bundle.putString("Fuerza bonus", mFuerzaBonus);
+                bundle.putString("Destreza puntos", mDestrezaPuntos);
+                bundle.putString("Destreza bonus", mDestrezaBonus);
+                bundle.putString("Constitucion puntos", mConstitucionPuntos);
+                bundle.putString("Constitucion bonus", mConstitucionBonus);
+                bundle.putString("Inteligencia puntos", mInteligenciaPuntos);
+                bundle.putString("Inteligencia bonus", mInteligenciaBonus);
+                bundle.putString("Sabiduria puntos", mSabiduriaPuntos);
+                bundle.putString("Sabiduria bonus", mSabiduriaBonus);
+                bundle.putString("Carisma puntos", mCarismaPuntos);
+                bundle.putString("Carisma bonus", mCarismaBonus);
+                Fragment Puntos = new PuntosHabilidadFragment();
+                Puntos.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Puntos).addToBackStack(null).commit();
             }
         });
 
@@ -474,6 +488,8 @@ public class InicioFragment extends Fragment {
     }
 
 
+
+
     //Funcion de lectura en FireBase i retorna String[] para el Dropdown
     private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
         mDB.addValueEventListener(new ValueEventListener() {
@@ -509,9 +525,8 @@ public class InicioFragment extends Fragment {
 
         FirebaseUser usuari = mAuth.getCurrentUser();
 
-        if (usuari!=null){
-            //TODO: Cargar datos de Firebase respectivos a la ficha
-        }else{
+        if (usuari==null){
+            //TODO: Cargar datos de Firebase respectivos a la ficha{
             //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();

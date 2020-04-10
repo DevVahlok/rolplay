@@ -1,13 +1,30 @@
 package com.example.rolplay;
 
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.Random;
 
 public class PuntosHabilidadFragment extends Fragment {
 
@@ -16,6 +33,10 @@ public class PuntosHabilidadFragment extends Fragment {
     private TextView mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos, mInteligenciaPuntos,
             mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus;
+    private FirebaseDatabase mDatabase;
+    private ImageView mFuerza, mDestreza, mConstitucion, mInteligencia, mSabiduria, mCarisma;
+    private ImageButton mFuerzaEditar, mDestrezaEditar, mConstitucionEditar, mInteligenciaEditar, mSabiduriaEditar,
+            mCarismaEditar;
 
     public PuntosHabilidadFragment() {
 
@@ -52,6 +73,7 @@ public class PuntosHabilidadFragment extends Fragment {
             30 -> +10
 
         */
+        //TextViews
         mFuerzaPuntos = v.findViewById(R.id.puntosHabilidadFragment_modificador1);
         mFuerzaBonus = v.findViewById(R.id.puntosHabilidadFragment_puntuacion1);
         mDestrezaPuntos = v.findViewById(R.id.puntosHabilidadFragment_modificador2);
@@ -65,59 +87,246 @@ public class PuntosHabilidadFragment extends Fragment {
         mCarismaPuntos = v.findViewById(R.id.puntosHabilidadFragment_modificador6);
         mCarismaBonus = v.findViewById(R.id.puntosHabilidadFragment_puntuacion6);
 
-        Bonus(mFuerzaBonus,recuperados.getInt("roll1"));
-        Bonus(mDestrezaBonus,recuperados.getInt("roll2"));
-        Bonus(mConstitucionBonus,recuperados.getInt("roll3"));
-        Bonus(mInteligenciaBonus,recuperados.getInt("roll4"));
-        Bonus(mSabiduriaBonus,recuperados.getInt("roll5"));
-        Bonus(mCarismaBonus,recuperados.getInt("roll6"));
+        //ImageViews
+        mFuerza = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll1);
+        mDestreza = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll2);
+        mConstitucion = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll3);
+        mInteligencia = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll4);
+        mSabiduria = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll5);
+        mCarisma = v.findViewById(R.id.puntosHabilidadFragment_boton_reroll6);
+        mFuerzaEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar1);
+        mDestrezaEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar2);
+        mConstitucionEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar3);
+        mInteligenciaEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar4);
+        mSabiduriaEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar5);
+        mCarismaEditar = v.findViewById(R.id.puntosHabilidadFragment_boton_editar6);
+
+        //Ponemos sus valores de firebase
+        mFuerzaPuntos.setText(recuperados.getString("Fuerza puntos"));
+        mFuerzaBonus.setText(recuperados.getString("Fuerza bonus"));
+        mDestrezaPuntos.setText(recuperados.getString("Destreza puntos"));
+        mDestrezaBonus.setText(recuperados.getString("Destreza bonus"));
+        mConstitucionPuntos.setText(recuperados.getString("Constitucion puntos"));
+        mConstitucionBonus.setText(recuperados.getString("Constitucion bonus"));
+        mInteligenciaPuntos.setText(recuperados.getString("Inteligencia puntos"));
+        mInteligenciaBonus.setText(recuperados.getString("Inteligencia bonus"));
+        mSabiduriaPuntos.setText(recuperados.getString("Sabiduria puntos"));
+        mSabiduriaBonus.setText(recuperados.getString("Sabiduria bonus"));
+        mCarismaPuntos.setText(recuperados.getString("Carisma puntos"));
+        mCarismaBonus.setText(recuperados.getString("Carisma bonus"));
+
+        //Acciones de los dados
+        Bonus(mFuerza, mFuerzaBonus, mFuerzaPuntos);
+        Bonus(mDestreza, mDestrezaBonus, mDestrezaPuntos);
+        Bonus(mConstitucion, mConstitucionBonus, mConstitucionPuntos);
+        Bonus(mInteligencia, mInteligenciaBonus, mInteligenciaPuntos);
+        Bonus(mSabiduria, mSabiduriaBonus, mSabiduriaPuntos);
+        Bonus(mCarisma, mCarismaBonus, mCarismaPuntos);
+
+        //Acciones de los lápiceros
+        CanvioAMano(mFuerzaEditar, mFuerzaBonus, mFuerzaPuntos);
+        CanvioAMano(mDestrezaEditar, mDestrezaBonus, mDestrezaPuntos);
+        CanvioAMano(mConstitucionEditar, mConstitucionBonus, mConstitucionPuntos);
+        CanvioAMano(mInteligenciaEditar, mInteligenciaBonus, mInteligenciaPuntos);
+        CanvioAMano(mSabiduriaEditar, mSabiduriaBonus, mSabiduriaPuntos);
+        CanvioAMano(mCarismaEditar, mCarismaBonus, mCarismaPuntos);
 
         return v;
     }
 
-    public void Bonus (TextView TV, int x){
-        switch (x) {
-            case 1:
-                TV.setText("-5");
-                break;
-            case 2:
-            case 3:
-                TV.setText("-4");
-                break;
-            case 4:
-            case 5:
-                TV.setText("-3");
-                break;
-            case 6:
-            case 7:
-                TV.setText("-2");
-                break;
-            case 8:
-            case 9:
-                TV.setText("-1");
-                break;
-            case 10:
-            case 11:
-                TV.setText("0");
-                break;
-            case 12:
-            case 13:
-                TV.setText("1");
-                break;
-            case 14:
-            case 15:
-                TV.setText("2");
-                break;
-            case 16:
-            case 17:
-                TV.setText("3");
-                break;
-            case 18:
-                TV.setText("4");
-                break;
-            default:
-                TV.setText("");
-                break;
-        }
+    //Funcion que abre un dialog para cambiar el valor
+    private void CanvioAMano(ImageButton IB, final TextView TVB, final TextView TVP) {
+        IB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Muestra un dialog para que el usuario selecciona cuál quiere añadir
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                TextView title = new TextView(getActivity());
+                title.setText(getString(R.string.modificar));
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0,40,0,0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+
+                final EditText editText = new EditText(getActivity());
+                editText.setMinEms(20);
+                editText.setText(TVB.getText());
+
+                linearLayout.addView(editText);
+                linearLayout.setPadding(120,10,120,10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.modificar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            switch (Integer.parseInt(editText.getText().toString())) {
+                                case 1:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.menoscinco);
+                                    break;
+                                case 2:
+                                case 3:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.menoscuatro);
+                                    break;
+                                case 4:
+                                case 5:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.menostres);
+                                    break;
+                                case 6:
+                                case 7:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.menosdos);
+                                    break;
+                                case 8:
+                                case 9:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.menosuno);
+                                    break;
+                                case 10:
+                                case 11:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.zero);
+                                    break;
+                                case 12:
+                                case 13:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.masuno);
+                                    break;
+                                case 14:
+                                case 15:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.masdos);
+                                    break;
+                                case 16:
+                                case 17:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.mastres);
+                                    break;
+                                case 18:
+                                    TVB.setText(editText.getText());
+                                    TVP.setText(R.string.mascuatro);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(getActivity(), "Han de ser números", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Modificar'
+                AlertDialog cambiarPuntos = constructrorDialog.create();
+                cambiarPuntos.show();
+                Objects.requireNonNull(cambiarPuntos.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
+            }
+        });
+    }
+
+    //Funcion que genera un random para cambiar el valor de dado
+    public void Bonus (ImageView IV, final TextView TVB, final TextView TVP){
+        IV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+                int x = r.nextInt(15)+3;
+                switch (x) {
+                    case 1:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.menoscinco);
+                        break;
+                    case 2:
+                    case 3:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.menoscuatro);
+                        break;
+                    case 4:
+                    case 5:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.menostres);
+                        break;
+                    case 6:
+                    case 7:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.menosdos);
+                        break;
+                    case 8:
+                    case 9:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.menosuno);
+                        break;
+                    case 10:
+                    case 11:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.zero);
+                        break;
+                    case 12:
+                    case 13:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.masuno);
+                        break;
+                    case 14:
+                    case 15:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.masdos);
+                        break;
+                    case 16:
+                    case 17:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.mastres);
+                        break;
+                    case 18:
+                        TVB.setText(String.valueOf(x));
+                        TVP.setText(R.string.mascuatro);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Fuerza puntos",mFuerzaPuntos.getText().toString());
+        hashMap.put("Fuerza bonus",mFuerzaBonus.getText().toString());
+        hashMap.put("Destreza puntos",mDestrezaPuntos.getText().toString());
+        hashMap.put("Destreza bonus",mDestrezaBonus.getText().toString());
+        hashMap.put("Constitucion puntos",mConstitucionPuntos.getText().toString());
+        hashMap.put("Constitucion bonus",mConstitucionBonus.getText().toString());
+        hashMap.put("Inteligencia puntos",mInteligenciaPuntos.getText().toString());
+        hashMap.put("Inteligencia bonus",mInteligenciaBonus.getText().toString());
+        hashMap.put("Sabiduria puntos",mSabiduriaPuntos.getText().toString());
+        hashMap.put("Sabiduria bonus",mSabiduriaBonus.getText().toString());
+        hashMap.put("Carisma puntos",mCarismaPuntos.getText().toString());
+        hashMap.put("Carisma bonus",mCarismaBonus.getText().toString());
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
 }

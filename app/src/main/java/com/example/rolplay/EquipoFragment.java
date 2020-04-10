@@ -136,41 +136,48 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     spinnerObjeto.setAdapter(adapter11);
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Ligeras");
+                                    subtitle.setText("Armaduras Ligeras");
                                     break;
                                 case "Armaduras Medias":
                                     ArrayAdapter<String> adapter12 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmMed"));
                                     spinnerObjeto.setAdapter(adapter12);
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Medias");
+                                    subtitle.setText("Armaduras Medias");
                                     break;
                                 case "Armaduras Pesadas":
                                     ArrayAdapter<String> adapter13 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmPes"));
                                     spinnerObjeto.setAdapter(adapter13);
                                     mObjetos[0] = mObjetos[0].child("Armaduras/Armaduras Pesadas");
+                                    subtitle.setText("Armaduras Pesadas");
                                     auxiliar=0;
                                     break;
                                 case "Armas a distancia marciales":
                                     ArrayAdapter<String> adapter21 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmDM"));
                                     spinnerObjeto.setAdapter(adapter21);
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia marciales");
+                                    subtitle.setText("Armas a distancia marciales");
                                     auxiliar=0;
                                     break;
                                 case "Armas a distancia simples":
                                     ArrayAdapter<String> adapter22 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmDS"));
                                     spinnerObjeto.setAdapter(adapter22);
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia simples");
+                                    subtitle.setText("Armas a distancia simples");
                                     auxiliar=0;
                                     break;
                                 case "Armas cuerpo cuerpo marciales":
                                     ArrayAdapter<String> adapter23 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmCM"));
                                     spinnerObjeto.setAdapter(adapter23);
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas cuerpo cuerpo marciales");
+                                    subtitle.setText("Armas cuerpo cuerpo marciales");
                                     auxiliar=0;
                                     break;
                                 case "Armas cuerpo cuerpo simples":
                                     ArrayAdapter<String> adapter24 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, recuperados.getStringArray("Lista De ArmCS"));
                                     spinnerObjeto.setAdapter(adapter24);
                                     mObjetos[0] = mObjetos[0].child("Armas cuerpo cuerpo simples");
+                                    subtitle.setText("Armas cuerpo cuerpo simples");
                                     auxiliar=0;
                                     break;
                                 case "Herramientas":
@@ -365,5 +372,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         hashMap.put("Peso total",String.valueOf(pesoTotal));
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
     }
+
+
 }
 

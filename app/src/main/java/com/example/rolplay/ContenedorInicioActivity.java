@@ -53,6 +53,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ArrayList<String> Objetos = new ArrayList<String>();
     private ArrayList<String> Equipo = new ArrayList<>();
     private ArrayList<String> Rasgos = new ArrayList<>();
+    private ArrayList<String> dados4 = new ArrayList<>();
+    private ArrayList<String> dados6 = new ArrayList<>();
+    private ArrayList<String> dados8 = new ArrayList<>();
+    private ArrayList<String> dados10 = new ArrayList<>();
+    private ArrayList<String> dados12 = new ArrayList<>();
+    private ArrayList<String> dados20 = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -72,7 +78,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private String[] listaArmasCS = new String[] {};
     private String Trasfondo, Alineamiento, Raza, Clase, ClaseDeArmadura, Iniciativa, Velocidad,
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
-            RasgosPersonalidad, Ideales, Defectos, Vinculos;
+            RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
+            mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
+            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     private DialogCarga mDialogCarga;
@@ -153,6 +161,18 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Ideales = (String)dataSnapshot.child("Ideales").getValue();
                 Vinculos = (String)dataSnapshot.child("Vínculos").getValue();
                 Defectos = (String)dataSnapshot.child("Defectos").getValue();
+                mFuerzaPuntos = (String)dataSnapshot.child("Fuerza puntos").getValue();
+                mFuerzaBonus = (String)dataSnapshot.child("Fuerza bonus").getValue();
+                mDestrezaPuntos = (String)dataSnapshot.child("Destreza puntos").getValue();
+                mDestrezaBonus = (String)dataSnapshot.child("Destreza bonus").getValue();
+                mConstitucionPuntos = (String)dataSnapshot.child("Constitucion puntos").getValue();
+                mConstitucionBonus = (String)dataSnapshot.child("Constitucion bonus").getValue();
+                mInteligenciaPuntos = (String)dataSnapshot.child("Inteligencia puntos").getValue();
+                mInteligenciaBonus = (String)dataSnapshot.child("Inteligencia bonus").getValue();
+                mSabiduriaPuntos = (String)dataSnapshot.child("Sabiduria puntos").getValue();
+                mSabiduriaBonus = (String)dataSnapshot.child("Sabiduria bonus").getValue();
+                mCarismaPuntos = (String)dataSnapshot.child("Carisma puntos").getValue();
+                mCarismaBonus = (String)dataSnapshot.child("Carisma bonus").getValue();
             }
 
             @Override
@@ -244,24 +264,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaArmasCS = value;
             }
         });
-        cargarSpinners(mObjetos.child("Herramientas/Herramientas de artesano"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
-        cargarSpinners(mObjetos.child("Herramientas/Instrumentos musicales"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
-        cargarSpinners(mObjetos.child("Herramientas/Set de juego"), Objetos, listaHerramientas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaHerramientas = value;
-            }
-        });
         cargarSpinners(mObjetos.child("Herramientas"), Objetos, listaHerramientas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
@@ -334,6 +336,33 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
+        //Cargamos las imagenes de los dados
+        final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
+
+        cargarDados("1d4", dados4, mdados);
+        cargarDados("1d6", dados6, mdados);
+        cargarDados("1d8", dados8, mdados);
+        cargarDados("1d10", dados10, mdados);
+        cargarDados("1d12", dados12, mdados);
+        cargarDados("1d20", dados20, mdados);
+
+    }
+
+    //Funcion para rellenar las imagenes de dados
+    private void cargarDados(String s, final ArrayList<String> AL, DatabaseReference mdados) {
+        mdados.child(s).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    AL.add((String)ds.getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //Funcion de lectura en FireBase i retorna String[] para el Dropdown
@@ -388,7 +417,22 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera).addToBackStack(null).commit();
                 break;
             case R.id.nav_puntosHabilidad:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PuntosHabilidadFragment()).commit();
+                bundle = new Bundle();
+                bundle.putString("Fuerza puntos", mFuerzaPuntos);
+                bundle.putString("Fuerza bonus", mFuerzaBonus);
+                bundle.putString("Destreza puntos", mDestrezaPuntos);
+                bundle.putString("Destreza bonus", mDestrezaBonus);
+                bundle.putString("Constitucion puntos", mConstitucionPuntos);
+                bundle.putString("Constitucion bonus", mConstitucionBonus);
+                bundle.putString("Inteligencia puntos", mInteligenciaPuntos);
+                bundle.putString("Inteligencia bonus", mInteligenciaBonus);
+                bundle.putString("Sabiduria puntos", mSabiduriaPuntos);
+                bundle.putString("Sabiduria bonus", mSabiduriaBonus);
+                bundle.putString("Carisma puntos", mCarismaPuntos);
+                bundle.putString("Carisma bonus", mCarismaBonus);
+                Fragment Puntos = new PuntosHabilidadFragment();
+                Puntos.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Puntos).commit();
                 break;
             case R.id.nav_habilidadesBonificadores:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).commit();
@@ -459,7 +503,16 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CompetenciasIdiomasFragment()).commit();
                 break;
             case R.id.nav_lanzarDados:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LanzarDadosFragment()).commit();
+                bundle = new Bundle();
+                bundle.putStringArrayList("d4", dados4);
+                bundle.putStringArrayList("d6", dados6);
+                bundle.putStringArrayList("d8", dados8);
+                bundle.putStringArrayList("d10", dados10);
+                bundle.putStringArrayList("d12", dados12);
+                bundle.putStringArrayList("d20", dados20);
+                Fragment LanzarDados = new LanzarDadosFragment();
+                LanzarDados.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LanzarDados).commit();
                 break;
             case R.id.nav_salirPersonaje:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuPersonajesFragment()).commit();
