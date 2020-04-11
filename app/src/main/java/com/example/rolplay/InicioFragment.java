@@ -30,8 +30,6 @@ import com.google.firebase.database.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import javax.security.auth.callback.Callback;
-
 public class InicioFragment extends Fragment {
 
     //Declaración de variables
@@ -71,8 +69,11 @@ public class InicioFragment extends Fragment {
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
             RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
             mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
-            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus;
+            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
+            mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
+            mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria;
     private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
+
 
     public InicioFragment() {
 
@@ -156,6 +157,27 @@ public class InicioFragment extends Fragment {
                 mSabiduriaBonus = (String)dataSnapshot.child("Sabiduria bonus").getValue();
                 mCarismaPuntos = (String)dataSnapshot.child("Carisma puntos").getValue();
                 mCarismaBonus = (String)dataSnapshot.child("Carisma bonus").getValue();
+                mAcrobaciasCB = (String)dataSnapshot.child("AcrobaciasCB").getValue();
+                mAtletismoCB = (String)dataSnapshot.child("AtletismoCB").getValue();
+                mConocimientoCB = (String)dataSnapshot.child("ConocimientoCB").getValue();
+                mEngañoCB = (String)dataSnapshot.child("EngañoCB").getValue();
+                mHistoriaCB = (String)dataSnapshot.child("HistoriaCB").getValue();
+                mInterpretacionCB = (String)dataSnapshot.child("InterpretacionCB").getValue();
+                mIntimidacionCB = (String)dataSnapshot.child("IntimidacionCB").getValue();
+                mInvestigacionCB = (String)dataSnapshot.child("InvestigacionCB").getValue();
+                mJuegoManosCB = (String)dataSnapshot.child("JuegoManosCB").getValue();
+                mMedicinaCB = (String)dataSnapshot.child("MedicinaCB").getValue();
+                mNaturalezaCB = (String)dataSnapshot.child("NaturalezaCB").getValue();
+                mPercepcionCB = (String)dataSnapshot.child("PercepcionCB").getValue();
+                mPerspicacioCB = (String)dataSnapshot.child("PerspicaciaCB").getValue();
+                mPersuasionCB = (String)dataSnapshot.child("PersuasionCB").getValue();
+                mReligionCB = (String)dataSnapshot.child("ReligionCB").getValue();
+                mSigiloCB = (String)dataSnapshot.child("SigiloCB").getValue();
+                mSupervivenciaCB = (String)dataSnapshot.child("SupervivenciaCB").getValue();
+                mTratoAnimalesCB = (String)dataSnapshot.child("TratoAnimalesCB").getValue();
+                mInspiracion = (String)dataSnapshot.child("Inspiracion").getValue();
+                mBonificador = (String)dataSnapshot.child("Bonificador Competencia").getValue();
+                mSabiduria = (String)dataSnapshot.child("Sabiduria Pasiva").getValue();
             }
 
             @Override
@@ -372,8 +394,32 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Cambia de Fragment y lo marca en la navegación lateral
+                Bundle bundle = new Bundle();
+                bundle.putString("AcrobaciasCB",mAcrobaciasCB);
+                bundle.putString("AtletismoCB",mAtletismoCB);
+                bundle.putString("ConocimientoCB",mConocimientoCB);
+                bundle.putString("EngañoCB",mEngañoCB);
+                bundle.putString("HistoriaCB",mHistoriaCB);
+                bundle.putString("InterpretacionCB",mInterpretacionCB);
+                bundle.putString("IntimidacionCB",mIntimidacionCB);
+                bundle.putString("InvestigacionCB",mInvestigacionCB);
+                bundle.putString("JuegoManosCB",mJuegoManosCB);
+                bundle.putString("MedicinaCB",mMedicinaCB);
+                bundle.putString("NaturalezaCB",mNaturalezaCB);
+                bundle.putString("PercepcionCB",mPercepcionCB);
+                bundle.putString("PerspicaciaCB",mPerspicacioCB);
+                bundle.putString("PersuasionCB",mPersuasionCB);
+                bundle.putString("ReligionCB",mReligionCB);
+                bundle.putString("SigiloCB",mSigiloCB);
+                bundle.putString("SupervivenciaCB",mSupervivenciaCB);
+                bundle.putString("TratoAnimalesCB",mTratoAnimalesCB);
+                bundle.putString("Inspiracion", mInspiracion);
+                bundle.putString("Bonificador Competencia", mBonificador);
+                bundle.putString("Sabiduria Pasiva",mSabiduria);
+                Fragment Bonificador = new HabilidadesBonificadoresFragment();
+                Bonificador.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("habilidadesBonificadores");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HabilidadesBonificadoresFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Bonificador).addToBackStack(null).commit();
             }
         });
 
