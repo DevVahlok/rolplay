@@ -82,7 +82,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
-            mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria;
+            mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
+            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     private DialogCarga mDialogCarga;
@@ -196,6 +197,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mInspiracion = (String)dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String)dataSnapshot.child("Bonificador Competencia").getValue();
                 mSabiduria = (String)dataSnapshot.child("Sabiduria Pasiva").getValue();
+                mIdiomas = (String)dataSnapshot.child("Idiomas").getValue();
+                mArmadura = (String)dataSnapshot.child("Armadura").getValue();
+                mArmas = (String)dataSnapshot.child("Armas").getValue();
+                mHerramientas = (String)dataSnapshot.child("Herramientas").getValue();
+                mEspecialidad = (String)dataSnapshot.child("Especialidad").getValue();
+                mRangoMilitar = (String)dataSnapshot.child("Rango militar").getValue();
+                mOtras = (String)dataSnapshot.child("Otras").getValue();
             }
 
             @Override
@@ -553,7 +561,17 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RasgosYAtributos).commit();
                 break;
             case R.id.nav_competenciasIdiomas:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CompetenciasIdiomasFragment()).commit();
+                bundle = new Bundle();
+                bundle.putString("Idiomas", mIdiomas);
+                bundle.putString("Armadura", mArmadura);
+                bundle.putString("Armas", mArmas);
+                bundle.putString("Herramientas", mHerramientas);
+                bundle.putString("Especialidad", mEspecialidad);
+                bundle.putString("Rango militar", mRangoMilitar);
+                bundle.putString("Otras", mOtras);
+                Fragment Competencias = new CompetenciasIdiomasFragment();
+                Competencias.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Competencias).commit();
                 break;
             case R.id.nav_lanzarDados:
                 bundle = new Bundle();

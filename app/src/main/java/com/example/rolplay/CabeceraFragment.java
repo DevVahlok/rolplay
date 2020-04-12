@@ -102,7 +102,7 @@ public class CabeceraFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText("Augmentar experiencia");
+                title.setText("Aumentar experiencia");
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -122,7 +122,7 @@ public class CabeceraFragment extends Fragment {
                 constructrorDialog.setView(linearLayout);
 
                 //Botón de añadir
-                constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
+                constructrorDialog.setPositiveButton("Aumentar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mProgresoExperiencia = mProgresoExperiencia + Integer.parseInt(editText.getText().toString());
@@ -144,11 +144,11 @@ public class CabeceraFragment extends Fragment {
                     }
                 });
 
-                //Enseña el dialog de 'Añadir objeto'
-                AlertDialog anadirObjeto = constructrorDialog.create();
-                anadirObjeto.show();
+                //Enseña el dialog de 'Subir Exp'
+                AlertDialog subirExp = constructrorDialog.create();
+                subirExp.show();
 
-                Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+                Objects.requireNonNull(subirExp.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
             }
         });
         return v;
