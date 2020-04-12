@@ -89,6 +89,7 @@ public class LanzarDadosFragment extends Fragment {
                 constructrorDialog.setCustomTitle(title);
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
                 final TextView subtitle = new TextView(getActivity());
                 subtitle.setText("Cuantos dados quieres lanzar?");
                 subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Struct;
 import java.util.HashMap;
 
 public class HabilidadesBonificadoresFragment extends Fragment {
@@ -24,7 +26,8 @@ public class HabilidadesBonificadoresFragment extends Fragment {
     private TextView mInspiracion, mBonificador, mSabiduria;
     private EditText mAcrobaciasET, mAtletismoET, mConocimientoET, mEngañoET, mHistoriaET, mInterpretacionET,
     mIntimidacionET, mInvestigacionET, mJuegoManosET, mMedicinaET, mNaturalezaET, mPercepcionET, mPerspicacioET,
-            mPersuasionET, mReligionET, mSigiloET, mSupervivenciaET, mTratoAnimalesET;
+            mPersuasionET, mReligionET, mSigiloET, mSupervivenciaET, mTratoAnimalesET, mFuerzaSalvacion, mDestrezaSalvacion,
+            mConstitucionSalvacion, mInteligenciaSalvacion, mSabiduriaSalvacion, mCarismaSalvacion;
 
     private CheckBox mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
@@ -68,37 +71,46 @@ public class HabilidadesBonificadoresFragment extends Fragment {
          mTratoAnimalesET= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_tratoAnimales);
 
          //Asignamos los Checkbox
-        mAcrobaciasCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_acrobacias);
-        mAtletismoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo);
-        mConocimientoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano);
-        mEngañoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño);
-        mHistoriaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_historia);
-        mInterpretacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion);
-        mIntimidacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion);
-        mInvestigacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion);
-        mJuegoManosCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos);
-        mMedicinaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina);
-        mNaturalezaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza);
-        mPercepcionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion);
-        mPerspicacioCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia);
-        mPersuasionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion);
-        mReligionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_religion);
-        mSigiloCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo);
-        mSupervivenciaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia);
-        mTratoAnimalesCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_tratoAnimales);
+         mAcrobaciasCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_acrobacias);
+         mAtletismoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo);
+         mConocimientoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano);
+         mEngañoCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño);
+         mHistoriaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_historia);
+         mInterpretacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion);
+         mIntimidacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion);
+         mInvestigacionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion);
+         mJuegoManosCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos);
+         mMedicinaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina);
+         mNaturalezaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza);
+         mPercepcionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion);
+         mPerspicacioCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia);
+         mPersuasionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion);
+         mReligionCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_religion);
+         mSigiloCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo);
+         mSupervivenciaCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia);
+         mTratoAnimalesCB= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_checkbox_tratoAnimales);
 
-        //Lo botones
-        mPlusInspiracion = v.findViewById(R.id.HabilidadesBonificadores_botonSumarInspiracion);
-        mMinusInspiracion = v.findViewById(R.id.HabilidadesBonificadores_botonRestarInspiracion);
-        mPlusBonificador = v.findViewById(R.id.HabilidadesBonificadores_botonSumarBonificadorCompetencia);
-        mMinusBonificador = v.findViewById(R.id.HabilidadesBonificadores_botonRestarBonificadorCompetencia);
-        mPlusSabiduria = v.findViewById(R.id.HabilidadesBonificadores_botonSumarBonificadorSabiduriaPercepcionPasiva);
-        mMinusSabiduria = v.findViewById(R.id.HabilidadesBonificadores_botonRestarSabiduriaPercepcionPasiva);
+         //Lo botones
+         mPlusInspiracion = v.findViewById(R.id.HabilidadesBonificadores_botonSumarInspiracion);
+         mMinusInspiracion = v.findViewById(R.id.HabilidadesBonificadores_botonRestarInspiracion);
+         mPlusBonificador = v.findViewById(R.id.HabilidadesBonificadores_botonSumarBonificadorCompetencia);
+         mMinusBonificador = v.findViewById(R.id.HabilidadesBonificadores_botonRestarBonificadorCompetencia);
+         mPlusSabiduria = v.findViewById(R.id.HabilidadesBonificadores_botonSumarBonificadorSabiduriaPercepcionPasiva);
+         mMinusSabiduria = v.findViewById(R.id.HabilidadesBonificadores_botonRestarSabiduriaPercepcionPasiva);
 
-        //Los TextViews
-        mInspiracion = v.findViewById(R.id.HabilidadesBonificadores_inspiracion);
-        mBonificador = v.findViewById(R.id.HabilidadesBonificadores_bonificadorCompetencia);
-        mSabiduria = v.findViewById(R.id.HabilidadesBonificadores_sabiduriaPercepcionPasiva);
+         //Los TextViews
+         mInspiracion = v.findViewById(R.id.HabilidadesBonificadores_inspiracion);
+         mBonificador = v.findViewById(R.id.HabilidadesBonificadores_bonificadorCompetencia);
+         mSabiduria = v.findViewById(R.id.HabilidadesBonificadores_sabiduriaPercepcionPasiva);
+
+         //Tiradas de salvacion
+         mFuerzaSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_fuerza);
+         mDestrezaSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_destreza);
+         mConstitucionSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_constitucion);
+         mInteligenciaSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_inteligencia);
+         mSabiduriaSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_sabiduria);
+         mCarismaSalvacion = v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_carisma);
+
 
          //Le damos el valor de firebase
          mAcrobaciasET.setText(recuperados.getString("Destreza puntos"));
@@ -143,6 +155,14 @@ public class HabilidadesBonificadoresFragment extends Fragment {
          mInspiracion.setText(recuperados.getString("Inspiracion"));
          mBonificador.setText(recuperados.getString("Bonificador Competencia"));
          mSabiduria.setText(recuperados.getString("Sabiduria Pasiva"));
+
+         mFuerzaSalvacion.setText(recuperados.getString("Fuerza puntos"));
+         mDestrezaSalvacion.setText(recuperados.getString("Destreza puntos"));
+         mConstitucionSalvacion.setText(recuperados.getString("Constitucion puntos"));
+         mInteligenciaSalvacion.setText(recuperados.getString("Inteligencia puntos"));
+         mSabiduriaSalvacion.setText(recuperados.getString("Sabiduría puntos"));
+         mCarismaSalvacion.setText(recuperados.getString("Carisma puntos"));
+
 
          //Añadir onClicks
          SumarPuntos(mPlusSabiduria, mSabiduria);
@@ -197,7 +217,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TV.setText(Integer.parseInt(TV.getText().toString())-1);
+                TV.setText(String.valueOf(Integer.parseInt(TV.getText().toString())-1));
             }
         });
     }
@@ -206,7 +226,8 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TV.setText(Integer.parseInt(TV.getText().toString())+1);
+                Log.d("------------", TV.toString());
+                TV.setText(String.valueOf(Integer.parseInt(TV.getText().toString())+1));
             }
         });
     }
