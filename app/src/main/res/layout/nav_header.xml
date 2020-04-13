@@ -33,7 +33,7 @@
         android:layout_below="@+id/nav_header_nombrePersonaje"/>
 
     <ProgressBar
-        android:id="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:id="@+id/nav_header_nivel_barraProgreso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="50"

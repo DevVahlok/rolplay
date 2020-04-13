@@ -15,16 +15,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo> implements View.OnClickListener{
+public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecyclerPersonaje.ViewHolderPersonaje> implements View.OnClickListener{
 
     //Declaración de variables
-    private ArrayList<ItemEquipo> listaDatos;
+    private ArrayList<ItemPersonaje> listaDatos;
     private ImageView imgViewRemoveIcon;
     private OnItemListener mOnItemListener;
     private Context context;
 
     //Constructor
-    public AdapterRecyclerEquipo(ArrayList<ItemEquipo> listaDatos, OnItemListener mOnItemListener, Context context) {
+    public AdapterRecyclerPersonaje(ArrayList<ItemPersonaje> listaDatos, OnItemListener mOnItemListener, Context context) {
         this.listaDatos = listaDatos;
         this.mOnItemListener = mOnItemListener;
         this.context = context;
@@ -32,19 +32,19 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     @NonNull
     @Override
-    public ViewHolderEquipo onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderPersonaje onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        //Enlaza AdapterRecyclerEquipo con item_list_equipo.xml
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_equipo, null, false);
+        //Enlaza AdapterRecyclerPersonaje con item_list_personaje.xml
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personaje, null, false);
 
-        return new ViewHolderEquipo(view, mOnItemListener);
+        return new ViewHolderPersonaje(view, mOnItemListener);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderEquipo holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderPersonaje holder, int position) {
 
-        //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
+        //Comunica AdapterRecyclerPersonaje con el ViewHolderPersonaje
         holder.asignarDatos(listaDatos.get(position));
 
     }
@@ -60,24 +60,24 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     }
 
-    public class ViewHolderEquipo extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderPersonaje extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         //Declaración de variables
-        private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
-        private ImageView mFotoEquipo;
+        private TextView mNombrePersonaje, mJuegoPersonaje, mCodigoPersonaje;
+        private ImageView mFotoPersonaje;
         private OnItemListener onItemListener;
 
-        public ViewHolderEquipo(@NonNull View itemView, final OnItemListener onItemListener) {
+        public ViewHolderPersonaje(@NonNull View itemView, final OnItemListener onItemListener) {
             super(itemView);
             this.onItemListener = onItemListener;
 
             //Inicialización de variables
-            mNombreEquipo = itemView.findViewById(R.id.listaEquipo_nombre);
-            mCosteEquipo = itemView.findViewById(R.id.listaEquipo_coste);
-            mPesoEquipo = itemView.findViewById(R.id.listaEquipo_peso);
-            mFotoEquipo = itemView.findViewById(R.id.ListaEquipo_foto);
+            mNombrePersonaje = itemView.findViewById(R.id.ListaPersonajes_nombre);
+            mJuegoPersonaje = itemView.findViewById(R.id.ListaPersonajes_juego);
+            mCodigoPersonaje = itemView.findViewById(R.id.ListaPersonajes_codigo);
+            mFotoPersonaje = itemView.findViewById(R.id.ListaPersonajes_foto);
             itemView.setOnClickListener(this);
-            imgViewRemoveIcon = itemView.findViewById(R.id.ListaEquipo_borrar);
+            imgViewRemoveIcon = itemView.findViewById(R.id.ListaPersonajes_borrar);
 
             //Al hacer click en la imagen de la X
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
@@ -92,15 +92,18 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
                 }
             });
+
         }
 
-        public void asignarDatos(ItemEquipo s) {
+        public void asignarDatos(ItemPersonaje s) {
 
             //Seteo de datos de cada objeto
-            mNombreEquipo.setText(s.getNombre());
-            mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo,Integer.toString(s.getCoste())));
-            mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
-            Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
+            mNombrePersonaje.setText(s.getNombre());
+            mJuegoPersonaje.setText(s.getTipoJuego());
+            mCodigoPersonaje.setText(s.getCodigo());
+
+            //TODO: Raúl: Modificar para firebase/storage
+            //Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoPersonaje);
 
         }
 

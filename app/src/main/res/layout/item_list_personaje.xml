@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/ListaPersonajes_barra_fondo"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_fondo_hexagono"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_marginTop="25dp"/>
+
+    <ImageView
+        android:id="@+id/ListaPersonajes_fondo_foto"
+        android:contentDescription="@string/personaje"
+        app:srcCompat="@drawable/ic_hexagono"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/ListaPersonajes_foto"
+        android:contentDescription="@string/personaje"
+        app:srcCompat="@drawable/placeholder_clerigo"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"/>
+
+    <TextView
+        android:id="@+id/ListaPersonajes_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personaje"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        android:textSize="20sp"
+        android:layout_toEndOf="@id/ListaPersonajes_fondo_foto"/>
+
+    <TextView
+        android:id="@+id/ListaPersonajes_juego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dungeonsAndDragons"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaPersonajes_nombre"
+        android:layout_toEndOf="@id/ListaPersonajes_fondo_foto"/>
+
+
+    <TextView
+        android:id="@+id/ListaPersonajes_codigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/codigo"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/ListaPersonajes_juego"
+        android:layout_toEndOf="@id/ListaPersonajes_fondo_foto"/>
+
+    <ImageView
+        android:id="@+id/ListaPersonajes_borrar"
+        android:contentDescription="@string/cerrar"
+        app:srcCompat="@drawable/ic_cross"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"/>
+
+</RelativeLayout>

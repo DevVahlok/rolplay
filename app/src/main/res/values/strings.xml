@@ -178,4 +178,11 @@
     <string name="accedeApi">Accede a la API</string>
     <string name="cambiarContrasenya"><u>Cambiar contraseña</u></string>
 
+    <!-- Menú de personajes -->
+    <string name="seleccionarPersonaje">Seleccionar personaje</string>
+    <string name="crearPersonaje">Crear personaje</string>
+    <string name="personaje">Personaje</string>
+    <string name="codigo">Código: %1$s</string>
+    <string name="dungeonsAndDragons">Dungeons &amp; Dragons</string>
+
 </resources>

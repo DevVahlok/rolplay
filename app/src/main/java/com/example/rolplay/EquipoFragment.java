@@ -375,4 +375,3 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
 
 }
-

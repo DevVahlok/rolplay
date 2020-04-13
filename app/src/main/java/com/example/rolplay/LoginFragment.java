@@ -204,6 +204,8 @@ public class LoginFragment extends Fragment {
                     startActivity(new Intent(getActivity(), ContenedorInicioActivity.class));
                     getActivity().finish();
 
+                    //TODO: Hacer solo que se muestre la pantalla de selección de personaje al hacer login o bien darle desde el menú lateral a 'Salir del personaje'
+
                 }else{
 
                     //Login fallido
