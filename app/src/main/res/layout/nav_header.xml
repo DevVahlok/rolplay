@@ -14,8 +14,7 @@
         android:layout_height="100dp"
         android:contentDescription="@string/ficha"
         app:srcCompat="@drawable/banner_dungeons_and_dragons"
-        android:paddingTop="10dp"
-        />
+        android:paddingTop="10dp"/>
 
     <TextView
         android:id="@+id/nav_header_nombrePersonaje"
@@ -49,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nivel 4"
-        android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
-        android:layout_alignEnd="@+id/CabeceraActivity_nivel_barraProgreso"/>
+        android:layout_below="@+id/nav_header_nivel_barraProgreso"
+        android:layout_alignEnd="@+id/nav_header_nivel_barraProgreso"/>
 
 </RelativeLayout>

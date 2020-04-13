@@ -184,5 +184,8 @@
     <string name="personaje">Personaje</string>
     <string name="codigo">Código: %1$s</string>
     <string name="dungeonsAndDragons">Dungeons &amp; Dragons</string>
+    <string name="crear">Crear</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="estasSegurxQuieresEliminarPersonaje">¿Estás segur@ de que quieres eliminar el personaje?</string>
 
 </resources>

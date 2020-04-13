@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/mainlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".InformacionActivity" />
+        <activity android:name=".MenuPersonajesActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".InformacionActivity" android:screenOrientation="nosensor" />
         <activity
             android:name=".ContenedorInicioActivity"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

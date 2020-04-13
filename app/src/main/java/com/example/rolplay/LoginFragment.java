@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
+
 public class LoginFragment extends Fragment {
 
     //Declaración de variables
@@ -201,10 +203,8 @@ public class LoginFragment extends Fragment {
 
                     //Login funciona correctamente
                     mDialogCarga.dismiss();
-                    startActivity(new Intent(getActivity(), ContenedorInicioActivity.class));
+                    startActivity(new Intent(getActivity(), MenuPersonajesActivity.class).putExtra("origen","login"));
                     getActivity().finish();
-
-                    //TODO: Hacer solo que se muestre la pantalla de selección de personaje al hacer login o bien darle desde el menú lateral a 'Salir del personaje'
 
                 }else{
 

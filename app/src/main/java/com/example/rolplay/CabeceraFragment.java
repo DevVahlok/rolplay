@@ -49,6 +49,8 @@ public class CabeceraFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Button mSumarExp;
     private View v;
+    private ArrayList<String> Razas = new ArrayList<>();
+    private ArrayList<String> Clases = new ArrayList<>();
 
     public CabeceraFragment() {
 
@@ -74,6 +76,33 @@ public class CabeceraFragment extends Fragment {
         mSumarExp = v.findViewById(R.id.CabeceraActivity_botonSumarExp);
         mDatabase = FirebaseDatabase.getInstance();
 
+        //Posicionar en el JSON de Firebase
+        mDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
+        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
+        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
+
+        //Cargar listas de los dropdowns
+        //Razas
+        cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaRazas = value;
+            }
+        });
+        //Clases
+        cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaClases=value;
+            }
+        });
+        //Alineamiento
+        listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
+
+
+        //TODO: Raúl: Esto peta al crear un nuevo personaje
+/*
         listaRazas = recuperados.getStringArray("Razas");
         listaClases = recuperados.getStringArray("Clases");
         listaAlineamiento = recuperados.getStringArray("Alineamientos");
@@ -87,6 +116,8 @@ public class CabeceraFragment extends Fragment {
 
         mProgresoExperiencia = recuperados.getInt("Puntos de Experiencia");
         mNivel = recuperados.getInt("Nivel");
+
+ */
         mExperienciaTotal = mNivel * (mNivel+1) * 500;
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
@@ -154,6 +185,31 @@ public class CabeceraFragment extends Fragment {
         return v;
     }
 
+    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
+    private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
+        mDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] result = new String[] {};
+                ALS.add("Ninguno");
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String valor = "" + ds.getKey();
+                    ALS.add(valor);
+                    result = ALS.toArray(SS);
+
+                }
+                callback.onCallback(result);
+                ALS.clear();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", databaseError.getMessage());
+            }
+        });
+    }
+
     private void creadorAdapter(String[] lista, Spinner dropdown, String s) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, lista);
         dropdown.setAdapter(adapter);
@@ -179,6 +235,8 @@ public class CabeceraFragment extends Fragment {
 
         HashMap<String, Object> hashMap = new HashMap<>();
 
+        //TODO: Raúl: Esto peta al crear un nuevo personaje y tirar hacia atrás en Cabecera
+/*
         hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
         hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
         hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
@@ -186,7 +244,7 @@ public class CabeceraFragment extends Fragment {
         hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
         hashMap.put("Nivel", Integer.toString(mNivel));
         hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
-
+*/
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
 
     }

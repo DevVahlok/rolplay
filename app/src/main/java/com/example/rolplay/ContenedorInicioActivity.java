@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
+
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Declaración de variables
@@ -59,23 +61,23 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ArrayList<String> dados10 = new ArrayList<>();
     private ArrayList<String> dados12 = new ArrayList<>();
     private ArrayList<String> dados20 = new ArrayList<>();
-    private String[] listaRazas = new String[] {};
-    private String[] listaClases = new String[] {};
-    private String[] listaAlineamiento = new String[] {};
-    private String[] listaObjetos = new String[] {};
-    private String[] listaArmaduras = new String[] {};
-    private String[] listaArmas = new String[] {};
-    private String[] listaHerramientas = new String[] {};
-    private String[] listaMercancias = new String[] {};
-    private String[] listaMisceláneo = new String[] {};
-    private String[] listaMonturas = new String[] {};
-    private String[] listaArmadurasLigeras = new String[] {};
-    private String[] listaArmadurasMedias = new String[] {};
-    private String[] listaArmadurasPesadas = new String[] {};
-    private String[] listaArmasDM = new String[] {};
-    private String[] listaArmasDS = new String[] {};
-    private String[] listaArmasCM = new String[] {};
-    private String[] listaArmasCS = new String[] {};
+    private String[] listaRazas = new String[]{};
+    private String[] listaClases = new String[]{};
+    private String[] listaAlineamiento = new String[]{};
+    private String[] listaObjetos = new String[]{};
+    private String[] listaArmaduras = new String[]{};
+    private String[] listaArmas = new String[]{};
+    private String[] listaHerramientas = new String[]{};
+    private String[] listaMercancias = new String[]{};
+    private String[] listaMisceláneo = new String[]{};
+    private String[] listaMonturas = new String[]{};
+    private String[] listaArmadurasLigeras = new String[]{};
+    private String[] listaArmadurasMedias = new String[]{};
+    private String[] listaArmadurasPesadas = new String[]{};
+    private String[] listaArmasDM = new String[]{};
+    private String[] listaArmasDS = new String[]{};
+    private String[] listaArmasCM = new String[]{};
+    private String[] listaArmasCS = new String[]{};
     private String Trasfondo, Alineamiento, Raza, Clase, ClaseDeArmadura, Iniciativa, Velocidad,
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
             RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
@@ -98,6 +100,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer = findViewById(R.id.drawer_layout);
 
         mUsuario = mAuth.getCurrentUser();
+
+        //TODO: Aquí se recoge el código del personaje seleccionado (o creado). Setear datos de FireBase según el código.
+        String codigoPersonaje = getIntent().getStringExtra("codigo");
 
         //Posicionar en el JSON de Firebase
         mDatabase = FirebaseDatabase.getInstance();
@@ -122,9 +127,21 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
-            navigationView.setCheckedItem(R.id.nav_ficha);
 
+            //Si viene de Login o del manú lateral, redirige a MenuPersonajesActivity. Si no, redirige a la ficha
+            if(recordarMenu){
+                startActivity(new Intent(this, MenuPersonajesActivity.class).putExtra("origen","login"));
+                recordarMenu = false;
+                this.finish();
+            }else if(Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")){
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CabeceraFragment(), "cabecera_fragment").commit();
+                navigationView.setCheckedItem(R.id.nav_cabecera);
+            }else{
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
+                navigationView.setCheckedItem(R.id.nav_ficha);
+            }
+
+            //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 
         //Declaración de variables de la cabecera de la barra de navegación
@@ -136,74 +153,74 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //TODO Inicializar campos en firebase para poder cogerlos y guardarlos
         //Seteo de datos del header de la navegación lateral
-        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mNombrePersonaje.setText((String)dataSnapshot.child("Nombre").getValue());
-                Trasfondo = (String)dataSnapshot.child("Trasfondo").getValue();
-                Alineamiento =(String)dataSnapshot.child("Alineamiento").getValue();
-                Raza = (String)dataSnapshot.child("Raza").getValue();
-                Clase = (String)dataSnapshot.child("Clase").getValue();
-                mNivel = Integer.parseInt((String)dataSnapshot.child("Nivel").getValue());
-                PuntosExperiencia = Integer.parseInt((String)dataSnapshot.child("Puntos de Experiencia").getValue());
-                ClaseDeArmadura = (String)dataSnapshot.child("Clase de Armadura").getValue();
-                Iniciativa =(String)dataSnapshot.child("Iniciativa").getValue();
-                Velocidad = (String)dataSnapshot.child("Velocidad").getValue();
-                PuntosGolpeActuales = (String)dataSnapshot.child("Puntos de Golpe Actuales").getValue();
-                PuntosGolpeMaximos = (String)dataSnapshot.child("Puntos de Golpe Máximos").getValue();
-                PuntosGolpeTemporales =(String)dataSnapshot.child("Puntos de Golpe Temporales").getValue();
-                DadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Valor").getValue();
-                TotalDadoGolpe = (String)dataSnapshot.child("Dado de Golpe/Total").getValue();
-                SalvacionesMuerte = Integer.parseInt((String)dataSnapshot.child("Salvaciones de Muerte").getValue());
-                PCobre = Integer.parseInt((String)dataSnapshot.child("Piezas de cobre").getValue());
-                PPlata = Integer.parseInt((String)dataSnapshot.child("Piezas de plata").getValue());
-                PEsmeralda = Integer.parseInt((String)dataSnapshot.child("Piezas de esmeralda").getValue());
-                POro = Integer.parseInt((String)dataSnapshot.child("Piezas de oro").getValue());
-                PPlatino = Integer.parseInt((String)dataSnapshot.child("Piezas de platino").getValue());
-                RasgosPersonalidad = (String)dataSnapshot.child("Rasgos de Personalidad").getValue();
-                Ideales = (String)dataSnapshot.child("Ideales").getValue();
-                Vinculos = (String)dataSnapshot.child("Vínculos").getValue();
-                Defectos = (String)dataSnapshot.child("Defectos").getValue();
-                mFuerzaPuntos = (String)dataSnapshot.child("Fuerza puntos").getValue();
-                mFuerzaBonus = (String)dataSnapshot.child("Fuerza bonus").getValue();
-                mDestrezaPuntos = (String)dataSnapshot.child("Destreza puntos").getValue();
-                mDestrezaBonus = (String)dataSnapshot.child("Destreza bonus").getValue();
-                mConstitucionPuntos = (String)dataSnapshot.child("Constitucion puntos").getValue();
-                mConstitucionBonus = (String)dataSnapshot.child("Constitucion bonus").getValue();
-                mInteligenciaPuntos = (String)dataSnapshot.child("Inteligencia puntos").getValue();
-                mInteligenciaBonus = (String)dataSnapshot.child("Inteligencia bonus").getValue();
-                mSabiduriaPuntos = (String)dataSnapshot.child("Sabiduria puntos").getValue();
-                mSabiduriaBonus = (String)dataSnapshot.child("Sabiduria bonus").getValue();
-                mCarismaPuntos = (String)dataSnapshot.child("Carisma puntos").getValue();
-                mCarismaBonus = (String)dataSnapshot.child("Carisma bonus").getValue();
-                mAcrobaciasCB = ((Boolean)dataSnapshot.child("AcrobaciasCB").getValue()).toString();
-                mAtletismoCB = ((Boolean)dataSnapshot.child("AtletismoCB").getValue()).toString();
-                mConocimientoCB = ((Boolean)dataSnapshot.child("ConocimientoCB").getValue()).toString();
-                mEngañoCB = ((Boolean)dataSnapshot.child("EngañoCB").getValue()).toString();
-                mHistoriaCB = ((Boolean)dataSnapshot.child("HistoriaCB").getValue()).toString();
-                mInterpretacionCB = ((Boolean)dataSnapshot.child("InterpretacionCB").getValue()).toString();
-                mIntimidacionCB = ((Boolean)dataSnapshot.child("IntimidacionCB").getValue()).toString();
-                mInvestigacionCB = ((Boolean)dataSnapshot.child("InvestigacionCB").getValue()).toString();
-                mJuegoManosCB = ((Boolean)dataSnapshot.child("JuegoManosCB").getValue()).toString();
-                mMedicinaCB = ((Boolean)dataSnapshot.child("MedicinaCB").getValue()).toString();
-                mNaturalezaCB = ((Boolean)dataSnapshot.child("NaturalezaCB").getValue()).toString();
-                mPercepcionCB = ((Boolean)dataSnapshot.child("PercepcionCB").getValue()).toString();
-                mPerspicacioCB = ((Boolean)dataSnapshot.child("PerspicaciaCB").getValue()).toString();
-                mPersuasionCB = ((Boolean)dataSnapshot.child("PersuasionCB").getValue()).toString();
-                mReligionCB = ((Boolean)dataSnapshot.child("ReligionCB").getValue()).toString();
-                mSigiloCB = ((Boolean)dataSnapshot.child("SigiloCB").getValue()).toString();
-                mSupervivenciaCB = ((Boolean)dataSnapshot.child("SupervivenciaCB").getValue()).toString();
-                mTratoAnimalesCB = ((Boolean)dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
-                mInspiracion = (String)dataSnapshot.child("Inspiracion").getValue();
-                mBonificador = (String)dataSnapshot.child("Bonificador Competencia").getValue();
-                mSabiduria = (String)dataSnapshot.child("Sabiduria Pasiva").getValue();
-                mIdiomas = (String)dataSnapshot.child("Idiomas").getValue();
-                mArmadura = (String)dataSnapshot.child("Armadura").getValue();
-                mArmas = (String)dataSnapshot.child("Armas").getValue();
-                mHerramientas = (String)dataSnapshot.child("Herramientas").getValue();
-                mEspecialidad = (String)dataSnapshot.child("Especialidad").getValue();
-                mRangoMilitar = (String)dataSnapshot.child("Rango militar").getValue();
-                mOtras = (String)dataSnapshot.child("Otras").getValue();
+                mNombrePersonaje.setText((String) dataSnapshot.child("Nombre").getValue());
+                Trasfondo = (String) dataSnapshot.child("Trasfondo").getValue();
+                Alineamiento = (String) dataSnapshot.child("Alineamiento").getValue();
+                Raza = (String) dataSnapshot.child("Raza").getValue();
+                Clase = (String) dataSnapshot.child("Clase").getValue();
+                mNivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
+                PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
+                ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
+                Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
+                Velocidad = (String) dataSnapshot.child("Velocidad").getValue();
+                PuntosGolpeActuales = (String) dataSnapshot.child("Puntos de Golpe Actuales").getValue();
+                PuntosGolpeMaximos = (String) dataSnapshot.child("Puntos de Golpe Máximos").getValue();
+                PuntosGolpeTemporales = (String) dataSnapshot.child("Puntos de Golpe Temporales").getValue();
+                DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
+                TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
+                SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
+                PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
+                PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
+                PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
+                POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
+                PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
+                RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
+                Ideales = (String) dataSnapshot.child("Ideales").getValue();
+                Vinculos = (String) dataSnapshot.child("Vínculos").getValue();
+                Defectos = (String) dataSnapshot.child("Defectos").getValue();
+                mFuerzaPuntos = (String) dataSnapshot.child("Fuerza puntos").getValue();
+                mFuerzaBonus = (String) dataSnapshot.child("Fuerza bonus").getValue();
+                mDestrezaPuntos = (String) dataSnapshot.child("Destreza puntos").getValue();
+                mDestrezaBonus = (String) dataSnapshot.child("Destreza bonus").getValue();
+                mConstitucionPuntos = (String) dataSnapshot.child("Constitucion puntos").getValue();
+                mConstitucionBonus = (String) dataSnapshot.child("Constitucion bonus").getValue();
+                mInteligenciaPuntos = (String) dataSnapshot.child("Inteligencia puntos").getValue();
+                mInteligenciaBonus = (String) dataSnapshot.child("Inteligencia bonus").getValue();
+                mSabiduriaPuntos = (String) dataSnapshot.child("Sabiduria puntos").getValue();
+                mSabiduriaBonus = (String) dataSnapshot.child("Sabiduria bonus").getValue();
+                mCarismaPuntos = (String) dataSnapshot.child("Carisma puntos").getValue();
+                mCarismaBonus = (String) dataSnapshot.child("Carisma bonus").getValue();
+                mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
+                mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
+                mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
+                mEngañoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
+                mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
+                mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
+                mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
+                mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
+                mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
+                mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
+                mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
+                mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
+                mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
+                mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
+                mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
+                mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
+                mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
+                mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
+                mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
+                mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
+                mSabiduria = (String) dataSnapshot.child("Sabiduria Pasiva").getValue();
+                mIdiomas = (String) dataSnapshot.child("Idiomas").getValue();
+                mArmadura = (String) dataSnapshot.child("Armadura").getValue();
+                mArmas = (String) dataSnapshot.child("Armas").getValue();
+                mHerramientas = (String) dataSnapshot.child("Herramientas").getValue();
+                mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
+                mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
+                mOtras = (String) dataSnapshot.child("Otras").getValue();
             }
 
             @Override
@@ -228,7 +245,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases=value;
+                listaClases = value;
             }
         });
         //Alineamiento
@@ -334,15 +351,15 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         });
 
         //Nos posicionamos en la ruta de firebase y guardamos en un arrayList los datos deseados
-        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Equipo");
+        final DatabaseReference mEquipo = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Equipo.add((String)ds.child("nombre").getValue());
-                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
-                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
-                    Equipo.add((String)ds.child("url").getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Equipo.add((String) ds.child("nombre").getValue());
+                    Equipo.add(((Long) ds.child("coste").getValue()).toString());
+                    Equipo.add(((Long) ds.child("peso").getValue()).toString());
+                    Equipo.add((String) ds.child("url").getValue());
                 }
             }
 
@@ -352,12 +369,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/Rasgos");
+        final DatabaseReference mRasgos = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Rasgos.add((String)ds.getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Rasgos.add((String) ds.getValue());
                 }
             }
 
@@ -384,8 +401,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mdados.child(s).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    AL.add((String)ds.getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    AL.add((String) ds.getValue());
                 }
             }
 
@@ -401,7 +418,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
@@ -493,7 +510,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putBoolean("TratoAnimalesCB", Boolean.parseBoolean(mTratoAnimalesCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
-                bundle.putString("Sabiduria Pasiva",mSabiduria);
+                bundle.putString("Sabiduria Pasiva", mSabiduria);
                 Fragment Bonificador = new HabilidadesBonificadoresFragment();
                 Bonificador.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Bonificador).commit();
@@ -516,20 +533,20 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_equipo:
                 bundle = new Bundle();
-                bundle.putStringArray("Lista De Objetos",listaObjetos);
-                bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
-                bundle.putStringArray("Lista De ArmMed",listaArmadurasMedias);
-                bundle.putStringArray("Lista De ArmPes",listaArmadurasPesadas);
-                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
-                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
-                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
-                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
-                bundle.putStringArray("Lista De Herram",listaHerramientas);
-                bundle.putStringArray("Lista De Merc",listaMercancias);
-                bundle.putStringArray("Lista De Misc",listaMisceláneo);
-                bundle.putStringArray("Lista De Mont",listaMonturas);
-                bundle.putStringArray("Lista De Armaduras",listaArmaduras);
-                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putStringArray("Lista De Objetos", listaObjetos);
+                bundle.putStringArray("Lista De ArmLig", listaArmadurasLigeras);
+                bundle.putStringArray("Lista De ArmMed", listaArmadurasMedias);
+                bundle.putStringArray("Lista De ArmPes", listaArmadurasPesadas);
+                bundle.putStringArray("Lista De ArmDM", listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS", listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM", listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS", listaArmasCS);
+                bundle.putStringArray("Lista De Herram", listaHerramientas);
+                bundle.putStringArray("Lista De Merc", listaMercancias);
+                bundle.putStringArray("Lista De Misc", listaMisceláneo);
+                bundle.putStringArray("Lista De Mont", listaMonturas);
+                bundle.putStringArray("Lista De Armaduras", listaArmaduras);
+                bundle.putStringArray("Lista De Armas", listaArmas);
                 bundle.putInt("Piezas de cobre", PCobre);
                 bundle.putInt("Piezas de plata", PPlata);
                 bundle.putInt("Piezas de esmeralda", PEsmeralda);
@@ -545,9 +562,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_personalidad:
                 bundle = new Bundle();
-                bundle.putString("Rasgos de Personalidad",RasgosPersonalidad);
-                bundle.putString("Ideales",Ideales);
-                bundle.putString("Vínculos",Vinculos);
+                bundle.putString("Rasgos de Personalidad", RasgosPersonalidad);
+                bundle.putString("Ideales", Ideales);
+                bundle.putString("Vínculos", Vinculos);
                 bundle.putString("Defectos", Defectos);
                 Fragment Personalidad = new PersonalidadFragment();
                 Personalidad.setArguments(bundle);
@@ -555,7 +572,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_rasgosAtributos:
                 bundle = new Bundle();
-                bundle.putStringArrayList("Rasgos y Atributos",Rasgos );
+                bundle.putStringArrayList("Rasgos y Atributos", Rasgos);
                 Fragment RasgosYAtributos = new RasgosAtributosFragment();
                 RasgosYAtributos.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RasgosYAtributos).commit();
@@ -586,7 +603,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LanzarDados).commit();
                 break;
             case R.id.nav_salirPersonaje:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuPersonajesFragment()).commit();
+                startActivity(new Intent(this, MenuPersonajesActivity.class));
+                this.finish();
                 break;
             case R.id.nav_configuracion:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
@@ -602,13 +620,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
                 LinearLayout linearLayout = new LinearLayout(this);
 
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
