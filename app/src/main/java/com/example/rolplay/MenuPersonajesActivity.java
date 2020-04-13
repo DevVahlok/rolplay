@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -91,7 +92,24 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: Añadir personaje y su código a Firebase
                         recordarMenu = false;
-                        startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", generarCodigo()).putExtra("origen","seleccionPersonaje"));
+
+                        //TODO: Raúl: Guardar lista de códigos al crear personaje en FireBase. Recuperarla y usar el algoritmo de abajo para comprobar que no existe al generar uno nuevo.
+                        String codigoGenerado = generarCodigo();
+                        ArrayList listaCodigos = new ArrayList();
+                        boolean codigoLibre = false;
+
+                        while (!codigoLibre) {
+
+                            for (int i = 0; i < listaCodigos.size(); i++) {
+                                if (listaCodigos.get(i).equals(codigoGenerado)) {
+                                    codigoGenerado = generarCodigo();
+                                } else {
+                                    codigoLibre = true;
+                                }
+                            }
+
+                        }
+                        startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", "seleccionPersonaje"));
                         MenuPersonajesActivity.this.finish();
 
                     }
