@@ -258,8 +258,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
-        cargarDatosFB();
+        try {
+            cargarDatosFB();
+        }catch (Exception e){
 
+        }
         //Cargamos las imagenes de los dados
         final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
 
@@ -273,6 +276,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     }
 
     private void cargarDatosFB() {
+        Log.d("----------", codigoPersonaje);
+
         //Posicionar en el JSON de Firebase
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
