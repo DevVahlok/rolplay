@@ -3,24 +3,18 @@ package com.example.rolplay;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
 
-public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecyclerPersonaje.ViewHolderPersonaje> implements View.OnClickListener{
+public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecyclerPersonaje.ViewHolderPersonaje>{
 
     //Declaración de variables
     private ArrayList<ItemPersonaje> listaDatos;
@@ -29,7 +23,7 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
     private Context context;
 
     //Constructor
-    public AdapterRecyclerPersonaje(ArrayList<ItemPersonaje> listaDatos, OnItemListener mOnItemListener, Context context) {
+    AdapterRecyclerPersonaje(ArrayList<ItemPersonaje> listaDatos, OnItemListener mOnItemListener, Context context) {
         this.listaDatos = listaDatos;
         this.mOnItemListener = mOnItemListener;
         this.context = context;
@@ -55,9 +49,6 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
     }
 
     @Override
-    public void onClick(View v) {}
-
-    @Override
     public int getItemCount() {
 
         //Devuelve el tamaño del ArrayList
@@ -72,11 +63,11 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
         private ImageView mFotoPersonaje;
         private OnItemListener onItemListener;
 
-        public ViewHolderPersonaje(@NonNull final View itemView, final OnItemListener onItemListener) {
-            super(itemView);
-            this.onItemListener = onItemListener;
+        ViewHolderPersonaje(@NonNull final View itemView, final OnItemListener onItemListener) {
 
             //Inicialización de variables
+            super(itemView);
+            this.onItemListener = onItemListener;
             mNombrePersonaje = itemView.findViewById(R.id.ListaPersonajes_nombre);
             mJuegoPersonaje = itemView.findViewById(R.id.ListaPersonajes_juego);
             mCodigoPersonaje = itemView.findViewById(R.id.ListaPersonajes_codigo);
@@ -89,12 +80,9 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemListener.onItemClick(getAdapterPosition());
 
                     //Elimina el objeto del recycler
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        removeAt(getAdapterPosition());
-                    }
+                    onItemListener.onItemClick(getAdapterPosition());
 
                 }
             });
@@ -120,28 +108,19 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
             mJuegoPersonaje.setText(s.getTipoJuego());
             mCodigoPersonaje.setText(s.getCodigo());
 
-            //TODO: Raúl: Modificar para firebase/storage
+            //TODO: Raúl: Modificar para firebase/storage (poner imagen según la clase seleccionada podría ser una buena opción)
             //Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoPersonaje);
 
         }
 
         @Override
-        public void onClick(View v) {}
+        public void onClick(View v) { }
 
     }
 
+    //Interfaz para crear un OnClickListener en la foto de la X
     public interface OnItemListener{
         void onItemClick(int position);
     }
 
-    public void removeAt(int position) {
-/*
-        //Elimina el objeto del recycler
-        listaDatos.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listaDatos.size());
-*/
-    }
-
 }
-//TODO: Alex: Cuando esté hecho el backend, eliminar los warnings del XML seteando los textos vacíos

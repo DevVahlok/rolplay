@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
-public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo> implements View.OnClickListener{
+public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo>{
 
     //Declaración de variables
     private ArrayList<ItemEquipo> listaDatos;
@@ -38,7 +35,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_equipo, null, false);
 
         return new ViewHolderEquipo(view, mOnItemListener);
-
     }
 
     @Override
@@ -48,9 +44,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         holder.asignarDatos(listaDatos.get(position));
 
     }
-
-    @Override
-    public void onClick(View v) {}
 
     @Override
     public int getItemCount() {
@@ -68,10 +61,10 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         private OnItemListener onItemListener;
 
         public ViewHolderEquipo(@NonNull View itemView, final OnItemListener onItemListener) {
-            super(itemView);
-            this.onItemListener = onItemListener;
 
             //Inicialización de variables
+            super(itemView);
+            this.onItemListener = onItemListener;
             mNombreEquipo = itemView.findViewById(R.id.listaEquipo_nombre);
             mCosteEquipo = itemView.findViewById(R.id.listaEquipo_coste);
             mPesoEquipo = itemView.findViewById(R.id.listaEquipo_peso);
@@ -83,12 +76,9 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemListener.onItemClick(getAdapterPosition());
 
                     //Elimina el objeto del recycler
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        removeAt(getAdapterPosition());
-                    }
+                    onItemListener.onItemClick(getAdapterPosition());
 
                 }
             });
@@ -98,29 +88,20 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
             //Seteo de datos de cada objeto
             mNombreEquipo.setText(s.getNombre());
-            mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo,Integer.toString(s.getCoste())));
-            mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
+            mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+            mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
             Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
 
         }
 
         @Override
-        public void onClick(View v) {}
+        public void onClick(View v) { }
 
     }
 
-    public interface OnItemListener{
+    //Interfaz para crear un OnClickListener en la foto de la X
+    public interface OnItemListener {
         void onItemClick(int position);
     }
 
-    public void removeAt(int position) {
-
-        //Elimina el objeto del recycler
-        listaDatos.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listaDatos.size());
-
-    }
-
 }
-//TODO: Alex: Cuando esté hecho el backend, eliminar los warnings del XML seteando los textos vacíos

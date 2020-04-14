@@ -23,15 +23,6 @@
     <string name="recuperarPassword">Recuperar password</string>
     <string name="recuperar">Recuperar</string>
 
-    <!-- Ficha personaje -->
-    <string name="nombre">Nombre</string>
-    <string name="clase">Clase</string>
-    <string name="trasfondo">Trasfondo</string>
-    <string name="alineamiento">Alineamiento</string>
-    <string name="raza">Raza</string>
-    <string name="nivelPersonaje">Nivel %1$s</string>
-    <string name="experiencia">%1$s / %2$s exp</string>
-
     <!-- Menú lateral -->
     <string name="ficha">Ficha</string>
     <string name="datosPersonaje">Datos del personaje</string>
@@ -52,6 +43,16 @@
     <string name="configuracion">Configuración</string>
     <string name="estasSegurxQuieresCerrarSesion">¿Estás segur@ de que quieres cerrar sesión?</string>
     <string name="cerrarSesion">Cerrar sesión</string>
+
+    <!-- Cabecera -->
+    <string name="nombre">Nombre</string>
+    <string name="clase">Clase</string>
+    <string name="trasfondo">Trasfondo</string>
+    <string name="alineamiento">Alineamiento</string>
+    <string name="raza">Raza</string>
+    <string name="nivelPersonaje">Nivel %1$s</string>
+    <string name="experiencia">%1$s / %2$s exp</string>
+    <string name="aumentarExperiencia">Aumentar experiencia</string>
 
     <!-- Puntos de habilidad -->
     <string name="fuerza">Fuerza</string>
@@ -87,6 +88,20 @@
     <string name="sabiduriaPercepcionPasiva">Sabiduría\n (percepción) pasiva</string>
     <string name="simboloSumar">+</string>
     <string name="simboloRestar">-</string>
+    <string name="monturasVehiculos">Monturas y Vehículos</string>
+    <string name="miscelaneo">Misceláneo</string>
+    <string name="mercancias">Mercancías</string>
+    <string name="herramientas">Herramientas</string>
+    <string name="armasCuerpoACuerpoSimples">Armas cuerpo a cuerpo simples</string>
+    <string name="armasCuerpoACuerpoMarciales">Armas cuerpo a cuerpo marciales</string>
+    <string name="armasADistanciaSimples">Armas a distancia simples</string>
+    <string name="armasADistanciaMarciales">Armas a distancia marciales</string>
+    <string name="armadurasPesadas">Armaduras Pesadas</string>
+    <string name="armadurasMedias">Armaduras Medias</string>
+    <string name="armadurasLigeras">Armaduras Ligeras</string>
+    <string name="armas">Armas</string>
+    <string name="armaduras">Armaduras</string>
+
 
     <!-- Equipo -->
     <string name="objeto">Objeto</string>
@@ -116,8 +131,8 @@
     <!-- Competencias e idiomas -->
     <string name="idiomas">Idiomas:</string>
     <string name="armadura">Armadura:</string>
-    <string name="armas">Armas:</string>
-    <string name="herramientas">Herramientas:</string>
+    <string name="armasDosPuntos">Armas:</string>
+    <string name="herramientasDosPuntos">Herramientas:</string>
     <string name="especialidad">Especialidad:</string>
     <string name="rangoMilitar">Rango militar:</string>
     <string name="otras">Otras:</string>

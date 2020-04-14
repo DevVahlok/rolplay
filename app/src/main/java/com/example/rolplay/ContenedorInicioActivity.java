@@ -1,20 +1,15 @@
 package com.example.rolplay;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -23,8 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,12 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,12 +74,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
             RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
             mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
-            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
+            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEnganyoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
             mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
-
     private DialogCarga mDialogCarga;
 
     @Override
@@ -301,12 +291,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Alineamiento = (String) dataSnapshot.child("Alineamiento").getValue();
                 Raza = (String) dataSnapshot.child("Raza").getValue();
                 Clase = (String) dataSnapshot.child("Clase").getValue();
-                try{
-                    mNivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
-                    PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
-                }catch (Exception e){
-                    Log.d("---------", e.getMessage());
-                }
+                mNivel = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Nivel").getValue()));
+                PuntosExperiencia = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Puntos de Experiencia").getValue()));
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
                 Velocidad = (String) dataSnapshot.child("Velocidad").getValue();
@@ -315,16 +301,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PuntosGolpeTemporales = (String) dataSnapshot.child("Puntos de Golpe Temporales").getValue();
                 DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
-                try {
-                    SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
-                    PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
-                    PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
-                    PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
-                    POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
-                    PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
-                }catch (Exception e){
-                    Log.d("---------", e.getMessage());
-                }
+                SalvacionesMuerte = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Salvaciones de Muerte").getValue()));
+                PCobre = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de cobre").getValue()));
+                PPlata = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de plata").getValue()));
+                PEsmeralda = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de esmeralda").getValue()));
+                POro = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de oro").getValue()));
+                PPlatino = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de platino").getValue()));
                 RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
                 Ideales = (String) dataSnapshot.child("Ideales").getValue();
                 Vinculos = (String) dataSnapshot.child("Vínculos").getValue();
@@ -341,28 +323,24 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mSabiduriaBonus = (String) dataSnapshot.child("Sabiduria bonus").getValue();
                 mCarismaPuntos = (String) dataSnapshot.child("Carisma puntos").getValue();
                 mCarismaBonus = (String) dataSnapshot.child("Carisma bonus").getValue();
-                try {
-                    mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
-                    mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
-                    mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
-                    mEngañoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
-                    mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
-                    mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
-                    mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
-                    mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
-                    mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
-                    mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
-                    mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
-                    mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
-                    mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
-                    mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
-                    mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
-                    mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
-                    mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
-                    mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
-                }catch (Exception e){
-                    Log.d("---------", e.getMessage());
-                }
+                mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
+                mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
+                mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
+                mEnganyoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
+                mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
+                mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
+                mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
+                mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
+                mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
+                mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
+                mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
+                mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
+                mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
+                mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
+                mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
+                mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
+                mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
+                mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
                 mSabiduria = (String) dataSnapshot.child("Sabiduria Pasiva").getValue();
@@ -373,7 +351,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
                 mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
                 mOtras = (String) dataSnapshot.child("Otras").getValue();
-
             }
 
             @Override
@@ -381,6 +358,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
+
+        mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
+        mCorreoElectronico.setText(mUsuario.getEmail());
 
         //Cargar listas de los dropdowns
         //Razas
@@ -394,13 +374,14 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases=value;
+                listaClases = value;
             }
         });
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
-        cargarSpinners(mObjetos.child(""), Objetos, listaObjetos, new MyCallback() {
+        //Cargamos todos los objetos de Equipo
+        cargarSpinners(mObjetos, Objetos, listaObjetos, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaObjetos = value;
@@ -501,11 +482,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Equipo.add((String)ds.child("nombre").getValue());
-                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
-                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
-                    Equipo.add((String)ds.child("url").getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Equipo.add((String) ds.child("nombre").getValue());
+                    Equipo.add(((Long) ds.child("coste").getValue()).toString());
+                    Equipo.add(((Long) ds.child("peso").getValue()).toString());
+                    Equipo.add((String) ds.child("url").getValue());
                 }
             }
 
@@ -519,8 +500,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Rasgos.add((String)ds.getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Rasgos.add((String) ds.getValue());
                 }
             }
 
@@ -529,6 +510,16 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
+
+        //Cargamos las imagenes de los dados
+        final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
+
+        cargarDados("1d4", dados4, mdados);
+        cargarDados("1d6", dados6, mdados);
+        cargarDados("1d8", dados8, mdados);
+        cargarDados("1d10", dados10, mdados);
+        cargarDados("1d12", dados12, mdados);
+        cargarDados("1d20", dados20, mdados);
 
     }
 
@@ -632,7 +623,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putBoolean("AcrobaciasCB", Boolean.parseBoolean(mAcrobaciasCB));
                 bundle.putBoolean("AtletismoCB", Boolean.parseBoolean(mAtletismoCB));
                 bundle.putBoolean("ConocimientoCB", Boolean.parseBoolean(mConocimientoCB));
-                bundle.putBoolean("EngañoCB", Boolean.parseBoolean(mEngañoCB));
+                bundle.putBoolean("EngañoCB", Boolean.parseBoolean(mEnganyoCB));
                 bundle.putBoolean("HistoriaCB", Boolean.parseBoolean(mHistoriaCB));
                 bundle.putBoolean("InterpretacionCB", Boolean.parseBoolean(mInterpretacionCB));
                 bundle.putBoolean("IntimidacionCB", Boolean.parseBoolean(mIntimidacionCB));

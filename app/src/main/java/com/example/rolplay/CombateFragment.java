@@ -1,18 +1,15 @@
 package com.example.rolplay;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,25 +23,26 @@ public class CombateFragment extends Fragment {
     //Declaración de variables
     private ProgressBar mBarraSalud;
     private CheckBox mCheckboxExito1, mCheckboxExito2, mCheckboxExito3,
-                        mCheckboxFallo1, mCheckboxFallo2, mCheckboxFallo3;
+            mCheckboxFallo1, mCheckboxFallo2, mCheckboxFallo3;
     private TextView mClaseArmadura, mIniciativa, mVelocidad;
     private EditText mGolpesActuales, mGolpesTotales, mGolpesTemporales, mDadoGolpe,
-                        mDadoTotal;
+            mDadoTotal;
     private int mSalvaciones;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     private View v;
     private String codigoPJ;
 
+    //Constructor
     public CombateFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //Inicialización de variables
         v = inflater.inflate(R.layout.fragment_combate, container, false);
         Bundle recuperados = getArguments();
         codigoPJ = recuperados.getString("codigo");
@@ -57,16 +55,20 @@ public class CombateFragment extends Fragment {
         mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
         mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
 
-        mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
-        mIniciativa.setText(recuperados.getString("Iniciativa"));
-        mVelocidad.setText(recuperados.getString("Velocidad"));
-        mGolpesActuales.setText(recuperados.getString("Puntos de Golpe Actuales"));
-        mGolpesTemporales.setText(recuperados.getString("Puntos de Golpe Temporales"));
-        mGolpesTotales.setText(recuperados.getString("Puntos de Golpe Máximos"));
-        mDadoGolpe.setText(recuperados.getString("Dado de Golpe/Valor"));
-        mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
-        mSalvaciones = recuperados.getInt("Salvacion");
+        if (recuperados != null) {
+            mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
+            mIniciativa.setText(recuperados.getString("Iniciativa"));
+            mVelocidad.setText(recuperados.getString("Velocidad"));
+            mGolpesActuales.setText(recuperados.getString("Puntos de Golpe Actuales"));
+            mGolpesTemporales.setText(recuperados.getString("Puntos de Golpe Temporales"));
+            mGolpesTotales.setText(recuperados.getString("Puntos de Golpe Máximos"));
+            mDadoGolpe.setText(recuperados.getString("Dado de Golpe/Valor"));
+            mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
+            mSalvaciones = recuperados.getInt("Salvacion");
+        }
+
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
+        //TODO: Raúl: Poder modificar 'Clase de armadura', 'Iniciativa', 'Velocidad' y guardarlo en FireBase
 
         //Iniciativa: random entre 1 y 20 + modificador [cuadrado] de Destreza
 
@@ -99,7 +101,7 @@ public class CombateFragment extends Fragment {
         mBarraSalud.setProgress(Integer.parseInt(mGolpesTotales.getText().toString())-Integer.parseInt(mGolpesActuales.getText().toString()));
 
         //Solo permite marcar el 2 cuando el 1 está marcado
-        switch (mSalvaciones){
+        switch (mSalvaciones) {
             case 0:
                 mCheckboxExito1.setChecked(false);
                 mCheckboxExito2.setChecked(false);
@@ -265,7 +267,7 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo3.setChecked(true);
                 break;
             default:
-                mSalvaciones=0;
+                mSalvaciones = 0;
                 mCheckboxExito1.setChecked(false);
                 mCheckboxExito2.setChecked(false);
                 mCheckboxExito3.setChecked(false);
@@ -284,9 +286,9 @@ public class CombateFragment extends Fragment {
         mCheckboxExito1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCheckboxExito1.isChecked()){
+                if (mCheckboxExito1.isChecked()) {
                     mCheckboxExito2.setEnabled(true);
-                }else{
+                } else {
                     mCheckboxExito2.setEnabled(false);
                     mCheckboxExito2.setChecked(false);
                     mCheckboxExito3.setEnabled(false);
@@ -295,22 +297,22 @@ public class CombateFragment extends Fragment {
             }
         });
         mCheckboxExito2.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if (mCheckboxExito2.isChecked()){
-                   mCheckboxExito3.setEnabled(true);
-               }else{
-                   mCheckboxExito3.setEnabled(false);
-                   mCheckboxExito3.setChecked(false);
-               }
-           }
-       });
+            @Override
+            public void onClick(View v) {
+                if (mCheckboxExito2.isChecked()) {
+                    mCheckboxExito3.setEnabled(true);
+                } else {
+                    mCheckboxExito3.setEnabled(false);
+                    mCheckboxExito3.setChecked(false);
+                }
+            }
+        });
         mCheckboxFallo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCheckboxFallo1.isChecked()){
+                if (mCheckboxFallo1.isChecked()) {
                     mCheckboxFallo2.setEnabled(true);
-                }else{
+                } else {
                     mCheckboxFallo2.setEnabled(false);
                     mCheckboxFallo2.setChecked(false);
                     mCheckboxFallo3.setEnabled(false);
@@ -321,9 +323,9 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCheckboxFallo2.isChecked()){
+                if (mCheckboxFallo2.isChecked()) {
                     mCheckboxFallo3.setEnabled(true);
-                }else{
+                } else {
                     mCheckboxFallo3.setEnabled(false);
                     mCheckboxFallo3.setChecked(false);
                 }
@@ -337,6 +339,7 @@ public class CombateFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+
         //Inicialización de variables
         mClaseArmadura = v.findViewById(R.id.Combate_valor_inspiracion);
         mIniciativa = v.findViewById(R.id.Combate_valor_iniciativa);
@@ -353,38 +356,38 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo2 = v.findViewById(R.id.Combate_fallo_checkbox_2);
         mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
         int salvacio;
-        if (!mCheckboxFallo1.isChecked() && !mCheckboxExito1.isChecked()){
-            salvacio=0;
-        }else if(!mCheckboxFallo1.isChecked() && !mCheckboxExito2.isChecked()){
-            salvacio=1;
-        }else if(!mCheckboxFallo1.isChecked() && !mCheckboxExito3.isChecked()){
-            salvacio=2;
-        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito1.isChecked()){
-            salvacio=4;
-        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito2.isChecked()){
-            salvacio=5;
-        }else if(!mCheckboxFallo2.isChecked() && !mCheckboxExito3.isChecked()){
-            salvacio=6;
-        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()){
-            salvacio=8;
-        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()){
-            salvacio=9;
-        }else if(!mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()){
-            salvacio=10;
-        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()){
-            salvacio=12;
-        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()){
-            salvacio=13;
-        }else if(mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()){
-            salvacio=14;
-        }else if(!mCheckboxFallo1.isChecked() && mCheckboxExito3.isChecked()){
-            salvacio=3;
-        }else if(!mCheckboxFallo2.isChecked() && mCheckboxExito3.isChecked()){
-            salvacio=7;
-        }else if(!mCheckboxFallo3.isChecked() && mCheckboxExito3.isChecked()){
-            salvacio=11;
-        }else {
-            salvacio=15;
+        if (!mCheckboxFallo1.isChecked() && !mCheckboxExito1.isChecked()) {
+            salvacio = 0;
+        } else if (!mCheckboxFallo1.isChecked() && !mCheckboxExito2.isChecked()) {
+            salvacio = 1;
+        } else if (!mCheckboxFallo1.isChecked() && !mCheckboxExito3.isChecked()) {
+            salvacio = 2;
+        } else if (!mCheckboxFallo2.isChecked() && !mCheckboxExito1.isChecked()) {
+            salvacio = 4;
+        } else if (!mCheckboxFallo2.isChecked() && !mCheckboxExito2.isChecked()) {
+            salvacio = 5;
+        } else if (!mCheckboxFallo2.isChecked() && !mCheckboxExito3.isChecked()) {
+            salvacio = 6;
+        } else if (!mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()) {
+            salvacio = 8;
+        } else if (!mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()) {
+            salvacio = 9;
+        } else if (!mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()) {
+            salvacio = 10;
+        } else if (mCheckboxFallo3.isChecked() && !mCheckboxExito1.isChecked()) {
+            salvacio = 12;
+        } else if (mCheckboxFallo3.isChecked() && !mCheckboxExito2.isChecked()) {
+            salvacio = 13;
+        } else if (mCheckboxFallo3.isChecked() && !mCheckboxExito3.isChecked()) {
+            salvacio = 14;
+        } else if (!mCheckboxFallo1.isChecked() && mCheckboxExito3.isChecked()) {
+            salvacio = 3;
+        } else if (!mCheckboxFallo2.isChecked() && mCheckboxExito3.isChecked()) {
+            salvacio = 7;
+        } else if (!mCheckboxFallo3.isChecked() && mCheckboxExito3.isChecked()) {
+            salvacio = 11;
+        } else {
+            salvacio = 15;
         }
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -393,11 +396,12 @@ public class CombateFragment extends Fragment {
 
         HashMap<String, Object> hashMap = new HashMap<>();
 
+        //Guarda los datos en FireBase
         hashMap.put("Clase de Armadura", mClaseArmadura.getText().toString().trim());
         hashMap.put("Iniciativa", mIniciativa.getText().toString().trim());
-        hashMap.put("Velocidad",mVelocidad.getText().toString().trim());
-        hashMap.put("Puntos de Golpe Actuales",mGolpesActuales.getText().toString().trim());
-        hashMap.put("Puntos de Golpe Máximos",mGolpesTotales.getText().toString().trim());
+        hashMap.put("Velocidad", mVelocidad.getText().toString().trim());
+        hashMap.put("Puntos de Golpe Actuales", mGolpesActuales.getText().toString().trim());
+        hashMap.put("Puntos de Golpe Máximos", mGolpesTotales.getText().toString().trim());
         hashMap.put("Puntos de Golpe Temporales", mGolpesTemporales.getText().toString().trim());
         hashMap.put("Dado de Golpe/Valor", mDadoGolpe.getText().toString().trim());
         hashMap.put("Dado de Golpe/Total", mDadoTotal.getText().toString().trim());

@@ -43,9 +43,9 @@ public class CabeceraFragment extends Fragment {
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
     private FirebaseDatabase mDatabase;
-    private String[] listaRazas = new String[] {};
-    private String[] listaClases = new String[] {};
-    private String[] listaAlineamiento = new String[] {};
+    private String[] listaRazas = new String[]{};
+    private String[] listaClases = new String[]{};
+    private String[] listaAlineamiento = new String[]{};
     private FirebaseAuth mAuth;
     private Button mSumarExp;
     private View v;
@@ -138,12 +138,12 @@ public class CabeceraFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText("Aumentar experiencia");
+                title.setText(R.string.aumentarExperiencia);
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -153,7 +153,7 @@ public class CabeceraFragment extends Fragment {
                 editText.setMinEms(20);
 
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -194,7 +194,7 @@ public class CabeceraFragment extends Fragment {
         return v;
     }
 
-    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
+    //Funcion de lectura en FireBase y retorna String[] para el Dropdown
     private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -224,7 +224,6 @@ public class CabeceraFragment extends Fragment {
         int aux = adapter.getPosition(s);
         dropdown.setSelection(aux);
     }
-
 
 
     @Override

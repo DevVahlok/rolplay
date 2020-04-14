@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<AdapterRecyclerRasgosAtributos.ViewHolderRasgosAtributos> {
@@ -20,7 +19,7 @@ public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<Adapter
     private Context context;
 
     //Constructor
-    public AdapterRecyclerRasgosAtributos(ArrayList<String> listaRasgosAtributos, OnItemListener mOnItemListener, Context context) {
+    AdapterRecyclerRasgosAtributos(ArrayList<String> listaRasgosAtributos, OnItemListener mOnItemListener, Context context) {
         this.listaRasgosAtributos = listaRasgosAtributos;
         this.mOnItemListener = mOnItemListener;
         this.context = context;
@@ -54,15 +53,16 @@ public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<Adapter
 
     public class ViewHolderRasgosAtributos extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //Declaración de variables
         private TextView dato;
         private AdapterRecyclerRasgosAtributos.OnItemListener onItemListener;
 
-        public ViewHolderRasgosAtributos(@NonNull View itemView, final AdapterRecyclerRasgosAtributos.OnItemListener onItemListener) {
+        ViewHolderRasgosAtributos(@NonNull View itemView, final AdapterRecyclerRasgosAtributos.OnItemListener onItemListener) {
+
+            //Inicialización de variables
             super(itemView);
             this.onItemListener = onItemListener;
-
             dato = itemView.findViewById(R.id.RasgosAtributos_valor);
-
             itemView.setOnClickListener(this);
             imgViewRemoveIcon = itemView.findViewById(R.id.RasgosAtributos_borrar);
 
@@ -70,12 +70,9 @@ public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<Adapter
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemListener.onItemClick(getAdapterPosition());
 
                     //Elimina el objeto del recycler
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        removeAt(getAdapterPosition());
-                    }
+                    onItemListener.onItemClick(getAdapterPosition());
 
                 }
             });
@@ -88,22 +85,12 @@ public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<Adapter
         }
 
         @Override
-        public void onClick(View v) {
-
-        }
+        public void onClick(View v) { }
     }
 
+    //Interfaz para crear un OnClickListener en la foto de la X
     public interface OnItemListener{
         void onItemClick(int position);
-    }
-
-    public void removeAt(int position) {
-
-        //Elimina el objeto del recycler
-        listaRasgosAtributos.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listaRasgosAtributos.size());
-
     }
 
 }

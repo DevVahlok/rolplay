@@ -2,9 +2,7 @@ package com.example.rolplay;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,14 @@ import android.widget.TextView;
 
 public class ConfiguracionFragment extends Fragment {
 
+    //Declaración de variables
     private TextView mLinkCondiciones, mLinkPoliticaDatos, mLinkApi;
     private ImageView mFotoCondiciones, mFotoPoliticaDatos, mFotoLink;
 
+    //Constructor
     public ConfiguracionFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +33,7 @@ public class ConfiguracionFragment extends Fragment {
 
         //Vamos a ser buena gente y poner el checkbox desmarcado como default
 
+        //TODO: Raúl: Guardar configuración en FireBase
         //Para las estadísticas, meter un int en FireBase e ir sumando
 
         //Inicialización de variables

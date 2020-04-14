@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import java.util.Objects;
 
 public class DialogCarga extends DialogFragment {
 
@@ -17,7 +18,7 @@ public class DialogCarga extends DialogFragment {
 
         AlertDialog.Builder constructorDelDialog = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_carga,null);
 
