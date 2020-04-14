@@ -34,7 +34,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB;
 
     private Button mPlusInspiracion, mMinusInspiracion, mPlusBonificador, mMinusBonificador, mPlusSabiduria, mMinusSabiduria;
-
+    private String codigoPJ;
     private FirebaseDatabase mDatabase;
 
     public HabilidadesBonificadoresFragment() {
@@ -47,6 +47,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_habilidades_bonificadores, container, false);
 
         Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
 
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -262,6 +263,11 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         hashMap.put("Inspiracion", mInspiracion.getText().toString());
         hashMap.put("Bonificador Competencia", mBonificador.getText().toString());
         hashMap.put("Sabiduria Pasiva",mSabiduria.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }

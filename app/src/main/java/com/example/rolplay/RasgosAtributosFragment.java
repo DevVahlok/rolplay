@@ -35,6 +35,7 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
     private AdapterRecyclerRasgosAtributos adapter;
     private View v;
     private FirebaseDatabase mDatabase;
+    private String codigoPJ;
 
     //Constructor
     public RasgosAtributosFragment() {
@@ -49,6 +50,8 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
         v = inflater.inflate(R.layout.fragment_rasgos_atributos, container, false);
 
         final Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
+
         //Inicialización de variables
         recycler = v.findViewById(R.id.RasgosAtributos_Recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
@@ -137,6 +140,10 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Rasgos",listaRasgosAtributos);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }

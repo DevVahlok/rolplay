@@ -49,6 +49,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private String[] listaObjetos = new String[] {};
     private DialogCarga mDialogCarga;
     private View v;
+    private String codigoPJ;
 
     private int auxiliar = 0, pesoTotal=0;;
 
@@ -64,6 +65,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         v = inflater.inflate(R.layout.fragment_equipo, container, false);
 
         final Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
 
         //Inicialización de varaibles
         recycler = v.findViewById(R.id.Equipo_Recycler);
@@ -81,6 +83,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         mDialogCarga = new DialogCarga();
 
+        //TODO: RAUL: mopdifica monedas
         //Al pulsar el botón de añadir objeto
         mBotonAnadirObjeto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,20 +234,20 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
-                        cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
-                             @Override
-                             public void onCallback(String[] value) {
-                                 //Añade objeto al Recycle
-                                 listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]),value[2]));
-                                 pesoTotal+=Integer.parseInt(value[1]);
-                                 adapter.notifyItemInserted(listaDatos.size() - 1);
-                                 mDialogCarga.dismiss();
-                             }
-                         });
-
+                        if (!spinnerObjeto.getSelectedItem().toString().equals("Ninguno")) {
+                            cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
+                                @Override
+                                public void onCallback(String[] value) {
+                                    //Añade objeto al Recycle
+                                    listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
+                                    pesoTotal += Integer.parseInt(value[1]);
+                                    adapter.notifyItemInserted(listaDatos.size() - 1);
+                                    mDialogCarga.dismiss();
+                                }
+                            });
+                        }
+                        mDialogCarga.dismiss();
                     }
-
-
                 });
 
                 constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
@@ -370,7 +373,12 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         hashMap.put("Piezas de oro",mMonOro.getText().toString());
         hashMap.put("Piezas de platino",mMonPlatino.getText().toString());
         hashMap.put("Peso total",String.valueOf(pesoTotal));
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 
 

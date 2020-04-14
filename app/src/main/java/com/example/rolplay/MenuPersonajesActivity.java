@@ -1,5 +1,6 @@
 package com.example.rolplay;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,19 +12,30 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
@@ -32,11 +44,15 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
     //Declaración de variables
     private ArrayList<ItemPersonaje> listaDatos;
+    private ArrayList<String> lista = new ArrayList<>();
     private RecyclerView recycler;
     private TextView mNombrePersonaje, mJuegoPersonaje, mCodigoPersonaje;
     private ImageView mFotoPersonaje;
+    private ArrayList listaCodigos = new ArrayList();
     private Button mBotonCrearPersonaje;
     private AdapterRecyclerPersonaje adapter;
+    private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
     static boolean recordarMenu;
 
     @Override
@@ -54,6 +70,28 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         mBotonCrearPersonaje = findViewById(R.id.MenuPersonajes_crearPersonaje_btn);
         recycler = findViewById(R.id.MenuPersonajes_Recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mDatabase = FirebaseDatabase.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        try {
+            mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String valor = "" + ds.getKey();
+                        listaCodigos.add(valor);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("ERROR", databaseError.getMessage());
+                }
+            });
+        }catch (Exception e){
+
+        }
+
 
         //Al pulsar el botón de crear personaje
         mBotonCrearPersonaje.setOnClickListener(new View.OnClickListener() {
@@ -92,23 +130,39 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: Añadir personaje y su código a Firebase
                         recordarMenu = false;
-
-                        //TODO: Raúl: Guardar lista de códigos al crear personaje en FireBase. Recuperarla y usar el algoritmo de abajo para comprobar que no existe al generar uno nuevo.
                         String codigoGenerado = generarCodigo();
-                        ArrayList listaCodigos = new ArrayList();
-                        boolean codigoLibre = false;
+                        if (listaCodigos.size()==0) {
+                            //TODO: Raúl: Guardar lista de códigos al crear personaje en FireBase. Recuperarla y usar el algoritmo de abajo para comprobar que no existe al generar uno nuevo.
 
-                        while (!codigoLibre) {
-
-                            for (int i = 0; i < listaCodigos.size(); i++) {
-                                if (listaCodigos.get(i).equals(codigoGenerado)) {
-                                    codigoGenerado = generarCodigo();
-                                } else {
-                                    codigoLibre = true;
+                            listaCodigos.add(codigoGenerado);
+                        }else {
+                            boolean codigoLibre = false;
+                            int aux;
+                            while (!codigoLibre) {
+                                aux = 0;
+                                for (int i = 0; i < listaCodigos.size(); i++) {
+                                    if (listaCodigos.get(i).equals(codigoGenerado)) {
+                                        codigoGenerado = generarCodigo();
+                                        aux++;
+                                    }
+                                    if (aux == 0) {
+                                        codigoLibre = true;
+                                    }
                                 }
+
                             }
 
+                            listaCodigos.add(codigoGenerado);
                         }
+
+                        FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+
+                        hashMap.put(usuariActual.getUid(), listaCodigos);
+                        Log.d("------------", listaCodigos.toString());
+                        mDatabase.getReference("users").updateChildren(hashMap);
+
                         startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", "seleccionPersonaje"));
                         MenuPersonajesActivity.this.finish();
 
@@ -131,13 +185,17 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         });
 
         //Placeholder
-        listaDatos = new ArrayList<ItemPersonaje>();
-        listaDatos.add(new ItemPersonaje("Vahlok", getString(R.string.dungeonsAndDragons), getString(R.string.codigo, "ABC123")));
+        cogerPersonaje(mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()), lista, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaDatos = new ArrayList<ItemPersonaje>();
+                listaDatos.add(new ItemPersonaje(value[1], getString(R.string.dungeonsAndDragons), value[0]));
 
-        //Añade los personajes al Recycler
-        adapter = new AdapterRecyclerPersonaje(listaDatos, this, this);
-        recycler.setAdapter(adapter);
-
+                //Añade los personajes al Recycler
+                adapter = new AdapterRecyclerPersonaje(listaDatos, MenuPersonajesActivity.this, MenuPersonajesActivity.this);
+                recycler.setAdapter(adapter);
+            }
+        });
     }
 
     @Override
@@ -189,6 +247,30 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         anadirPersonaje.show();
         Objects.requireNonNull(anadirPersonaje.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
 
+    }
+
+
+    private void cogerPersonaje(DatabaseReference mDatabase, final ArrayList<String> ALS, final MyCallback callback) {
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] result = new String[0];
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String valor = "" + ds.getKey();
+                    if (!valor.equals("0")) {
+                        ALS.add(valor);
+                        ALS.add((String) ds.child("Nombre").getValue());
+                        result = ALS.toArray(result);
+                    }
+                }
+                callback.onCallback(result);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void borrar(int position) {

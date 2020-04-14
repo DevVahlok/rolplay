@@ -37,6 +37,7 @@ public class PuntosHabilidadFragment extends Fragment {
     private ImageView mFuerza, mDestreza, mConstitucion, mInteligencia, mSabiduria, mCarisma;
     private ImageButton mFuerzaEditar, mDestrezaEditar, mConstitucionEditar, mInteligenciaEditar, mSabiduriaEditar,
             mCarismaEditar;
+    private String codigoPJ;
 
     public PuntosHabilidadFragment() {
 
@@ -48,6 +49,7 @@ public class PuntosHabilidadFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_puntos_habilidad, container, false);
         final Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
         //Generación de estadísticas: si se quiere rerollear, hay que dar un número aleatorio entre 3-18 (ambos incluídos) [colocar en el círculo]
         //Sí, el máximo es 18 pero las posibilidades llegan hasta 30. No tengo muy claro cómo funciona (maybe se puede aumentar subiendo de nivel?)
         //Importante marcar el signo (+/-) en el modificador [cuadrado]
@@ -327,6 +329,11 @@ public class PuntosHabilidadFragment extends Fragment {
         hashMap.put("Sabiduria bonus",mSabiduriaBonus.getText().toString());
         hashMap.put("Carisma puntos",mCarismaPuntos.getText().toString());
         hashMap.put("Carisma bonus",mCarismaBonus.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }

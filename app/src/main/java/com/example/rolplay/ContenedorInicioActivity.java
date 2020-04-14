@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -85,7 +86,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
-            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
+            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
 
     private DialogCarga mDialogCarga;
@@ -101,8 +102,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         mUsuario = mAuth.getCurrentUser();
 
-        //TODO: Aquí se recoge el código del personaje seleccionado (o creado). Setear datos de FireBase según el código.
-        String codigoPersonaje = getIntent().getStringExtra("codigo");
+        codigoPersonaje = getIntent().getStringExtra("codigo");
 
         //Posicionar en el JSON de Firebase
         mDatabase = FirebaseDatabase.getInstance();
@@ -134,11 +134,116 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 recordarMenu = false;
                 this.finish();
             }else if(Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")){
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CabeceraFragment(), "cabecera_fragment").commit();
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser usuariActual = mAuth.getCurrentUser();
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+
+                hashMap.put("Nombre","");
+                hashMap.put("Raza","");
+                hashMap.put("Trasfondo","");
+                hashMap.put("Alineamiento","");
+                hashMap.put("Nivel", "1");
+                hashMap.put("Puntos de Experiencia", "0");
+                hashMap.put("Clase de Armadura", "");
+                hashMap.put("Iniciativa", "");
+                hashMap.put("Velocidad","");
+                hashMap.put("Puntos de Golpe Actuales","0");
+                hashMap.put("Puntos de Golpe Máximos","100");
+                hashMap.put("Puntos de Golpe Temporales", "2");
+                hashMap.put("Dado de Golpe/Valor", "");
+                hashMap.put("Dado de Golpe/Total", "");
+                hashMap.put("Salvaciones de Muerte", "");
+                hashMap.put("Idiomas", "");
+                hashMap.put("Armadura", "");
+                hashMap.put("Armas", "");
+                hashMap.put("Herramientas", "");
+                hashMap.put("Especialidad", "");
+                hashMap.put("Rango militar", "");
+                hashMap.put("Otras", "");
+                hashMap.put("Equipo","");
+                hashMap.put("Piezas de cobre","");
+                hashMap.put("Piezas de plata","");
+                hashMap.put("Piezas de esmeralda","");
+                hashMap.put("Piezas de oro","");
+                hashMap.put("Piezas de platino","");
+                hashMap.put("Peso total","");
+                hashMap.put("AcrobaciasCB",false);
+                hashMap.put("AtletismoCB",false);
+                hashMap.put("ConocimientoCB",false);
+                hashMap.put("EngañoCB",false);
+                hashMap.put("HistoriaCB",false);
+                hashMap.put("InterpretacionCB",false);
+                hashMap.put("IntimidacionCB",false);
+                hashMap.put("InvestigacionCB",false);
+                hashMap.put("JuegoManosCB",false);
+                hashMap.put("MedicinaCB",false);
+                hashMap.put("NaturalezaCB",false);
+                hashMap.put("PercepcionCB",false);
+                hashMap.put("PerspicaciaCB",false);
+                hashMap.put("PersuasionCB",false);
+                hashMap.put("ReligionCB",false);
+                hashMap.put("SigiloCB",false);
+                hashMap.put("SupervivenciaCB",false);
+                hashMap.put("TratoAnimalesCB",false);
+                hashMap.put("Inspiracion", "");
+                hashMap.put("Bonificador Competencia", "");
+                hashMap.put("Sabiduria Pasiva","");
+                hashMap.put("Rasgos de Personalidad", "");
+                hashMap.put("Ideales", "");
+                hashMap.put("Vínculos", "");
+                hashMap.put("Defectos", "");
+                hashMap.put("Fuerza puntos", "");
+                hashMap.put("Fuerza bonus", "");
+                hashMap.put("Destreza puntos", "");
+                hashMap.put("Destreza bonus", "");
+                hashMap.put("Constitucion puntos", "");
+                hashMap.put("Constitucion bonus", "");
+                hashMap.put("Inteligencia puntos", "");
+                hashMap.put("Inteligencia bonus", "");
+                hashMap.put("Sabiduria puntos", "");
+                hashMap.put("Sabiduria bonus", "");
+                hashMap.put("Carisma puntos", "");
+                hashMap.put("Carisma bonus", "");
+                hashMap.put("Rasgos", "");
+
+                mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPersonaje).updateChildren(hashMap);
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Nombre", "");
+                bundle.putString("Trasfondo", "");
+                bundle.putString("Raza", "");
+                bundle.putString("Clase", "");
+                bundle.putString("Alineamiento", "");
+                bundle.putInt("Nivel", 1);
+                bundle.putInt("Puntos de Experiencia", 0);
+                bundle.putString("origen", "seleccionPersonaje");
+                bundle.putString("codigo", codigoPersonaje);
+                Fragment Cabecera = new CabeceraFragment();
+                Cabecera.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera, "cabecera_fragment").addToBackStack(null).commit();
                 navigationView.setCheckedItem(R.id.nav_cabecera);
             }else{
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment(), "inicio_fragment").commit();
-                navigationView.setCheckedItem(R.id.nav_ficha);
+                mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("codigo", codigoPersonaje);
+                        bundle.putString("origen", "inicio");
+                        Fragment inicio = new InicioFragment();
+                        inicio.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inicio, "inicio_fragment").commit();
+                        navigationView.setCheckedItem(R.id.nav_ficha);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
@@ -151,18 +256,57 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
         mDialogCarga = new DialogCarga();
 
-        //TODO Inicializar campos en firebase para poder cogerlos y guardarlos
-        //Seteo de datos del header de la navegación lateral
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                cargarDatosFB();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        cargarDatosFB();
+
+        //Cargamos las imagenes de los dados
+        final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
+
+        cargarDados("1d4", dados4, mdados);
+        cargarDados("1d6", dados6, mdados);
+        cargarDados("1d8", dados8, mdados);
+        cargarDados("1d10", dados10, mdados);
+        cargarDados("1d12", dados12, mdados);
+        cargarDados("1d20", dados20, mdados);
+
+    }
+
+    private void cargarDatosFB() {
+        //Posicionar en el JSON de Firebase
+        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
+        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
+        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
+        final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
+
+        //Seteo datos en ficha
+        mAuth= FirebaseAuth.getInstance();
+        ComprobarEstatUsuari();
+        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()+"/"+codigoPersonaje).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 mNombrePersonaje.setText((String) dataSnapshot.child("Nombre").getValue());
                 Trasfondo = (String) dataSnapshot.child("Trasfondo").getValue();
                 Alineamiento = (String) dataSnapshot.child("Alineamiento").getValue();
                 Raza = (String) dataSnapshot.child("Raza").getValue();
                 Clase = (String) dataSnapshot.child("Clase").getValue();
-                mNivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
-                PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
+                try{
+                    mNivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
+                    PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
+                }catch (Exception e){
+                    Log.d("---------", e.getMessage());
+                }
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
                 Velocidad = (String) dataSnapshot.child("Velocidad").getValue();
@@ -171,12 +315,16 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PuntosGolpeTemporales = (String) dataSnapshot.child("Puntos de Golpe Temporales").getValue();
                 DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
-                SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
-                PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
-                PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
-                PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
-                POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
-                PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
+                try {
+                    SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
+                    PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
+                    PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
+                    PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
+                    POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
+                    PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
+                }catch (Exception e){
+                    Log.d("---------", e.getMessage());
+                }
                 RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
                 Ideales = (String) dataSnapshot.child("Ideales").getValue();
                 Vinculos = (String) dataSnapshot.child("Vínculos").getValue();
@@ -193,24 +341,28 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mSabiduriaBonus = (String) dataSnapshot.child("Sabiduria bonus").getValue();
                 mCarismaPuntos = (String) dataSnapshot.child("Carisma puntos").getValue();
                 mCarismaBonus = (String) dataSnapshot.child("Carisma bonus").getValue();
-                mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
-                mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
-                mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
-                mEngañoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
-                mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
-                mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
-                mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
-                mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
-                mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
-                mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
-                mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
-                mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
-                mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
-                mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
-                mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
-                mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
-                mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
-                mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
+                try {
+                    mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
+                    mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
+                    mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
+                    mEngañoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
+                    mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
+                    mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
+                    mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
+                    mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
+                    mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
+                    mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
+                    mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
+                    mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
+                    mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
+                    mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
+                    mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
+                    mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
+                    mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
+                    mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
+                }catch (Exception e){
+                    Log.d("---------", e.getMessage());
+                }
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
                 mSabiduria = (String) dataSnapshot.child("Sabiduria Pasiva").getValue();
@@ -221,6 +373,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
                 mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
                 mOtras = (String) dataSnapshot.child("Otras").getValue();
+
             }
 
             @Override
@@ -229,11 +382,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
-        mCorreoElectronico.setText(mUsuario.getEmail());
-
         //Cargar listas de los dropdowns
-        mDialogCarga.show(getSupportFragmentManager(), null);
         //Razas
         cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
             @Override
@@ -245,14 +394,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases = value;
+                listaClases=value;
             }
         });
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
-        //Cargamos todos los objetos de Equipo
-        cargarSpinners(mObjetos, Objetos, listaObjetos, new MyCallback() {
+        cargarSpinners(mObjetos.child(""), Objetos, listaObjetos, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaObjetos = value;
@@ -318,7 +466,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaHerramientas = value;
             }
         });
-        cargarSpinners(mObjetos.child("Mercancias"), Objetos, listaMercancias, new MyCallback() {
+        cargarSpinners(mObjetos.child("Mercancías"), Objetos, listaMercancias, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaMercancias = value;
@@ -328,7 +476,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             @Override
             public void onCallback(String[] value) {
                 listaMisceláneo = value;
-                mDialogCarga.dismiss();
             }
         });
         cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturas, new MyCallback() {
@@ -350,16 +497,15 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        //Nos posicionamos en la ruta de firebase y guardamos en un arrayList los datos deseados
-        final DatabaseReference mEquipo = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/Equipo");
+        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Equipo.add((String) ds.child("nombre").getValue());
-                    Equipo.add(((Long) ds.child("coste").getValue()).toString());
-                    Equipo.add(((Long) ds.child("peso").getValue()).toString());
-                    Equipo.add((String) ds.child("url").getValue());
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Equipo.add((String)ds.child("nombre").getValue());
+                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
+                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
+                    Equipo.add((String)ds.child("url").getValue());
                 }
             }
 
@@ -369,12 +515,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        final DatabaseReference mRasgos = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/Rasgos");
+        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Rasgos.add((String) ds.getValue());
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Rasgos.add((String)ds.getValue());
                 }
             }
 
@@ -383,16 +529,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
-
-        //Cargamos las imagenes de los dados
-        final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
-
-        cargarDados("1d4", dados4, mdados);
-        cargarDados("1d6", dados6, mdados);
-        cargarDados("1d8", dados8, mdados);
-        cargarDados("1d10", dados10, mdados);
-        cargarDados("1d12", dados12, mdados);
-        cargarDados("1d20", dados20, mdados);
 
     }
 
@@ -460,6 +596,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putStringArray("Razas", listaRazas);
                 bundle.putStringArray("Clases", listaClases);
                 bundle.putStringArray("Alineamientos", listaAlineamiento);
+                bundle.putString("origen", " ");
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Cabecera = new CabeceraFragment();
                 Cabecera.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera).addToBackStack(null).commit();
@@ -478,6 +616,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Sabiduria bonus", mSabiduriaBonus);
                 bundle.putString("Carisma puntos", mCarismaPuntos);
                 bundle.putString("Carisma bonus", mCarismaBonus);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Puntos = new PuntosHabilidadFragment();
                 Puntos.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Puntos).commit();
@@ -511,6 +650,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
                 bundle.putString("Sabiduria Pasiva", mSabiduria);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Bonificador = new HabilidadesBonificadoresFragment();
                 Bonificador.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Bonificador).commit();
@@ -527,6 +667,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Dado de Golpe/Valor", DadoGolpe);
                 bundle.putString("Dado de Golpe/Total", TotalDadoGolpe);
                 bundle.putInt("Salvacion", SalvacionesMuerte);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Combate = new CombateFragment();
                 Combate.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Combate).addToBackStack(null).commit();
@@ -553,6 +694,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putInt("Piezas de oro", POro);
                 bundle.putInt("Piezas de platino", PPlatino);
                 bundle.putStringArrayList("Equipo", Equipo);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Equipo = new EquipoFragment();
                 Equipo.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Equipo).addToBackStack(null).commit();
@@ -566,6 +708,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Ideales", Ideales);
                 bundle.putString("Vínculos", Vinculos);
                 bundle.putString("Defectos", Defectos);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Personalidad = new PersonalidadFragment();
                 Personalidad.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Personalidad).commit();
@@ -573,6 +716,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case R.id.nav_rasgosAtributos:
                 bundle = new Bundle();
                 bundle.putStringArrayList("Rasgos y Atributos", Rasgos);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment RasgosYAtributos = new RasgosAtributosFragment();
                 RasgosYAtributos.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, RasgosYAtributos).commit();
@@ -586,6 +730,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Especialidad", mEspecialidad);
                 bundle.putString("Rango militar", mRangoMilitar);
                 bundle.putString("Otras", mOtras);
+                bundle.putString("codigo", codigoPersonaje);
                 Fragment Competencias = new CompetenciasIdiomasFragment();
                 Competencias.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Competencias).commit();

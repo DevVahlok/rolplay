@@ -31,6 +31,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
         mOtrasSumar;
     private TextView mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private FirebaseDatabase mDatabase;
+    private String codigoPJ;
 
     public CompetenciasIdiomasFragment() {
 
@@ -44,6 +45,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_competencias_idiomas, container, false);
 
         Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
 
         mIdiomasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarIdioma);
         mArmaduraSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarArmadura);
@@ -220,6 +222,11 @@ public class CompetenciasIdiomasFragment extends Fragment {
         hashMap.put("Rango militar", mRangoMilitar.getText().toString());
         hashMap.put("Otras", mOtras.getText().toString());
 
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }

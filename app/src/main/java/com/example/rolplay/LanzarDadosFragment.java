@@ -118,10 +118,12 @@ public class LanzarDadosFragment extends Fragment {
 
                         //TODO que funcione lo de cargar varias imagenes
                         //Añadimos tantos dados como haya dicho el usuario
+                        ArrayList<ImageView> IV = new ArrayList<>();
                         for (int i=0; i<dados; i++){
-                            ImageView IV = new ImageView(getActivity());
-                            Picasso.get().load(Uri.parse(imagenes.get(r.nextInt(x)).toString())).into(IV);
-                            constructrorDialog.setView(IV);
+                            Log.d("------------", String.valueOf(dados));
+                            IV.add(new ImageView(getActivity()));
+                            Picasso.get().load(Uri.parse(imagenes.get(r.nextInt(x)).toString())).into(IV.get(i));
+                            constructrorDialog.setView(IV.get(i));
                         }
 
                         constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

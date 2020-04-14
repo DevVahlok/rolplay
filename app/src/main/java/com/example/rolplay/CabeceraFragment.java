@@ -51,6 +51,7 @@ public class CabeceraFragment extends Fragment {
     private View v;
     private ArrayList<String> Razas = new ArrayList<>();
     private ArrayList<String> Clases = new ArrayList<>();
+    private String codigoPJ;
 
     public CabeceraFragment() {
 
@@ -62,7 +63,8 @@ public class CabeceraFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_cabecera, container, false);
 
-        Bundle recuperados = getArguments();
+        final Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
 
         //Inicialización de variables
         mNombrePersonajeET = v.findViewById(R.id.CabeceraActivity_nombrePersonaje_ET);
@@ -78,46 +80,49 @@ public class CabeceraFragment extends Fragment {
 
         //Posicionar en el JSON de Firebase
         mDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
-        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
+        if(recuperados.getString("origen").equals("seleccionPersonaje")) {
+            final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
+            final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
+            //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
-        //Cargar listas de los dropdowns
-        //Razas
-        cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaRazas = value;
-            }
-        });
-        //Clases
-        cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
-            @Override
-            public void onCallback(String[] value) {
-                listaClases=value;
-            }
-        });
-        //Alineamiento
-        listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
+            //Cargar listas de los dropdowns
+            //Razas
+            cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
+                @Override
+                public void onCallback(String[] value) {
+                    listaRazas = value;
+                    creadorAdapter(listaRazas, mDropdownRaza, recuperados.getString("Raza"));
+                }
+            });
+            //Clases
+            cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
+                @Override
+                public void onCallback(String[] value) {
+                    listaClases = value;
+                    creadorAdapter(listaClases, mDropdownClase, recuperados.getString("Clase"));
+                }
+            });
+            //Alineamiento
+            listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
+        }else {
+            listaRazas = recuperados.getStringArray("Razas");
+            creadorAdapter(listaRazas, mDropdownRaza, recuperados.getString("Raza"));
+            listaClases = recuperados.getStringArray("Clases");
+            creadorAdapter(listaClases, mDropdownClase, recuperados.getString("Clase"));
+            listaAlineamiento = recuperados.getStringArray("Alineamientos");
+        }
 
-
-        //TODO: Raúl: Esto peta al crear un nuevo personaje
-/*
-        listaRazas = recuperados.getStringArray("Razas");
-        listaClases = recuperados.getStringArray("Clases");
-        listaAlineamiento = recuperados.getStringArray("Alineamientos");
         mNombrePersonajeET.setText(recuperados.getString("Nombre"));
         mTrasfondoPersonajeET.setText(recuperados.getString("Trasfondo"));
 
-        creadorAdapter(listaRazas, mDropdownRaza, recuperados.getString("Raza"));
-        creadorAdapter(listaClases, mDropdownClase, recuperados.getString("Clase"));
+
         creadorAdapter(listaAlineamiento, mDropdownAlineamiento, recuperados.getString("Alineamiento"));
 
 
         mProgresoExperiencia = recuperados.getInt("Puntos de Experiencia");
         mNivel = recuperados.getInt("Nivel");
 
- */
+
         mExperienciaTotal = mNivel * (mNivel+1) * 500;
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
@@ -161,6 +166,10 @@ public class CabeceraFragment extends Fragment {
                             mNivel++;
                             mProgresoExperiencia=mProgresoExperiencia-mExperienciaTotal;
                             mExperienciaTotal = mNivel * (mNivel+1) * 500;
+                        }else if(mProgresoExperiencia<0){
+                            mNivel--;
+                            mExperienciaTotal = mNivel * (mNivel-1) * 500;
+                            mProgresoExperiencia=mProgresoExperiencia+mExperienciaTotal;
                         }
                             mBarraProgreso.setProgress(mProgresoExperiencia);
                             mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
@@ -191,7 +200,6 @@ public class CabeceraFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String[] result = new String[] {};
-                ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
@@ -218,6 +226,7 @@ public class CabeceraFragment extends Fragment {
     }
 
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -235,8 +244,6 @@ public class CabeceraFragment extends Fragment {
 
         HashMap<String, Object> hashMap = new HashMap<>();
 
-        //TODO: Raúl: Esto peta al crear un nuevo personaje y tirar hacia atrás en Cabecera
-/*
         hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
         hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
         hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
@@ -244,8 +251,13 @@ public class CabeceraFragment extends Fragment {
         hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
         hashMap.put("Nivel", Integer.toString(mNivel));
         hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
-*/
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
 
     }
 }

@@ -28,6 +28,7 @@ public class PersonalidadFragment extends Fragment {
     private TextView mRasgosPersonalidadTV, mIdealesTV, mVinculosTV, mDefectosTV, mRasgosPersonalidadET,
                     mIdealesET, mVinculosET, mDefectosET;
     private FirebaseDatabase mDatabase;
+    private String codigoPJ;
 
     public PersonalidadFragment() {
 
@@ -41,6 +42,7 @@ public class PersonalidadFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_personalidad, container, false);
 
         final Bundle recuperados = getArguments();
+        codigoPJ = recuperados.getString("codigo");
 
         mRasgosPersonalidadET = v.findViewById(R.id.Personalidad_editable_RasgosPersonalidad);
         mRasgosPersonalidadTV = v.findViewById(R.id.Personalidad_valor_RasgosPersonalidad);
@@ -165,6 +167,11 @@ public class PersonalidadFragment extends Fragment {
         hashMap.put("Ideales", mIdealesTV.getText().toString());
         hashMap.put("Vínculos", mVinculosTV.getText().toString());
         hashMap.put("Defectos", mDefectosTV.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }

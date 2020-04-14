@@ -7,7 +7,6 @@ public class ItemEquipo {
     private int coste;
     private int peso;
     private String url;
-    //TODO: Hay que considerar cambiar String url por URI url si es necesario
 
     public ItemEquipo(String nombre, int coste, int peso, String url) {
         this.nombre = nombre;

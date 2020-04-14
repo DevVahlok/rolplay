@@ -1,5 +1,6 @@
 package com.example.rolplay;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,7 @@ public class CombateFragment extends Fragment {
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     private View v;
+    private String codigoPJ;
 
     public CombateFragment() {
 
@@ -45,7 +47,7 @@ public class CombateFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_combate, container, false);
         Bundle recuperados = getArguments();
-
+        codigoPJ = recuperados.getString("codigo");
         mClaseArmadura = v.findViewById(R.id.Combate_valor_inspiracion);
         mIniciativa = v.findViewById(R.id.Combate_valor_iniciativa);
         mVelocidad = v.findViewById(R.id.Combate_valor_velocidad);
@@ -93,8 +95,8 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
 
         //Placeholder
-        mBarraSalud.setMax(100);
-        mBarraSalud.setProgress(50);
+        mBarraSalud.setMax(Integer.parseInt(mGolpesTotales.getText().toString()));
+        mBarraSalud.setProgress(Integer.parseInt(mGolpesTotales.getText().toString())-Integer.parseInt(mGolpesActuales.getText().toString()));
 
         //Solo permite marcar el 2 cuando el 1 está marcado
         switch (mSalvaciones){
@@ -401,6 +403,11 @@ public class CombateFragment extends Fragment {
         hashMap.put("Dado de Golpe/Total", mDadoTotal.getText().toString().trim());
         hashMap.put("Salvaciones de Muerte", String.valueOf(salvacio));
 
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+
+        HashMap<String, Object> ultimo = new HashMap<>();
+
+        ultimo.put("Ultimo personaje",codigoPJ);
+        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
     }
 }
