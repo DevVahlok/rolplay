@@ -78,7 +78,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
             mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
-    private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
+    private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
 
     @Override
@@ -176,9 +176,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("SigiloCB",false);
                 hashMap.put("SupervivenciaCB",false);
                 hashMap.put("TratoAnimalesCB",false);
-                hashMap.put("Inspiracion", "");
-                hashMap.put("Bonificador Competencia", "");
-                hashMap.put("Sabiduria Pasiva","");
+                hashMap.put("Inspiracion", "0");
+                hashMap.put("Bonificador Competencia", "0");
+                hashMap.put("Sabiduria Pasiva","0");
                 hashMap.put("Rasgos de Personalidad", "");
                 hashMap.put("Ideales", "");
                 hashMap.put("Vínculos", "");
@@ -276,7 +276,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     }
 
     private void cargarDatosFB() {
-        Log.d("----------", codigoPersonaje);
+        Log.d("-------------", codigoPersonaje);
 
         //Posicionar en el JSON de Firebase
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
@@ -306,6 +306,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PuntosGolpeTemporales = (String) dataSnapshot.child("Puntos de Golpe Temporales").getValue();
                 DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
+                PesoTotal = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Peso total").getValue()));
                 SalvacionesMuerte = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Salvaciones de Muerte").getValue()));
                 PCobre = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de cobre").getValue()));
                 PPlata = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de plata").getValue()));
@@ -328,24 +329,24 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mSabiduriaBonus = (String) dataSnapshot.child("Sabiduria bonus").getValue();
                 mCarismaPuntos = (String) dataSnapshot.child("Carisma puntos").getValue();
                 mCarismaBonus = (String) dataSnapshot.child("Carisma bonus").getValue();
-                mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
-                mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
-                mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
-                mEnganyoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
-                mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
-                mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
-                mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
-                mInvestigacionCB = ((Boolean) dataSnapshot.child("InvestigacionCB").getValue()).toString();
-                mJuegoManosCB = ((Boolean) dataSnapshot.child("JuegoManosCB").getValue()).toString();
-                mMedicinaCB = ((Boolean) dataSnapshot.child("MedicinaCB").getValue()).toString();
-                mNaturalezaCB = ((Boolean) dataSnapshot.child("NaturalezaCB").getValue()).toString();
-                mPercepcionCB = ((Boolean) dataSnapshot.child("PercepcionCB").getValue()).toString();
-                mPerspicacioCB = ((Boolean) dataSnapshot.child("PerspicaciaCB").getValue()).toString();
-                mPersuasionCB = ((Boolean) dataSnapshot.child("PersuasionCB").getValue()).toString();
-                mReligionCB = ((Boolean) dataSnapshot.child("ReligionCB").getValue()).toString();
-                mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
-                mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
-                mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
+                mAcrobaciasCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("AcrobaciasCB").getValue())).toString();
+                mAtletismoCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("AtletismoCB").getValue())).toString();
+                mConocimientoCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("ConocimientoCB").getValue())).toString();
+                mEnganyoCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("EngañoCB").getValue())).toString();
+                mHistoriaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("HistoriaCB").getValue())).toString();
+                mInterpretacionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("InterpretacionCB").getValue())).toString();
+                mIntimidacionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("IntimidacionCB").getValue())).toString();
+                mInvestigacionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("InvestigacionCB").getValue())).toString();
+                mJuegoManosCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("JuegoManosCB").getValue())).toString();
+                mMedicinaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("MedicinaCB").getValue())).toString();
+                mNaturalezaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("NaturalezaCB").getValue())).toString();
+                mPercepcionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("PercepcionCB").getValue())).toString();
+                mPerspicacioCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("PerspicaciaCB").getValue())).toString();
+                mPersuasionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("PersuasionCB").getValue())).toString();
+                mReligionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("ReligionCB").getValue())).toString();
+                mSigiloCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("SigiloCB").getValue())).toString();
+                mSupervivenciaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("SupervivenciaCB").getValue())).toString();
+                mTratoAnimalesCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("TratoAnimalesCB").getValue())).toString();
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
                 mSabiduria = (String) dataSnapshot.child("Sabiduria Pasiva").getValue();
@@ -656,7 +657,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle = new Bundle();
                 bundle.putString("Clase de Armadura", ClaseDeArmadura);
                 bundle.putString("Iniciativa", Iniciativa);
+                bundle.putString("Destreza puntos", mDestrezaPuntos);
                 bundle.putString("Velocidad", Velocidad);
+                bundle.putInt("Peso total", PesoTotal);
                 bundle.putString("Puntos de Golpe Actuales", PuntosGolpeActuales);
                 bundle.putString("Puntos de Golpe Máximos", PuntosGolpeMaximos);
                 bundle.putString("Puntos de Golpe Temporales", PuntosGolpeTemporales);

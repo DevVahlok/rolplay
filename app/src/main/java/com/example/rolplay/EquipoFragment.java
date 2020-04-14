@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -38,7 +39,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private RecyclerView recycler;
     private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo, mMonCobre, mMonPlata, mMonEsmeralda, mMonOro, mMonPlatino;
     private ImageView mFotoEquipo;
-    private Button mBotonAnadirObjeto;
+    private Button mBotonAnadirObjeto, mModificarMonedas;
     private AdapterRecyclerEquipo adapter;
     private FirebaseDatabase mDatabase;
     private String[] listaObjetos = new String[] {};
@@ -74,11 +75,119 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         mMonEsmeralda = v.findViewById(R.id.Equipo_moneda_esmeralda);
         mMonOro = v.findViewById(R.id.Equipo_moneda_oro);
         mMonPlatino = v.findViewById(R.id.Equipo_moneda_platino);
+        mModificarMonedas = v.findViewById(R.id.Equipo_modificarMonedas_btn);
         mDatabase = FirebaseDatabase.getInstance();
 
         mDialogCarga = new DialogCarga();
 
-        //TODO: RAUL: mopdifica monedas
+        //TODO: Alex: Mira a ver si tu entiendes pq escribe tan mal los titulillos
+        mModificarMonedas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Muestra un dialog para que el usuario selecciona cuál quiere añadir
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                TextView title = new TextView(getActivity());
+                title.setText(getString(R.string.anadirObjeto));
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0,40,0,0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                TextView cobre = new TextView(getActivity());
+                cobre.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                cobre.setTextSize(16);
+                cobre.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                cobre.setPadding(10,10,10,0);
+                cobre.setText(R.string.piezasCobre);
+                final EditText cobreET = new EditText(getActivity());
+                cobreET.setMinEms(20);
+                cobreET.setText(mMonCobre.getText());
+                TextView plata = new TextView(getActivity());
+                plata.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                plata.setTextSize(16);
+                plata.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                plata.setPadding(10,10,10,0);
+                plata.setText(R.string.piezasPlata);
+                final EditText plataET = new EditText(getActivity());
+                plataET.setMinEms(20);
+                plataET.setText(mMonPlata.getText());
+                TextView esmeralda = new TextView(getActivity());
+                esmeralda.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                esmeralda.setTextSize(16);
+                esmeralda.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                esmeralda.setPadding(10,10,10,0);
+                esmeralda.setText(R.string.piezasEsmeralda);
+                final EditText esmeraldaET = new EditText(getActivity());
+                esmeraldaET.setMinEms(20);
+                esmeraldaET.setText(mMonEsmeralda.getText());
+                TextView oro = new TextView(getActivity());
+                oro.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                oro.setTextSize(16);
+                oro.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                oro.setPadding(10,10,10,0);
+                oro.setText(R.string.piezasOro);
+                final EditText oroET = new EditText(getActivity());
+                oroET.setMinEms(20);
+                oroET.setText(mMonOro.getText());
+                TextView platino = new TextView(getActivity());
+                platino.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                platino.setTextSize(16);
+                platino.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                platino.setPadding(10,10,10,0);
+                platino.setText(R.string.piezasPlatino);
+                final EditText platinoET = new EditText(getActivity());
+                platinoET.setMinEms(20);
+                platinoET.setText(mMonPlatino.getText());
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.addView(cobre);
+                linearLayout.addView(cobreET);
+                linearLayout.addView(plata);
+                linearLayout.addView(plataET);
+                linearLayout.addView(esmeralda);
+                linearLayout.addView(esmeraldaET);
+                linearLayout.addView(oro);
+                linearLayout.addView(oroET);
+                linearLayout.addView(platino);
+                linearLayout.addView(platinoET);
+                linearLayout.setPadding(120,10,120,10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+                        mMonCobre.setText(cobreET.getText().toString());
+                        mMonPlata.setText(plataET.getText().toString());
+                        mMonEsmeralda.setText(esmeraldaET.getText().toString());
+                        mMonOro.setText(oroET.getText().toString());
+                        mMonPlatino.setText(platinoET.getText().toString());
+
+                        mDialogCarga.dismiss();
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Añadir objeto'
+                AlertDialog anadirObjeto = constructrorDialog.create();
+                anadirObjeto.show();
+                Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
+            }
+        });
         //Al pulsar el botón de añadir objeto
         mBotonAnadirObjeto.setOnClickListener(new View.OnClickListener() {
             @Override

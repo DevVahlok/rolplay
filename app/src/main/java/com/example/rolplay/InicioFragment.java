@@ -2,30 +2,21 @@ package com.example.rolplay;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.QuickContactBadge;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -73,7 +64,7 @@ public class InicioFragment extends Fragment {
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
             mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
-    private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
+    private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
 
 
     public InicioFragment() {
@@ -114,6 +105,7 @@ public class InicioFragment extends Fragment {
 
         try {
             codigoPersonaje = recuperados.getString("codigo");
+            Log.d("-------------", codigoPersonaje);
         }catch (Exception e){
             mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -121,6 +113,7 @@ public class InicioFragment extends Fragment {
 
                     codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
                     cargarDatos();
+                    Log.d("-------------", codigoPersonaje);
                 }
 
                 @Override
@@ -130,6 +123,7 @@ public class InicioFragment extends Fragment {
             });
         }
         cargarDatos();
+
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +265,9 @@ public class InicioFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("Clase de Armadura", ClaseDeArmadura);
                 bundle.putString("Iniciativa", Iniciativa);
+                bundle.putString("Destreza puntos", mDestrezaPuntos);
                 bundle.putString("Velocidad", Velocidad);
+                bundle.putInt("Peso total", PesoTotal);
                 bundle.putString("Puntos de Golpe Actuales", PuntosGolpeActuales);
                 bundle.putString("Puntos de Golpe Máximos", PuntosGolpeMaximos);
                 bundle.putString("Puntos de Golpe Temporales", PuntosGolpeTemporales);
@@ -399,10 +395,9 @@ public class InicioFragment extends Fragment {
                 mRazaPersonaje_TV.setText((String) dataSnapshot.child("Raza").getValue());
                 mClaseNivelPersonaje_TV.setText((String) dataSnapshot.child("Clase").getValue());
                 try{
-                    Nivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
-                    PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
+                    Nivel = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Nivel").getValue()));
+                    PuntosExperiencia = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Puntos de Experiencia").getValue()));
                 }catch (Exception e){
-                    Log.d("---------", e.getMessage());
                 }
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
@@ -413,14 +408,14 @@ public class InicioFragment extends Fragment {
                 DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
                 try {
-                    SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
-                    PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
-                    PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
-                    PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
-                    POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
-                    PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
+                    PesoTotal = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Peso total").getValue()));
+                    SalvacionesMuerte = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Salvaciones de Muerte").getValue()));
+                    PCobre = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de cobre").getValue()));
+                    PPlata = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de plata").getValue()));
+                    PEsmeralda = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de esmeralda").getValue()));
+                    POro = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de oro").getValue()));
+                    PPlatino = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de platino").getValue()));
                 }catch (Exception e){
-                    Log.d("---------", e.getMessage());
                 }
                 RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
                 Ideales = (String) dataSnapshot.child("Ideales").getValue();
@@ -458,7 +453,6 @@ public class InicioFragment extends Fragment {
                     mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
                     mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
                 }catch (Exception e){
-                    Log.d("---------", e.getMessage());
                 }
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
@@ -470,7 +464,6 @@ public class InicioFragment extends Fragment {
                 mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
                 mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
                 mOtras = (String) dataSnapshot.child("Otras").getValue();
-
             }
 
             @Override
@@ -600,8 +593,8 @@ public class InicioFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     Equipo.add((String)ds.child("nombre").getValue());
-                    Equipo.add(((Long)ds.child("coste").getValue()).toString());
-                    Equipo.add(((Long)ds.child("peso").getValue()).toString());
+                    Equipo.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
+                    Equipo.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
                     Equipo.add((String)ds.child("url").getValue());
                 }
             }

@@ -227,7 +227,6 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("------------", TV.toString());
                 TV.setText(String.valueOf(Integer.parseInt(TV.getText().toString())+1));
             }
         });

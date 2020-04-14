@@ -1,14 +1,22 @@
 package com.example.rolplay;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.Random;
 
 public class CombateFragment extends Fragment {
 
@@ -27,7 +37,8 @@ public class CombateFragment extends Fragment {
     private TextView mClaseArmadura, mIniciativa, mVelocidad;
     private EditText mGolpesActuales, mGolpesTotales, mGolpesTemporales, mDadoGolpe,
             mDadoTotal;
-    private int mSalvaciones;
+    private int mSalvaciones, mPeso, mDestreza;
+    private ImageButton mIniciativaButon;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     private View v;
@@ -48,6 +59,7 @@ public class CombateFragment extends Fragment {
         codigoPJ = recuperados.getString("codigo");
         mClaseArmadura = v.findViewById(R.id.Combate_valor_inspiracion);
         mIniciativa = v.findViewById(R.id.Combate_valor_iniciativa);
+        mIniciativaButon = v.findViewById(R.id.Combate_iniciativa_boton_editar);
         mVelocidad = v.findViewById(R.id.Combate_valor_velocidad);
         mGolpesActuales = v.findViewById(R.id.Combate_golpeActuales_valor);
         mGolpesTemporales = v.findViewById(R.id.Combate_golpeTemporal_valor);
@@ -55,33 +67,46 @@ public class CombateFragment extends Fragment {
         mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
         mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
 
-        if (recuperados != null) {
-            mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
-            mIniciativa.setText(recuperados.getString("Iniciativa"));
-            mVelocidad.setText(recuperados.getString("Velocidad"));
-            mGolpesActuales.setText(recuperados.getString("Puntos de Golpe Actuales"));
-            mGolpesTemporales.setText(recuperados.getString("Puntos de Golpe Temporales"));
-            mGolpesTotales.setText(recuperados.getString("Puntos de Golpe Máximos"));
-            mDadoGolpe.setText(recuperados.getString("Dado de Golpe/Valor"));
-            mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
-            mSalvaciones = recuperados.getInt("Salvacion");
-        }
+        mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
+        mIniciativa.setText(recuperados.getString("Iniciativa"));
+        mVelocidad.setText(recuperados.getString("Velocidad"));
+        mGolpesActuales.setText(recuperados.getString("Puntos de Golpe Actuales"));
+        mGolpesTemporales.setText(recuperados.getString("Puntos de Golpe Temporales"));
+        mGolpesTotales.setText(recuperados.getString("Puntos de Golpe Máximos"));
+        mDadoGolpe.setText(recuperados.getString("Dado de Golpe/Valor"));
+        mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
+        mSalvaciones = recuperados.getInt("Salvacion");
+        mPeso = recuperados.getInt("Peso total");
+        mDestreza = Integer.parseInt(Objects.requireNonNull(recuperados.getString("Destreza puntos")));
+
 
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
-        //TODO: Raúl: Poder modificar 'Clase de armadura', 'Iniciativa', 'Velocidad' y guardarlo en FireBase
+
 
         //Iniciativa: random entre 1 y 20 + modificador [cuadrado] de Destreza
+        mIniciativaButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+                mIniciativa.setText(String.valueOf(r.nextInt(19)+1+mDestreza));
+            }
+        });
 
-        //Velocidad: 40 es lo estándar. Luego, restar según peso:
-        // 1lb = 10cn
-        /*
-            0-400cn - 40 pies
-            401-800cn - 30 pies
-            801-1200cn - 20 pies
-            1201-1600cn - 10 pies
-            1601-2400cn - 5 pies
-            2401+ cn - 0 pies
-         */
+        //Velocidad depende del peso de todos los objetos
+        if (mPeso<=40 && mPeso>=0) {
+            mVelocidad.setText("40");
+        }else if (mPeso<=80 && mPeso>=40.1) {
+            mVelocidad.setText("30");
+        }else if (mPeso<=120 && mPeso>=80.1) {
+            mVelocidad.setText("20");
+        }else if (mPeso<=160 && mPeso>=120.1) {
+            mVelocidad.setText("10");
+        }else if (mPeso<=240 && mPeso>=160.1) {
+            mVelocidad.setText("5");
+        }else if (mPeso>=240.1) {
+            mVelocidad.setText("0");
+        }
+
 
         //Puntos de golpe es la vida del personaje
         //el máximo a nivel 1 está determinado por la clase escogida, que te dice el dado que tienes que tirar (generar random + bonficador [cuadrado] de Constitución)
@@ -96,9 +121,10 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo2 = v.findViewById(R.id.Combate_fallo_checkbox_2);
         mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
 
+
         //Placeholder
-        mBarraSalud.setMax(Integer.parseInt(mGolpesTotales.getText().toString()));
-        mBarraSalud.setProgress(Integer.parseInt(mGolpesTotales.getText().toString())-Integer.parseInt(mGolpesActuales.getText().toString()));
+        mBarraSalud.setMax(Integer.parseInt(String.valueOf(mGolpesTotales.getText())));
+        mBarraSalud.setProgress(Integer.parseInt(String.valueOf(mGolpesTotales.getText())) - Integer.parseInt(String.valueOf(mGolpesActuales.getText())));
 
         //Solo permite marcar el 2 cuando el 1 está marcado
         switch (mSalvaciones) {
@@ -407,11 +433,11 @@ public class CombateFragment extends Fragment {
         hashMap.put("Dado de Golpe/Total", mDadoTotal.getText().toString().trim());
         hashMap.put("Salvaciones de Muerte", String.valueOf(salvacio));
 
-        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+        mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPJ).updateChildren(hashMap);
 
         HashMap<String, Object> ultimo = new HashMap<>();
 
-        ultimo.put("Ultimo personaje",codigoPJ);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+        ultimo.put("Ultimo personaje", codigoPJ);
+        mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
     }
 }
