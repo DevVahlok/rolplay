@@ -3,12 +3,10 @@ package com.example.rolplay;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -66,6 +63,7 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
 
         //Limitación de los conjuros a 84 carácteres ~
 
+        //TODO: Raúl: Recoger Conjuros de Firebase
         for (int i=0;i<3;i++){
             listaConjuro.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."+i);
         }

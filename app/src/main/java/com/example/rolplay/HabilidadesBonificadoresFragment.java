@@ -1,30 +1,25 @@
 package com.example.rolplay;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.sql.Struct;
 import java.util.HashMap;
 
 public class HabilidadesBonificadoresFragment extends Fragment {
 
+    //Declaración de variables
     private View v;
     private TextView mInspiracion, mBonificador, mSabiduria;
-    private EditText mAcrobaciasET, mAtletismoET, mConocimientoET, mEngañoET, mHistoriaET, mInterpretacionET,
+    private TextView mAcrobaciasET, mAtletismoET, mConocimientoET, mEngañoET, mHistoriaET, mInterpretacionET,
     mIntimidacionET, mInvestigacionET, mJuegoManosET, mMedicinaET, mNaturalezaET, mPercepcionET, mPerspicacioET,
             mPersuasionET, mReligionET, mSigiloET, mSupervivenciaET, mTratoAnimalesET, mFuerzaSalvacion, mDestrezaSalvacion,
             mConstitucionSalvacion, mInteligenciaSalvacion, mSabiduriaSalvacion, mCarismaSalvacion;
@@ -37,6 +32,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
 
     private FirebaseDatabase mDatabase;
 
+    //Constructor
     public HabilidadesBonificadoresFragment() {
 
     }
@@ -49,6 +45,8 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         Bundle recuperados = getArguments();
 
         mDatabase = FirebaseDatabase.getInstance();
+
+        //Inicialización de variables
 
         //Asignamos los EditText
          mAcrobaciasET= v.findViewById(R.id.HabilidadesBonificadores_tiradasSalvacion_valor_acrobacias);
@@ -113,56 +111,58 @@ public class HabilidadesBonificadoresFragment extends Fragment {
 
 
          //Le damos el valor de firebase
-         mAcrobaciasET.setText(recuperados.getString("Destreza puntos"));
-         mAtletismoET.setText(recuperados.getString("Fuerza puntos"));
-         mConocimientoET.setText(recuperados.getString("Inteligencia puntos"));
-         mEngañoET.setText(recuperados.getString("Carisma puntos"));
-         mHistoriaET.setText(recuperados.getString("Inteligencia puntos"));
-         mInterpretacionET.setText(recuperados.getString("Carisma puntos"));
-         mIntimidacionET.setText(recuperados.getString("Carisma puntos"));
-         mInvestigacionET.setText(recuperados.getString("Inteligencia puntos"));
-         mJuegoManosET.setText(recuperados.getString("Destreza puntos"));
-         mMedicinaET.setText(recuperados.getString("Sabiduría puntos"));
-         mNaturalezaET.setText(recuperados.getString("Inteligencia puntos"));
-         mPercepcionET.setText(recuperados.getString("Sabiduría puntos"));
-         mPerspicacioET.setText(recuperados.getString("Sabiduría puntos"));
-         mPersuasionET.setText(recuperados.getString("Carisma puntos"));
-         mReligionET.setText(recuperados.getString("Inteligencia puntos"));
-         mSigiloET.setText(recuperados.getString("Destreza puntos"));
-         mSupervivenciaET.setText(recuperados.getString("Sabiduría puntos"));
-         mTratoAnimalesET.setText(recuperados.getString("Sabiduría puntos"));
 
-         //Le damos el check de firebase
-         mAcrobaciasCB.setChecked(recuperados.getBoolean("AcrobaciasCB"));
-         mAtletismoCB.setChecked(recuperados.getBoolean("AtletismoCB"));
-         mConocimientoCB.setChecked(recuperados.getBoolean("ConocimientoCB"));
-         mEngañoCB.setChecked(recuperados.getBoolean("EngañoCB"));
-         mHistoriaCB.setChecked(recuperados.getBoolean("HistoriaCB"));
-         mInterpretacionCB.setChecked(recuperados.getBoolean("InterpretacionCB"));
-         mIntimidacionCB.setChecked(recuperados.getBoolean("IntimidacionCB"));
-         mInvestigacionCB.setChecked(recuperados.getBoolean("InvestigacionCB"));
-         mJuegoManosCB.setChecked(recuperados.getBoolean("JuegoManosCB"));
-         mMedicinaCB.setChecked(recuperados.getBoolean("MedicinaCB"));
-         mNaturalezaCB.setChecked(recuperados.getBoolean("NaturalezaCB"));
-         mPercepcionCB.setChecked(recuperados.getBoolean("PercepcionCB"));
-         mPerspicacioCB.setChecked(recuperados.getBoolean("PerspicaciaCB"));
-         mPersuasionCB.setChecked(recuperados.getBoolean("PersuasionCB"));
-         mReligionCB.setChecked(recuperados.getBoolean("ReligionCB"));
-         mSigiloCB.setChecked(recuperados.getBoolean("SigiloCB"));
-         mSupervivenciaCB.setChecked(recuperados.getBoolean("SupervivenciaCB"));
-         mTratoAnimalesCB.setChecked(recuperados.getBoolean("TratoAnimalesCB"));;
+        if(recuperados!=null){
+            mAcrobaciasET.setText(recuperados.getString("Destreza puntos"));
+            mAtletismoET.setText(recuperados.getString("Fuerza puntos"));
+            mConocimientoET.setText(recuperados.getString("Inteligencia puntos"));
+            mEngañoET.setText(recuperados.getString("Carisma puntos"));
+            mHistoriaET.setText(recuperados.getString("Inteligencia puntos"));
+            mInterpretacionET.setText(recuperados.getString("Carisma puntos"));
+            mIntimidacionET.setText(recuperados.getString("Carisma puntos"));
+            mInvestigacionET.setText(recuperados.getString("Inteligencia puntos"));
+            mJuegoManosET.setText(recuperados.getString("Destreza puntos"));
+            mMedicinaET.setText(recuperados.getString("Sabiduría puntos"));
+            mNaturalezaET.setText(recuperados.getString("Inteligencia puntos"));
+            mPercepcionET.setText(recuperados.getString("Sabiduría puntos"));
+            mPerspicacioET.setText(recuperados.getString("Sabiduría puntos"));
+            mPersuasionET.setText(recuperados.getString("Carisma puntos"));
+            mReligionET.setText(recuperados.getString("Inteligencia puntos"));
+            mSigiloET.setText(recuperados.getString("Destreza puntos"));
+            mSupervivenciaET.setText(recuperados.getString("Sabiduría puntos"));
+            mTratoAnimalesET.setText(recuperados.getString("Sabiduría puntos"));
 
-         mInspiracion.setText(recuperados.getString("Inspiracion"));
-         mBonificador.setText(recuperados.getString("Bonificador Competencia"));
-         mSabiduria.setText(recuperados.getString("Sabiduria Pasiva"));
+            //Le damos el check de firebase
+            mAcrobaciasCB.setChecked(recuperados.getBoolean("AcrobaciasCB"));
+            mAtletismoCB.setChecked(recuperados.getBoolean("AtletismoCB"));
+            mConocimientoCB.setChecked(recuperados.getBoolean("ConocimientoCB"));
+            mEngañoCB.setChecked(recuperados.getBoolean("EngañoCB"));
+            mHistoriaCB.setChecked(recuperados.getBoolean("HistoriaCB"));
+            mInterpretacionCB.setChecked(recuperados.getBoolean("InterpretacionCB"));
+            mIntimidacionCB.setChecked(recuperados.getBoolean("IntimidacionCB"));
+            mInvestigacionCB.setChecked(recuperados.getBoolean("InvestigacionCB"));
+            mJuegoManosCB.setChecked(recuperados.getBoolean("JuegoManosCB"));
+            mMedicinaCB.setChecked(recuperados.getBoolean("MedicinaCB"));
+            mNaturalezaCB.setChecked(recuperados.getBoolean("NaturalezaCB"));
+            mPercepcionCB.setChecked(recuperados.getBoolean("PercepcionCB"));
+            mPerspicacioCB.setChecked(recuperados.getBoolean("PerspicaciaCB"));
+            mPersuasionCB.setChecked(recuperados.getBoolean("PersuasionCB"));
+            mReligionCB.setChecked(recuperados.getBoolean("ReligionCB"));
+            mSigiloCB.setChecked(recuperados.getBoolean("SigiloCB"));
+            mSupervivenciaCB.setChecked(recuperados.getBoolean("SupervivenciaCB"));
+            mTratoAnimalesCB.setChecked(recuperados.getBoolean("TratoAnimalesCB"));
 
-         mFuerzaSalvacion.setText(recuperados.getString("Fuerza puntos"));
-         mDestrezaSalvacion.setText(recuperados.getString("Destreza puntos"));
-         mConstitucionSalvacion.setText(recuperados.getString("Constitucion puntos"));
-         mInteligenciaSalvacion.setText(recuperados.getString("Inteligencia puntos"));
-         mSabiduriaSalvacion.setText(recuperados.getString("Sabiduría puntos"));
-         mCarismaSalvacion.setText(recuperados.getString("Carisma puntos"));
+            mInspiracion.setText(recuperados.getString("Inspiracion"));
+            mBonificador.setText(recuperados.getString("Bonificador Competencia"));
+            mSabiduria.setText(recuperados.getString("Sabiduria Pasiva"));
 
+            mFuerzaSalvacion.setText(recuperados.getString("Fuerza puntos"));
+            mDestrezaSalvacion.setText(recuperados.getString("Destreza puntos"));
+            mConstitucionSalvacion.setText(recuperados.getString("Constitucion puntos"));
+            mInteligenciaSalvacion.setText(recuperados.getString("Inteligencia puntos"));
+            mSabiduriaSalvacion.setText(recuperados.getString("Sabiduría puntos"));
+            mCarismaSalvacion.setText(recuperados.getString("Carisma puntos"));
+        }
 
          //Añadir onClicks
          SumarPuntos(mPlusSabiduria, mSabiduria);
@@ -240,6 +240,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuariActual = mAuth.getCurrentUser();
 
+        //Guarda los datos en FireBase al salir
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("AcrobaciasCB",mAcrobaciasCB.isChecked());
         hashMap.put("AtletismoCB",mAtletismoCB.isChecked());
@@ -262,6 +263,10 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         hashMap.put("Inspiracion", mInspiracion.getText().toString());
         hashMap.put("Bonificador Competencia", mBonificador.getText().toString());
         hashMap.put("Sabiduria Pasiva",mSabiduria.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+
+        if(usuariActual!=null){
+            mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        }
+
     }
 }

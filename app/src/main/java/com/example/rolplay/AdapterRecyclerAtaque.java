@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerAtaque.ViewHolderAtaque> {
@@ -21,7 +19,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
     private Context context;
 
     //Constructor
-    public AdapterRecyclerAtaque(ArrayList<ItemAtaque> listaAtaque, AdapterRecyclerAtaque.OnItemListener mOnItemListener, Context context) {
+    AdapterRecyclerAtaque(ArrayList<ItemAtaque> listaAtaque, AdapterRecyclerAtaque.OnItemListener mOnItemListener, Context context) {
         this.listaAtaque = listaAtaque;
         this.mOnItemListener = mOnItemListener;
         this.context = context;
@@ -59,18 +57,17 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
         private ImageView mFotoAtaque;
         private AdapterRecyclerAtaque.OnItemListener onItemListener;
 
-        public ViewHolderAtaque(@NonNull View itemView, final AdapterRecyclerAtaque.OnItemListener onItemListener) {
+        ViewHolderAtaque(@NonNull View itemView, final AdapterRecyclerAtaque.OnItemListener onItemListener) {
+
+            //Inicialización de variables
             super(itemView);
-
             this.onItemListener = onItemListener;
-
             mNombreAtaque = itemView.findViewById(R.id.ListaAtaque_nombre);
             mCosteAtaque = itemView.findViewById(R.id.ListaAtaque_coste);
             mPesoAtaque = itemView.findViewById(R.id.ListaAtaque_peso);
             mFotoAtaque = itemView.findViewById(R.id.ListaAtaque_foto);
             mDanyoAtaque = itemView.findViewById(R.id.ListaAtaque_danyo);
             mPropiedadesAtaque = itemView.findViewById(R.id.ListaAtaque_propiedades);
-
             itemView.setOnClickListener(this);
             imgViewRemoveIcon_ataque = itemView.findViewById(R.id.ListaAtaque_borrar);
 
@@ -78,12 +75,9 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             imgViewRemoveIcon_ataque.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemListener.onItemClick(getAdapterPosition(),"ataque");
 
                     //Elimina el objeto del recycler
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        removeAt(getAdapterPosition());
-                    }
+                    onItemListener.onItemClick(getAdapterPosition(),"ataque");
 
                 }
             });
@@ -103,22 +97,12 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
         }
 
         @Override
-        public void onClick(View v) {
-
-        }
+        public void onClick(View v) { }
     }
 
+    //Interfaz para crear un OnClickListener en la foto de la X
     public interface OnItemListener {
         void onItemClick(int position, String modo);
-    }
-
-    public void removeAt(int position) {
-
-        //Elimina el objeto del recycler
-        listaAtaque.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listaAtaque.size());
-
     }
 
 }

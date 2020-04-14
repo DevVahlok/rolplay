@@ -3,10 +3,8 @@ package com.example.rolplay;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 import java.util.Objects;
 
 public class CompetenciasIdiomasFragment extends Fragment {
 
+    //Declaración de variables
     private String[] listaIdiomas;
     private String[] listaIdiomasRegionales;
     private Button mIdiomasSumar, mArmaduraSumar, mArmasSumar, mHerramientasSumar, mEspecialidadSumar, mRangoMilitarSumar,
@@ -32,19 +29,19 @@ public class CompetenciasIdiomasFragment extends Fragment {
     private TextView mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private FirebaseDatabase mDatabase;
 
+    //Constructor
     public CompetenciasIdiomasFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_competencias_idiomas, container, false);
-
         Bundle recuperados = getArguments();
 
+        //Inicialización de variables
         mIdiomasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarIdioma);
         mArmaduraSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarArmadura);
         mArmasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarArmas);
@@ -52,7 +49,6 @@ public class CompetenciasIdiomasFragment extends Fragment {
         mEspecialidadSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarEspecialidad);
         mRangoMilitarSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarRangoMilitar);
         mOtrasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarOtras);
-
         mIdiomas = v.findViewById(R.id.CompetenciasIdiomas_valor_idiomas);
         mArmadura = v.findViewById(R.id.CompetenciasIdiomas_valor_armadura);
         mArmas = v.findViewById(R.id.CompetenciasIdiomas_valor_armas);
@@ -61,14 +57,16 @@ public class CompetenciasIdiomasFragment extends Fragment {
         mRangoMilitar = v.findViewById(R.id.CompetenciasIdiomas_valor_rangoMilitar);
         mOtras = v.findViewById(R.id.CompetenciasIdiomas_valor_otras);
 
-
-        mIdiomas.setText(recuperados.getString("Idiomas"));
-        mArmadura.setText(recuperados.getString("Armadura"));
-        mArmas.setText(recuperados.getString("Armas"));
-        mHerramientas.setText(recuperados.getString("Herramientas"));
-        mEspecialidad.setText(recuperados.getString("Especialidad"));
-        mRangoMilitar.setText(recuperados.getString("Rango militar"));
-        mOtras.setText(recuperados.getString("Otras"));
+        //Recuperación y seteo de datos desde FireBase
+        if(recuperados!=null){
+            mIdiomas.setText(recuperados.getString("Idiomas"));
+            mArmadura.setText(recuperados.getString("Armadura"));
+            mArmas.setText(recuperados.getString("Armas"));
+            mHerramientas.setText(recuperados.getString("Herramientas"));
+            mEspecialidad.setText(recuperados.getString("Especialidad"));
+            mRangoMilitar.setText(recuperados.getString("Rango militar"));
+            mOtras.setText(recuperados.getString("Otras"));
+        }
 
         //Idiomas
         //======================================================
@@ -118,33 +116,11 @@ public class CompetenciasIdiomasFragment extends Fragment {
         //Estos son todos los idiomas regionales
         listaIdiomasRegionales = new String[]{"Aglarondano", "Alzhedo", "Damarano", "Dambrazhano", "Durparí", "Halruyano", "Iluskano", "Khessentano", "Khondazhano", "Khultano", "Lantanés", "Midaní", "Mulhorandino", "Nexalano", "Rashemí", "Serusano", "Sheirano", "Tashalano", "Teigano", "Túrmico", "Úluik", "Unzhérico"};
 
-        //TODO: Añadir idiomas a FireBase
-
-
-
-
-
-
-
-
         //Resto de elementos
         //======================================================
 
-        /* Simplemente con los botones de añadir/quitar, ir metiendo/quitando palabras [recomiendo que cada elemento sea un array de palabras, así se pueden ir añadiendo y quitando sin tener que hacer al usuario reescribir tod0]
-
-                    Ejemplo:
-
-                            Visualmente:
-                                Armadura: Todas, Escudos
-
-                            Código:
-                                listaCompetenciasArmaduras = new String[]{"Todas","Escudos"};
-
-
-            En 'Rango militar' y 'especialidad' solo permitir 1 palabra (deshabilitando botones de añadir)
-
-            Si el contenido es 0, deshabilitar el botón de restar
-
+        /*
+            Simplemente editar el texto del interior.
          */
 
         return v;
@@ -211,6 +187,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuariActual = mAuth.getCurrentUser();
 
+        //Guarda los datos en FireBase al salir
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Idiomas", mIdiomas.getText().toString());
         hashMap.put("Armadura", mArmadura.getText().toString());
@@ -220,6 +197,9 @@ public class CompetenciasIdiomasFragment extends Fragment {
         hashMap.put("Rango militar", mRangoMilitar.getText().toString());
         hashMap.put("Otras", mOtras.getText().toString());
 
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        if(usuariActual!=null){
+            mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        }
+
     }
 }

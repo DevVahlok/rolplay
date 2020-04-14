@@ -1,20 +1,15 @@
 package com.example.rolplay;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -23,8 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,11 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,12 +72,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
             RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
             mInteligenciaPuntos, mSabiduriaPuntos, mCarismaPuntos, mFuerzaBonus, mDestrezaBonus, mConstitucionBonus,
-            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
+            mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEnganyoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
             mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino;
-
     private DialogCarga mDialogCarga;
 
     @Override
@@ -101,7 +90,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         mUsuario = mAuth.getCurrentUser();
 
-        //TODO: Aquí se recoge el código del personaje seleccionado (o creado). Setear datos de FireBase según el código.
+        //TODO: Nota: Aquí se recoge el código del personaje seleccionado (o creado). Setear datos de FireBase según el código.
         String codigoPersonaje = getIntent().getStringExtra("codigo");
 
         //Posicionar en el JSON de Firebase
@@ -141,7 +130,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 navigationView.setCheckedItem(R.id.nav_ficha);
             }
 
-            //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 
         //Declaración de variables de la cabecera de la barra de navegación
@@ -161,8 +149,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Alineamiento = (String) dataSnapshot.child("Alineamiento").getValue();
                 Raza = (String) dataSnapshot.child("Raza").getValue();
                 Clase = (String) dataSnapshot.child("Clase").getValue();
-                mNivel = Integer.parseInt((String) dataSnapshot.child("Nivel").getValue());
-                PuntosExperiencia = Integer.parseInt((String) dataSnapshot.child("Puntos de Experiencia").getValue());
+                mNivel = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Nivel").getValue()));
+                PuntosExperiencia = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Puntos de Experiencia").getValue()));
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
                 Velocidad = (String) dataSnapshot.child("Velocidad").getValue();
@@ -171,12 +159,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 PuntosGolpeTemporales = (String) dataSnapshot.child("Puntos de Golpe Temporales").getValue();
                 DadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Valor").getValue();
                 TotalDadoGolpe = (String) dataSnapshot.child("Dado de Golpe/Total").getValue();
-                SalvacionesMuerte = Integer.parseInt((String) dataSnapshot.child("Salvaciones de Muerte").getValue());
-                PCobre = Integer.parseInt((String) dataSnapshot.child("Piezas de cobre").getValue());
-                PPlata = Integer.parseInt((String) dataSnapshot.child("Piezas de plata").getValue());
-                PEsmeralda = Integer.parseInt((String) dataSnapshot.child("Piezas de esmeralda").getValue());
-                POro = Integer.parseInt((String) dataSnapshot.child("Piezas de oro").getValue());
-                PPlatino = Integer.parseInt((String) dataSnapshot.child("Piezas de platino").getValue());
+                SalvacionesMuerte = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Salvaciones de Muerte").getValue()));
+                PCobre = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de cobre").getValue()));
+                PPlata = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de plata").getValue()));
+                PEsmeralda = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de esmeralda").getValue()));
+                POro = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de oro").getValue()));
+                PPlatino = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de platino").getValue()));
                 RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
                 Ideales = (String) dataSnapshot.child("Ideales").getValue();
                 Vinculos = (String) dataSnapshot.child("Vínculos").getValue();
@@ -196,7 +184,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mAcrobaciasCB = ((Boolean) dataSnapshot.child("AcrobaciasCB").getValue()).toString();
                 mAtletismoCB = ((Boolean) dataSnapshot.child("AtletismoCB").getValue()).toString();
                 mConocimientoCB = ((Boolean) dataSnapshot.child("ConocimientoCB").getValue()).toString();
-                mEngañoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
+                mEnganyoCB = ((Boolean) dataSnapshot.child("EngañoCB").getValue()).toString();
                 mHistoriaCB = ((Boolean) dataSnapshot.child("HistoriaCB").getValue()).toString();
                 mInterpretacionCB = ((Boolean) dataSnapshot.child("InterpretacionCB").getValue()).toString();
                 mIntimidacionCB = ((Boolean) dataSnapshot.child("IntimidacionCB").getValue()).toString();
@@ -440,7 +428,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        //TODO: Fragments de cada apartado
         Bundle bundle;
         switch (item.getItemId()) {
 
@@ -493,7 +480,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putBoolean("AcrobaciasCB", Boolean.parseBoolean(mAcrobaciasCB));
                 bundle.putBoolean("AtletismoCB", Boolean.parseBoolean(mAtletismoCB));
                 bundle.putBoolean("ConocimientoCB", Boolean.parseBoolean(mConocimientoCB));
-                bundle.putBoolean("EngañoCB", Boolean.parseBoolean(mEngañoCB));
+                bundle.putBoolean("EngañoCB", Boolean.parseBoolean(mEnganyoCB));
                 bundle.putBoolean("HistoriaCB", Boolean.parseBoolean(mHistoriaCB));
                 bundle.putBoolean("InterpretacionCB", Boolean.parseBoolean(mInterpretacionCB));
                 bundle.putBoolean("IntimidacionCB", Boolean.parseBoolean(mIntimidacionCB));

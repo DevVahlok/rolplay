@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecyclerConjuro.ViewHolderConjuro> {
@@ -59,12 +57,12 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
         private AdapterRecyclerConjuro.OnItemListener onItemListener;
 
         //Constructor
-        public ViewHolderConjuro(@NonNull View itemView, final AdapterRecyclerConjuro.OnItemListener onItemListener) {
+        ViewHolderConjuro(@NonNull View itemView, final AdapterRecyclerConjuro.OnItemListener onItemListener) {
+
+            //Inicialización de variables
             super(itemView);
             this.onItemListener = onItemListener;
-
             dato = itemView.findViewById(R.id.Conjuro_valor);
-
             itemView.setOnClickListener(this);
             imgViewRemoveIcon = itemView.findViewById(R.id.Conjuro_borrar);
 
@@ -72,12 +70,9 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemListener.onItemClick(getAdapterPosition(),"conjuro");
 
                     //Elimina el objeto del recycler
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        removeAt(getAdapterPosition());
-                    }
+                    onItemListener.onItemClick(getAdapterPosition(),"conjuro");
 
                 }
             });
@@ -89,22 +84,12 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
         }
 
         @Override
-        public void onClick(View v) {
-
-        }
+        public void onClick(View v) { }
     }
 
+    //Interfaz para crear un OnClickListener en la foto de la X
     public interface OnItemListener{
         void onItemClick(int position, String modo);
-    }
-
-    public void removeAt(int position) {
-
-        //Elimina el objeto del recycler
-        listaConjuro.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, listaConjuro.size());
-
     }
 
 }

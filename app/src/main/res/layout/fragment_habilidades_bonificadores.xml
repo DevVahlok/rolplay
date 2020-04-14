@@ -79,7 +79,7 @@
             android:id="@+id/HabilidadesBonificadores_inspiracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:textSize="22sp"
             android:layout_below="@+id/HabilidadesBonificadores_Marco_inspiracion"
@@ -128,7 +128,7 @@
             android:id="@+id/HabilidadesBonificadores_bonificadorCompetencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:textSize="22sp"
             android:layout_below="@+id/HabilidadesBonificadores_Marco_BonificadorCompetencia"
@@ -174,11 +174,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_barra_tiradasSalvacion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_fuerza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_fuerza"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_fuerza"/>
@@ -202,11 +202,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_fuerza"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_destreza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_destreza"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_destreza"/>
@@ -220,9 +220,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_destreza"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_destreza"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_Fuerza"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_destreza" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_constitucion"
@@ -230,11 +229,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_destreza"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_constitucion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_constitucion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_constitucion"/>
@@ -248,9 +247,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_constitucion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_constitucion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_destreza"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_constitucion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_inteligencia"
@@ -258,11 +256,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_constitucion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_inteligencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_inteligencia"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_inteligencia"/>
@@ -276,9 +274,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_inteligencia"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_inteligencia"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_constitucion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_inteligencia" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sabiduria"
@@ -286,11 +283,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_inteligencia"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_sabiduria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sabiduria"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sabiduria"/>
@@ -304,9 +301,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sabiduria"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sabiduria"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_inteligencia"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sabiduria" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_carisma"
@@ -314,11 +310,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sabiduria"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_carisma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_carisma"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_carisma"/>
@@ -332,9 +328,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_carisma"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_carisma"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_sabiduria"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_carisma" />
 
         <TextView
             android:id="@+id/HabilidadesBonificadores_texto_Habilidades"
@@ -361,11 +356,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_barra_Habilidades"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_acrobacias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_acrobacias"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_acrobacias"/>
@@ -379,9 +374,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_acrobacias"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_acrobacias"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_carisma"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_acrobacias" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo"
@@ -389,11 +383,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_acrobacias"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_atletismo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo"/>
@@ -407,9 +401,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_atletismo"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_atletismo"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_acrobacias"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_atletismo" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano"
@@ -417,11 +410,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_atletismo"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_conocimientoArcano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano"/>
@@ -435,9 +428,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_conocimientoArcano"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_conocimientoArcano"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_atletismo"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_conocimientoArcano" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño"
@@ -445,11 +437,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_conocimientoArcano"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_engaño"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño"/>
@@ -463,9 +455,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_engaño"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_engaño"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_conocimientoArcano"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_engaño" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_historia"
@@ -473,11 +464,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_engaño"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_historia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_historia"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_historia"/>
@@ -491,9 +482,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_historia"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_historia"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_engaño"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_historia" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion"
@@ -501,11 +491,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_historia"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_interpretacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion"/>
@@ -519,9 +509,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_interpretacion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_interpretacion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_historia"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_interpretacion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion"
@@ -529,11 +518,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_interpretacion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_intimidacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion"/>
@@ -547,9 +536,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_intimidacion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_intimidacion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_interpretacion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_intimidacion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion"
@@ -557,11 +545,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_intimidacion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_investigacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion"/>
@@ -575,9 +563,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_investigacion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_investigacion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_intimidacion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_investigacion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos"
@@ -585,11 +572,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_investigacion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_juegoManos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos"/>
@@ -603,9 +590,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_juegoManos"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_juegoManos"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_investigacion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_juegoManos" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina"
@@ -613,11 +599,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_juegoManos"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_medicina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina"/>
@@ -631,9 +617,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_medicina"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_medicina"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_juegoManos"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_medicina" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza"
@@ -641,11 +626,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_medicina"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_naturaleza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza"/>
@@ -659,9 +644,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_naturaleza"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_naturaleza"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_medicina"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_naturaleza" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion"
@@ -669,11 +653,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_naturaleza"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_percepcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion"/>
@@ -687,9 +671,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_percepcion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_percepcion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_naturaleza"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_percepcion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia"
@@ -697,11 +680,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_percepcion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_perspicacia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia"/>
@@ -715,9 +698,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_perspicacia"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_perspicacia"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_percepcion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_perspicacia" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion"
@@ -725,11 +707,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_perspicacia"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_persuasion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion"/>
@@ -743,9 +725,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_persuasion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_persuasion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_perspicacia"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_persuasion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_religion"
@@ -753,11 +734,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_persuasion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_religion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_religion"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_religion"/>
@@ -771,9 +752,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_religion"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_religion"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_persuasion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_religion" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo"
@@ -781,11 +761,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_religion"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_sigilo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo"/>
@@ -799,9 +779,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sigilo"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sigilo"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_religion"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_sigilo" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia"
@@ -809,11 +788,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_sigilo"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_supervivencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia"/>
@@ -827,9 +806,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_supervivencia"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_supervivencia"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_sigilo"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_supervivencia" />
 
         <CheckBox
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_tratoAnimales"
@@ -837,11 +815,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/HabilidadesBonificadores_tiradasSalvacion_checkbox_supervivencia"/>
 
-        <EditText
+        <TextView
             android:id="@+id/HabilidadesBonificadores_tiradasSalvacion_valor_tratoAnimales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_tratoAnimales"
             android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_checkbox_tratoAnimales"/>
@@ -855,9 +833,8 @@
             android:textSize="16sp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/HabilidadesBonificadores_tiradasSalvacion_valor_tratoAnimales"
-            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_tratoAnimales"
-            android:layout_marginStart="20dp"/>
+            android:layout_alignStart="@+id/HabilidadesBonificadores_texto_supervivencia"
+            android:layout_alignBaseline="@id/HabilidadesBonificadores_tiradasSalvacion_valor_tratoAnimales" />
 
         <ImageView
             android:id="@+id/HabilidadesBonificadores_MarcoSabiduriaPercepcionPasiva"
@@ -914,7 +891,7 @@
             android:id="@+id/HabilidadesBonificadores_sabiduriaPercepcionPasiva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             android:textColor="@color/colorBlanco"
             android:textSize="22sp"
             android:layout_below="@+id/HabilidadesBonificadores_Marco_sabiduriaPercepcionPasiva"

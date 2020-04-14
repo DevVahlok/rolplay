@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -43,9 +42,9 @@ public class CabeceraFragment extends Fragment {
     private int mNivel, mProgresoExperiencia, mExperienciaTotal;
     private TextView mExperiencia_ET, mNivel_ET;
     private FirebaseDatabase mDatabase;
-    private String[] listaRazas = new String[] {};
-    private String[] listaClases = new String[] {};
-    private String[] listaAlineamiento = new String[] {};
+    private String[] listaRazas = new String[]{};
+    private String[] listaClases = new String[]{};
+    private String[] listaAlineamiento = new String[]{};
     private FirebaseAuth mAuth;
     private Button mSumarExp;
     private View v;
@@ -83,6 +82,7 @@ public class CabeceraFragment extends Fragment {
         //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
         //Cargar listas de los dropdowns
+
         //Razas
         cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
             @Override
@@ -94,7 +94,7 @@ public class CabeceraFragment extends Fragment {
         cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases=value;
+                listaClases = value;
             }
         });
         //Alineamiento
@@ -118,7 +118,7 @@ public class CabeceraFragment extends Fragment {
         mNivel = recuperados.getInt("Nivel");
 
  */
-        mExperienciaTotal = mNivel * (mNivel+1) * 500;
+        mExperienciaTotal = mNivel * (mNivel + 1) * 500;
 
         //Se setean los valores máximos y actuales a la barra de progreso de nivel
         mBarraProgreso.setMax(mExperienciaTotal);
@@ -133,12 +133,12 @@ public class CabeceraFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText("Aumentar experiencia");
+                title.setText(R.string.aumentarExperiencia);
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -148,7 +148,7 @@ public class CabeceraFragment extends Fragment {
                 editText.setMinEms(20);
 
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -157,14 +157,14 @@ public class CabeceraFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mProgresoExperiencia = mProgresoExperiencia + Integer.parseInt(editText.getText().toString());
-                        if(mProgresoExperiencia>mExperienciaTotal){
+                        if (mProgresoExperiencia > mExperienciaTotal) {
                             mNivel++;
-                            mProgresoExperiencia=mProgresoExperiencia-mExperienciaTotal;
-                            mExperienciaTotal = mNivel * (mNivel+1) * 500;
+                            mProgresoExperiencia = mProgresoExperiencia - mExperienciaTotal;
+                            mExperienciaTotal = mNivel * (mNivel + 1) * 500;
                         }
-                            mBarraProgreso.setProgress(mProgresoExperiencia);
-                            mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
-                            mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
+                        mBarraProgreso.setProgress(mProgresoExperiencia);
+                        mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
+                        mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
                     }
                 });
 
@@ -185,12 +185,12 @@ public class CabeceraFragment extends Fragment {
         return v;
     }
 
-    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
+    //Funcion de lectura en FireBase y retorna String[] para el Dropdown
     private void cargarSpinners(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -245,7 +245,8 @@ public class CabeceraFragment extends Fragment {
         hashMap.put("Nivel", Integer.toString(mNivel));
         hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
 */
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
-
+        if (usuariActual != null) {
+            mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(hashMap);
+        }
     }
 }
