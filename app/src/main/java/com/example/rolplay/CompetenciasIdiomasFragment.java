@@ -85,6 +85,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
                 constructrorDialog.setCustomTitle(title);
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
 
                 //Idioma
                 final TextView Tidioma = new TextView(getActivity());
