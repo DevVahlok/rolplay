@@ -235,7 +235,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 });
 
             }
-
+            //TODO: Raúl: Cargar ProgressBar de experiencia y nivel en la barra lateral
             //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 

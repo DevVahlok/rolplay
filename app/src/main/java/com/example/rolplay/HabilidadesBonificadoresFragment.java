@@ -209,7 +209,7 @@ public class HabilidadesBonificadoresFragment extends Fragment {
         //  .setChecked(boolean);
         //  .isChecked();
 
-        //TODO: Alex: Cuando esté hecho el backend, eliminar los warnings del XML seteando los textos vacíos
+        //TODO: Raúl: Las tiradas de salvación no se guardan en FireBase
 
         return v;
     }

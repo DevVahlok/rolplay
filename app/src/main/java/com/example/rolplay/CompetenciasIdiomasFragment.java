@@ -44,13 +44,6 @@ public class CompetenciasIdiomasFragment extends Fragment {
         codigoPJ = recuperados.getString("codigo");
 
         //Inicialización de variables
-        mIdiomasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarIdioma);
-        mArmaduraSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarArmadura);
-        mArmasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarArmas);
-        mHerramientasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarHerramientas);
-        mEspecialidadSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarEspecialidad);
-        mRangoMilitarSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarRangoMilitar);
-        mOtrasSumar = v.findViewById(R.id.HabilidadesBonificadores_botonSumarOtras);
         mIdiomas = v.findViewById(R.id.CompetenciasIdiomas_valor_idiomas);
         mArmadura = v.findViewById(R.id.CompetenciasIdiomas_valor_armadura);
         mArmas = v.findViewById(R.id.CompetenciasIdiomas_valor_armas);
@@ -76,13 +69,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
         //Placeholder (abajo están explicados todos)
         listaIdiomas = new String[]{"Enano", "Infracomún", "Élfico", "Drow"};
 
-        dialogModificar(mIdiomasSumar, mIdiomas, String.valueOf(getText(R.string.idiomas)));
-        dialogModificar(mArmaduraSumar, mArmadura, String.valueOf(getText(R.string.armadura)));
-        dialogModificar(mArmasSumar, mArmas, String.valueOf(getText(R.string.armas)));
-        dialogModificar(mHerramientasSumar, mHerramientas, String.valueOf(getText(R.string.herramientas)));
-        dialogModificar(mEspecialidadSumar, mEspecialidad, String.valueOf(getText(R.string.especialidad)));
-        dialogModificar(mRangoMilitarSumar, mRangoMilitar, String.valueOf(getText(R.string.rangoMilitar)));
-        dialogModificar(mOtrasSumar, mOtras, String.valueOf(getText(R.string.otras)));
+        //TODO: Raúl: Poder modificar las competencias / idiomas de la misma manera (y dialog) que hay con las monedas (srry)
 
         /*
 

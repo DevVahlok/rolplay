@@ -107,11 +107,16 @@
     <string name="objeto">Objeto</string>
     <string name="costeEquipo">Coste: %1$s</string>
     <string name="pesoEquipo">Peso: %1$slb</string>
-    <string name="piezasCobre">Piezas\nde cobre</string>
-    <string name="piezasPlata">Piezas\nde plata</string>
-    <string name="piezasEsmeralda">Piezas\nde esmeralda</string>
-    <string name="piezasOro">Piezas\nde oro</string>
-    <string name="piezasPlatino">Piezas\nde platino</string>
+    <string name="piezasCobre">Piezas de cobre</string>
+    <string name="piezasPlata">Piezas de plata</string>
+    <string name="piezasEsmeralda">Piezas de esmeralda</string>
+    <string name="piezasOro">Piezas de oro</string>
+    <string name="piezasPlatino">Piezas de platino</string>
+    <string name="piezasCobreConSalto">Piezas\nde cobre</string>
+    <string name="piezasPlataConSalto">Piezas\nde plata</string>
+    <string name="piezasEsmeraldaConSalto">Piezas\nde esmeralda</string>
+    <string name="piezasOroConSalto">Piezas\nde oro</string>
+    <string name="piezasPlatinoConSalto">Piezas\nde platino</string>
     <string name="anadirObjeto">Añadir objeto</string>
     <string name="modificarMonedas">Modificar monedas</string>
 
@@ -136,6 +141,7 @@
     <string name="especialidad">Especialidad:</string>
     <string name="rangoMilitar">Rango militar:</string>
     <string name="otras">Otras:</string>
+    <string name="modificarCompetenciasIdiomas">Modificar Competencias / Idiomas</string>
 
     <!-- Personalidad -->
     <string name="rasgosPersonalidad">Rasgos de personalidad</string>

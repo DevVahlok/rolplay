@@ -121,10 +121,28 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo2 = v.findViewById(R.id.Combate_fallo_checkbox_2);
         mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
 
+        //TODO: Raúl: El valor de clase de armadura ha desaparecido
 
-        //Placeholder
-        mBarraSalud.setMax(Integer.parseInt(String.valueOf(mGolpesTotales.getText())));
-        mBarraSalud.setProgress(Integer.parseInt(String.valueOf(mGolpesTotales.getText())) - Integer.parseInt(String.valueOf(mGolpesActuales.getText())));
+        ActualizarBarraDeVida();
+
+        mGolpesActuales.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    ActualizarBarraDeVida();
+                }
+            }
+        });
+
+        mGolpesTotales.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    ActualizarBarraDeVida();
+                }
+            }
+        });
+
 
         //Solo permite marcar el 2 cuando el 1 está marcado
         switch (mSalvaciones) {
@@ -359,6 +377,11 @@ public class CombateFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void ActualizarBarraDeVida() {
+        mBarraSalud.setMax(Integer.parseInt(String.valueOf(mGolpesTotales.getText())));
+        mBarraSalud.setProgress(Integer.parseInt(String.valueOf(mGolpesTotales.getText())) - Integer.parseInt(String.valueOf(mGolpesActuales.getText())));
     }
 
 

@@ -68,17 +68,6 @@
             android:textColor="@color/colorBlanco"
             android:textSize="22sp" />
 
-        <ImageButton
-            android:id="@+id/Combate_claseArmadura_boton_editar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignBottom="@+id/Combate_MarcoClaseArmadura"
-            android:layout_marginBottom="15dp"
-            android:layout_toEndOf="@+id/Combate_MarcoClaseArmadura"
-            android:backgroundTint="@color/colorPrimary"
-            android:contentDescription="@string/editar"
-            android:src="@mipmap/ic_lapiz_foreground" />
-
         <ImageView
             android:id="@+id/Combate_MarcoIniciativa"
             android:layout_width="200dp"
@@ -132,7 +121,7 @@
             android:layout_toEndOf="@+id/Combate_MarcoIniciativa"
             android:backgroundTint="@color/colorPrimary"
             android:contentDescription="@string/editar"
-            android:src="@mipmap/ic_lapiz_foreground" />
+            android:src="@mipmap/ic_dados_foreground" />
 
         <ImageView
             android:id="@+id/Combate_MarcoVelocidad"
@@ -177,17 +166,6 @@
             android:text="10"
             android:textColor="@color/colorBlanco"
             android:textSize="22sp" />
-
-        <ImageButton
-            android:id="@+id/Combate_velocidad_boton_editar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignBottom="@+id/Combate_MarcoVelocidad"
-            android:layout_marginBottom="15dp"
-            android:layout_toEndOf="@+id/Combate_MarcoVelocidad"
-            android:backgroundTint="@color/colorPrimary"
-            android:contentDescription="@string/editar"
-            android:src="@mipmap/ic_lapiz_foreground" />
 
         <TextView
             android:id="@+id/Combate_texto_puntosGolpe"

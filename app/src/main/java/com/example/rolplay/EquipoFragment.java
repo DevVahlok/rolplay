@@ -80,15 +80,18 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         mDialogCarga = new DialogCarga();
 
-        //TODO: Alex: Mira a ver si tu entiendes pq escribe tan mal los titulillos
+        //TODO: Raúl: Al darle a AñadirObjeto y luego seleccionar Monedas, peta. Creo que deberíamos quitarlo del Spinner
+        //TODO: Raúl: AñadirObjeto de MonturasVehículos no funciona
+        //TODO: Raúl / Alex: Intentar poner en el dialog de AñadirObjeto, un Spinner debajo de un Spinner, no al lado (para que se vea mejor)
+
         mModificarMonedas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Muestra un dialog para que el usuario selecciona cuál quiere añadir
+                //Muestra un dialog para que el usuario modifique las monedas
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText(getString(R.string.anadirObjeto));
+                title.setText(getString(R.string.modificarMonedas));
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -181,7 +184,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     }
                 });
 
-                //Enseña el dialog de 'Añadir objeto'
+                //Enseña el dialog de 'Modificar Monedas'
                 AlertDialog anadirObjeto = constructrorDialog.create();
                 anadirObjeto.show();
                 Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
