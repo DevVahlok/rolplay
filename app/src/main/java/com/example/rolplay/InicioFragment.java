@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class InicioFragment extends Fragment {
@@ -49,6 +50,9 @@ public class InicioFragment extends Fragment {
     private String[] listaMercancias = new String[] {};
     private String[] listaMisceláneo = new String[] {};
     private String[] listaMonturas = new String[] {};
+    private String[] listaMonturasAGV = new String[]{};
+    private String[] listaMonturasMOA = new String[]{};
+    private String[] listaMonturasVA = new String[]{};
     private String[] listaArmadurasLigeras = new String[] {};
     private String[] listaArmadurasMedias = new String[] {};
     private String[] listaArmadurasPesadas = new String[] {};
@@ -63,7 +67,8 @@ public class InicioFragment extends Fragment {
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEngañoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
-            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
+            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje, mFuerzaCB, mDestrezaCB,
+            mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
     private int SalvacionesMuerte, Nivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
 
 
@@ -102,6 +107,11 @@ public class InicioFragment extends Fragment {
         mUsuario = mAuth.getCurrentUser();
 
         mDatabase = FirebaseDatabase.getInstance();
+
+        HashMap<String, Object> recordar = new HashMap<>();
+
+        recordar.put("Recordar menu", false);
+        mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).updateChildren(recordar);
 
         try {
             codigoPersonaje = recuperados.getString("codigo");
@@ -206,6 +216,12 @@ public class InicioFragment extends Fragment {
                 bundle.putBoolean("SigiloCB", Boolean.parseBoolean(mSigiloCB));
                 bundle.putBoolean("SupervivenciaCB", Boolean.parseBoolean(mSupervivenciaCB));
                 bundle.putBoolean("TratoAnimalesCB", Boolean.parseBoolean(mTratoAnimalesCB));
+                bundle.putBoolean("FuerzaCB", Boolean.parseBoolean(mFuerzaCB));
+                bundle.putBoolean("DestrezaCB", Boolean.parseBoolean(mDestrezaCB));
+                bundle.putBoolean("ConstitucionCB", Boolean.parseBoolean(mConstitucionCB));
+                bundle.putBoolean("InteligenciaCB", Boolean.parseBoolean(mInteligenciaCB));
+                bundle.putBoolean("SabiduriaCB", Boolean.parseBoolean(mSabiduriaCB));
+                bundle.putBoolean("CarismaCB", Boolean.parseBoolean(mCarismaCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
                 bundle.putString("Sabiduria Pasiva",mSabiduria);
@@ -246,6 +262,12 @@ public class InicioFragment extends Fragment {
                 bundle.putBoolean("SigiloCB", Boolean.parseBoolean(mSigiloCB));
                 bundle.putBoolean("SupervivenciaCB", Boolean.parseBoolean(mSupervivenciaCB));
                 bundle.putBoolean("TratoAnimalesCB", Boolean.parseBoolean(mTratoAnimalesCB));
+                bundle.putBoolean("FuerzaCB", Boolean.parseBoolean(mFuerzaCB));
+                bundle.putBoolean("DestrezaCB", Boolean.parseBoolean(mDestrezaCB));
+                bundle.putBoolean("ConstitucionCB", Boolean.parseBoolean(mConstitucionCB));
+                bundle.putBoolean("InteligenciaCB", Boolean.parseBoolean(mInteligenciaCB));
+                bundle.putBoolean("SabiduriaCB", Boolean.parseBoolean(mSabiduriaCB));
+                bundle.putBoolean("CarismaCB", Boolean.parseBoolean(mCarismaCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
                 bundle.putString("Sabiduria Pasiva",mSabiduria);
@@ -300,6 +322,9 @@ public class InicioFragment extends Fragment {
                 bundle.putStringArray("Lista De Merc",listaMercancias);
                 bundle.putStringArray("Lista De Misc",listaMisceláneo);
                 bundle.putStringArray("Lista De Mont",listaMonturas);
+                bundle.putStringArray("Lista De MontAGV", listaMonturasAGV);
+                bundle.putStringArray("Lista De MontMOA", listaMonturasMOA);
+                bundle.putStringArray("Lista De MontVA", listaMonturasVA);
                 bundle.putStringArray("Lista De Armaduras",listaArmaduras);
                 bundle.putStringArray("Lista De Armas",listaArmas);
                 bundle.putInt("Piezas de cobre", PCobre);
@@ -452,6 +477,12 @@ public class InicioFragment extends Fragment {
                     mSigiloCB = ((Boolean) dataSnapshot.child("SigiloCB").getValue()).toString();
                     mSupervivenciaCB = ((Boolean) dataSnapshot.child("SupervivenciaCB").getValue()).toString();
                     mTratoAnimalesCB = ((Boolean) dataSnapshot.child("TratoAnimalesCB").getValue()).toString();
+                    mFuerzaCB = ((Boolean) dataSnapshot.child("FuerzaCB").getValue()).toString();
+                    mDestrezaCB = ((Boolean) dataSnapshot.child("DestrezaCB").getValue()).toString();
+                    mConstitucionCB = ((Boolean) dataSnapshot.child("ConstitucionCB").getValue()).toString();
+                    mInteligenciaCB = ((Boolean) dataSnapshot.child("InteligenciaCB").getValue()).toString();
+                    mSabiduriaCB = ((Boolean) dataSnapshot.child("SabiduriaCB").getValue()).toString();
+                    mCarismaCB = ((Boolean) dataSnapshot.child("CarismaCB").getValue()).toString();
                 }catch (Exception e){
                 }
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
@@ -568,22 +599,28 @@ public class InicioFragment extends Fragment {
                 listaMisceláneo = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos"), Objetos, listaMonturas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaMonturas = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturasAGV, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaMonturas = value;
+                listaMonturasAGV = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturasMOA, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaMonturas = value;
+                listaMonturasMOA = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturasVA, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturasVA = value;
             }
         });
 

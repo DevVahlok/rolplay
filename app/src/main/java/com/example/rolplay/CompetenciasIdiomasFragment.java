@@ -24,8 +24,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
     //Declaración de variables
     private String[] listaIdiomas;
     private String[] listaIdiomasRegionales;
-    private Button mIdiomasSumar, mArmaduraSumar, mArmasSumar, mHerramientasSumar, mEspecialidadSumar, mRangoMilitarSumar,
-        mOtrasSumar;
+    private Button mModificar;
     private TextView mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private FirebaseDatabase mDatabase;
     private String codigoPJ;
@@ -51,6 +50,7 @@ public class CompetenciasIdiomasFragment extends Fragment {
         mEspecialidad = v.findViewById(R.id.CompetenciasIdiomas_valor_especialidad);
         mRangoMilitar = v.findViewById(R.id.CompetenciasIdiomas_valor_rangoMilitar);
         mOtras = v.findViewById(R.id.CompetenciasIdiomas_valor_otras);
+        mModificar = v.findViewById(R.id.CompetenciasIdiomas_modificarCompetenciasIdiomas_btn);
 
         //Recuperación y seteo de datos desde FireBase
         if(recuperados!=null){
@@ -69,7 +69,141 @@ public class CompetenciasIdiomasFragment extends Fragment {
         //Placeholder (abajo están explicados todos)
         listaIdiomas = new String[]{"Enano", "Infracomún", "Élfico", "Drow"};
 
-        //TODO: Raúl: Poder modificar las competencias / idiomas de la misma manera (y dialog) que hay con las monedas (srry)
+        mModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                TextView title = new TextView(getActivity());
+                title.setText(R.string.modificar);
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0,40,0,0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+
+                //Idioma
+                final TextView Tidioma = new TextView(getActivity());
+                Tidioma.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                Tidioma.setTextSize(16);
+                Tidioma.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                Tidioma.setPadding(10,10,10,0);
+                Tidioma.setText(R.string.idiomas);
+                final EditText idiomaET = new EditText(getActivity());
+                idiomaET.setMinEms(20);
+                idiomaET.setText(mIdiomas.getText());
+                //Armadura
+                final TextView Tarmadura = new TextView(getActivity());
+                Tarmadura.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                Tarmadura.setTextSize(16);
+                Tarmadura.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                Tarmadura.setPadding(10,10,10,0);
+                Tarmadura.setText(R.string.armaduras);
+                final EditText armaduraET = new EditText(getActivity());
+                armaduraET.setMinEms(20);
+                armaduraET.setText(mArmadura.getText());
+                //Armas
+                final TextView TArma = new TextView(getActivity());
+                TArma.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                TArma.setTextSize(16);
+                TArma.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                TArma.setPadding(10,10,10,0);
+                TArma.setText(R.string.armas);
+                final EditText ArmaET = new EditText(getActivity());
+                ArmaET.setMinEms(20);
+                ArmaET.setText(mArmas.getText());
+                //Herramientas
+                final TextView Therramientas = new TextView(getActivity());
+                Therramientas.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                Therramientas.setTextSize(16);
+                Therramientas.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                Therramientas.setPadding(10,10,10,0);
+                Therramientas.setText(R.string.herramientas);
+                final EditText herramientasET = new EditText(getActivity());
+                herramientasET.setMinEms(20);
+                herramientasET.setText(mHerramientas.getText());
+                //Especialidad
+                final TextView Tespecialidad = new TextView(getActivity());
+                Tespecialidad.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                Tespecialidad.setTextSize(16);
+                Tespecialidad.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                Tespecialidad.setPadding(10,10,10,0);
+                Tespecialidad.setText(R.string.especialidad);
+                final EditText especialidadET = new EditText(getActivity());
+                especialidadET.setMinEms(20);
+                especialidadET.setText(mEspecialidad.getText());
+                //Rango Militar
+                final TextView TRangoMilitar = new TextView(getActivity());
+                TRangoMilitar.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                TRangoMilitar.setTextSize(16);
+                TRangoMilitar.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                TRangoMilitar.setPadding(10,10,10,0);
+                TRangoMilitar.setText(R.string.rangoMilitar);
+                final EditText RangoMilitarET = new EditText(getActivity());
+                RangoMilitarET.setMinEms(20);
+                RangoMilitarET.setText(mRangoMilitar.getText());
+                //Otras
+                final TextView Totras = new TextView(getActivity());
+                Totras.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                Totras.setTextSize(16);
+                Totras.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                Totras.setPadding(10,10,10,0);
+                Totras.setText(R.string.otras);
+                final EditText otrasET = new EditText(getActivity());
+                otrasET.setMinEms(20);
+                otrasET.setText(mOtras.getText());
+
+                linearLayout.addView(Tidioma);
+                linearLayout.addView(idiomaET);
+                linearLayout.addView(Tarmadura);
+                linearLayout.addView(armaduraET);
+                linearLayout.addView(TArma);
+                linearLayout.addView(ArmaET);
+                linearLayout.addView(Therramientas);
+                linearLayout.addView(herramientasET);
+                linearLayout.addView(Tespecialidad);
+                linearLayout.addView(especialidadET);
+                linearLayout.addView(TRangoMilitar);
+                linearLayout.addView(RangoMilitarET);
+                linearLayout.addView(Totras);
+                linearLayout.addView(otrasET);
+                linearLayout.setPadding(120,10,120,10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Tidioma.setText(idiomaET.getText());
+                        Tarmadura.setText(armaduraET.getText());
+                        TArma.setText(ArmaET.getText());
+                        Therramientas.setText(herramientasET.getText());
+                        Tespecialidad.setText(especialidadET.getText());
+                        TRangoMilitar.setText(RangoMilitarET.getText());
+                        Totras.setText(otrasET.getText());
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Añadir objeto'
+                AlertDialog cambiarTexto = constructrorDialog.create();
+                cambiarTexto.show();
+
+                Objects.requireNonNull(cambiarTexto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
+            }
+        });
 
         /*
 

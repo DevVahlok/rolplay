@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private DialogCarga mDialogCarga;
     private View v;
     private String codigoPJ;
+    private boolean montura;
 
     private int auxiliar = 0, pesoTotal=0;;
 
@@ -80,7 +83,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         mDialogCarga = new DialogCarga();
 
-        //TODO: Raúl: Al darle a AñadirObjeto y luego seleccionar Monedas, peta. Creo que deberíamos quitarlo del Spinner
         //TODO: Raúl: AñadirObjeto de MonturasVehículos no funciona
         //TODO: Raúl / Alex: Intentar poner en el dialog de AñadirObjeto, un Spinner debajo de un Spinner, no al lado (para que se vea mejor)
 
@@ -196,6 +198,8 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             @Override
             public void onClick(View v) {
 
+                montura = false;
+
                 //Muestra un dialog para que el usuario selecciona cuál quiere añadir
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
@@ -227,6 +231,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         auxiliar++;
+
                         if (auxiliar>1) {
                             switch (spinnerObjeto.getItemAtPosition(position).toString()){
                                 case "Armaduras":
@@ -286,7 +291,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                 case "Armas cuerpo cuerpo simples":
                                     ArrayAdapter<String> adapter24 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De ArmCS")));
                                     spinnerObjeto.setAdapter(adapter24);
-                                    mObjetos[0] = mObjetos[0].child("Armas cuerpo cuerpo simples");
+                                    mObjetos[0] = mObjetos[0].child("Armas/Armas cuerpo cuerpo simples");
                                     subtitle.setText(R.string.armasCuerpoACuerpoSimples);
                                     auxiliar=0;
                                     break;
@@ -318,6 +323,29 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Monturas y Vehículos");
                                     subtitle.setText(R.string.monturasVehiculos);
                                     break;
+                                case "Arreos, Guarniciones y Vehículos de Tiro":
+                                    ArrayAdapter<String> adapter51 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De MontAGV")));
+                                    spinnerObjeto.setAdapter(adapter51);
+                                    auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Arreos, Guarniciones y Vehículos de Tiro");
+                                    subtitle.setText(R.string.monturasVehiculos);
+                                    break;
+                                case "Monturas y Otros Animales":
+                                    montura = true;
+                                    ArrayAdapter<String> adapter52 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De MontMOA")));
+                                    spinnerObjeto.setAdapter(adapter52);
+                                    auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Monturas y Otros Animales");
+                                    subtitle.setText(R.string.monturasVehiculos);
+                                    break;
+                                case "Vehículos Acuáticos":
+                                    montura = true;
+                                    ArrayAdapter<String> adapter53 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De MontVA")));
+                                    spinnerObjeto.setAdapter(adapter53);
+                                    auxiliar=0;
+                                    mObjetos[0] = mObjetos[0].child("Vehículos Acuáticos");
+                                    subtitle.setText(R.string.monturasVehiculos);
+                                    break;
                             }
                             //TODO: Intentar poner un spinner debajo del otro, no al lado (si se puede)
                         }
@@ -339,18 +367,32 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
                         if (!spinnerObjeto.getSelectedItem().toString().equals("Ninguno")) {
-                            cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
-                                @Override
-                                public void onCallback(String[] value) {
-                                    //Añade objeto al Recycle
-                                    listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
-                                    pesoTotal += Integer.parseInt(value[1]);
-                                    adapter.notifyItemInserted(listaDatos.size() - 1);
-                                    mDialogCarga.dismiss();
-                                }
-                            });
+                            if (montura){
+                                cogerObjetoMontura(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
+                                    @Override
+                                    public void onCallback(String[] value) {
+                                        //Añade objeto al Recycle
+                                        listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
+                                        pesoTotal += Integer.parseInt(value[1]);
+                                        adapter.notifyItemInserted(listaDatos.size() - 1);
+                                        mDialogCarga.dismiss();
+                                    }
+                                });
+                            }else {
+                                cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
+                                    @Override
+                                    public void onCallback(String[] value) {
+                                        //Añade objeto al Recycle
+                                        listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
+                                        pesoTotal += Integer.parseInt(value[1]);
+                                        adapter.notifyItemInserted(listaDatos.size() - 1);
+                                        mDialogCarga.dismiss();
+                                    }
+                                });
+                            }
                         }
                         mDialogCarga.dismiss();
                     }
@@ -400,6 +442,45 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         return v;
     }
 
+    private void cogerObjetoMontura(DatabaseReference mDatabase, final String s, final MyCallback myCallback) {
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String valor = "" + ds.getKey();
+                    if(valor.equals(s)) {
+                        String[] result;
+                        String coste, url;
+                        try {
+                            coste = (String) ds.child("Coste").getValue();
+                        }catch (Exception e){
+                            try {
+                                Long cost = (Long) ds.child("Coste").getValue();
+                                coste = cost.toString();
+
+                            }catch (Exception ex){
+                                coste="0";
+                            }
+                        }
+                        try {
+                            url = (String) ds.child("URL").getValue();
+                        }catch (Exception e){
+                            url ="..";
+                        }
+                        result = new String[]{coste, "0", url};
+                        myCallback.onCallback(result);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onItemClick(int position) {
@@ -445,15 +526,18 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                             try {
                                 Long cost = (Long) ds.child("Peso").getValue();
                                 peso = cost.toString();
-
                             }catch (Exception ex){
-                                peso="0";
+                                long cost = 0L;
+                                peso = Long.toString(cost);
                             }
                         }
                         try {
                             url = (String) ds.child("URL").getValue();
                         }catch (Exception e){
                             url ="..";
+                        }
+                        if (peso== null){
+                            peso = "0";
                         }
                         result = new String[]{coste, peso, url};
                         myCallback.onCallback(result);

@@ -60,6 +60,8 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_personajes);
 
+        ComprobarEstatUsuari();
+        
         recordarMenu = true;
 
         //Inicialización de variables
@@ -92,6 +94,11 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
         }
 
+        //TODO Alex: es mentira no es un todo esto es lo que me has pedido de que guarde el estado
+        HashMap<String, Object> recordar = new HashMap<>();
+
+        recordar.put("Recordar menu", recordarMenu);
+        mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).updateChildren(recordar);
 
         //Al pulsar el botón de crear personaje
         mBotonCrearPersonaje.setOnClickListener(new View.OnClickListener() {
@@ -128,12 +135,9 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: Añadir personaje y su código a Firebase
                         recordarMenu = false;
                         String codigoGenerado = generarCodigo();
                         if (listaCodigos.size()==0) {
-                            //TODO: Raúl: Guardar lista de códigos al crear personaje en FireBase. Recuperarla y usar el algoritmo de abajo para comprobar que no existe al generar uno nuevo.
-
                             listaCodigos.add(codigoGenerado);
                         }else {
                             boolean codigoLibre = false;
@@ -300,5 +304,15 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
         return sb.toString();
     }
+    
+    private void ComprobarEstatUsuari() {
 
+        FirebaseUser usuari = mAuth.getCurrentUser();
+
+        if (usuari==null){
+            //Pasa a la pantalla de Login si el usuario no está logueado
+            startActivity(new Intent(this, MainActivity.class));
+            this.finish();
+        }
+    }
 }

@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
 
@@ -40,6 +40,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private FirebaseUser mUsuario;
     private FirebaseDatabase mDatabase;
     public NavigationView navigationView;
+    private ProgressBar mProgressBar;
     private TextView mNivelPersonajeNavBar, mNombrePersonaje, mCorreoElectronico;
     private View headerView;
     private ArrayList<String> Razas = new ArrayList<String>();
@@ -63,6 +64,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private String[] listaMercancias = new String[]{};
     private String[] listaMisceláneo = new String[]{};
     private String[] listaMonturas = new String[]{};
+    private String[] listaMonturasAGV = new String[]{};
+    private String[] listaMonturasMOA = new String[]{};
+    private String[] listaMonturasVA = new String[]{};
     private String[] listaArmadurasLigeras = new String[]{};
     private String[] listaArmadurasMedias = new String[]{};
     private String[] listaArmadurasPesadas = new String[]{};
@@ -77,7 +81,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEnganyoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
-            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje;
+            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje, mFuerzaCB, mDestrezaCB,
+            mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
 
@@ -176,6 +181,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("SigiloCB",false);
                 hashMap.put("SupervivenciaCB",false);
                 hashMap.put("TratoAnimalesCB",false);
+                hashMap.put("FuerzaCB",false);
+                hashMap.put("DestrezaCB",false);
+                hashMap.put("ConstitucionCB",false);
+                hashMap.put("InteligenciaCB",false);
+                hashMap.put("SabiduriaCB",false);
+                hashMap.put("CarismaCB",false);
                 hashMap.put("Inspiracion", "0");
                 hashMap.put("Bonificador Competencia", "0");
                 hashMap.put("Sabiduria Pasiva","0");
@@ -235,7 +246,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 });
 
             }
-            //TODO: Raúl: Cargar ProgressBar de experiencia y nivel en la barra lateral
             //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 
@@ -244,6 +254,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mNivelPersonajeNavBar = headerView.findViewById(R.id.nav_header_nivelPersonaje);
         mNombrePersonaje = headerView.findViewById(R.id.nav_header_nombrePersonaje);
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
+        mProgressBar = headerView.findViewById(R.id.nav_header_nivel_barraProgreso);
+
         mDialogCarga = new DialogCarga();
 
         mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
@@ -263,16 +275,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         }catch (Exception e){
 
         }
-        //Cargamos las imagenes de los dados
-        final DatabaseReference mdados = mDatabase.getReference("DungeonAndDragons/Dados");
-
-        cargarDados("1d4", dados4, mdados);
-        cargarDados("1d6", dados6, mdados);
-        cargarDados("1d8", dados8, mdados);
-        cargarDados("1d10", dados10, mdados);
-        cargarDados("1d12", dados12, mdados);
-        cargarDados("1d20", dados20, mdados);
-
     }
 
     private void cargarDatosFB() {
@@ -347,6 +349,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mSigiloCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("SigiloCB").getValue())).toString();
                 mSupervivenciaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("SupervivenciaCB").getValue())).toString();
                 mTratoAnimalesCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("TratoAnimalesCB").getValue())).toString();
+                mFuerzaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("FuerzaCB").getValue())).toString();
+                mDestrezaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("DestrezaCB").getValue())).toString();
+                mConstitucionCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("ConstitucionCB").getValue())).toString();
+                mInteligenciaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("InteligenciaCB").getValue())).toString();
+                mSabiduriaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("SabiduriaCB").getValue())).toString();
+                mCarismaCB = ((Boolean) Objects.requireNonNull(dataSnapshot.child("CarismaCB").getValue())).toString();
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
                 mSabiduria = (String) dataSnapshot.child("Sabiduria Pasiva").getValue();
@@ -465,22 +473,28 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 listaMisceláneo = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos"), Objetos, listaMonturas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaMonturas = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Arreos, Guarniciones y Vehículos de Tiro"), Objetos, listaMonturasAGV, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaMonturas = value;
+                listaMonturasAGV = value;
             }
         });
-        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturas, new MyCallback() {
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Monturas y Otros Animales"), Objetos, listaMonturasMOA, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaMonturas = value;
+                listaMonturasMOA = value;
+            }
+        });
+        cargarSpinners(mObjetos.child("Monturas y Vehículos/Vehículos Acuáticos"), Objetos, listaMonturasVA, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaMonturasVA = value;
             }
         });
 
@@ -527,6 +541,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarDados("1d12", dados12, mdados);
         cargarDados("1d20", dados20, mdados);
 
+        int PuntosMaximos = mNivel * (mNivel+1) * 500;
+        mProgressBar.setMax(PuntosMaximos);
+        mProgressBar.setProgress(PuntosExperiencia);
+
     }
 
     //Funcion para rellenar las imagenes de dados
@@ -551,7 +569,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[]{};
+                String[] result = new String[] {};
+                ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
@@ -560,7 +579,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
                 }
                 callback.onCallback(result);
-
+                ALS.clear();
             }
 
             @Override
@@ -644,6 +663,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putBoolean("SigiloCB", Boolean.parseBoolean(mSigiloCB));
                 bundle.putBoolean("SupervivenciaCB", Boolean.parseBoolean(mSupervivenciaCB));
                 bundle.putBoolean("TratoAnimalesCB", Boolean.parseBoolean(mTratoAnimalesCB));
+                bundle.putBoolean("FuerzaCB", Boolean.parseBoolean(mFuerzaCB));
+                bundle.putBoolean("DestrezaCB", Boolean.parseBoolean(mDestrezaCB));
+                bundle.putBoolean("ConstitucionCB", Boolean.parseBoolean(mConstitucionCB));
+                bundle.putBoolean("InteligenciaCB", Boolean.parseBoolean(mInteligenciaCB));
+                bundle.putBoolean("SabiduriaCB", Boolean.parseBoolean(mSabiduriaCB));
+                bundle.putBoolean("CarismaCB", Boolean.parseBoolean(mCarismaCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
                 bundle.putString("Sabiduria Pasiva", mSabiduria);
@@ -685,6 +710,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putStringArray("Lista De Merc", listaMercancias);
                 bundle.putStringArray("Lista De Misc", listaMisceláneo);
                 bundle.putStringArray("Lista De Mont", listaMonturas);
+                bundle.putStringArray("Lista De MontAGV", listaMonturasAGV);
+                bundle.putStringArray("Lista De MontMOA", listaMonturasMOA);
+                bundle.putStringArray("Lista De MontVA", listaMonturasVA);
                 bundle.putStringArray("Lista De Armaduras", listaArmaduras);
                 bundle.putStringArray("Lista De Armas", listaArmas);
                 bundle.putInt("Piezas de cobre", PCobre);
@@ -836,9 +864,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         FirebaseUser usuari = mAuth.getCurrentUser();
 
-        if (usuari != null) {
-            //TODO: Cargar datos de Firebase respectivos a la ficha
-        } else {
+        if (usuari == null) {
             //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(this, MainActivity.class));
             this.finish();
