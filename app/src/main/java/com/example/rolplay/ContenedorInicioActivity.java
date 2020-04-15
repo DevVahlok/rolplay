@@ -47,7 +47,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ArrayList<String> Clases = new ArrayList<String>();
     private ArrayList<String> Objetos = new ArrayList<String>();
     private ArrayList<String> Equipo = new ArrayList<>();
+    private ArrayList<String> Ataque = new ArrayList<>();
     private ArrayList<String> Rasgos = new ArrayList<>();
+    private ArrayList<String> Conjuro = new ArrayList<>();
     private ArrayList<String> dados4 = new ArrayList<>();
     private ArrayList<String> dados6 = new ArrayList<>();
     private ArrayList<String> dados8 = new ArrayList<>();
@@ -140,7 +142,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Alineamiento","");
                 hashMap.put("Nivel", "1");
                 hashMap.put("Puntos de Experiencia", "0");
-                hashMap.put("Clase de Armadura", "");
+                hashMap.put("Clase de Armadura", "0");
                 hashMap.put("Iniciativa", "");
                 hashMap.put("Velocidad","");
                 hashMap.put("Puntos de Golpe Actuales","0");
@@ -157,6 +159,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Rango militar", "");
                 hashMap.put("Otras", "");
                 hashMap.put("Equipo","");
+                hashMap.put("Ataque","");
+                hashMap.put("Conjuro","");
                 hashMap.put("Piezas de cobre","");
                 hashMap.put("Piezas de plata","");
                 hashMap.put("Piezas de esmeralda","");
@@ -516,12 +520,48 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
+        final DatabaseReference mAtaque = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Ataque");
+        mAtaque.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Ataque.add((String)ds.child("nombre").getValue());
+                    Ataque.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
+                    Ataque.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
+                    Ataque.add((String)ds.child("url").getValue());
+                    Ataque.add((String)ds.child("danyo").getValue());
+                    Ataque.add((String)ds.child("propiedades").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Rasgos.add((String) ds.getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference mConjuro = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Conjuro");
+        mConjuro.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Conjuro.add((String) ds.getValue());
                 }
             }
 
@@ -727,7 +767,17 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Equipo).addToBackStack(null).commit();
                 break;
             case R.id.nav_ataquesConjuros:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).commit();
+                bundle = new Bundle();
+                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArrayList("Conjuro", Conjuro);
+                bundle.putString("codigo", codigoPersonaje);
+                Fragment AtaquesConjuros = new AtaquesConjurosFragment();
+                AtaquesConjuros.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, AtaquesConjuros).commit();
                 break;
             case R.id.nav_personalidad:
                 bundle = new Bundle();

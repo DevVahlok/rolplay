@@ -39,7 +39,9 @@ public class InicioFragment extends Fragment {
     private ArrayList<String> Clases = new ArrayList<>();
     private ArrayList<String> Objetos = new ArrayList<>();
     private ArrayList<String> Equipo = new ArrayList<>();
+    private ArrayList<String> Ataque = new ArrayList<>();
     private ArrayList<String> Rasgos = new ArrayList<>();
+    private ArrayList<String> Conjuro = new ArrayList<>();
     private String[] listaRazas = new String[] {};
     private String[] listaClases = new String[] {};
     private String[] listaAlineamiento = new String[] {};
@@ -344,8 +346,19 @@ public class InicioFragment extends Fragment {
         mBotonPestanaAtaquesConjuros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("Ataque", Ataque);
+                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArrayList("Conjuro", Conjuro);
+                bundle.putString("codigo", codigoPersonaje);
+                Fragment AtaquesConjuros = new AtaquesConjurosFragment();
+                AtaquesConjuros.setArguments(bundle);
                 ((ContenedorInicioActivity) Objects.requireNonNull(getActivity())).modificarNavegacionLateral("ataquesConjuros");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AtaquesConjurosFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, AtaquesConjuros).addToBackStack(null).commit();
             }
         });
 
@@ -642,6 +655,26 @@ public class InicioFragment extends Fragment {
             }
         });
 
+        final DatabaseReference mAtaque = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Ataque");
+        mAtaque.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Ataque.add((String)ds.child("nombre").getValue());
+                    Ataque.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
+                    Ataque.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
+                    Ataque.add((String)ds.child("url").getValue());
+                    Ataque.add((String)ds.child("danyo").getValue());
+                    Ataque.add((String)ds.child("propiedades").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
@@ -657,7 +690,20 @@ public class InicioFragment extends Fragment {
             }
         });
 
+        final DatabaseReference mConjuro = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Conjuro");
+        mConjuro.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Conjuro.add((String) ds.getValue());
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
         mExperienciaPersonaje_TV.setText(PuntosExperiencia+" / "+(Nivel * (Nivel+1)*500)+" exp");

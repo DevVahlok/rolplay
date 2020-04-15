@@ -1,6 +1,7 @@
 package com.example.rolplay;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerAtaque.ViewHolderAtaque> {
@@ -89,10 +93,10 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             mNombreAtaque.setText(s.getNombre());
             mCosteAtaque.setText(context.getResources().getString(R.string.costeEquipo,Integer.toString(s.getCoste())));
             mPesoAtaque.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
-            mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque,Integer.toString(s.getCoste())));
-            mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque,Integer.toString(s.getPeso())));
-            //TODO: Añadir imágenes de Storage de Firebase
-            //mFotoAtaque.setImageResource(s.getUrl());
+            mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque,s.getDanyo()));
+            mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque,s.getPropiedades()));
+
+            Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoAtaque);
 
         }
 
