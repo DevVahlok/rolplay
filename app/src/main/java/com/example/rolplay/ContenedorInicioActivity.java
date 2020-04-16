@@ -89,7 +89,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mInteligenciaBonus, mSabiduriaBonus, mCarismaBonus, mAcrobaciasCB, mAtletismoCB, mConocimientoCB, mEnganyoCB, mHistoriaCB, mInterpretacionCB,
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
-            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje, mFuerzaCB, mDestrezaCB,
+            mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje = "A", mFuerzaCB, mDestrezaCB,
             mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
@@ -158,7 +158,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Puntos de Golpe Temporales", "2");
                 hashMap.put("Dado de Golpe/Valor", "");
                 hashMap.put("Dado de Golpe/Total", "");
-                hashMap.put("Salvaciones de Muerte", "");
+                hashMap.put("Salvaciones de Muerte", "0");
                 hashMap.put("Idiomas", "");
                 hashMap.put("Armadura", "");
                 hashMap.put("Armas", "");
@@ -169,12 +169,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Equipo", "");
                 hashMap.put("Ataque", "");
                 hashMap.put("Conjuro", "");
-                hashMap.put("Piezas de cobre", "");
-                hashMap.put("Piezas de plata", "");
-                hashMap.put("Piezas de esmeralda", "");
-                hashMap.put("Piezas de oro", "");
-                hashMap.put("Piezas de platino", "");
-                hashMap.put("Peso total", "");
+                hashMap.put("Piezas de cobre", "0");
+                hashMap.put("Piezas de plata", "0");
+                hashMap.put("Piezas de esmeralda", "0");
+                hashMap.put("Piezas de oro", "0");
+                hashMap.put("Piezas de platino", "0");
+                hashMap.put("Peso total", "0");
                 hashMap.put("AcrobaciasCB", false);
                 hashMap.put("AtletismoCB", false);
                 hashMap.put("ConocimientoCB", false);
@@ -222,6 +222,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
                 mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPersonaje).updateChildren(hashMap);
 
+                HashMap<String, Object> ultimo = new HashMap<>();
+
+                ultimo.put("Ultimo personaje",codigoPersonaje);
+                mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("Nombre", "");
@@ -283,16 +287,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
             }
         });
-        try {
-            cargarDatosFB();
-        } catch (Exception e) {
-
-        }
     }
 
     private void cargarDatosFB() {
-        Log.d("-------------", codigoPersonaje);
-
         //Posicionar en el JSON de Firebase
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
@@ -302,6 +299,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         //Seteo datos en ficha
         mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
+        try {
+            Log.d("-------------", codigoPersonaje);
+        }catch (Exception e){
+
+        }
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
