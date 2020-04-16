@@ -77,7 +77,11 @@ public class CombateFragment extends Fragment {
         mDadoTotal.setText(recuperados.getString("Dado de Golpe/Total"));
         mSalvaciones = recuperados.getInt("Salvacion");
         mPeso = recuperados.getInt("Peso total");
-        mDestreza = Integer.parseInt(Objects.requireNonNull(recuperados.getString("Destreza puntos")));
+        try {
+            mDestreza = Integer.parseInt(Objects.requireNonNull(recuperados.getString("Destreza puntos")));
+        }catch (Exception e){
+            
+        }
 
 
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
