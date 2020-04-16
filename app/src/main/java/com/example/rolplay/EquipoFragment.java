@@ -214,6 +214,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 constructrorDialog.setCustomTitle(title);
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
 
                 final TextView subtitle = new TextView(getActivity());
                 subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
