@@ -81,7 +81,9 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String valor = "" + ds.getKey();
                         if(!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje")) {
-                            listaCodigos.add(valor);
+                            if (!listaCodigos.contains(valor)) {
+                                listaCodigos.add(valor);
+                            }
                         }
                     }
                 }
@@ -184,9 +186,11 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         cogerPersonaje(mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()), lista, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
+                Log.d("------------", String.valueOf(listaCodigos.size()));
                 listaDatos = new ArrayList<ItemPersonaje>();
-                listaDatos.add(new ItemPersonaje(value[1], getString(R.string.dungeonsAndDragons), value[0]));
-
+                for (int i = 0; i<listaCodigos.size(); i++) {
+                    listaDatos.add(new ItemPersonaje(lista.get((i*2)+1), getString(R.string.dungeonsAndDragons), lista.get(i*2)));
+                }
                 //Añade los personajes al Recycler
                 adapter = new AdapterRecyclerPersonaje(listaDatos, MenuPersonajesActivity.this, MenuPersonajesActivity.this);
                 recycler.setAdapter(adapter);
@@ -258,12 +262,15 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 String[] result = new String[0];
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String valor = "" + ds.getKey();
-                    if (!valor.equals("0")) {
-                        ALS.add(valor);
-                        ALS.add((String) ds.child("Nombre").getValue());
-                        result = ALS.toArray(result);
+                    if (!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje")) {
+                        if (!ALS.contains(valor)) {
+                            ALS.add(valor);
+                            ALS.add((String) ds.child("Nombre").getValue());
+                            result = ALS.toArray(result);
+                        }
                     }
                 }
+                Log.d("-----------", String.valueOf(ALS));
                 callback.onCallback(result);
             }
 
