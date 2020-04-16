@@ -35,8 +35,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
-import static com.example.rolplay.MenuPersonajesActivity.recordar;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -93,6 +91,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
+    private boolean recordarMenu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -127,6 +126,23 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        if (mAuth.getCurrentUser() != null) {
+            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        recordarMenu = (Boolean) dataSnapshot.child("Recordar menu").getValue();
+                        startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
+                        recordarMenu = false;
+                        RecordarMenu(new HashMap<String, Object>());
+                        ContenedorInicioActivity.this.finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
@@ -135,7 +151,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             if (recordarMenu) {
                 startActivity(new Intent(this, MenuPersonajesActivity.class).putExtra("origen", "login"));
                 recordarMenu = false;
-                RecordarMenu(recordar);
+                RecordarMenu(new HashMap<String, Object>());
                 this.finish();
             } else if (Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")) {
                 mAuth = FirebaseAuth.getInstance();
