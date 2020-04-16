@@ -287,6 +287,10 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
             public void onSuccess(Void aVoid) {
                 listaDatos.remove(position);
                 adapter.notifyItemRemoved(position);
+                HashMap<String, Object> ultimo = new HashMap<>();
+
+                ultimo.put("Ultimo personaje","");
+                mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()).updateChildren(ultimo);
             }
         });
     }
