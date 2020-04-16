@@ -112,18 +112,20 @@ public class LanzarDadosFragment extends Fragment {
                         int dados = Integer.parseInt(editText.getText().toString());
                         AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
                         LinearLayout linearLayout = new LinearLayout(getActivity());
+                        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                         constructrorDialog.setView(linearLayout);
 
                         Random r= new Random();
-
-                        //TODO que funcione lo de cargar varias imagenes
+                        
                         //Añadimos tantos dados como haya dicho el usuario
                         ArrayList<ImageView> IV = new ArrayList<>();
+
                         for (int i=0; i<dados; i++){
-                            Log.d("------------", String.valueOf(dados));
-                            IV.add(new ImageView(getActivity()));
+                            IV.add(new ImageView(getContext()));
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
+                            IV.get(i).setLayoutParams(layoutParams);
                             Picasso.get().load(Uri.parse(imagenes.get(r.nextInt(x)).toString())).into(IV.get(i));
-                            constructrorDialog.setView(IV.get(i));
+                            linearLayout.addView(IV.get(i));
                         }
 
                         constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -153,6 +155,7 @@ public class LanzarDadosFragment extends Fragment {
                 });
 
                 //Enseña el dialog de 'Lanzar dados'
+                constructrorDialog.setView(linearLayout);
                 AlertDialog lanzarDados = constructrorDialog.create();
                 lanzarDados.show();
 
