@@ -271,7 +271,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/Combate_texto_dadosGolpe"
             android:autofillHints=""
-            android:inputType="number"
+            android:inputType="text"
             android:text=""
             android:textColor="@color/colorBlanco" />
 

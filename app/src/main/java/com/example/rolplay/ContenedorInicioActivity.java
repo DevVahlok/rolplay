@@ -128,7 +128,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         toggle.syncState();
 
 
-
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
 
@@ -224,8 +223,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
                 HashMap<String, Object> ultimo = new HashMap<>();
 
-                ultimo.put("Ultimo personaje",codigoPersonaje);
-                mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+                ultimo.put("Ultimo personaje", codigoPersonaje);
+                mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("Nombre", "");
@@ -243,27 +242,28 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 navigationView.setCheckedItem(R.id.nav_cabecera);
             } else {
                 //TODO: Si estás en registrar y reinicias la app, peta.
-                mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (codigoPersonaje==null) {
-                            codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                if (mAuth.getCurrentUser() != null) {
+                    mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (codigoPersonaje == null) {
+                                codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                            }
+                            Bundle bundle = new Bundle();
+                            bundle.putString("codigo", codigoPersonaje);
+                            bundle.putString("origen", "inicio");
+                            Fragment inicio = new InicioFragment();
+                            inicio.setArguments(bundle);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inicio, "inicio_fragment").commitAllowingStateLoss();
+                            navigationView.setCheckedItem(R.id.nav_ficha);
                         }
-                        Bundle bundle = new Bundle();
-                        bundle.putString("codigo", codigoPersonaje);
-                        bundle.putString("origen", "inicio");
-                        Fragment inicio = new InicioFragment();
-                        inicio.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inicio, "inicio_fragment").commitAllowingStateLoss();
-                        navigationView.setCheckedItem(R.id.nav_ficha);
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-
+                        }
+                    });
+                }
             }
             //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
@@ -276,19 +276,20 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mProgressBar = headerView.findViewById(R.id.nav_header_nivel_barraProgreso);
 
         mDialogCarga = new DialogCarga();
+        if (mAuth.getCurrentUser() != null) {
+            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                    cargarDatosFB();
+                }
 
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
-                cargarDatosFB();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
     }
 
     private void cargarDatosFB() {
@@ -303,7 +304,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         ComprobarEstatUsuari();
         try {
             Log.d("-------------", codigoPersonaje);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addValueEventListener(new ValueEventListener() {
@@ -404,7 +405,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarSpinnersAux(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases=value;
+                listaClases = value;
             }
         });
         //Alineamiento
@@ -621,7 +622,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
