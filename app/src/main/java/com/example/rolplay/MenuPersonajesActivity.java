@@ -80,7 +80,9 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String valor = "" + ds.getKey();
-                        listaCodigos.add(valor);
+                        if(!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje")) {
+                            listaCodigos.add(valor);
+                        }
                     }
                 }
 
@@ -92,7 +94,6 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         }catch (Exception e){
 
         }
-
 
             recordarMenu = true;
             RecordarMenu(recordar);
@@ -157,14 +158,6 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
                             listaCodigos.add(codigoGenerado);
                         }
-
-                        FirebaseUser usuariActual = mAuth.getCurrentUser();
-
-                        HashMap<String, Object> hashMap = new HashMap<>();
-
-                        hashMap.put(usuariActual.getUid(), listaCodigos);
-                        Log.d("------------", listaCodigos.toString());
-                        mDatabase.getReference("users").updateChildren(hashMap);
 
                         startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", "seleccionPersonaje"));
                         MenuPersonajesActivity.this.finish();
