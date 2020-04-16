@@ -117,7 +117,6 @@ public class InicioFragment extends Fragment {
 
         try {
             codigoPersonaje = recuperados.getString("codigo");
-            Log.d("-------------", codigoPersonaje);
         }catch (Exception e){
             mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -134,7 +133,9 @@ public class InicioFragment extends Fragment {
                 }
             });
         }
+        if(codigoPersonaje==null){
         cargarDatos();
+        }
 
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
