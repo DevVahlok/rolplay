@@ -115,16 +115,12 @@ public class InicioFragment extends Fragment {
         recordar.put("Recordar menu", false);
         mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).updateChildren(recordar);
 
-        try {
-            codigoPersonaje = recuperados.getString("codigo");
-        }catch (Exception e){
-            mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        if (mAuth.getCurrentUser() != null) {
+            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
                     cargarDatos();
-                    Log.d("-------------", codigoPersonaje);
                 }
 
                 @Override
@@ -132,9 +128,6 @@ public class InicioFragment extends Fragment {
 
                 }
             });
-        }
-        if(codigoPersonaje==null){
-        cargarDatos();
         }
 
 

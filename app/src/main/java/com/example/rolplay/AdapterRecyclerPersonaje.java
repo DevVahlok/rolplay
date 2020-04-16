@@ -10,7 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
 
@@ -92,6 +98,15 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
                 public void onClick(View v) {
 
                     //Entra a la ficha de ese personaje
+
+                    FirebaseDatabase mDatabase;
+
+                    mDatabase = FirebaseDatabase.getInstance();
+                    HashMap<String, Object> ultimo = new HashMap<>();
+
+                    ultimo.put("Ultimo personaje",mCodigoPersonaje.getText().toString());
+                    mDatabase.getReference("users/"+ FirebaseAuth.getInstance().getUid()).updateChildren(ultimo);
+
                     recordarMenu = false;
                     context.startActivity(new Intent(context, ContenedorInicioActivity.class).putExtra("codigo", mCodigoPersonaje.getText().toString()));
                     ((Activity)context).finish();
