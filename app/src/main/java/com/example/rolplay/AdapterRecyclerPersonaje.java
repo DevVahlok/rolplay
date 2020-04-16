@@ -104,7 +104,9 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
                     mDatabase = FirebaseDatabase.getInstance();
                     HashMap<String, Object> ultimo = new HashMap<>();
 
-                    ultimo.put("Ultimo personaje",mCodigoPersonaje.getText().toString());
+                    ultimo.put("Ultimo personaje",
+                            mCodigoPersonaje.getText().toString().split(": ")[1]
+                    );
                     mDatabase.getReference("users/"+ FirebaseAuth.getInstance().getUid()).updateChildren(ultimo);
 
                     recordarMenu = false;
@@ -121,7 +123,7 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
             //Seteo de datos de cada objeto
             mNombrePersonaje.setText(s.getNombre());
             mJuegoPersonaje.setText(s.getTipoJuego());
-            mCodigoPersonaje.setText(s.getCodigo());
+            mCodigoPersonaje.setText(context.getResources().getString(R.string.codigo, (s.getCodigo())));
 
             //TODO: Raúl: Modificar para firebase/storage (poner imagen según la clase seleccionada podría ser una buena opción)
             //Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoPersonaje);
