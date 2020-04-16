@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -279,10 +280,15 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         });
     }
 
-    private void borrar(int position) {
+    private void borrar(final int position) {
         //Elimina el objeto del recycler
-        listaDatos.remove(position);
-        adapter.notifyItemRemoved(position);
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + listaDatos.get(position).getCodigo()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listaDatos.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
     }
 
 
