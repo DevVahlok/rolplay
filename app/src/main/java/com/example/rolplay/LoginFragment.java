@@ -29,8 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
-
 public class LoginFragment extends Fragment {
 
     //Declaración de variables

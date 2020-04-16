@@ -1,6 +1,7 @@
 package com.example.rolplay;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -92,7 +93,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
-    private boolean recordarMenu;
+    private boolean recordarMenuInterno = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -127,17 +128,22 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        final Activity activity = this;
+        final boolean[] entrado = {false};
+
         if (mAuth.getCurrentUser() != null) {
-            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/Recordar menu").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        recordarMenu = (Boolean) dataSnapshot.child("Recordar menu").getValue();
-                        if (recordarMenu) {
+                    recordarMenuInterno = (Boolean) dataSnapshot.getValue();
+                    if (!entrado[0]) {
+                        if (recordarMenuInterno) {
                             startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
-                            recordarMenu = false;
                             RecordarMenu(new HashMap<String, Object>());
-                            ((Activity) getApplicationContext()).finish();
+                            entrado[0] = true;
+                            activity.finish();
                         }
+                    }
                 }
 
                 @Override
@@ -321,7 +327,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         } catch (Exception e) {
 
         }
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -876,8 +882,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LanzarDados).commit();
                 break;
             case R.id.nav_salirPersonaje:
-                startActivity(new Intent(this, MenuPersonajesActivity.class));
-                this.finish();
+                startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class));
+                final Activity activity = this;
+                activity.finish();
                 break;
             case R.id.nav_configuracion:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
@@ -956,7 +963,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     }
 
     private void RecordarMenu(HashMap<String, Object> recordar) {
-        recordar.put("Recordar menu", recordarMenu);
+        recordar.put("Recordar menu", recordarMenuInterno);
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).updateChildren(recordar);
     }
 

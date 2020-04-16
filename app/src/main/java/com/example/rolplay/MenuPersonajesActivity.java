@@ -54,7 +54,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     private AdapterRecyclerPersonaje adapter;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
-    static boolean recordarMenu;
+    private boolean recordarMenu = true;
     static final HashMap<String, Object> recordar = new HashMap<>();
 
     @Override
