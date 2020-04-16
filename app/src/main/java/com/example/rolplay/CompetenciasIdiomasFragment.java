@@ -180,13 +180,13 @@ public class CompetenciasIdiomasFragment extends Fragment {
                 constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Tidioma.setText(idiomaET.getText());
-                        Tarmadura.setText(armaduraET.getText());
-                        TArma.setText(ArmaET.getText());
-                        Therramientas.setText(herramientasET.getText());
-                        Tespecialidad.setText(especialidadET.getText());
-                        TRangoMilitar.setText(RangoMilitarET.getText());
-                        Totras.setText(otrasET.getText());
+                        mIdiomas.setText(idiomaET.getText());
+                        mArmadura.setText(armaduraET.getText());
+                        mArmas.setText(ArmaET.getText());
+                        mHerramientas.setText(herramientasET.getText());
+                        mEspecialidad.setText(especialidadET.getText());
+                        mRangoMilitar.setText(RangoMilitarET.getText());
+                        mOtras.setText(otrasET.getText());
                     }
                 });
 
