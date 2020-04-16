@@ -209,11 +209,11 @@
             android:id="@+id/Configuracion_link_politicaDatos"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_cadena"
-            android:contentDescription="@string/politicaDatos"
-            android:layout_toEndOf="@+id/Configuracion_texto_politicaDatos"
             android:layout_alignBottom="@id/Configuracion_texto_politicaDatos"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_politicaDatos"
+            android:contentDescription="@string/politicaDatos"
+            android:src="@drawable/ic_cadena" />
 
         <TextView
             android:id="@+id/Configuracion_texto_condicionesUso"
@@ -230,11 +230,11 @@
             android:id="@+id/Configuracion_link_condicionesUso"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_cadena"
-            android:contentDescription="@string/condicionesUso"
-            android:layout_toEndOf="@+id/Configuracion_texto_condicionesUso"
             android:layout_alignBottom="@id/Configuracion_texto_condicionesUso"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_condicionesUso"
+            android:contentDescription="@string/condicionesUso"
+            android:src="@drawable/ic_cadena" />
 
         <TextView
             android:id="@+id/Configuracion_texto_api"
@@ -251,11 +251,12 @@
             android:id="@+id/Configuracion_link_api"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_cadena"
-            android:contentDescription="@string/accedeApi"
-            android:layout_toEndOf="@+id/Configuracion_texto_api"
             android:layout_alignBottom="@id/Configuracion_texto_api"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/Configuracion_texto_api"
+            android:contentDescription="@string/accedeApi"
+            android:src="@drawable/ic_cadena" />
 
     </RelativeLayout>
+
 </ScrollView>

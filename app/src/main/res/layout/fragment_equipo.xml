@@ -5,8 +5,7 @@
     android:fillViewport="false"
     android:orientation="vertical">
 
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/Equipo_layoutBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,24 +37,24 @@
             android:id="@+id/Equipo_texto_moneda_cobre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/piezasCobreConSalto"
             android:layout_alignBottom="@id/Equipo_Marco_moneda_cobre"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="85dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"/>
+            android:text="@string/piezasCobreConSalto"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Equipo_moneda_cobre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_alignBottom="@id/Equipo_Marco_moneda_cobre"
-            android:layout_marginBottom="25dp"
             android:layout_marginStart="22dp"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginBottom="25dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/Equipo_Marco_moneda_plata"
@@ -70,24 +69,24 @@
             android:id="@+id/Equipo_texto_moneda_plata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/piezasPlataConSalto"
             android:layout_alignBottom="@id/Equipo_Marco_moneda_plata"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="266dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"/>
+            android:text="@string/piezasPlataConSalto"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Equipo_moneda_plata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_alignBottom="@id/Equipo_Marco_moneda_plata"
-            android:layout_marginBottom="25dp"
             android:layout_marginStart="203dp"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginBottom="25dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/Equipo_Marco_moneda_esmeralda"
@@ -101,24 +100,24 @@
             android:id="@+id/Equipo_texto_moneda_esmeralda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/piezasEsmeraldaConSalto"
             android:layout_alignBottom="@id/Equipo_Marco_moneda_esmeralda"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="70dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"/>
+            android:text="@string/piezasEsmeraldaConSalto"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/Equipo_moneda_esmeralda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_alignBottom="@id/Equipo_Marco_moneda_esmeralda"
-            android:layout_marginBottom="25dp"
             android:layout_marginStart="22dp"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginBottom="25dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/Equipo_Marco_moneda_oro"
@@ -133,79 +132,80 @@
             android:id="@+id/Equipo_texto_moneda_oro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/piezasOroConSalto"
             android:layout_alignBottom="@id/Equipo_Marco_moneda_oro"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="270dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"/>
+            android:text="@string/piezasOroConSalto"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Equipo_moneda_oro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_alignBottom="@id/Equipo_Marco_moneda_oro"
-            android:layout_marginBottom="25dp"
             android:layout_marginStart="203dp"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginBottom="25dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/Equipo_Marco_moneda_platino"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/Equipo_Marco_moneda_esmeralda"
+            android:layout_centerHorizontal="true"
             android:contentDescription="@string/piezasPlatino"
-            app:srcCompat="@drawable/ic_fondo_moneda_platino"
-            android:layout_centerHorizontal="true"/>
+            app:srcCompat="@drawable/ic_fondo_moneda_platino" />
 
         <Button
             android:id="@+id/Equipo_modificarMonedas_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/modificarMonedas"
             android:layout_below="@id/Equipo_Marco_moneda_platino"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/modificarMonedas" />
 
         <TextView
             android:id="@+id/Equipo_texto_moneda_platino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/piezasPlatinoConSalto"
             android:layout_alignBottom="@id/Equipo_Marco_moneda_platino"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="168dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"/>
+            android:text="@string/piezasPlatinoConSalto"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Equipo_moneda_platino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_alignBottom="@id/Equipo_Marco_moneda_platino"
-            android:layout_marginBottom="25dp"
             android:layout_marginStart="113dp"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"/>
+            android:layout_marginBottom="25dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Equipo_Recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Equipo_modificarMonedas_btn"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <Button
             android:id="@+id/Equipo_anadirObjeto_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/anadirObjeto"
             android:layout_below="@id/Equipo_Recycler"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/anadirObjeto" />
 
     </RelativeLayout>
+
 </ScrollView>

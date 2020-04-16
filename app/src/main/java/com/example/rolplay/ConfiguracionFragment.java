@@ -34,6 +34,7 @@ public class ConfiguracionFragment extends Fragment {
         //Vamos a ser buena gente y poner el checkbox desmarcado como default
 
         //TODO: Raúl: Guardar configuración en FireBase
+        //TODO: Alex: Cuando esté hecho el backend, eliminar warnings del XML
         //Para las estadísticas, meter un int en FireBase e ir sumando
 
         //Inicialización de variables

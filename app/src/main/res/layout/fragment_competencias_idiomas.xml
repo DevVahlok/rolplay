@@ -39,23 +39,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/CompetenciasIdiomas_titulo"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_idiomas"
-            android:text="Común, Druídico"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="35dp"
-            android:paddingEnd="0dp"/>
-
-
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_armadura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/CompetenciasIdiomas_valor_idiomas"
+            android:paddingTop="20dp"
             android:text="@string/armadura"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            android:paddingTop="20dp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_valor_armadura"
@@ -63,12 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_armadura"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_armadura"
-            android:text="Todas, Escudos"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"/>
-
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_armas"
@@ -86,11 +83,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_armas"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_armas"
-            android:text="Sencillas, Marciales "
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="50dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_herramientas"
@@ -108,11 +105,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_herramientas"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_herramientas"
-            android:text="Juego (naipes) "
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_especialidad"
@@ -130,11 +127,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_especialidad"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_herramientas"
-            android:text="Caballería"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_rangoMilitar"
@@ -152,11 +149,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_rangoMilitar"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_rangoMilitar"
-            android:text="Capitán"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/CompetenciasIdiomas_texto_otras"
@@ -174,19 +171,20 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/CompetenciasIdiomas_texto_otras"
             android:layout_toEndOf="@+id/CompetenciasIdiomas_texto_otras"
-            android:text="Competente con carro"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp"
             android:paddingStart="55dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:text=""
+            android:textColor="@color/colorBlanco"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/CompetenciasIdiomas_modificarCompetenciasIdiomas_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/modificarCompetenciasIdiomas"
             android:layout_below="@id/CompetenciasIdiomas_valor_otras"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/modificarCompetenciasIdiomas" />
 
     </RelativeLayout>
+
 </ScrollView>

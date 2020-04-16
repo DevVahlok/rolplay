@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
 
     <ImageView
         android:id="@+id/ListaEquipo_barra_fondo"
-        android:contentDescription="@string/objeto"
-        app:srcCompat="@drawable/ic_fondo_hexagono"
         android:layout_width="match_parent"
         android:layout_height="105dp"
-        android:layout_marginTop="25dp"/>
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_fondo_hexagono" />
 
     <ImageView
         android:id="@+id/ListaEquipo_fondo_foto"
-        android:contentDescription="@string/objeto"
-        app:srcCompat="@drawable/ic_hexagono"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_hexagono" />
 
     <ImageView
         android:id="@+id/ListaEquipo_foto"
-        android:contentDescription="@string/objeto"
-        app:srcCompat="@drawable/ic_placeholder_equipo"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="45dp"
-        android:layout_marginStart="25dp"/>
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_placeholder_equipo" />
 
     <TextView
         android:id="@+id/listaEquipo_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/objeto"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="20dp"
-        android:textSize="20sp"
-        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"/>
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"
+        android:text="@string/objeto"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/listaEquipo_coste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/costeEquipo"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="20dp"
-        android:textSize="18sp"
         android:layout_below="@+id/listaEquipo_nombre"
-        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"
+        android:text="@string/costeEquipo"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/ListaEquipo_foto_moneda"
-        android:contentDescription="@string/objeto"
-        app:srcCompat="@drawable/ic_monedas_oro"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_toEndOf="@id/listaEquipo_coste"
         android:layout_alignBottom="@id/listaEquipo_coste"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/listaEquipo_coste"
+        android:contentDescription="@string/objeto"
+        app:srcCompat="@drawable/ic_monedas_oro" />
 
     <TextView
         android:id="@+id/listaEquipo_peso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pesoEquipo"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="20dp"
-        android:textSize="18sp"
         android:layout_below="@+id/listaEquipo_coste"
-        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/ListaEquipo_fondo_foto"
+        android:text="@string/pesoEquipo"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/ListaEquipo_borrar"
-        android:contentDescription="@string/cerrar"
-        app:srcCompat="@drawable/ic_cross"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="10dp"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="35dp"/>
+        android:layout_marginEnd="35dp"
+        android:contentDescription="@string/cerrar"
+        app:srcCompat="@drawable/ic_cross" />
 
 </RelativeLayout>

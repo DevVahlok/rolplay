@@ -50,7 +50,7 @@
             android:layout_below="@+id/Personalidad_barra_RasgosPersonalidad"
             android:justificationMode="inter_word"
             android:paddingTop="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."
+            android:text=""
             android:textColor="@color/colorBlanco" />
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_below="@+id/Personalidad_barra_Ideales"
             android:justificationMode="inter_word"
             android:paddingTop="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."
+            android:text=""
             android:textColor="@color/colorBlanco" />
 
         <TextView
@@ -126,7 +126,7 @@
             android:layout_below="@+id/Personalidad_barra_Vinculos"
             android:justificationMode="inter_word"
             android:paddingTop="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."
+            android:text=""
             android:textColor="@color/colorBlanco" />
 
         <TextView
@@ -164,7 +164,7 @@
             android:layout_below="@+id/Personalidad_barra_Defectos"
             android:justificationMode="inter_word"
             android:paddingTop="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu lacus neque. Duis tempor libero vitae facilisis pulvinar. Duis congue, dolor vitae blandit imperdiet, nulla libero tempus libero, at dignissim lectus turpis ac nisi. Sed et mauris quam. Nam fringilla malesuada ante. Ut vitae tristique arcu, ac tincidunt leo."
+            android:text=""
             android:textColor="@color/colorBlanco" />
 
         <TextView
@@ -177,4 +177,5 @@
             android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
+
 </ScrollView>

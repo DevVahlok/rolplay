@@ -54,15 +54,14 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     static boolean recordarMenu;
+    static final HashMap<String, Object> recordar = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_personajes);
-
+        mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
-        
-        recordarMenu = true;
 
         //Inicialización de variables
         mNombrePersonaje = findViewById(R.id.ListaPersonajes_nombre);
@@ -74,7 +73,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mDatabase = FirebaseDatabase.getInstance();
 
-        mAuth = FirebaseAuth.getInstance();
+
         try {
             mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -94,11 +93,10 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
         }
 
-        //TODO Alex: es mentira no es un todo esto es lo que me has pedido de que guarde el estado
-        HashMap<String, Object> recordar = new HashMap<>();
 
-        recordar.put("Recordar menu", recordarMenu);
-        mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).updateChildren(recordar);
+            recordarMenu = true;
+            RecordarMenu(recordar);
+
 
         //Al pulsar el botón de crear personaje
         mBotonCrearPersonaje.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +134,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         recordarMenu = false;
+                        RecordarMenu(recordar);
                         String codigoGenerado = generarCodigo();
                         if (listaCodigos.size()==0) {
                             listaCodigos.add(codigoGenerado);
@@ -200,6 +199,11 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 recycler.setAdapter(adapter);
             }
         });
+    }
+
+    private void RecordarMenu(HashMap<String, Object> recordar) {
+        recordar.put("Recordar menu", recordarMenu);
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).updateChildren(recordar);
     }
 
     @Override
@@ -307,6 +311,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     
     private void ComprobarEstatUsuari() {
 
+        //TODO: mAuth es null al iniciar sesión
         FirebaseUser usuari = mAuth.getCurrentUser();
 
         if (usuari==null){

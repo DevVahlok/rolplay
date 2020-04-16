@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,11 +28,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+
 import static com.example.rolplay.MenuPersonajesActivity.recordarMenu;
+import static com.example.rolplay.MenuPersonajesActivity.recordar;
 
 public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -89,12 +95,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private DialogCarga mDialogCarga;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenedor_inicio);
 
         //Inicialización de variables
         mAuth = FirebaseAuth.getInstance();
+        ComprobarEstatUsuari();
         drawer = findViewById(R.id.drawer_layout);
 
         mUsuario = mAuth.getCurrentUser();
@@ -120,33 +127,34 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        ComprobarEstatUsuari();
+
 
         //Inicia el fragment de Inicio
         if (savedInstanceState == null) {
 
             //Si viene de Login o del manú lateral, redirige a MenuPersonajesActivity. Si no, redirige a la ficha
-            if(recordarMenu){
-                startActivity(new Intent(this, MenuPersonajesActivity.class).putExtra("origen","login"));
+            if (recordarMenu) {
+                startActivity(new Intent(this, MenuPersonajesActivity.class).putExtra("origen", "login"));
                 recordarMenu = false;
+                RecordarMenu(recordar);
                 this.finish();
-            }else if(Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")){
+            } else if (Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")) {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser usuariActual = mAuth.getCurrentUser();
 
                 HashMap<String, Object> hashMap = new HashMap<>();
 
-                hashMap.put("Nombre","");
-                hashMap.put("Raza","");
-                hashMap.put("Trasfondo","");
-                hashMap.put("Alineamiento","");
+                hashMap.put("Nombre", "");
+                hashMap.put("Raza", "");
+                hashMap.put("Trasfondo", "");
+                hashMap.put("Alineamiento", "");
                 hashMap.put("Nivel", "1");
                 hashMap.put("Puntos de Experiencia", "0");
                 hashMap.put("Clase de Armadura", "0");
                 hashMap.put("Iniciativa", "");
-                hashMap.put("Velocidad","");
-                hashMap.put("Puntos de Golpe Actuales","0");
-                hashMap.put("Puntos de Golpe Máximos","100");
+                hashMap.put("Velocidad", "");
+                hashMap.put("Puntos de Golpe Actuales", "0");
+                hashMap.put("Puntos de Golpe Máximos", "100");
                 hashMap.put("Puntos de Golpe Temporales", "2");
                 hashMap.put("Dado de Golpe/Valor", "");
                 hashMap.put("Dado de Golpe/Total", "");
@@ -158,42 +166,42 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Especialidad", "");
                 hashMap.put("Rango militar", "");
                 hashMap.put("Otras", "");
-                hashMap.put("Equipo","");
-                hashMap.put("Ataque","");
-                hashMap.put("Conjuro","");
-                hashMap.put("Piezas de cobre","");
-                hashMap.put("Piezas de plata","");
-                hashMap.put("Piezas de esmeralda","");
-                hashMap.put("Piezas de oro","");
-                hashMap.put("Piezas de platino","");
-                hashMap.put("Peso total","");
-                hashMap.put("AcrobaciasCB",false);
-                hashMap.put("AtletismoCB",false);
-                hashMap.put("ConocimientoCB",false);
-                hashMap.put("EngañoCB",false);
-                hashMap.put("HistoriaCB",false);
-                hashMap.put("InterpretacionCB",false);
-                hashMap.put("IntimidacionCB",false);
-                hashMap.put("InvestigacionCB",false);
-                hashMap.put("JuegoManosCB",false);
-                hashMap.put("MedicinaCB",false);
-                hashMap.put("NaturalezaCB",false);
-                hashMap.put("PercepcionCB",false);
-                hashMap.put("PerspicaciaCB",false);
-                hashMap.put("PersuasionCB",false);
-                hashMap.put("ReligionCB",false);
-                hashMap.put("SigiloCB",false);
-                hashMap.put("SupervivenciaCB",false);
-                hashMap.put("TratoAnimalesCB",false);
-                hashMap.put("FuerzaCB",false);
-                hashMap.put("DestrezaCB",false);
-                hashMap.put("ConstitucionCB",false);
-                hashMap.put("InteligenciaCB",false);
-                hashMap.put("SabiduriaCB",false);
-                hashMap.put("CarismaCB",false);
+                hashMap.put("Equipo", "");
+                hashMap.put("Ataque", "");
+                hashMap.put("Conjuro", "");
+                hashMap.put("Piezas de cobre", "");
+                hashMap.put("Piezas de plata", "");
+                hashMap.put("Piezas de esmeralda", "");
+                hashMap.put("Piezas de oro", "");
+                hashMap.put("Piezas de platino", "");
+                hashMap.put("Peso total", "");
+                hashMap.put("AcrobaciasCB", false);
+                hashMap.put("AtletismoCB", false);
+                hashMap.put("ConocimientoCB", false);
+                hashMap.put("EngañoCB", false);
+                hashMap.put("HistoriaCB", false);
+                hashMap.put("InterpretacionCB", false);
+                hashMap.put("IntimidacionCB", false);
+                hashMap.put("InvestigacionCB", false);
+                hashMap.put("JuegoManosCB", false);
+                hashMap.put("MedicinaCB", false);
+                hashMap.put("NaturalezaCB", false);
+                hashMap.put("PercepcionCB", false);
+                hashMap.put("PerspicaciaCB", false);
+                hashMap.put("PersuasionCB", false);
+                hashMap.put("ReligionCB", false);
+                hashMap.put("SigiloCB", false);
+                hashMap.put("SupervivenciaCB", false);
+                hashMap.put("TratoAnimalesCB", false);
+                hashMap.put("FuerzaCB", false);
+                hashMap.put("DestrezaCB", false);
+                hashMap.put("ConstitucionCB", false);
+                hashMap.put("InteligenciaCB", false);
+                hashMap.put("SabiduriaCB", false);
+                hashMap.put("CarismaCB", false);
                 hashMap.put("Inspiracion", "0");
                 hashMap.put("Bonificador Competencia", "0");
-                hashMap.put("Sabiduria Pasiva","0");
+                hashMap.put("Sabiduria Pasiva", "0");
                 hashMap.put("Rasgos de Personalidad", "");
                 hashMap.put("Ideales", "");
                 hashMap.put("Vínculos", "");
@@ -212,7 +220,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Carisma bonus", "");
                 hashMap.put("Rasgos", "");
 
-                mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPersonaje).updateChildren(hashMap);
+                mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPersonaje).updateChildren(hashMap);
 
 
                 Bundle bundle = new Bundle();
@@ -229,8 +237,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Cabecera.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera, "cabecera_fragment").addToBackStack(null).commit();
                 navigationView.setCheckedItem(R.id.nav_cabecera);
-            }else{
-                mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            } else {
+                //TODO: Si estás en registrar y reinicias la app, peta.
+                mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
@@ -262,7 +271,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         mDialogCarga = new DialogCarga();
 
-        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
@@ -276,7 +285,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         });
         try {
             cargarDatosFB();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -291,9 +300,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
 
         //Seteo datos en ficha
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
-        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()+"/"+codigoPersonaje).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -502,7 +511,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Equipo");
+        final DatabaseReference mEquipo = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -520,17 +529,17 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        final DatabaseReference mAtaque = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Ataque");
+        final DatabaseReference mAtaque = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Ataque");
         mAtaque.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Ataque.add((String)ds.child("nombre").getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Ataque.add((String) ds.child("nombre").getValue());
                     Ataque.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
                     Ataque.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
-                    Ataque.add((String)ds.child("url").getValue());
-                    Ataque.add((String)ds.child("danyo").getValue());
-                    Ataque.add((String)ds.child("propiedades").getValue());
+                    Ataque.add((String) ds.child("url").getValue());
+                    Ataque.add((String) ds.child("danyo").getValue());
+                    Ataque.add((String) ds.child("propiedades").getValue());
                 }
             }
 
@@ -541,7 +550,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         });
 
 
-        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Rasgos");
+        final DatabaseReference mRasgos = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -556,7 +565,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        final DatabaseReference mConjuro = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Conjuro");
+        final DatabaseReference mConjuro = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Conjuro");
         mConjuro.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -581,7 +590,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarDados("1d12", dados12, mdados);
         cargarDados("1d20", dados20, mdados);
 
-        int PuntosMaximos = mNivel * (mNivel+1) * 500;
+        int PuntosMaximos = mNivel * (mNivel + 1) * 500;
         mProgressBar.setMax(PuntosMaximos);
         mProgressBar.setProgress(PuntosExperiencia);
 
@@ -609,7 +618,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -768,11 +777,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_ataquesConjuros:
                 bundle = new Bundle();
-                bundle.putStringArray("Lista De Armas",listaArmas);
-                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
-                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
-                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
-                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArray("Lista De Armas", listaArmas);
+                bundle.putStringArray("Lista De ArmDM", listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS", listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM", listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS", listaArmasCS);
                 bundle.putStringArrayList("Conjuro", Conjuro);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment AtaquesConjuros = new AtaquesConjurosFragment();
@@ -902,6 +911,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         }
 
+    }
+
+    private void RecordarMenu(HashMap<String, Object> recordar) {
+        recordar.put("Recordar menu", recordarMenu);
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).updateChildren(recordar);
     }
 
     //Cierra la app correctamente

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/MainActivity_layoutBase"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainActivity_layoutBase"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,11 +10,11 @@
         android:id="@+id/MainActivity_layoutArriba"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="40dp"
         android:paddingTop="40dp"
         android:paddingRight="40dp"
-        android:paddingLeft="40dp"
-        android:background="@color/colorPrimaryDark">
+        tools:context=".MainActivity">
 
         <TextView
             android:id="@+id/MainActivity_titulo"
@@ -29,11 +28,11 @@
 
         <ImageView
             android:id="@+id/MainActivity_logo"
-            android:contentDescription="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/MainActivity_titulo"
             android:layout_marginTop="20dp"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/mainlogo" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,17 +42,16 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingTop="40dp"
-
-            app:hintTextColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MainActivity_email_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/MainActivity_logo"
-                android:hint="@string/correoElectronico"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:hint="@string/correoElectronico" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,34 +60,35 @@
             android:id="@+id/RegistrarActivity_password_TIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_below="@+id/RegistrarActivity_email_TIL"
-            app:hintTextColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary">
+            android:layout_centerInParent="true"
+            android:textColorHint="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MainActivity_password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/MainActivity_email_et"
+                android:background="@android:color/transparent"
                 android:hint="@string/contrasena"
-                android:inputType="textPassword"
-                android:background="@android:color/transparent"/>
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/MainActivity_recuperar_password_btn"
-            android:layout_width="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/RegistrarActivity_password_TIL"
+            android:layout_alignEnd="@+id/RegistrarActivity_password_TIL"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:gravity="end"
             android:text="@string/hasOlvidadoContrasena"
-            android:textSize="15sp"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
-            style="?android:attr/borderlessButtonStyle"
-            android:gravity="right"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/MainActivity_entrar_btn"
@@ -98,13 +97,13 @@
             android:layout_below="@+id/MainActivity_recuperar_password_btn"
             android:layout_marginTop="20dp"
             android:background="@color/colorSecondaryDark"
+            android:backgroundTint="@color/colorSecondaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:text="@string/entrar"
-            android:textSize="18sp"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorSecondaryDark"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
@@ -116,16 +115,16 @@
 
         <Button
             android:id="@+id/MainActivity_registrar_btn"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
             android:text="@string/noTienesCuentaRegistrate"
-            android:textSize="15sp"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
-            style="?android:attr/borderlessButtonStyle"
-            android:paddingTop="20dp"/>
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

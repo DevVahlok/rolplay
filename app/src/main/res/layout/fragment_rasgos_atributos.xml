@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:fillViewport="false"
@@ -36,9 +35,9 @@
             android:id="@+id/RasgosAtributos_anadirObjeto_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/anadirRasgoAtributo"
             android:layout_below="@id/RasgosAtributos_Recycler"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/anadirRasgoAtributo" />
 
     </RelativeLayout>
 
