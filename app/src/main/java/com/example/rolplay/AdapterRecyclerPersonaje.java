@@ -93,7 +93,7 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
 
                     //Entra a la ficha de ese personaje
                     recordarMenu = false;
-                    context.startActivity(new Intent(context, ContenedorInicioActivity.class).putExtra("codigo", mCodigoPersonaje.getText()));
+                    context.startActivity(new Intent(context, ContenedorInicioActivity.class).putExtra("codigo", mCodigoPersonaje.getText().toString()));
                     ((Activity)context).finish();
 
                 }

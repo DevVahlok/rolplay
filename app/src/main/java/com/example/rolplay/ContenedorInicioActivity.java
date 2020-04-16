@@ -246,13 +246,15 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                        if (codigoPersonaje==null) {
+                            codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("codigo", codigoPersonaje);
                         bundle.putString("origen", "inicio");
                         Fragment inicio = new InicioFragment();
                         inicio.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inicio, "inicio_fragment").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inicio, "inicio_fragment").commitAllowingStateLoss();
                         navigationView.setCheckedItem(R.id.nav_ficha);
                     }
 
@@ -392,18 +394,17 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mCorreoElectronico.setText(mUsuario.getEmail());
 
         //Cargar listas de los dropdowns
-        //Razas
-        cargarSpinners(mRazas, Razas, listaRazas, new MyCallback() {
+        cargarSpinnersAux(mRazas, Razas, listaRazas, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
                 listaRazas = value;
             }
         });
         //Clases
-        cargarSpinners(mClases, Clases, listaClases, new MyCallback() {
+        cargarSpinnersAux(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases = value;
+                listaClases=value;
             }
         });
         //Alineamiento
@@ -611,6 +612,30 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    //Funcion de lectura en FireBase i retorna String[] para el Dropdown
+    private void cargarSpinnersAux(DatabaseReference mDB, final ArrayList<String> ALS, final String[] SS, final MyCallback callback) {
+        mDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] result = new String[] {};
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String valor = "" + ds.getKey();
+                    ALS.add(valor);
+                    result = ALS.toArray(SS);
+
+                }
+                callback.onCallback(result);
+                ALS.clear();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", databaseError.getMessage());
             }
         });
     }

@@ -186,7 +186,6 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         cogerPersonaje(mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()), lista, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                Log.d("------------", String.valueOf(listaCodigos.size()));
                 listaDatos = new ArrayList<ItemPersonaje>();
                 for (int i = 0; i<listaCodigos.size(); i++) {
                     listaDatos.add(new ItemPersonaje(lista.get((i*2)+1), getString(R.string.dungeonsAndDragons), lista.get(i*2)));
@@ -270,7 +269,6 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                         }
                     }
                 }
-                Log.d("-----------", String.valueOf(ALS));
                 callback.onCallback(result);
             }
 
