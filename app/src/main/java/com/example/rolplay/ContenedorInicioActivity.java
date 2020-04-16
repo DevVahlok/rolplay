@@ -1,5 +1,6 @@
 package com.example.rolplay;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -131,10 +132,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         recordarMenu = (Boolean) dataSnapshot.child("Recordar menu").getValue();
-                        startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
-                        recordarMenu = false;
-                        RecordarMenu(new HashMap<String, Object>());
-                        ContenedorInicioActivity.this.finish();
+                        if (recordarMenu) {
+                            startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
+                            recordarMenu = false;
+                            RecordarMenu(new HashMap<String, Object>());
+                            ((Activity) getApplicationContext()).finish();
+                        }
                 }
 
                 @Override
@@ -148,12 +151,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         if (savedInstanceState == null) {
 
             //Si viene de Login o del manú lateral, redirige a MenuPersonajesActivity. Si no, redirige a la ficha
-            if (recordarMenu) {
-                startActivity(new Intent(this, MenuPersonajesActivity.class).putExtra("origen", "login"));
-                recordarMenu = false;
-                RecordarMenu(new HashMap<String, Object>());
-                this.finish();
-            } else if (Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")) {
+            if (Objects.equals(getIntent().getStringExtra("origen"), "seleccionPersonaje")) {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser usuariActual = mAuth.getCurrentUser();
 
