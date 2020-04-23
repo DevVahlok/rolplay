@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/CabeceraActivity_layoutBase"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/CabeceraActivity_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="@string/datosPersonaje"
+        android:textColor="@color/colorPrimary"
+        android:textSize="38sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/CabeceraActivity_nombrePersonaje_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_titulo"
+        android:layout_marginTop="50dp"
+        android:textColorHint="@color/colorPrimary"
+        app:hintTextColor="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/CabeceraActivity_nombrePersonaje_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/nombre" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_nombrePersonaje_TIL"
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/colorPrimary"
+        app:hintTextColor="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/CabeceraActivity_trasfondoPersonaje_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/trasfondo" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloAlineamiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_trasfondoPersonaje_TIL"
+        android:paddingTop="20dp"
+        android:text="@string/alineamiento"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/CabeceraActivity_alineamiento_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_tituloAlineamiento"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloClase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_alineamiento_dropdown"
+        android:paddingTop="20dp"
+        android:text="@string/clase"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/CabeceraActivity_clase_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_tituloClase"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloRaza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_clase_dropdown"
+        android:paddingTop="20dp"
+        android:text="@string/raza"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/CabeceraActivity_raza_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_tituloRaza"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloNivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_raza_dropdown"
+        android:paddingTop="20dp"
+        android:text="@string/nivelPersonaje"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/CabeceraActivity_nivel_barraProgreso"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CabeceraActivity_tituloNivel"
+        android:layout_marginEnd="50dp"
+        android:paddingTop="10dp"
+        android:progress="0"
+        android:progressDrawable="@layout/progressbar_naranja" />
+
+    <Button
+        android:id="@+id/CabeceraActivity_botonSumarExp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_tituloNivel"
+        android:layout_alignParentEnd="true"
+        android:text="@string/simboloSumar" />
+
+    <TextView
+        android:id="@+id/CabeceraActivity_tituloExperiencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CabeceraActivity_nivel_barraProgreso"
+        android:layout_alignEnd="@id/CabeceraActivity_nivel_barraProgreso"
+        android:paddingTop="3dp"
+        android:text="@string/experiencia"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+</RelativeLayout>

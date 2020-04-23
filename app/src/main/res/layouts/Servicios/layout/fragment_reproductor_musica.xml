@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/ReproductorMusica_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="@string/reproductorMusica"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp" />
+
+    <LinearLayout
+        android:id="@+id/ReproductorMusica_layout_canciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ReproductorMusica_titulo"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ReproductorMusica_img_ambiente"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/cancionAmbiente"
+            android:src="@drawable/ic_ambiente"
+            android:padding="7dp"/>
+
+        <ImageView
+            android:id="@+id/ReproductorMusica_img_taberna"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/cancionTaberna"
+            android:src="@drawable/ic_taberna"
+            android:padding="7dp"/>
+
+        <ImageView
+            android:id="@+id/ReproductorMusica_img_batalla"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/cancionBatalla"
+            android:src="@drawable/ic_batalla"
+            android:padding="7dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ReproductorMusica_layout_botones"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ReproductorMusica_layout_canciones"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/boton_play_personalizado"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/btn_pausa"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/boton_pausa_personalizado" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/boton_stop_personalizado" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ReproductorMusica_tituloCancion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancionAmbiente"
+        android:layout_below="@id/ReproductorMusica_layout_botones"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"/>
+
+    <SeekBar
+        android:id="@+id/ReproductorMusica_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ReproductorMusica_tituloCancion"/>
+
+    <TextView
+        android:id="@+id/ReproductorMusica_progreso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/temporizador0"
+        android:layout_below="@id/ReproductorMusica_seekbar"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignStart="@+id/ReproductorMusica_seekbar"/>
+
+    <TextView
+        android:id="@+id/ReproductorMusica_duracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/temporizador0"
+        android:layout_below="@id/ReproductorMusica_seekbar"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignEnd="@+id/ReproductorMusica_seekbar"/>
+
+</RelativeLayout>

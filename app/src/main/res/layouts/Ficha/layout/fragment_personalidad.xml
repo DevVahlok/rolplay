@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/Personalidad_layoutBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/Personalidad_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/personalidad"
+            android:textColor="@color/colorPrimary"
+            android:textSize="38sp" />
+
+        <TextView
+            android:id="@+id/Personalidad_texto_RasgosPersonalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_titulo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/rasgosPersonalidad"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_RasgosPersonalidad"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Personalidad_texto_RasgosPersonalidad"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_valor_RasgosPersonalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_RasgosPersonalidad"
+            android:justificationMode="inter_word"
+            android:paddingTop="20dp"
+            android:text=""
+            android:textColor="@color/colorBlanco" />
+
+        <TextView
+            android:id="@+id/Personalidad_editable_RasgosPersonalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_RasgosPersonalidad"
+            android:layout_alignParentEnd="true"
+            android:text="@string/editarTexto"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_texto_Ideales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_RasgosPersonalidad"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp"
+            android:text="@string/ideales"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_Ideales"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Personalidad_texto_Ideales"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_valor_Ideales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_Ideales"
+            android:justificationMode="inter_word"
+            android:paddingTop="20dp"
+            android:text=""
+            android:textColor="@color/colorBlanco" />
+
+        <TextView
+            android:id="@+id/Personalidad_editable_Ideales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_Ideales"
+            android:layout_alignParentEnd="true"
+            android:text="@string/editarTexto"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_texto_Vinculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_Ideales"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp"
+            android:text="@string/vinculos"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_Vinculos"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Personalidad_texto_Vinculos"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_valor_Vinculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_Vinculos"
+            android:justificationMode="inter_word"
+            android:paddingTop="20dp"
+            android:text=""
+            android:textColor="@color/colorBlanco" />
+
+        <TextView
+            android:id="@+id/Personalidad_editable_Vinculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_Vinculos"
+            android:layout_alignParentEnd="true"
+            android:text="@string/editarTexto"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_texto_Defectos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_Vinculos"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp"
+            android:text="@string/defectos"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/Personalidad_barra_Defectos"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/Personalidad_texto_Defectos"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Personalidad_valor_Defectos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_barra_Defectos"
+            android:justificationMode="inter_word"
+            android:paddingTop="20dp"
+            android:text=""
+            android:textColor="@color/colorBlanco" />
+
+        <TextView
+            android:id="@+id/Personalidad_editable_Defectos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Personalidad_valor_Defectos"
+            android:layout_alignParentEnd="true"
+            android:text="@string/editarTexto"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+</ScrollView>

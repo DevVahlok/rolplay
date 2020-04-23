@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:id="@+id/InicioActivity_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/chantelli_antiqua"
+        android:gravity="center_horizontal"
+        android:text="@string/ficha"
+        android:textColor="@color/colorPrimary"
+        android:textSize="42sp" />
+
+    <ImageView
+        android:id="@+id/ActivityInicio_FotoFicha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/ficha"
+        android:paddingTop="10dp"
+        app:srcCompat="@drawable/ficha_personaje" />
+
+    <Button
+        android:id="@+id/ActivityInicio_cabecera_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="400dp"
+        android:layout_height="70dp"
+        android:layout_alignEnd="@id/ActivityInicio_FotoFicha"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_puntosHabilidad_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="45dp"
+        android:layout_height="325dp"
+        android:layout_below="@+id/ActivityInicio_cabecera_btn"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_habilidadesBonificadores1_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="82dp"
+        android:layout_height="352dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="175dp"
+        android:layout_toEndOf="@+id/ActivityInicio_puntosHabilidad_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_habilidadesBonificadores2_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="46dp"
+        android:layout_height="22dp"
+        android:layout_below="@+id/ActivityInicio_puntosHabilidad_btn"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_competenciasIdiomas_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="130dp"
+        android:layout_height="105dp"
+        android:layout_below="@+id/ActivityInicio_habilidadesBonificadores2_btn"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_equipo_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="132dp"
+        android:layout_height="128dp"
+        android:layout_above="@+id/ActivityInicio_LinearBottom"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="40dp"
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_ataquesConjuros_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="133dp"
+        android:layout_height="144dp"
+        android:layout_above="@+id/ActivityInicio_equipo_btn"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_combate_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="133dp"
+        android:layout_height="180dp"
+        android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/ActivityInicio_competenciasIdiomas_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_personalidad_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="133dp"
+        android:layout_height="180dp"
+        android:layout_above="@+id/ActivityInicio_ataquesConjuros_btn"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <Button
+        android:id="@+id/ActivityInicio_rasgosAtributos_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="133dp"
+        android:layout_height="279dp"
+        android:layout_below="@id/ActivityInicio_personalidad_btn"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ActivityInicio_combate_btn"
+        android:backgroundTint="@android:color/transparent"
+        android:text="" />
+
+    <LinearLayout
+        android:id="@+id/ActivityInicio_LinearBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/ActivityInicio_FlechaArribaIzq_img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="35dp"
+            android:contentDescription="@string/pulsaApartadoVerDetalle"
+            app:srcCompat="@drawable/info" />
+
+        <TextView
+            android:id="@+id/ActivityInicio_textoInferior_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="35dp"
+            android:text="@string/pulsaApartadoVerDetalle"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ActivityInicio_nombreJugador_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginStart="325dp"
+        android:layout_marginTop="114dp"
+        android:text="@string/correoElectronico"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_trasfondoPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="114dp"
+        android:text="@string/trasfondo"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_claseNivelPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="114dp"
+        android:text="@string/clase"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_razaPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ActivityInicio_claseNivelPersonaje_TV"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/raza"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_alineamientoPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ActivityInicio_trasfondoPersonaje_TV"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/alineamiento"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_experienciaPersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ActivityInicio_nombreJugador_TV"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/experiencia"
+        android:textColor="@color/colorBlanco"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/ActivityInicio_NombrePersonaje_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="124dp"
+        android:text="@string/nombre"
+        android:textColor="@color/colorBlanco"
+        android:textSize="10sp" />
+
+</RelativeLayout>
