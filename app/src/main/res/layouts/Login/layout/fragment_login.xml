@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainActivity_layoutBase"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/MainActivity_layoutArriba"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="40dp"
+        android:paddingTop="40dp"
+        android:paddingRight="40dp"
+        tools:context=".Activities.MainActivity">
+
+        <TextView
+            android:id="@+id/MainActivity_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chantelli_antiqua"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="42sp" />
+
+        <ImageView
+            android:id="@+id/MainActivity_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MainActivity_titulo"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/mainlogo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/RegistrarActivity_email_TIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="40dp"
+            android:textColorHint="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/MainActivity_email_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MainActivity_logo"
+                android:background="@android:color/transparent"
+                android:hint="@string/correoElectronico" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/RegistrarActivity_password_TIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RegistrarActivity_email_TIL"
+            android:layout_centerInParent="true"
+            android:textColorHint="@color/colorPrimary"
+            app:hintTextColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/MainActivity_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MainActivity_email_et"
+                android:background="@android:color/transparent"
+                android:hint="@string/contrasena"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/MainActivity_recuperar_password_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RegistrarActivity_password_TIL"
+            android:layout_alignEnd="@+id/RegistrarActivity_password_TIL"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:gravity="end"
+            android:text="@string/hasOlvidadoContrasena"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/MainActivity_entrar_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/MainActivity_recuperar_password_btn"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorSecondaryDark"
+            android:backgroundTint="@color/colorSecondaryDark"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="@string/entrar"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/MainActivity_layoutAbajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Activities.MainActivity">
+
+        <Button
+            android:id="@+id/MainActivity_registrar_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
+            android:text="@string/noTienesCuentaRegistrate"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

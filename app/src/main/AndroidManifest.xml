@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/mainlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".MenuPersonajesActivity" android:screenOrientation="nosensor"/>
-        <activity android:name=".InformacionActivity" android:screenOrientation="nosensor" />
+        <activity android:name=".Servicios.MenuPersonajesActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".Activities.InformacionActivity" android:screenOrientation="nosensor" />
         <activity
-            android:name=".ContenedorInicioActivity"
+            android:name=".Activities.ContenedorInicioActivity"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +21,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="nosensor" />
+        <receiver android:name=".Otros.NotificationActionService"/>
+        <service android:name=".Otros.OnClearFromRecentService"/>
     </application>
 
 </manifest>

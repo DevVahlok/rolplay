@@ -65,6 +65,10 @@
                 android:id="@+id/nav_lanzarDados"
                 android:icon="@drawable/ic_dice"
                 android:title="@string/lanzarDados"/>
+                <item
+                    android:id="@+id/nav_reproductorMusica"
+                    android:icon="@drawable/ic_music"
+                    android:title="@string/reproductorMusica"/>
             </group>
         </menu>
 
