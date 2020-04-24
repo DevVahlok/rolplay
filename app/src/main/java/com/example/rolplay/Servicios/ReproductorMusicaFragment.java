@@ -52,32 +52,29 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static com.example.rolplay.Activities.ContenedorInicioActivity.listaCanciones;
 import static com.example.rolplay.Otros.CreateNotification.notification;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.cancionSeleccionada;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.mMediaPlayer;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.handler;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.runnable;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.position;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.tracks;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.isPlaying;
 
-public class ReproductorMusicaFragment extends Fragment implements Playable {
+public class ReproductorMusicaFragment extends Fragment  {
 
     //Declaración de variables
     private View v;
-    static MediaPlayer mMediaPlayer;
+
     private Button mPausa, mStop;
     private SeekBar seekbar;
     private TextView mProgresoTV, mDuracionTV, title;
-    private Handler handler;
-    private Runnable runnable;
-    static int cancionSeleccionada = 0;
-    private ArrayList listaCanciones;
+
+
     private ImageButton play;
-    private static NotificationManager notificationManager;
-    private List<Track> tracks;
-    private int position = 0;
-    private boolean isPlaying = false;
     private ImageView mFotoAmbiente, mFotoTaberna, mFotoBatalla;
     Track track;
-    public static final String CHANNEL_ID = "channel1";
-    public static final String ACTION_PREVIOUS = "actionprevious";
-    public static final String ACTION_PLAY = "actionplay";
-    public static final String ACTION_NEXT = "actionnext";
-    public static NotificationChannel channel;
 
     //Constructor
     public ReproductorMusicaFragment() {
@@ -95,27 +92,19 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
         mDuracionTV = v.findViewById(R.id.ReproductorMusica_duracion);
         mProgresoTV = v.findViewById(R.id.ReproductorMusica_progreso);
         title = v.findViewById(R.id.ReproductorMusica_tituloCancion);
-        handler = new Handler();
-        listaCanciones = new ArrayList();
-        listaCanciones.add(R.raw.ambiente);
-        listaCanciones.add(R.raw.taberna);
-        listaCanciones.add(R.raw.batalla);
+
+
         mFotoAmbiente = v.findViewById(R.id.ReproductorMusica_img_ambiente);
         mFotoTaberna = v.findViewById(R.id.ReproductorMusica_img_taberna);
         mFotoBatalla = v.findViewById(R.id.ReproductorMusica_img_batalla);
 
-        populateTracks();
-
+        //Rellena canciones
+        //((ContenedorInicioActivity)getActivity()).rellenarCanciones();
+        prepararReproductor();
         comprobarSeleccion();
 
+        ((ContenedorInicioActivity)getActivity()).crearCanal();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel();
-            getActivity().registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
-            getActivity().startService(new Intent(getContext(), OnClearFromRecentService.class));
-        }
-
-        cancionSeleccionada = Integer.parseInt(listaCanciones.get(0).toString());
 
         if (mMediaPlayer == null) {
             mMediaPlayer = MediaPlayer.create(getContext(), cancionSeleccionada);
@@ -127,21 +116,11 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
             changeSeekbar();
         }
 
+        title.setText(tracks.get(position).getTitle());
+
         play = v.findViewById(R.id.btn_play);
         mPausa = v.findViewById(R.id.btn_pausa);
         mStop = v.findViewById(R.id.btn_stop);
-
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                seekbar.setMax(mMediaPlayer.getDuration());
-                mMediaPlayer.start();
-                changeSeekbar();
-                mMediaPlayer.pause();
-                comprobarSeleccion();
-            }
-        });
-
 
         play.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGrisClaro)));
         mPausa.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGrisClaro)));
@@ -152,21 +131,7 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     play.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
-
-                    if (isPlaying) {
-                        onTrackPause();
-                    } else {
-
-                        if (mMediaPlayer == null) {
-                            mMediaPlayer = MediaPlayer.create(getContext(), cancionSeleccionada);
-                            mMediaPlayer.start();
-
-                        }
-
-                        mMediaPlayer.start();
-                        onTrackPlay();
-                    }
-
+                    ((ContenedorInicioActivity)getActivity()).accionBotonPlay();
                     changeSeekbar();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     play.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGrisClaro)));
@@ -181,7 +146,7 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mPausa.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
-                    onTrackPause();
+                    ((ContenedorInicioActivity)getActivity()).accionBotonPausa();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     mPausa.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGrisClaro)));
                 }
@@ -195,20 +160,11 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mStop.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
-                    if (mMediaPlayer != null) {
-                        mMediaPlayer.release();
-                        mMediaPlayer = null;
-                    }
+
+                    ((ContenedorInicioActivity)getActivity()).accionBotonStop();
+
                     mDuracionTV.setText(getTimeString(0));
                     mProgresoTV.setText(getTimeString(0));
-
-                    if (mMediaPlayer != null) {
-                        mMediaPlayer.release();
-                        mMediaPlayer = null;
-
-
-                        handler.removeCallbacks(runnable);
-                    }
                     seekbar.setProgress(0);
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -247,29 +203,21 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
                 mFotoAmbiente.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mFotoTaberna.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 mFotoBatalla.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-                }
+
+                ((ContenedorInicioActivity)getActivity()).accionBotonStop();
+
                 mDuracionTV.setText(getTimeString(0));
                 mProgresoTV.setText(getTimeString(0));
 
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
 
-
-                    handler.removeCallbacks(runnable);
-                }
                 seekbar.setProgress(0);
                 cancionSeleccionada = Integer.parseInt(listaCanciones.get(0).toString());
                 title.setText(getResources().getString(R.string.cancionAmbiente));
-                position = 0;
 
-                if (isPlaying) {
-                    onTrackPlay();
+                ((ContenedorInicioActivity)getActivity()).resetearPosicion(0);
 
-                }
+                ((ContenedorInicioActivity)getActivity()).comprobarReproductor();
+
                 comprobarSeleccion();
             }
         });
@@ -280,29 +228,19 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
                 mFotoTaberna.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mFotoAmbiente.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 mFotoBatalla.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-                }
+
+                ((ContenedorInicioActivity)getActivity()).accionBotonStop();
+
                 mDuracionTV.setText(getTimeString(0));
                 mProgresoTV.setText(getTimeString(0));
 
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-
-
-                    handler.removeCallbacks(runnable);
-                }
                 seekbar.setProgress(0);
                 cancionSeleccionada = Integer.parseInt(listaCanciones.get(1).toString());
                 title.setText(getResources().getString(R.string.cancionTaberna));
-                position = 1;
+                ((ContenedorInicioActivity)getActivity()).resetearPosicion(1);
 
-                if (isPlaying) {
-                    onTrackPlay();
+                ((ContenedorInicioActivity)getActivity()).comprobarReproductor();
 
-                }
                 comprobarSeleccion();
             }
         });
@@ -313,29 +251,19 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
                 mFotoBatalla.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mFotoTaberna.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 mFotoAmbiente.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-                }
+
+                ((ContenedorInicioActivity)getActivity()).accionBotonStop();
+
                 mDuracionTV.setText(getTimeString(0));
                 mProgresoTV.setText(getTimeString(0));
 
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-
-
-                    handler.removeCallbacks(runnable);
-                }
                 seekbar.setProgress(0);
                 cancionSeleccionada = Integer.parseInt(listaCanciones.get(2).toString());
                 title.setText(getResources().getString(R.string.cancionBatalla));
-                position = 2;
+                ((ContenedorInicioActivity)getActivity()).resetearPosicion(2);
 
-                if (isPlaying) {
-                    onTrackPlay();
+                ((ContenedorInicioActivity)getActivity()).comprobarReproductor();
 
-                }
                 comprobarSeleccion();
             }
         });
@@ -344,7 +272,7 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
 
     }
 
-    private void comprobarSeleccion() {
+    public void comprobarSeleccion() {
 
         if (cancionSeleccionada == Integer.parseInt(listaCanciones.get(0).toString())) {
             mFotoAmbiente.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -366,17 +294,7 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
 
     }
 
-    private void createChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            channel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Rol & Play", NotificationManager.IMPORTANCE_HIGH);
 
-            notificationManager = getActivity().getSystemService(NotificationManager.class);
-
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-    }
 
     private void changeSeekbar() {
         if (mMediaPlayer != null) {
@@ -418,110 +336,16 @@ public class ReproductorMusicaFragment extends Fragment implements Playable {
         return buf.toString();
     }
 
-    private void mantenerNotificacion(boolean modo) {
 
-    }
+    public void prepararReproductor(){
+        seekbar.setMax(mMediaPlayer.getDuration());
+        ((ContenedorInicioActivity)getActivity()).empezarReproductor();
+        changeSeekbar();
 
-    private void populateTracks() {
-        tracks = new ArrayList<>();
-
-        tracks.add(new Track("Canción Ambiente", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_ambiente));
-        tracks.add(new Track("Canción Taberna", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_taberna));
-        tracks.add(new Track("Canción Batalla", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_batalla));
-    }
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionname");
-
-            switch (action) {
-                case CreateNotification.ACTION_PREVIOUS:
-                    onTrackPrevious();
-                    break;
-                case CreateNotification.ACTION_PLAY:
-                    if (isPlaying) {
-                        onTrackPause();
-                    } else {
-                        onTrackPlay();
-                    }
-                    break;
-                case CreateNotification.ACTION_NEXT:
-                    onTrackNext();
-                    break;
-            }
-            comprobarSeleccion();
-        }
-    };
-
-    @Override
-    public void onTrackPrevious() {
-
-        position--;
-        CreateNotification.createNotification(getContext(), tracks.get(position), R.drawable.play, position, tracks.size() - 1, true);
-        title.setText(tracks.get(position).getTitle());
-
-        if (mMediaPlayer != null) {
-            mMediaPlayer.stop();
-            mMediaPlayer = null;
+        if(!isPlaying){
+            ((ContenedorInicioActivity)getActivity()).pararReproductor();
         }
 
-
-        cancionSeleccionada = Integer.parseInt(listaCanciones.get(position).toString());
-
-        onTrackPlay();
-
-    }
-
-    @Override
-    public void onTrackPlay() {
-        if (mMediaPlayer == null) {
-            mMediaPlayer = MediaPlayer.create(getContext(), cancionSeleccionada);
-            mMediaPlayer.start();
-        }
-
-        mMediaPlayer.start();
-        CreateNotification.createNotification(getContext(), tracks.get(position), R.drawable.pause, position, tracks.size() - 1, true);
-        title.setText(tracks.get(position).getTitle());
-        isPlaying = true;
-
-    }
-
-    @Override
-    public void onTrackPause() {
-
-        CreateNotification.createNotification(getContext(), tracks.get(position), R.drawable.play, position, tracks.size() - 1, false);
-        play.setImageResource(R.drawable.boton_play);
-        title.setText(tracks.get(position).getTitle());
-        isPlaying = false;
-        if (mMediaPlayer != null) {
-            mMediaPlayer.pause();
-        }
-    }
-
-    @Override
-    public void onTrackNext() {
-
-        position++;
-        CreateNotification.createNotification(getContext(), tracks.get(position), R.drawable.play, position, tracks.size() - 1, true);
-        title.setText(tracks.get(position).getTitle());
-        mMediaPlayer.stop();
-        mMediaPlayer = null;
-        cancionSeleccionada = Integer.parseInt(listaCanciones.get(position).toString());
-
-        onTrackPlay();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.cancelAll();
-        }*/
-//TODO: mover musicplayer a la activitiy
-        getActivity().unregisterReceiver(broadcastReceiver);
-
+        comprobarSeleccion();
     }
 }

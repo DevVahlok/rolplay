@@ -1,13 +1,23 @@
 package com.example.rolplay.Activities;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -21,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.rolplay.Ficha.AtaquesConjurosFragment;
 import com.example.rolplay.Ficha.CabeceraFragment;
@@ -32,8 +43,12 @@ import com.example.rolplay.Ficha.InicioFragment;
 import com.example.rolplay.Ficha.PersonalidadFragment;
 import com.example.rolplay.Ficha.PuntosHabilidadFragment;
 import com.example.rolplay.Ficha.RasgosAtributosFragment;
+import com.example.rolplay.Otros.CreateNotification;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.MyCallback;
+import com.example.rolplay.Otros.OnClearFromRecentService;
+import com.example.rolplay.Otros.Playable;
+import com.example.rolplay.Otros.Track;
 import com.example.rolplay.R;
 import com.example.rolplay.Servicios.ConfiguracionFragment;
 import com.example.rolplay.Servicios.LanzarDadosFragment;
@@ -50,10 +65,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
-public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ContenedorInicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Playable {
 
     //Declaración de variables
     private DrawerLayout drawer;
@@ -109,6 +125,20 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
     private boolean recordarMenuInterno = false;
+    public static List<Track> tracks;
+    public static ArrayList listaCanciones;
+    public static int cancionSeleccionada = 0;
+    public static final String CHANNEL_ID = "channel1";
+    public static final String ACTION_PREVIOUS = "actionprevious";
+    public static final String ACTION_PLAY = "actionplay";
+    public static final String ACTION_NEXT = "actionnext";
+    public static NotificationChannel channel;
+    public static int position = 0;
+    public static boolean isPlaying = false;
+    private static NotificationManager notificationManager;
+    public static MediaPlayer mMediaPlayer;
+    public static Runnable runnable;
+    public static Handler handler;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -325,6 +355,28 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 }
             });
         }
+
+        //Prepara el thread para el reproductor de música
+        handler = new Handler();
+
+        rellenarCanciones();
+
+        //Selecciona canción por defecto
+        cancionSeleccionada = Integer.parseInt(listaCanciones.get(0).toString());
+
+        //Crea el reproductor de música
+        if (mMediaPlayer == null) {
+            mMediaPlayer = MediaPlayer.create(this, cancionSeleccionada);
+        }
+
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                empezarReproductor();
+                pararReproductor();
+            }
+        });
+
     }
 
     private void cargarDatosFB() {
@@ -342,7 +394,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         } catch (Exception e) {
 
         }
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addListenerForSingleValueEvent( new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -905,7 +957,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
                 break;
             case R.id.nav_reproductorMusica:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReproductorMusicaFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReproductorMusicaFragment(), "reproductorMusica").commit();
                 break;
             case R.id.nav_logout:
 
@@ -961,6 +1013,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     @Override
     public void onBackPressed() {
 
+
         //Recupera el fragment por tag
         Fragment inicioFragment = getSupportFragmentManager().findFragmentByTag("inicio_fragment");
 
@@ -985,8 +1038,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).updateChildren(recordar);
     }
 
-    //Cierra la app correctamente
+
     public void cerrarApp() {
+
+        //Cierra el servicio de música
+        this.unregisterReceiver(broadcastReceiver);
+
+        //Cierra la app correctamente
         this.finish();
         System.exit(0);
     }
@@ -1038,6 +1096,181 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
         }
 
+    }
+
+    public void rellenarCanciones() {
+
+        //Crea una lista y la rellena con las canciones
+        listaCanciones = new ArrayList();
+        listaCanciones.add(R.raw.ambiente);
+        listaCanciones.add(R.raw.taberna);
+        listaCanciones.add(R.raw.batalla);
+
+        //Prepara los datos de la notificación
+        tracks = new ArrayList<>();
+        tracks.add(new Track("Canción Ambiente", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_ambiente));
+        tracks.add(new Track("Canción Taberna", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_taberna));
+        tracks.add(new Track("Canción Batalla", getResources().getString(R.string.dungeonsAndDragons), R.drawable.ic_batalla));
+
+    }
+
+    public void crearCanal() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            this.registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            this.startService(new Intent(this, OnClearFromRecentService.class));
+        }
+    }
+
+    public void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Rol & Play", NotificationManager.IMPORTANCE_HIGH);
+
+            notificationManager = this.getSystemService(NotificationManager.class);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionname");
+
+            switch (action) {
+                case CreateNotification.ACTION_PREVIOUS:
+                    onTrackPrevious();
+                    break;
+                case CreateNotification.ACTION_PLAY:
+                    if (isPlaying) {
+                        onTrackPause();
+                    } else {
+                        onTrackPlay();
+                    }
+                    break;
+                case CreateNotification.ACTION_NEXT:
+                    onTrackNext();
+                    break;
+            }
+
+        }
+    };
+
+    @Override
+    public void onTrackPrevious() {
+        position--;
+        CreateNotification.createNotification(this, tracks.get(position), R.drawable.play, position, tracks.size() - 1, true);
+
+
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            mMediaPlayer = null;
+        }
+
+
+        cancionSeleccionada = Integer.parseInt(listaCanciones.get(position).toString());
+
+        Fragment reproductorMusicaFragment = getSupportFragmentManager().findFragmentByTag("reproductorMusica");
+
+        //Si el usuario se encuentra en la pantalla de ReproductorMusicaFragment, cambia la foto
+        if (reproductorMusicaFragment != null && reproductorMusicaFragment.isVisible()) {
+            ((ReproductorMusicaFragment)getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
+        }
+
+        onTrackPlay();
+    }
+
+    @Override
+    public void onTrackPlay() {
+        if (mMediaPlayer == null) {
+            mMediaPlayer = MediaPlayer.create(this, cancionSeleccionada);
+
+        }
+
+        mMediaPlayer.start();
+        CreateNotification.createNotification(this, tracks.get(position), R.drawable.pause, position, tracks.size() - 1, true);
+        isPlaying = true;
+    }
+
+    @Override
+    public void onTrackPause() {
+        CreateNotification.createNotification(this, tracks.get(position), R.drawable.play, position, tracks.size() - 1, false);
+
+        isPlaying = false;
+        if (mMediaPlayer != null) {
+            mMediaPlayer.pause();
+        }
+    }
+
+    @Override
+    public void onTrackNext() {
+        position++;
+        CreateNotification.createNotification(this, tracks.get(position), R.drawable.play, position, tracks.size() - 1, true);
+        mMediaPlayer.stop();
+        mMediaPlayer = null;
+        cancionSeleccionada = Integer.parseInt(listaCanciones.get(position).toString());
+
+        Fragment reproductorMusicaFragment = getSupportFragmentManager().findFragmentByTag("reproductorMusica");
+
+        //Si el usuario se encuentra en la pantalla de ReproductorMusicaFragment, cambia la foto
+        if (reproductorMusicaFragment != null && reproductorMusicaFragment.isVisible()) {
+            ((ReproductorMusicaFragment)getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
+        }
+
+
+        onTrackPlay();
+    }
+
+    public void accionBotonPlay() {
+
+        if (isPlaying) {
+            onTrackPause();
+        } else {
+
+            if (mMediaPlayer == null) {
+                mMediaPlayer = MediaPlayer.create(this, cancionSeleccionada);
+                mMediaPlayer.start();
+
+            }
+
+            mMediaPlayer.start();
+            onTrackPlay();
+        }
+
+    }
+
+    public void accionBotonPausa() {
+        onTrackPause();
+    }
+
+    public void accionBotonStop() {
+
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+            handler.removeCallbacks(runnable);
+        }
+    }
+
+    public void resetearPosicion(int num) {
+        position = num;
+    }
+
+    public void comprobarReproductor() {
+        if (isPlaying) {
+            onTrackPlay();
+        }
+    }
+
+    public void empezarReproductor() {
+        mMediaPlayer.start();
+
+    }
+
+    public void pararReproductor() {
+        mMediaPlayer.pause();
     }
 
 }
