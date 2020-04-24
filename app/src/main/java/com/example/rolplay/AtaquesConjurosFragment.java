@@ -177,7 +177,6 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
                 final Spinner spinnerObjeto = new Spinner(getActivity());
 
                 //Añade la lista de objetos al spinner
-                //TODO: Recoger lista de objetos de Firebase
                 listaAtaquesPlaceholder = recuperados.getStringArray("Lista De Armas");
                 creadorAdapter(listaAtaquesPlaceholder, spinnerObjeto);
 

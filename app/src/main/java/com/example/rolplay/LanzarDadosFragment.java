@@ -116,7 +116,7 @@ public class LanzarDadosFragment extends Fragment {
                         constructrorDialog.setView(linearLayout);
 
                         Random r= new Random();
-                        
+
                         //Añadimos tantos dados como haya dicho el usuario
                         ArrayList<ImageView> IV = new ArrayList<>();
 
