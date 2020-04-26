@@ -240,24 +240,48 @@ public class CabeceraFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser usuariActual = mAuth.getCurrentUser();
 
-        HashMap<String, Object> hashMap = new HashMap<>();
 
-        hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
-        hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
-        hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
-        hashMap.put("Clase",mDropdownClase.getSelectedItem().toString().trim());
-        hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
-        hashMap.put("Nivel", Integer.toString(mNivel));
-        hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
+        cogerFoto(mDatabase.getReference("DungeonAndDragons/Raza/" + mDropdownRaza.getSelectedItem()), new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                FirebaseUser usuariActual = mAuth.getCurrentUser();
 
-        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+                HashMap<String, Object> hashMap = new HashMap<>();
 
-        HashMap<String, Object> ultimo = new HashMap<>();
+                hashMap.put("Nombre",mNombrePersonajeET.getText().toString().trim());
+                hashMap.put("Raza",mDropdownRaza.getSelectedItem().toString().trim());
+                hashMap.put("Trasfondo",mTrasfondoPersonajeET.getText().toString().trim());
+                hashMap.put("Clase",mDropdownClase.getSelectedItem().toString().trim());
+                hashMap.put("Alineamiento",mDropdownAlineamiento.getSelectedItem().toString().trim());
+                hashMap.put("Nivel", Integer.toString(mNivel));
+                hashMap.put("Puntos de Experiencia", Integer.toString(mProgresoExperiencia));
+                hashMap.put("Foto", value[0]);
 
-        ultimo.put("Ultimo personaje",codigoPJ);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+                mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
 
+                HashMap<String, Object> ultimo = new HashMap<>();
+
+                ultimo.put("Ultimo personaje",codigoPJ);
+                mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+            }
+        });
+
+    }
+
+
+    private void cogerFoto(DatabaseReference mDatabase, final MyCallback callback) {
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] result = new String[]{(String) dataSnapshot.child("URL").getValue()};
+                callback.onCallback(result);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

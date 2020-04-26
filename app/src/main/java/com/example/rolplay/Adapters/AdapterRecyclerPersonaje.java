@@ -3,6 +3,8 @@ package com.example.rolplay.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.example.rolplay.Otros.ItemPersonaje;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -125,9 +128,7 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
             mNombrePersonaje.setText(s.getNombre());
             mJuegoPersonaje.setText(s.getTipoJuego());
             mCodigoPersonaje.setText(context.getResources().getString(R.string.codigo, (s.getCodigo())));
-
-            //TODO: Raúl: Modificar para firebase/storage (poner imagen según la clase seleccionada podría ser una buena opción)
-            //Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoPersonaje);
+            Picasso.get().load(Uri.parse(s.getFoto())).into(mFotoPersonaje);
 
         }
 

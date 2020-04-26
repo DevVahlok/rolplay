@@ -185,7 +185,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
             public void onCallback(String[] value) {
                 listaDatos = new ArrayList<ItemPersonaje>();
                 for (int i = 0; i<listaCodigos.size(); i++) {
-                    listaDatos.add(new ItemPersonaje(lista.get((i*2)+1), getString(R.string.dungeonsAndDragons), lista.get(i*2)));
+                    listaDatos.add(new ItemPersonaje(lista.get((i*3)+1), getString(R.string.dungeonsAndDragons), lista.get(i*3), lista.get((i*3)+2)));
                 }
                 //Añade los personajes al Recycler
                 adapter = new AdapterRecyclerPersonaje(listaDatos, MenuPersonajesActivity.this, MenuPersonajesActivity.this);
@@ -262,6 +262,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                         if (!ALS.contains(valor)) {
                             ALS.add(valor);
                             ALS.add((String) ds.child("Nombre").getValue());
+                            ALS.add((String) ds.child("Foto").getValue());
                             result = ALS.toArray(result);
                         }
                     }

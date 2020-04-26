@@ -283,6 +283,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 hashMap.put("Carisma puntos", "");
                 hashMap.put("Carisma bonus", "");
                 hashMap.put("Rasgos", "");
+                hashMap.put("Foto", "");
 
                 mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPersonaje).updateChildren(hashMap);
 
