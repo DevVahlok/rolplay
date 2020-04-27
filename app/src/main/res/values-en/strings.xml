@@ -1,0 +1,220 @@
+<resources>
+
+    <!-- Genéricos App -->
+    <string name="app_name">Rol &amp; Play</string>
+    <string name="entrar">Enter</string>
+    <string name="cargando">Loading…</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="pulsaApartadoVerDetalle">Press on a section to see on detail</string>
+    <string name="anadir">Add</string>
+    <string name="modificar">Modify</string>
+    <string name="cancelar">Cancel</string>
+    <string name="editar">Edit</string>
+    <string name="cerrar">Close</string>
+
+    <!-- Control de cuentas -->
+    <string name="correoElectronico">Email</string>
+    <string name="contrasena">Password</string>
+    <string name="repetirContrasena">Repeat Contraseña</string>
+    <string name="hasOlvidadoContrasena">Did you forget your password?</string>
+    <string name="noTienesCuentaRegistrate">You don\'t have a Rol &amp; Play account? Register.</string>
+    <string name="registrarse">Regisyer</string>
+    <string name="recuperarPassword">Recover password</string>
+    <string name="recuperar">Recover</string>
+
+    <!-- Menú lateral -->
+    <string name="ficha">Sheet</string>
+    <string name="datosPersonaje">Character information</string>
+    <string name="puntosHabilidad">Skill points</string>
+    <string name="habilidadesBonificadores">Abilities and bonus</string>
+    <string name="combate">Combat</string>
+    <string name="equipo">Equipment</string>
+    <string name="ataquesConjuros">Attacks and spells</string>
+    <string name="personalidad">Personality</string>
+    <string name="rasgosAtributos">Characteristics and attributes</string>
+    <string name="competenciasIdiomas">Competences and languages</string>
+    <string name="lanzarDados">Throw dice</string>
+    <string name="otros">Others</string>
+    <string name="cuenta">Account</string>
+    <string name="salirPersonaje">Exit character</string>
+    <string name="logout">Log out</string>
+    <string name="politicasCondiciones">Policies and conditions</string>
+    <string name="configuracion">Settings</string>
+    <string name="estasSegurxQuieresCerrarSesion">Are you sure you want to log out?</string>
+    <string name="cerrarSesion">Log out</string>
+    <string name="reproductorMusica">Music player</string>
+
+    <!-- Cabecera -->
+    <string name="nombre">Name</string>
+    <string name="clase">Class</string>
+    <string name="trasfondo">Background</string>
+    <string name="alineamiento">Alignment</string>
+    <string name="raza">Race</string>
+    <string name="nivelPersonaje">Level %1$s</string>
+    <string name="experiencia">%1$s / %2$s xp</string>
+    <string name="aumentarExperiencia">Add xp</string>
+
+    <!-- Puntos de habilidad -->
+    <string name="fuerza">Strength</string>
+    <string name="destreza">Ability</string>
+    <string name="constitucion">Constitution</string>
+    <string name="inteligencia">Intelligence</string>
+    <string name="sabiduria">Knowledge</string>
+    <string name="carisma">Charisma</string>
+
+    <!-- Habilidades y Bonificadores -->
+    <string name="inspiracion">Inspiration</string>
+    <string name="bonificadorCompetencia">Competence\n's bonus</string>
+    <string name="tiradasSalvacion">Salvation\'s throws</string>
+    <string name="habilidades">Skills</string>
+    <string name="acrobacias">Acrobatics</string>
+    <string name="atletismo">Athletics</string>
+    <string name="conocimientoArcano">Arcane knowledge</string>
+    <string name="engaño">Trickery</string>
+    <string name="historia">History</string>
+    <string name="interpretacion">Performance</string>
+    <string name="intimidacion">Intimidation</string>
+    <string name="investigacion">Investigation</string>
+    <string name="juegoManos">Sleight of hand</string>
+    <string name="medicina">Medicina</string>
+    <string name="naturaleza">Nature</string>
+    <string name="percepcion">Perception</string>
+    <string name="perspicacia">Shrewdness</string>
+    <string name="persuasion">Persuasion</string>
+    <string name="religion">Religion</string>
+    <string name="sigilo">Stealth</string>
+    <string name="supervivencia">Survival</string>
+    <string name="tratoAnimales">Dealing with animals</string>
+    <string name="sabiduriaPercepcionPasiva">Passive \n (perception) wisdom</string>
+    <string name="simboloSumar" translatable="false">+</string>
+    <string name="simboloRestar" translatable="false">-</string>
+    <string name="monturasVehiculos">Mounts y Vehicles</string>
+    <string name="miscelaneo">Miscellaneous</string>
+    <string name="mercancias">Goods</string>
+    <string name="herramientas">Tools</string>
+    <string name="armasCuerpoACuerpoSimples">Simple melee</string>
+    <string name="armasCuerpoACuerpoMarciales">Martial melee</string>
+    <string name="armasADistanciaSimples">Simple ranged</string>
+    <string name="armasADistanciaMarciales">Martial ranged</string>
+    <string name="armadurasPesadas">Heavy armor</string>
+    <string name="armadurasMedias">Medium armor</string>
+    <string name="armadurasLigeras">Light armor</string>
+    <string name="armas">Weapons</string>
+    <string name="armaduras">Armors</string>
+
+
+    <!-- Equipo -->
+    <string name="objeto">Object</string>
+    <string name="costeEquipo">Cost: %1$s</string>
+    <string name="pesoEquipo">Weight: %1$slb</string>
+    <string name="piezasCobre">Copper coins</string>
+    <string name="piezasPlata">Silver coins</string>
+    <string name="piezasEsmeralda">Emerald coins</string>
+    <string name="piezasOro">Gold coins</string>
+    <string name="piezasPlatino">Platinum coins</string>
+    <string name="piezasCobreConSalto">Copper \n coins</string>
+    <string name="piezasPlataConSalto">Silver \n coins</string>
+    <string name="piezasOroConSalto">Gold \n coins</string>
+    <string name="piezasEsmeraldaConSalto">Emerald \n coins</string>
+    <string name="piezasPlatinoConSalto">Piezas \n de platino</string>
+    <string name="anadirObjeto">Add object</string>
+    <string name="modificarMonedas">Modify coins</string>
+
+    <!-- Combate -->
+    <string name="claseArmadura">Armor class</string>
+    <string name="iniciativa">Initiative</string>
+    <string name="velocidad">Speed</string>
+    <string name="puntosGolpeActuales">Health:</string>
+    <string name="puntosGolpeTemporales">Temporary health:</string>
+    <string name="total">Total:</string>
+    <string name="dadosGolpe">Strike dice:</string>
+    <string name="exitos">Success</string>
+    <string name="fallos">Failure</string>
+    <string name="salvacionesContraMuerte">Salvation against death</string>
+    <string name="barraDiagonal" translatable="false">/</string>
+
+    <!-- Competencias e idiomas -->
+    <string name="idiomas">Languages:</string>
+    <string name="armadura">Armor:</string>
+    <string name="armasDosPuntos">Weapons:</string>
+    <string name="herramientasDosPuntos">Tools:</string>
+    <string name="especialidad">Specialization:</string>
+    <string name="rangoMilitar">Military rank:</string>
+    <string name="otras">Others:</string>
+    <string name="modificarCompetenciasIdiomas">Modify Competences / Languages</string>
+
+    <!-- Personalidad -->
+    <string name="rasgosPersonalidad">Personality traits</string>
+    <string name="ideales">Archetypes</string>
+    <string name="vinculos">Ties</string>
+    <string name="defectos">Defects</string>
+    <string name="editarTexto">Edit text</string>
+
+    <!-- Rasgos y atributos -->
+    <string name="anadirRasgoAtributo">Add characteristics and attributes</string>
+
+    <!-- Ataques y conjuros -->
+    <string name="anadirAtaque">Add attack</string>
+    <string name="anadirConjuro">Add spell</string>
+    <string name="ataques">Attacks</string>
+    <string name="conjuros">Spells</string>
+    <string name="danyoAtaque">Damage: %1$s</string>
+    <string name="propiedadesAtaque">Properties: %1$s</string>
+
+    <!-- Lanzar dados -->
+    <string name="unodcuatro" translatable="false">1d4</string>
+    <string name="unodseis" translatable="false">1d6</string>
+    <string name="unodocho" translatable="false">1d8</string>
+    <string name="unoddiez" translatable="false">1d10</string>
+    <string name="unoddoce" translatable="false">1d12</string>
+    <string name="unodveinte" translatable="false">1d20</string>
+    <string name="unodcien" translatable="false">1d100</string>
+    <string name="unodundefined" translatable="false">1d?</string>
+    <string name="lanzar">Throw!</string>
+    <string name="uno" translatable="false">1</string>
+
+    <!-- Valores -->
+    <string name="menoscinco" translatable="false">-5</string>
+    <string name="menoscuatro" translatable="false">-4</string>
+    <string name="menostres" translatable="false">-3</string>
+    <string name="menosdos" translatable="false">-2</string>
+    <string name="menosuno" translatable="false">-1</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="masuno" translatable="false">+1</string>
+    <string name="masdos" translatable="false">+2</string>
+    <string name="mastres" translatable="false">+3</string>
+    <string name="mascuatro" translatable="false">+4</string>
+
+    <!-- Configuración -->
+    <string name="ajustesGenerales">General settings</string>
+    <string name="sonido">Sound</string>
+    <string name="recibirNoticiasCorreo">I want to receive information to my email</string>
+    <string name="ajustesCuenta">Account settings</string>
+    <string name="otrasEstadisticas">Other statistics</string>
+    <string name="dadosLanzados">Dice thrown:</string>
+    <string name="personajesCreados">Total characters created:</string>
+    <string name="informacion">Inforamtion</string>
+    <string name="politicaDatos">Data policy</string>
+    <string name="condicionesUso">Terms of use</string>
+    <string name="accedeApi">Get to the API</string>
+    <string name="cambiarContrasenya"><u>Change password</u></string>
+    <string name="eliminarCuenta"><u>Delete account</u></string>
+
+    <!-- Menú de personajes -->
+    <string name="seleccionarPersonaje">Choose character</string>
+    <string name="crearPersonaje">Create character</string>
+    <string name="personaje">Character</string>
+    <string name="codigo">Code: %1$s</string>
+    <string name="dungeonsAndDragons" translatable="false">Dungeons &amp; Dragons</string>
+    <string name="crear">Create</string>
+    <string name="eliminar">Delete</string>
+    <string name="estasSegurxQuieresEliminarPersonaje">Are you sure you want to delete this character?</string>
+
+    <!-- Reproductor de música -->
+    <string name="cancionAmbiente">Atmospheric Song</string>
+    <string name="cancionTaberna">Tavern Song</string>
+    <string name="cancionBatalla">Battle Song</string>
+    <string name="temporizador0" translatable="false">00:00:00</string>
+
+</resources>
