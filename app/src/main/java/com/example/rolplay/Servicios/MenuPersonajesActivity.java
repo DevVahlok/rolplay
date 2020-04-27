@@ -315,8 +315,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     }
     
     private void ComprobarEstatUsuari() {
-
-        //TODO: mAuth es null al iniciar sesión
+        
         FirebaseUser usuari = mAuth.getCurrentUser();
 
         if (usuari==null){

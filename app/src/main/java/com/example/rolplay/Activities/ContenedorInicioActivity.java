@@ -307,7 +307,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Cabecera, "cabecera_fragment").addToBackStack(null).commit();
                 navigationView.setCheckedItem(R.id.nav_cabecera);
             } else {
-                //TODO: Si estás en registrar y reinicias la app, peta.
                 if (mAuth.getCurrentUser() != null) {
                     mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -757,7 +756,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        //TODO: Fragments de cada apartado
         Bundle bundle;
         switch (item.getItemId()) {
 

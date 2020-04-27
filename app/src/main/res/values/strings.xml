@@ -199,6 +199,7 @@
     <string name="condicionesUso">Condiciones de uso</string>
     <string name="accedeApi">Accede a la API</string>
     <string name="cambiarContrasenya"><u>Cambiar contraseña</u></string>
+    <string name="eliminarCuenta"><u>Eliminar cuenta</u></string>
 
     <!-- Menú de personajes -->
     <string name="seleccionarPersonaje">Seleccionar personaje</string>

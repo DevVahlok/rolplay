@@ -707,8 +707,6 @@ public class InicioFragment extends Fragment {
         //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
         mExperienciaPersonaje_TV.setText(PuntosExperiencia+" / "+(Nivel * (Nivel+1)*500)+" exp");
 
-        //TODO: LOPD (en un fragment tipo párrafo info?)
-
     }
 
 
@@ -772,7 +770,6 @@ public class InicioFragment extends Fragment {
         FirebaseUser usuari = mAuth.getCurrentUser();
 
         if (usuari==null){
-            //TODO: Cargar datos de Firebase respectivos a la ficha{
             //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();

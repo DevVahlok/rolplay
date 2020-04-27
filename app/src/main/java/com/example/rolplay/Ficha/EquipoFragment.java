@@ -89,7 +89,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         mDialogCarga = new DialogCarga();
 
         //TODO: Raúl: AñadirObjeto de MonturasVehículos no funciona
-        //TODO: Raúl / Alex: Intentar poner en el dialog de AñadirObjeto, un Spinner debajo de un Spinner, no al lado (para que se vea mejor)
 
         mModificarMonedas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,7 +352,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     subtitle.setText(R.string.monturasVehiculos);
                                     break;
                             }
-                            //TODO: Intentar poner un spinner debajo del otro, no al lado (si se puede)
                         }
                     }
 

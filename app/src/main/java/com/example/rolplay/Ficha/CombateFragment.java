@@ -126,8 +126,6 @@ public class CombateFragment extends Fragment {
         mCheckboxFallo2 = v.findViewById(R.id.Combate_fallo_checkbox_2);
         mCheckboxFallo3 = v.findViewById(R.id.Combate_fallo_checkbox_3);
 
-        //TODO: Raúl: El valor de clase de armadura ha desaparecido
-
         ActualizarBarraDeVida();
 
         mGolpesActuales.setOnFocusChangeListener(new View.OnFocusChangeListener() {

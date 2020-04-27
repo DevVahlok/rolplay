@@ -96,7 +96,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/MainActivity_recuperar_password_btn"
             android:layout_marginTop="20dp"
-            android:background="@color/colorSecondaryDark"
             android:backgroundTint="@color/colorSecondaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"

@@ -15,7 +15,7 @@ import com.example.rolplay.R;
 public class ConfiguracionFragment extends Fragment {
 
     //Declaración de variables
-    private TextView mLinkCondiciones, mLinkPoliticaDatos, mLinkApi;
+    private TextView mLinkCondiciones, mLinkPoliticaDatos, mLinkApi, mCambiarContrasenya, mBorrarCuenta;
     private ImageView mFotoCondiciones, mFotoPoliticaDatos, mFotoLink;
 
     //Constructor
@@ -41,12 +41,28 @@ public class ConfiguracionFragment extends Fragment {
         //Para las estadísticas, meter un int en FireBase e ir sumando
 
         //Inicialización de variables
-        mLinkCondiciones = v.findViewById(R.id.Configuracion_texto_politicaDatos);
-        mLinkPoliticaDatos = v.findViewById(R.id.Configuracion_texto_condicionesUso);
+        mLinkCondiciones = v.findViewById(R.id.Configuracion_texto_condicionesUso);
+        mLinkPoliticaDatos = v.findViewById(R.id.Configuracion_texto_politicaDatos);
         mLinkApi = v.findViewById(R.id.Configuracion_texto_api);
-        mFotoCondiciones = v.findViewById(R.id.Configuracion_link_politicaDatos);
-        mFotoPoliticaDatos = v.findViewById(R.id.Configuracion_link_condicionesUso);
+        mFotoCondiciones = v.findViewById(R.id.Configuracion_link_condicionesUso);
+        mFotoPoliticaDatos = v.findViewById(R.id.Configuracion_link_politicaDatos);
         mFotoLink = v.findViewById(R.id.Configuracion_link_api);
+        mBorrarCuenta = v.findViewById(R.id.Configuracion_texto_eliminarCuenta);
+        mCambiarContrasenya = v.findViewById(R.id.Configuracion_texto_cambiarContrasenya);
+
+        mBorrarCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Raúl: Borrar cuenta y sus personajes
+            }
+        });
+
+        mCambiarContrasenya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Raúl: Cambiar contraseña
+            }
+        });
 
         //Al hacer click pasa a enseñar la web de Condiciones
         mLinkCondiciones.setOnClickListener(new View.OnClickListener() {

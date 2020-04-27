@@ -23,10 +23,10 @@ public class InformacionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion);
 
-        //TODO: Sustituir links por originales
+        //TODO: API
         //Inicialización de variables
-        linkCondiciones = "https://help.instagram.com/581066165581870";
-        linkPoliticaDatos = "https://help.instagram.com/519522125107875";
+        linkCondiciones = "https://rolandplay.000webhostapp.com/content/condicionesUso.html";
+        linkPoliticaDatos = "https://rolandplay.000webhostapp.com/content/politicaDatos.html";
         linkApi = "https://www.instagram.com/developer/";
         link404 = "https://i.stack.imgur.com/WOlr3.png";
 
@@ -38,10 +38,10 @@ public class InformacionActivity extends AppCompatActivity {
         mWebViewInformacion = findViewById(R.id.InformacionActivity_webview);
         mWebViewInformacion.getSettings().setJavaScriptEnabled(true);
         mWebViewInformacion.setWebViewClient(new WebViewClient());
-        if (Objects.equals(getIntent().getStringExtra("link"), "condiciones")) {
-            mWebViewInformacion.loadUrl(linkCondiciones);
-        } else if (Objects.equals(getIntent().getStringExtra("link"), "politicaDatos")) {
+        if (Objects.equals(getIntent().getStringExtra("link"), "politicaDatos")) {
             mWebViewInformacion.loadUrl(linkPoliticaDatos);
+        } else if (Objects.equals(getIntent().getStringExtra("link"), "condiciones")) {
+            mWebViewInformacion.loadUrl(linkCondiciones);
         } else if (Objects.equals(getIntent().getStringExtra("link"), "api")) {
             mWebViewInformacion.loadUrl(linkApi);
         } else {
