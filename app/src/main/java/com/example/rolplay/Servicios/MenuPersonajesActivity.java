@@ -77,7 +77,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String valor = "" + ds.getKey();
-                        if(!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje")) {
+                        if(!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje") && !valor.equals("Sonido") && !valor.equals("Correo")) {
                             if (!listaCodigos.contains(valor)) {
                                 listaCodigos.add(valor);
                             }
@@ -258,7 +258,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 String[] result = new String[0];
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String valor = "" + ds.getKey();
-                    if (!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje")) {
+                    if(!valor.equals("Recordar menu") && !valor.equals("Ultimo personaje") && !valor.equals("Sonido") && !valor.equals("Correo")) {
                         if (!ALS.contains(valor)) {
                             ALS.add(valor);
                             ALS.add((String) ds.child("Nombre").getValue());
