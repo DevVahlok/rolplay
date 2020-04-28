@@ -313,9 +313,9 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
         return sb.toString();
     }
-    
+
     private void ComprobarEstatUsuari() {
-        
+
         FirebaseUser usuari = mAuth.getCurrentUser();
 
         if (usuari==null){

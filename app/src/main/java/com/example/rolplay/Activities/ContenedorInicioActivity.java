@@ -121,7 +121,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mIntimidacionCB, mInvestigacionCB, mJuegoManosCB, mMedicinaCB, mNaturalezaCB, mPercepcionCB, mPerspicacioCB,
             mPersuasionCB, mReligionCB, mSigiloCB, mSupervivenciaCB, mTratoAnimalesCB, mInspiracion, mBonificador, mSabiduria,
             mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras, codigoPersonaje = "A", mFuerzaCB, mDestrezaCB,
-            mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB;
+            mConstitucionCB, mInteligenciaCB, mSabiduriaCB, mCarismaCB, mCorreo, mSonido;
     private int SalvacionesMuerte, mNivel, PuntosExperiencia, PCobre, PPlata, PEsmeralda, POro, PPlatino, PesoTotal;
     private DialogCarga mDialogCarga;
     private boolean recordarMenuInterno = false;
@@ -470,6 +470,23 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
                 mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
                 mOtras = (String) dataSnapshot.child("Otras").getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try{
+                    mCorreo = dataSnapshot.child("Correo").getValue().toString();
+                    mSonido = dataSnapshot.child("Sonido").getValue().toString();
+                }catch (Exception e){
+                    Log.d("Error Firebase: ", e.getMessage());
+                }
             }
 
             @Override
@@ -953,7 +970,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 activity.finish();
                 break;
             case R.id.nav_configuracion:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfiguracionFragment()).commit();
+                bundle = new Bundle();
+                bundle.putBoolean("Correo", Boolean.parseBoolean(mCorreo));
+                bundle.putBoolean("Sonido", Boolean.parseBoolean(mSonido));
+                Fragment Configuracion = new ConfiguracionFragment();
+                Configuracion.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Configuracion).commit();
                 break;
             case R.id.nav_reproductorMusica:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReproductorMusicaFragment(), "reproductorMusica").commit();

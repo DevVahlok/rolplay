@@ -65,7 +65,7 @@
 
     <!-- Habilidades y Bonificadores -->
     <string name="inspiracion">Inspiration</string>
-    <string name="bonificadorCompetencia">Competence\n's bonus</string>
+    <string name="bonificadorCompetencia">Competence\'s bonus</string>
     <string name="tiradasSalvacion">Salvation\'s throws</string>
     <string name="habilidades">Skills</string>
     <string name="acrobacias">Acrobatics</string>

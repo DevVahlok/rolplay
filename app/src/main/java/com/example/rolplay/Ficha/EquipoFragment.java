@@ -380,7 +380,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     public void onCallback(String[] value) {
                                         //Añade objeto al Recycle
                                         listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
-                                        pesoTotal += Integer.parseInt(value[1]);
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
                                     }
@@ -454,7 +453,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     String valor = "" + ds.getKey();
                     if(valor.equals(s)) {
                         String[] result;
-                        String coste, url;
+                        String coste, url, capacidad, velocidad;
                         try {
                             coste = (String) ds.child("Coste").getValue();
                         }catch (Exception e){
@@ -466,12 +465,14 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                 coste="0";
                             }
                         }
+                        capacidad = (String) ds.child("Capacidad de carga").getValue();
+                        velocidad = (String) ds.child("Velocidad").getValue();
                         try {
                             url = (String) ds.child("URL").getValue();
                         }catch (Exception e){
                             url ="..";
                         }
-                        result = new String[]{coste, "0", url};
+                        result = new String[]{coste, "0", ".."};
                         myCallback.onCallback(result);
                     }
                 }
