@@ -73,6 +73,7 @@ public class LanzarDadosFragment extends Fragment {
         return v;
     }
 
+    //TODO: Arreglar la vista de los dados
     private void DialogDados(Button button, final String s, final int x, final ArrayList imagenes) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override

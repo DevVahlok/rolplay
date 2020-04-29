@@ -70,6 +70,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mDatabase = FirebaseDatabase.getInstance();
 
+        //TODO: Raúl: Sistema de referidos
 
         try {
             mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {

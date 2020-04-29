@@ -145,6 +145,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenedor_inicio);
 
+        //TODO: El dialogCarga ha desaparecido
+
         //Inicialización de variables
         mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
