@@ -530,6 +530,8 @@ public class InicioFragment extends Fragment {
                 listaClases=value;
             }
         });
+
+        //TODO: Raúl: Recoger alineamientos de FireBase
         //Alineamiento
         listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
 
@@ -704,7 +706,6 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        //TODO: No hay alineamientos en BBDD. Maybe añadirlos a FireBase?
         mExperienciaPersonaje_TV.setText(PuntosExperiencia+" / "+(Nivel * (Nivel+1)*500)+" exp");
 
     }

@@ -247,27 +247,6 @@
             android:contentDescription="@string/condicionesUso"
             android:src="@drawable/ic_cadena" />
 
-        <TextView
-            android:id="@+id/Configuracion_texto_api"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Configuracion_texto_condicionesUso"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/accedeApi"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/Configuracion_link_api"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@id/Configuracion_texto_api"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/Configuracion_texto_api"
-            android:contentDescription="@string/accedeApi"
-            android:src="@drawable/ic_cadena" />
-
     </RelativeLayout>
 
 </ScrollView>

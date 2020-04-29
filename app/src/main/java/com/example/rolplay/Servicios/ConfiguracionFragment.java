@@ -42,8 +42,8 @@ public class ConfiguracionFragment extends Fragment {
     //Declaración de variables
     private CheckBox mCorreo;
     private Switch mSonido;
-    private TextView mLinkCondiciones, mLinkPoliticaDatos, mLinkApi, mCambiarContrasenya, mBorrarCuenta;
-    private ImageView mFotoCondiciones, mFotoPoliticaDatos, mFotoLink;
+    private TextView mLinkCondiciones, mLinkPoliticaDatos, mCambiarContrasenya, mBorrarCuenta;
+    private ImageView mFotoCondiciones, mFotoPoliticaDatos;
     private FirebaseDatabase mDatabase;
 
     //Constructor
@@ -71,10 +71,8 @@ public class ConfiguracionFragment extends Fragment {
         //Inicialización de variables
         mLinkCondiciones = v.findViewById(R.id.Configuracion_texto_condicionesUso);
         mLinkPoliticaDatos = v.findViewById(R.id.Configuracion_texto_politicaDatos);
-        mLinkApi = v.findViewById(R.id.Configuracion_texto_api);
         mFotoCondiciones = v.findViewById(R.id.Configuracion_link_condicionesUso);
         mFotoPoliticaDatos = v.findViewById(R.id.Configuracion_link_politicaDatos);
-        mFotoLink = v.findViewById(R.id.Configuracion_link_api);
         mBorrarCuenta = v.findViewById(R.id.Configuracion_texto_eliminarCuenta);
         mCambiarContrasenya = v.findViewById(R.id.Configuracion_texto_cambiarContrasenya);
         mCorreo = v.findViewById(R.id.Configuracion_checkbox_newsletter);
@@ -188,13 +186,6 @@ public class ConfiguracionFragment extends Fragment {
             }
         });
 
-        //Al hacer click pasa a enseñar la web de Api
-        mLinkApi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enviarLink("api");
-            }
-        });
 
         //Al hacer click pasa a enseñar la web de Política de Datos
         mFotoCondiciones.setOnClickListener(new View.OnClickListener() {
@@ -212,13 +203,6 @@ public class ConfiguracionFragment extends Fragment {
             }
         });
 
-        //Al hacer click pasa a enseñar la web de Api
-        mFotoLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enviarLink("api");
-            }
-        });
 
         return v;
     }

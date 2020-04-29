@@ -23,11 +23,9 @@ public class InformacionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion);
 
-        //TODO: API
         //Inicialización de variables
         linkCondiciones = "https://rolandplay.000webhostapp.com/content/condicionesUso.html";
         linkPoliticaDatos = "https://rolandplay.000webhostapp.com/content/politicaDatos.html";
-        linkApi = "https://www.instagram.com/developer/";
         link404 = "https://i.stack.imgur.com/WOlr3.png";
 
         //Activa la barra superior
@@ -42,8 +40,6 @@ public class InformacionActivity extends AppCompatActivity {
             mWebViewInformacion.loadUrl(linkPoliticaDatos);
         } else if (Objects.equals(getIntent().getStringExtra("link"), "condiciones")) {
             mWebViewInformacion.loadUrl(linkCondiciones);
-        } else if (Objects.equals(getIntent().getStringExtra("link"), "api")) {
-            mWebViewInformacion.loadUrl(linkApi);
         } else {
             mWebViewInformacion.loadUrl(link404);
         }

@@ -122,7 +122,7 @@
     <string name="modificarMonedas">Modificar monedas</string>
 
     <!-- Combate -->
-    <string name="claseArmadura">Clase de armadura</string>
+    <string name="claseArmadura">Clase \n de armadura</string>
     <string name="iniciativa">Iniciativa</string>
     <string name="velocidad">Velocidad</string>
     <string name="puntosGolpeActuales">Puntos de golpe actuales:</string>

@@ -180,6 +180,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/Recordar menu").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //TODO: Raúl: Peta al crear una cuenta nueva
                     recordarMenuInterno = (Boolean) dataSnapshot.getValue();
                     if (!entrado[0]) {
                         if (recordarMenuInterno) {
@@ -330,7 +331,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     });
                 }
             }
-            //TODO: Alex: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
+            //TODO: Alex y Raúl: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 
         //Declaración de variables de la cabecera de la barra de navegación
@@ -394,6 +395,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         } catch (Exception e) {
 
         }
+
+        //TODO: Raúl: Al borrar un personaje, peta lo siguiente:
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -1062,8 +1065,13 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
     public void cerrarApp() {
 
-        //Cierra el servicio de música
-        this.unregisterReceiver(broadcastReceiver);
+        /*
+
+        if(broadcastReceiver!=null){
+            this.unregisterReceiver(broadcastReceiver);
+        }
+
+         */
 
         //Cierra la app correctamente
         this.finish();
