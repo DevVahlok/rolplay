@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.R;
+import com.example.rolplay.Servicios.MenuPersonajesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -100,9 +101,7 @@ public class RegistrarFragment extends Fragment {
 
                             //Caso de que registre correctamente
                             mDialogCarga.dismiss();
-                            startActivity(new Intent(getActivity(), ContenedorInicioActivity.class));
-
-                            Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getActivity(), MenuPersonajesActivity.class));
 
                             getActivity().finish();
 

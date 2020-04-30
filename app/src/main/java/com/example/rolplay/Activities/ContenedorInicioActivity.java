@@ -80,9 +80,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     private ProgressBar mProgressBar;
     private TextView mNivelPersonajeNavBar, mNombrePersonaje, mCorreoElectronico;
     private View headerView;
-    private ArrayList<String> Razas = new ArrayList<String>();
-    private ArrayList<String> Clases = new ArrayList<String>();
-    private ArrayList<String> Objetos = new ArrayList<String>();
+    private ArrayList<String> Razas = new ArrayList<>();
+    private ArrayList<String> Clases = new ArrayList<>();
+    private ArrayList<String> Alineamientos = new ArrayList<>();
+    private ArrayList<String> Objetos = new ArrayList<>();
     private ArrayList<String> Equipo = new ArrayList<>();
     private ArrayList<String> Ataque = new ArrayList<>();
     private ArrayList<String> Rasgos = new ArrayList<>();
@@ -182,7 +183,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/Recordar menu").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //TODO: Raúl: Peta al crear una cuenta nueva
                     recordarMenuInterno = (Boolean) dataSnapshot.getValue();
                     if (!entrado[0]) {
                         if (recordarMenuInterno) {
@@ -386,7 +386,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         //Posicionar en el JSON de Firebase
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
+        final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamientos");
         final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
 
         //Seteo datos en ficha
@@ -518,7 +518,12 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
         //Alineamiento
-        listaAlineamiento = new String[]{"Legal bueno", "Legal neutral", "Legal malvado", "Neutral bueno", "Neutral", "Neutral malvado", "Caótico bueno", "Caótico neutral", "Caótico malvado"};
+        cargarSpinnersAux(mAlineamiento, Alineamientos, listaAlineamiento, new MyCallback() {
+            @Override
+            public void onCallback(String[] value) {
+                listaAlineamiento=value;
+            }
+        });
 
         //Cargamos todos los objetos de Equipo
         cargarSpinners(mObjetos, Objetos, listaObjetos, new MyCallback() {

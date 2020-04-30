@@ -21,10 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Activities.InformacionActivity;
 import com.example.rolplay.Activities.MainActivity;
+import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.R;
 import com.google.android.gms.common.stats.ConnectionTracker;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +47,7 @@ public class ConfiguracionFragment extends Fragment {
     private TextView mLinkCondiciones, mLinkPoliticaDatos, mCambiarContrasenya, mBorrarCuenta;
     private ImageView mFotoCondiciones, mFotoPoliticaDatos;
     private FirebaseDatabase mDatabase;
+    private DialogCarga mDialogCarga;
 
     //Constructor
     public ConfiguracionFragment() {
@@ -80,6 +83,7 @@ public class ConfiguracionFragment extends Fragment {
         mCorreo = v.findViewById(R.id.Configuracion_checkbox_newsletter);
         mSonido = v.findViewById(R.id.Configuracion_switch_sonido);
         mDatabase = FirebaseDatabase.getInstance();
+        mDialogCarga = new DialogCarga();
 
         try {
             mSonido.setChecked(Objects.requireNonNull(recuperados).getBoolean("Sonido"));
@@ -143,14 +147,15 @@ public class ConfiguracionFragment extends Fragment {
                 constructrorDialog.setPositiveButton(getString(R.string.cambiarContrasenya), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
                         usuariActual.updatePassword(editText.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Log.d("---------------", "Password cambiada");
+                                    mDialogCarga.dismiss();
                                 }
                                 else {
-                                    Log.d("------------", "fracaso");
+                                    Toast.makeText(getActivity(), "Cambio de contraseña fallido", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
