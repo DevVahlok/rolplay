@@ -287,6 +287,7 @@ public class InicioFragment extends Fragment {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 //Pasa los datos al fragment de destino
                 Bundle bundle = new Bundle();
+                bundle.putStringArrayList("Ataque", Ataque);
                 bundle.putString("Clase de Armadura", ClaseDeArmadura);
                 bundle.putString("Iniciativa", Iniciativa);
                 bundle.putString("Destreza puntos", mDestrezaPuntos);

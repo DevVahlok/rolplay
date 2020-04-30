@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
@@ -84,7 +85,7 @@ public class CombateFragment extends Fragment {
             
         }
 
-        //TODO: Raúl: Boolean para la armadura-arma para que el apartado de Combate los coja (???)
+        //TODO: Raúl: Boolean para la armadura para que el apartado de Combate los coja (???)
 
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
 
@@ -118,6 +119,10 @@ public class CombateFragment extends Fragment {
         //el máximo a nivel 1 está determinado por la clase escogida, que te dice el dado que tienes que tirar (generar random + bonficador [cuadrado] de Constitución)
         //Al subir de nivel, se aumenta la vida (mirar chincheta)
 
+        ArrayList<String> aux = recuperados.getStringArrayList("Ataque");
+        if(aux.size()>4) {
+            mDadoGolpe.setText(aux.get(4).split(" ")[0]);
+        }
         //Inicialización de variables
         mBarraSalud = v.findViewById(R.id.Combate_puntosGolpe_barraProgreso);
         mCheckboxExito1 = v.findViewById(R.id.Combate_exito_checkbox_1);

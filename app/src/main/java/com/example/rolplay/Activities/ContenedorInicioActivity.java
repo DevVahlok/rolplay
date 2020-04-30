@@ -870,6 +870,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case R.id.nav_combate:
                 //Pasa los datos al fragment de destino
                 bundle = new Bundle();
+                bundle.putStringArrayList("Ataque", Ataque);
                 bundle.putString("Clase de Armadura", ClaseDeArmadura);
                 bundle.putString("Iniciativa", Iniciativa);
                 bundle.putString("Destreza puntos", mDestrezaPuntos);
@@ -918,6 +919,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_ataquesConjuros:
                 bundle = new Bundle();
+                bundle.putStringArrayList("Ataque", Ataque);
                 bundle.putStringArray("Lista De Armas", listaArmas);
                 bundle.putStringArray("Lista De ArmDM", listaArmasDM);
                 bundle.putStringArray("Lista De ArmDS", listaArmasDS);
