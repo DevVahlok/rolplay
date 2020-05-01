@@ -145,8 +145,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenedor_inicio);
-
-        //TODO: El dialogCarga ha desaparecido
+        
+        mDialogCarga = new DialogCarga();
+        mDialogCarga.show(getSupportFragmentManager(),null);
 
         //Inicialización de variables
         mAuth = FirebaseAuth.getInstance();
@@ -343,13 +344,14 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mCorreoElectronico = headerView.findViewById(R.id.nav_header_correoElectronico);
         mProgressBar = headerView.findViewById(R.id.nav_header_nivel_barraProgreso);
 
-        mDialogCarga = new DialogCarga();
+
         if (mAuth.getCurrentUser() != null) {
             mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
                     cargarDatosFB();
+
                 }
 
                 @Override
@@ -379,6 +381,8 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 pararReproductor();
             }
         });
+
+        mDialogCarga.dismiss();
 
     }
 

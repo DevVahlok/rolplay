@@ -121,76 +121,12 @@
             android:textColor="@color/colorBlanco"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/Configuracion_texto_otrasEstadisticas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Configuracion_texto_eliminarCuenta"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:text="@string/otrasEstadisticas"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <View
-            android:id="@+id/Personalidad_barra_otrasEstadisticas"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/Configuracion_texto_otrasEstadisticas"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/Configuracion_texto_dadosLanzados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Personalidad_barra_otrasEstadisticas"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/dadosLanzados"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/Configuracion_valor_dadosLanzados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Personalidad_barra_otrasEstadisticas"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/Configuracion_texto_dadosLanzados"
-            android:text="0"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/Configuracion_texto_personajesCreados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Configuracion_texto_dadosLanzados"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/personajesCreados"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/Configuracion_valor_personajesCreados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Configuracion_texto_dadosLanzados"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/Configuracion_texto_personajesCreados"
-            android:text="0"
-            android:textColor="@color/colorBlanco"
-            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/Configuracion_texto_informacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Configuracion_texto_personajesCreados"
+            android:layout_below="@+id/Configuracion_texto_eliminarCuenta"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:text="@string/informacion"
