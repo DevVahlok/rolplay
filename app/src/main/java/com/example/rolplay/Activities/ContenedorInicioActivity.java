@@ -148,6 +148,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         
         mDialogCarga = new DialogCarga();
         mDialogCarga.show(getSupportFragmentManager(),null);
+        mDialogCarga.setCancelable(false);
 
         //Inicialización de variables
         mAuth = FirebaseAuth.getInstance();

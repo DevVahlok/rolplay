@@ -1,8 +1,10 @@
 package com.example.rolplay.Servicios;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Objects;
+
+import static com.example.rolplay.Activities.ContenedorInicioActivity.mMediaPlayer;
 
 public class ConfiguracionFragment extends Fragment {
 
@@ -92,6 +97,22 @@ public class ConfiguracionFragment extends Fragment {
             Log.d("Datos peta: ", e.getMessage());
         }
 
+        if (mSonido.isChecked()){
+            mMediaPlayer.setVolume(1,1);
+        }else{
+            mMediaPlayer.setVolume(0,0);
+        }
+
+        mSonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    mMediaPlayer.setVolume(1,1);
+                }else{
+                    mMediaPlayer.setVolume(0,0);
+                }
+            }
+        });
 
         mBorrarCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +169,7 @@ public class ConfiguracionFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
+                        mDialogCarga.setCancelable(false);
                         usuariActual.updatePassword(editText.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

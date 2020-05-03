@@ -24,7 +24,7 @@ public class DialogCarga extends DialogFragment {
         LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
 
         View view = inflater.inflate(R.layout.layout_dialog_carga,null);
-
+        constructorDelDialog.setCancelable(false);
         constructorDelDialog.setView(view);
 
         return constructorDelDialog.create();

@@ -173,6 +173,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+                        mDialogCarga.setCancelable(false);
                         mMonCobre.setText(cobreET.getText().toString());
                         mMonPlata.setText(plataET.getText().toString());
                         mMonEsmeralda.setText(esmeraldaET.getText().toString());
@@ -373,6 +374,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     public void onClick(DialogInterface dialog, int which) {
 
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+                        mDialogCarga.setCancelable(false);
                         if (!spinnerObjeto.getSelectedItem().toString().equals("Ninguno")) {
                             if (montura){
                                 cogerObjetoMontura(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {

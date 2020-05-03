@@ -249,6 +249,7 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
                     public void onClick(DialogInterface dialog, int which) {
 
                         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+                        mDialogCarga.setCancelable(false);
                         if (!spinnerObjeto.getSelectedItem().toString().equals("Ninguno")) {
                                 cogerObjeto(mObjetos[0], spinnerObjeto.getSelectedItem().toString(), new MyCallback() {
                                     @Override

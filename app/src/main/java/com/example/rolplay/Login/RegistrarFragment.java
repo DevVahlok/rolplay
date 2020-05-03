@@ -93,6 +93,7 @@ public class RegistrarFragment extends Fragment {
     private void RegistrarUsuari(String email, String pass) {
 
         mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
+        mDialogCarga.setCancelable(false);
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

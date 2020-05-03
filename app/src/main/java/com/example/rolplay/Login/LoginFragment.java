@@ -162,6 +162,7 @@ public class LoginFragment extends Fragment {
     //Recuperación de contraseña
     private void IniciarRecuperacionPassword(String email) {
         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+        mDialogCarga.setCancelable(false);
 
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -197,6 +198,7 @@ public class LoginFragment extends Fragment {
 
         //Carga del dialog y accion de login
         mDialogCarga.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), null);
+        mDialogCarga.setCancelable(false);
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
