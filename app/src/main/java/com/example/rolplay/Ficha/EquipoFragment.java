@@ -90,8 +90,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         mDialogCarga = new DialogCarga();
 
-        //TODO: Raúl: AñadirObjeto de MonturasVehículos no funciona
-
         mModificarMonedas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
