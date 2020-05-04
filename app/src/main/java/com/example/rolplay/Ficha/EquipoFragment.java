@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.example.rolplay.Adapters.AdapterRecyclerEquipo;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.ItemEquipo;
+import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.Otros.MyCallback;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +44,7 @@ import java.util.Objects;
 public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.OnItemListener {
 
     //Declaración de variables
-    private ArrayList<ItemEquipo> listaDatos;
+    private ArrayList<Object> listaDatos;
     private RecyclerView recycler;
     private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo, mMonCobre, mMonPlata, mMonEsmeralda, mMonOro, mMonPlatino;
     private ImageView mFotoEquipo;
@@ -381,7 +383,10 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     @Override
                                     public void onCallback(String[] value) {
                                         //Añade objeto al Recycle
-                                        listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
+                                        listaDatos.add(new ItemMontura(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Float.parseFloat(value[1]), Integer.parseInt(value[2]), value[3]));
+                                        for (int i=0; i<4; i++){
+                                            Log.d("--------------", value[i]);}
+                                        pesoTotal -= Integer.parseInt(value[2]);
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
                                     }
@@ -427,14 +432,21 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             mMonPlatino.setText(String.valueOf(recuperados.getInt("Piezas de platino")));
 
             //Rellena el Recycler con los objetos
-            listaDatos = new ArrayList<ItemEquipo>();
+            listaDatos = new ArrayList<Object>();
 
             ArrayList<String> aux = recuperados.getStringArrayList("Equipo");
 
             if(aux!=null){
-                for(int i=0; i<aux.size()/4;i++){
-                    listaDatos.add(new ItemEquipo(aux.get(i*4), Integer.parseInt(aux.get((i*4)+1)), Integer.parseInt(aux.get((i*4)+2)), aux.get((i*4)+3)));
-                    pesoTotal+=Integer.parseInt(aux.get((i*4)+2));
+                for(int i=0; i<aux.size();i++){
+                    String[] split = aux.get(i).split(";;;");
+                    if (split.length==4) {
+                        listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3]));
+                        pesoTotal += Integer.parseInt(split[2]);
+                    }else {
+                        listaDatos.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4]));
+                        pesoTotal -= Integer.parseInt(split[3]);
+                    }
+
                 }
             }
 
@@ -455,7 +467,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     String valor = "" + ds.getKey();
                     if(valor.equals(s)) {
                         String[] result;
-                        String coste, url, capacidad, velocidad;
+                        String coste, url ="..", capacidad="0", velocidad;
                         try {
                             coste = (String) ds.child("Coste").getValue();
                         }catch (Exception e){
@@ -467,14 +479,16 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                 coste="0";
                             }
                         }
-                        capacidad = (String) ds.child("Capacidad de carga").getValue();
-                        velocidad = (String) ds.child("Velocidad").getValue();
-                        try {
-                            url = (String) ds.child("URL").getValue();
-                        }catch (Exception e){
-                            url ="..";
+                        try{capacidad = ((Long) ds.child("Capacidad de carga").getValue()).toString();}catch (Exception e){}
+                        try{velocidad = ((Long) ds.child("Velocidad").getValue()).toString();}catch (Exception e){
+                            velocidad = ((Double) ds.child("Velocidad").getValue()).toString();
                         }
-                        result = new String[]{coste, "0", ".."};
+//                        try {
+//                            url = (String) ds.child("URL").getValue();
+//                        }catch (Exception e){
+//                            url ="..";
+//                        }
+                        result = new String[]{coste, velocidad, capacidad, url};
                         myCallback.onCallback(result);
                     }
                 }
@@ -492,10 +506,17 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     @Override
     public void onItemClick(int position) {
 
-        //Elimina el objeto del recycler
-        pesoTotal-=listaDatos.get(position).getPeso();
-        listaDatos.remove(position);
-        adapter.notifyItemRemoved(position);
+        try {
+            //Elimina el objeto del recycler
+            pesoTotal-=((ItemEquipo)listaDatos.get(position)).getPeso();
+            listaDatos.remove(position);
+            adapter.notifyItemRemoved(position);
+        }catch (Exception e){
+            //Elimina el objeto del recycler
+            pesoTotal+=((ItemMontura)listaDatos.get(position)).getCapacidadCarga();
+            listaDatos.remove(position);
+            adapter.notifyItemRemoved(position);
+        }
     }
 
     private void creadorAdapter(String[] lista, Spinner dropdown) {

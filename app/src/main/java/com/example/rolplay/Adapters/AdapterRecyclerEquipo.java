@@ -1,5 +1,6 @@
 package com.example.rolplay.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rolplay.Otros.ItemEquipo;
+import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -18,13 +20,13 @@ import java.util.ArrayList;
 public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo>{
 
     //Declaración de variables
-    private ArrayList<ItemEquipo> listaDatos;
+    private ArrayList<Object> listaDatos;
     private ImageView imgViewRemoveIcon;
     private OnItemListener mOnItemListener;
     private Context context;
 
     //Constructor
-    public AdapterRecyclerEquipo(ArrayList<ItemEquipo> listaDatos, OnItemListener mOnItemListener, Context context) {
+    public AdapterRecyclerEquipo(ArrayList<Object> listaDatos, OnItemListener mOnItemListener, Context context) {
         this.listaDatos = listaDatos;
         this.mOnItemListener = mOnItemListener;
         this.context = context;
@@ -87,14 +89,23 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             });
         }
 
-        public void asignarDatos(ItemEquipo s) {
-
-            //Seteo de datos de cada objeto
-            mNombreEquipo.setText(s.getNombre());
-            mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
-            mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
-            Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
-
+        @SuppressLint("StringFormatInvalid")
+        public void asignarDatos(Object o) {
+            //TODO: Alex haz lo del string bien pq la voy a liar (Float.toString(velocidad))
+            try {
+                ItemEquipo s = (ItemEquipo)o;
+                //Seteo de datos de cada objeto
+                mNombreEquipo.setText(s.getNombre());
+                mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+                mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
+                Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
+            }catch (Exception e){
+                ItemMontura s = (ItemMontura)o;
+                mNombreEquipo.setText(s.getNombre());
+                mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+                mPesoEquipo.setText("Velocidad:"+ s.getVelocidad());
+                Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
+            }
         }
 
         @Override

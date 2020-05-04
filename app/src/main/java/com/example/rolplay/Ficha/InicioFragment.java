@@ -649,10 +649,11 @@ public class InicioFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Equipo.add((String)ds.child("nombre").getValue());
-                    Equipo.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
-                    Equipo.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
-                    Equipo.add((String)ds.child("url").getValue());
+                    try {
+                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue());
+                    }catch (Exception e){
+                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("velocidad").getValue()).toString()+";;;"+((Long) ds.child("capacidadCarga").getValue()).toString()+";;;"+(String) ds.child("url").getValue());
+                    }
                 }
             }
 
