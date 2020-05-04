@@ -30,6 +30,10 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
+import static com.example.rolplay.Activities.ContenedorInicioActivity.listaSonidos;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.mSoundPool;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.volumen;
+
 public class CombateFragment extends Fragment {
 
     //Declaración de variables
@@ -94,7 +98,11 @@ public class CombateFragment extends Fragment {
         mIniciativaButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Random r = new Random();
+
+                mSoundPool.play(listaSonidos.get(r.nextInt(3)),volumen,volumen,1,0,1.0f);
+
                 mIniciativa.setText(String.valueOf(r.nextInt(19)+1+mDestreza));
             }
         });

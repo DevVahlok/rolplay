@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
+import static com.example.rolplay.Activities.ContenedorInicioActivity.listaSonidos;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.mSoundPool;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.volumen;
+
 public class LanzarDadosFragment extends Fragment {
 
     private Button md4, md6, md8, md10, md12, md20, md100, mdCantidad;
@@ -54,12 +58,12 @@ public class LanzarDadosFragment extends Fragment {
         Bundle recuperados = getArguments();
 
         //Los strings con las imagenes:
-        dados4=recuperados.getStringArrayList("d4");
-        dados6=recuperados.getStringArrayList("d6");
-        dados8=recuperados.getStringArrayList("d8");
-        dados10=recuperados.getStringArrayList("d10");
-        dados12=recuperados.getStringArrayList("d12");
-        dados20=recuperados.getStringArrayList("d20");
+        dados4 = recuperados.getStringArrayList("d4");
+        dados6 = recuperados.getStringArrayList("d6");
+        dados8 = recuperados.getStringArrayList("d8");
+        dados10 = recuperados.getStringArrayList("d10");
+        dados12 = recuperados.getStringArrayList("d12");
+        dados20 = recuperados.getStringArrayList("d20");
 
         //Todos los dados menos 1d100 y 1du se cambian con imágenes. Esos dos solo se setea el número en el TextView de su interior
 
@@ -86,7 +90,7 @@ public class LanzarDadosFragment extends Fragment {
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -97,13 +101,13 @@ public class LanzarDadosFragment extends Fragment {
                 subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 subtitle.setTextSize(16);
                 subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
-                subtitle.setPadding(10,10,10,0);
+                subtitle.setPadding(10, 10, 10, 0);
 
                 linearLayout.addView(subtitle);
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -117,12 +121,14 @@ public class LanzarDadosFragment extends Fragment {
                         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                         constructrorDialog.setView(linearLayout);
 
-                        Random r= new Random();
+                        Random r = new Random();
+
+                        mSoundPool.play(listaSonidos.get(r.nextInt(3)), volumen, volumen, 1, 0, 1.0f);
 
                         //Añadimos tantos dados como haya dicho el usuario
                         ArrayList<ImageView> IV = new ArrayList<>();
 
-                        for (int i=0; i<dados; i++){
+                        for (int i = 0; i < dados; i++) {
                             IV.add(new ImageView(getContext()));
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
                             IV.get(i).setLayoutParams(layoutParams);

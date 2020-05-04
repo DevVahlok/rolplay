@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static com.example.rolplay.Activities.ContenedorInicioActivity.mMediaPlayer;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.volumen;
 
 public class ConfiguracionFragment extends Fragment {
 
@@ -72,8 +73,6 @@ public class ConfiguracionFragment extends Fragment {
 
         //Vamos a ser buena gente y poner el checkbox desmarcado como default
 
-        //TODO: Alex: Cuando esté hecho el backend, eliminar warnings del XML
-        //TODO: Alex: Hacer que el botón de sonidos funcione
         //TODO: Raúl: Si el checkbox está marcado, guardar email en un nodo de FireBase. Si lo desmarca lo borra. (Opcional, siempre podemos descartar ese botón de la vista)
         //Para las estadísticas, meter un int en FireBase e ir sumando
         Bundle recuperados = getArguments();
@@ -108,8 +107,10 @@ public class ConfiguracionFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     mMediaPlayer.setVolume(1,1);
+                    volumen = 1;
                 }else{
                     mMediaPlayer.setVolume(0,0);
+                    volumen = 0;
                 }
             }
         });
