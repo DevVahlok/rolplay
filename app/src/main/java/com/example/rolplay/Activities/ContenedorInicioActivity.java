@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -140,14 +142,18 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     public static MediaPlayer mMediaPlayer;
     public static Runnable runnable;
     public static Handler handler;
+    public static SoundPool mSoundPool;
+    public static int mSonidoDado1 = 0, mSonidoDado2 = 0, mSonidoDado3 = 0;
+    public static ArrayList<Integer> listaSonidos;
+    public static float volumen = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenedor_inicio);
-        
+
         mDialogCarga = new DialogCarga();
-        mDialogCarga.show(getSupportFragmentManager(),null);
+        mDialogCarga.show(getSupportFragmentManager(), null);
         mDialogCarga.setCancelable(false);
 
         //Inicialización de variables
@@ -156,6 +162,24 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         drawer = findViewById(R.id.drawer_layout);
 
         mUsuario = mAuth.getCurrentUser();
+
+        //Administración de los sonidos de los dados
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mSoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+        mSonidoDado1 = mSoundPool.load(this, R.raw.dado1, 1);
+        mSonidoDado2 = mSoundPool.load(this, R.raw.dado2, 1);
+        mSonidoDado3 = mSoundPool.load(this, R.raw.dado3, 1);
+
+        listaSonidos = new ArrayList<>();
+        listaSonidos.add(mSonidoDado1);
+        listaSonidos.add(mSonidoDado2);
+        listaSonidos.add(mSonidoDado3);
+
 
         codigoPersonaje = getIntent().getStringExtra("codigo");
 
@@ -491,10 +515,19 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try{
+                try {
                     mCorreo = dataSnapshot.child("Correo").getValue().toString();
                     mSonido = dataSnapshot.child("Sonido").getValue().toString();
-                }catch (Exception e){
+
+                    if(Boolean.valueOf(mSonido)){
+                        mMediaPlayer.setVolume(1,1);
+                        volumen = 1;
+                    }else{
+                        mMediaPlayer.setVolume(0,0);
+                        volumen = 0;
+                    }
+
+                } catch (Exception e) {
                     Log.d("Error Firebase: ", e.getMessage());
                 }
             }
@@ -526,7 +559,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarSpinnersAux(mAlineamiento, Alineamientos, listaAlineamiento, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaAlineamiento=value;
+                listaAlineamiento = value;
             }
         });
 
@@ -1219,7 +1252,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //Si el usuario se encuentra en la pantalla de ReproductorMusicaFragment, cambia la foto
         if (reproductorMusicaFragment != null && reproductorMusicaFragment.isVisible()) {
-            ((ReproductorMusicaFragment)getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
+            ((ReproductorMusicaFragment) getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
         }
 
         onTrackPlay();
@@ -1259,7 +1292,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //Si el usuario se encuentra en la pantalla de ReproductorMusicaFragment, cambia la foto
         if (reproductorMusicaFragment != null && reproductorMusicaFragment.isVisible()) {
-            ((ReproductorMusicaFragment)getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
+            ((ReproductorMusicaFragment) getSupportFragmentManager().findFragmentByTag("reproductorMusica")).comprobarSeleccion();
         }
 
 

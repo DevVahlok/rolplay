@@ -27,6 +27,10 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
+import static com.example.rolplay.Activities.ContenedorInicioActivity.listaSonidos;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.mSoundPool;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.volumen;
+
 public class PuntosHabilidadFragment extends Fragment {
 
     //Declaración de variables
@@ -251,6 +255,7 @@ public class PuntosHabilidadFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Random r = new Random();
+                mSoundPool.play(listaSonidos.get(r.nextInt(3)),volumen,volumen,1,0,1.0f);
                 int x = r.nextInt(15)+3;
                 switch (x) {
                     case 1:

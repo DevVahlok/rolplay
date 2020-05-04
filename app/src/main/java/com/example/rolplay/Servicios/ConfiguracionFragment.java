@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static com.example.rolplay.Activities.ContenedorInicioActivity.mMediaPlayer;
+import static com.example.rolplay.Activities.ContenedorInicioActivity.volumen;
 
 public class ConfiguracionFragment extends Fragment {
 
@@ -108,8 +109,10 @@ public class ConfiguracionFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     mMediaPlayer.setVolume(1,1);
+                    volumen = 1;
                 }else{
                     mMediaPlayer.setVolume(0,0);
+                    volumen = 0;
                 }
             }
         });
