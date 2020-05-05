@@ -1,6 +1,7 @@
 package com.example.rolplay.Servicios;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,7 +26,11 @@ import com.example.rolplay.Otros.ItemPersonaje;
 import com.example.rolplay.Activities.MainActivity;
 import com.example.rolplay.Otros.MyCallback;
 import com.example.rolplay.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +56,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     private AdapterRecyclerPersonaje adapter;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
+    private String codigoGenerado;
     private boolean recordarMenu = true;
     static final HashMap<String, Object> recordar = new HashMap<>();
 
@@ -70,10 +77,10 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mDatabase = FirebaseDatabase.getInstance();
 
-        //TODO: Raúl: Sistema de referidos
+        //TODO: Alex y Raul Sistema de referidos está hecho pero genera varios activities
 
         try {
-            mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -125,6 +132,10 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                 subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 subtitle.setPadding(10, 10, 10, 0);
 
+                final EditText editText = new EditText(v.getContext());
+                editText.setMinEms(20);
+                linearLayout.addView(editText);
+
                 linearLayout.addView(subtitle);
                 linearLayout.setPadding(120, 10, 120, 10);
 
@@ -136,7 +147,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                     public void onClick(DialogInterface dialog, int which) {
                         recordarMenu = false;
                         RecordarMenu(recordar);
-                        String codigoGenerado = generarCodigo();
+                        codigoGenerado = generarCodigo();
                         if (listaCodigos.size()==0) {
                             listaCodigos.add(codigoGenerado);
                         }else {
@@ -158,10 +169,53 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
                             listaCodigos.add(codigoGenerado);
                         }
+                        if (!(editText.getText().toString()).equals("")) {
+                            Log.d("-------------------", editText.getText().toString());
+                            mDatabase.getReference("users").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        for (DataSnapshot deese : ds.getChildren()) {
+                                            if ((editText.getText().toString()).equals(deese.getKey())) {
+                                                Log.d("--------", String.valueOf(deese.getKey())+deese.getRef());
+                                                mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoGenerado).setValue(deese.getValue(), new DatabaseReference.CompletionListener()
+                                                {
+                                                    @Override
+                                                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                                        if (databaseError != null)
+                                                        {
+                                                            System.out.println("Copy failed");
+                                                        }
+                                                        else
+                                                        {
+                                                            HashMap<String, Object> ultimo = new HashMap<>();
 
-                        startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", "seleccionPersonaje"));
-                        MenuPersonajesActivity.this.finish();
+                                                            ultimo.put("Ultimo personaje", codigoGenerado);
+                                                            mDatabase.getReference("users/" +  mAuth.getCurrentUser().getUid()).updateChildren(ultimo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", ""));
+                                                                    MenuPersonajesActivity.this.finish();
+                                                                }
+                                                            });
+                                                        }
 
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }else {
+                            startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", "seleccionPersonaje"));
+                            MenuPersonajesActivity.this.finish();
+                        }
                     }
                 });
 
@@ -253,7 +307,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
 
     private void cogerPersonaje(DatabaseReference mDatabase, final ArrayList<String> ALS, final MyCallback callback) {
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String[] result = new String[0];
