@@ -481,11 +481,11 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                         try{velocidad = ((Long) ds.child("Velocidad").getValue()).toString();}catch (Exception e){
                             velocidad = ((Double) ds.child("Velocidad").getValue()).toString();
                         }
-//                        try {
-//                            url = (String) ds.child("URL").getValue();
-//                        }catch (Exception e){
-//                            url ="..";
-//                        }
+                        try {
+                            url = (String) ds.child("URL").getValue();
+                        }catch (Exception e){
+                            url ="..";
+                        }
                         result = new String[]{coste, velocidad, capacidad, url};
                         myCallback.onCallback(result);
                     }
