@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,9 +16,10 @@ import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo>{
+public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo> {
 
     //Declaración de variables
     private ArrayList<Object> listaDatos;
@@ -91,25 +93,27 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
         @SuppressLint("StringFormatInvalid")
         public void asignarDatos(Object o) {
-            //TODO: Alex haz lo del string bien pq la voy a liar (Float.toString(velocidad))
+
             try {
-                ItemEquipo s = (ItemEquipo)o;
+                ItemEquipo s = (ItemEquipo) o;
                 //Seteo de datos de cada objeto
                 mNombreEquipo.setText(s.getNombre());
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
-            }catch (Exception e){
-                ItemMontura s = (ItemMontura)o;
+            } catch (Exception e) {
+                ItemMontura s = (ItemMontura) o;
                 mNombreEquipo.setText(s.getNombre());
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
-                mPesoEquipo.setText("Velocidad:"+ s.getVelocidad());
+                mPesoEquipo.setText(context.getResources().getString(R.string.velocidadDosPuntos, Float.toString(s.getVelocidad())));
+
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
             }
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+        }
 
     }
 

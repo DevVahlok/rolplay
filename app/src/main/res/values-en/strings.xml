@@ -125,6 +125,7 @@
     <string name="claseArmadura">Armor class</string>
     <string name="iniciativa">Initiative</string>
     <string name="velocidad">Speed</string>
+    <string name="velocidadDosPuntos">Speed: %1$s</string>
     <string name="puntosGolpeActuales">Health:</string>
     <string name="puntosGolpeTemporales">Temporary health:</string>
     <string name="total">Total:</string>
@@ -173,6 +174,7 @@
     <string name="unodundefined" translatable="false">1d?</string>
     <string name="lanzar">Throw!</string>
     <string name="uno" translatable="false">1</string>
+    <string name="cuantosDadosQuieresLanzar">How many dice do you want to throw?</string>
 
     <!-- Valores -->
     <string name="menoscinco" translatable="false">-5</string>

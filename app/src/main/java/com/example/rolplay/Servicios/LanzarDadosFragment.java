@@ -77,7 +77,6 @@ public class LanzarDadosFragment extends Fragment {
         return v;
     }
 
-    //TODO: Arreglar la vista de los dados
     private void DialogDados(Button button, final String s, final int x, final ArrayList imagenes) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +96,7 @@ public class LanzarDadosFragment extends Fragment {
                 LinearLayout linearLayout = new LinearLayout(getActivity());
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 final TextView subtitle = new TextView(getActivity());
-                subtitle.setText("Cuantos dados quieres lanzar?");
+                subtitle.setText(R.string.cuantosDadosQuieresLanzar);
                 subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 subtitle.setTextSize(16);
                 subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -119,6 +118,7 @@ public class LanzarDadosFragment extends Fragment {
                         AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
                         LinearLayout linearLayout = new LinearLayout(getActivity());
                         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        linearLayout.setGravity(Gravity.CENTER);
                         constructrorDialog.setView(linearLayout);
 
                         Random r = new Random();

@@ -125,6 +125,7 @@
     <string name="claseArmadura">Clase \n de armadura</string>
     <string name="iniciativa">Iniciativa</string>
     <string name="velocidad">Velocidad</string>
+    <string name="velocidadDosPuntos">Velocidad: %1$s</string>
     <string name="puntosGolpeActuales">Puntos de golpe actuales:</string>
     <string name="puntosGolpeTemporales">Puntos de golpe temporales:</string>
     <string name="total">Total:</string>
@@ -173,6 +174,7 @@
     <string name="unodundefined" translatable="false">1d?</string>
     <string name="lanzar">¡Lanzar!</string>
     <string name="uno" translatable="false">1</string>
+    <string name="cuantosDadosQuieresLanzar">¿Cuántos dados quieres lanzar?</string>
 
     <!-- Valores -->
     <string name="menoscinco" translatable="false">-5</string>
