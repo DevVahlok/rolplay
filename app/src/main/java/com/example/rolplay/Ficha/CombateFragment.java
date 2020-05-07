@@ -108,7 +108,7 @@ public class CombateFragment extends Fragment {
         });
 
         //Velocidad depende del peso de todos los objetos
-        if (mPeso<=40 && mPeso>=0) {
+        if (mPeso<=40) {
             mVelocidad.setText("40");
         }else if (mPeso<=80 && mPeso>=40.1) {
             mVelocidad.setText("30");
