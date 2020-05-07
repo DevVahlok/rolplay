@@ -62,6 +62,9 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     public class ViewHolderEquipo extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //TODO: Raúl: Modificar Monturas/Vehículos. Usar checkbox para marcar si está equipado o no. Si no es montura o vehículo, deshabilitar checkbox.
+        //TODO: Raúl: Modificar valor e img de moneda
+
         //Declaración de variables
         private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
         private ImageView mFotoEquipo;

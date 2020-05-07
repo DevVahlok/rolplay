@@ -73,6 +73,15 @@
         android:text="@string/pesoEquipo"
         android:textSize="18sp" />
 
+    <CheckBox
+        android:id="@+id/listaEquipo_equipado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listaEquipo_coste"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/listaEquipo_peso"
+        android:buttonTint="@color/colorPrimaryDark"/>
+
     <ImageView
         android:id="@+id/ListaEquipo_borrar"
         android:layout_width="30dp"
