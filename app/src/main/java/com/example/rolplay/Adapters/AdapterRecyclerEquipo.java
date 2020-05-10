@@ -2,6 +2,7 @@ package com.example.rolplay.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.audiofx.DynamicsProcessing;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rolplay.Ficha.EquipoFragment;
 import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
@@ -82,9 +84,12 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
         //Declaración de variables
         private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
+        private CheckBox mCheckbox;
         private ImageView mFotoEquipo;
         private OnItemListener onItemListener;
         private CheckBox radio;
+
+        private EquipoFragment equipoFragment;
 
         public ViewHolderEquipo(@NonNull View itemView, final OnItemListener onItemListener) {
 
@@ -95,6 +100,8 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             mCosteEquipo = itemView.findViewById(R.id.listaEquipo_coste);
             mPesoEquipo = itemView.findViewById(R.id.listaEquipo_peso);
             mFotoEquipo = itemView.findViewById(R.id.ListaEquipo_foto);
+            mCheckbox = itemView.findViewById(R.id.listaEquipo_equipado);
+
             itemView.setOnClickListener(this);
             imgViewRemoveIcon = itemView.findViewById(R.id.ListaEquipo_borrar);
             radio = itemView.findViewById(R.id.listaEquipo_equipado);
@@ -131,13 +138,26 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
+                if (s.getCheckbox().equals("true")){
+                    mCheckbox.setChecked(true);
+                } else if (s.getCheckbox().equals("false")){
+                    mCheckbox.setChecked(false);
+                } else{
+                    mCheckbox.setEnabled(false);
+                }
             } catch (Exception e) {
                 ItemMontura s = (ItemMontura) o;
                 mNombreEquipo.setText(s.getNombre());
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
                 mPesoEquipo.setText(context.getResources().getString(R.string.velocidadDosPuntos, Float.toString(s.getVelocidad())));
-
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
+                if (s.getCheckbox().equals("true")){
+                    mCheckbox.setChecked(true);
+                } else if (s.getCheckbox().equals("false")){
+                    mCheckbox.setChecked(false);
+                } else{
+                    mCheckbox.setEnabled(false);
+                }
             }
         }
 
@@ -145,6 +165,9 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         public void onClick(View v) {
         }
 
+        public CheckBox getmCheckbox() {
+            return mCheckbox;
+        }
     }
 
     //Interfaz para crear un OnClickListener en la foto de la X

@@ -55,8 +55,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private DialogCarga mDialogCarga;
     private View v;
     private String codigoPJ;
-    private boolean montura;
-
+    private boolean montura, EquipoEnabled=true;
     private int auxiliar = 0, pesoTotal=0;;
 
     //Constructor
@@ -202,7 +201,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
         mBotonAnadirObjeto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                EquipoEnabled=true;
                 montura = false;
 
                 //Muestra un dialog para que el usuario selecciona cuál quiere añadir
@@ -307,6 +306,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Herramientas");
                                     subtitle.setText(R.string.herramientas);
+                                    EquipoEnabled=false;
                                     break;
                                 case "Mercancías":
                                     ArrayAdapter<String> adapter3 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De Merc")));
@@ -314,6 +314,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Mercancías");
                                     subtitle.setText(R.string.mercancias);
+                                    EquipoEnabled=false;
                                     break;
                                 case "Misceláneo":
                                     ArrayAdapter<String> adapter4 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De Misc")));
@@ -321,6 +322,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Misceláneo");
                                     subtitle.setText(R.string.miscelaneo);
+                                    EquipoEnabled=false;
                                     break;
                                 case "Monturas y Vehículos":
                                     ArrayAdapter<String> adapter5 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De Mont")));
@@ -381,9 +383,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     @Override
                                     public void onCallback(String[] value) {
                                         //Añade objeto al Recycle
-                                        listaDatos.add(new ItemMontura(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Float.parseFloat(value[1]), Integer.parseInt(value[2]), value[3]));
-                                        for (int i=0; i<4; i++){
-                                            Log.d("--------------", value[i]);}
+                                        listaDatos.add(new ItemMontura(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Float.parseFloat(value[1]), Integer.parseInt(value[2]), value[3], "false"));
                                         pesoTotal -= Integer.parseInt(value[2]);
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
@@ -394,7 +394,11 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     @Override
                                     public void onCallback(String[] value) {
                                         //Añade objeto al Recycle
-                                        listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2]));
+                                        if (EquipoEnabled) {
+                                            listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "false"));
+                                        }else{
+                                            listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "disable"));
+                                        }
                                         pesoTotal += Integer.parseInt(value[1]);
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
@@ -437,11 +441,11 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             if(aux!=null){
                 for(int i=0; i<aux.size();i++){
                     String[] split = aux.get(i).split(";;;");
-                    if (split.length==4) {
-                        listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3]));
+                    if (split.length==5) {
+                        listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3], split[4]));
                         pesoTotal += Integer.parseInt(split[2]);
                     }else {
-                        listaDatos.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4]));
+                        listaDatos.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4], split[5]));
                         pesoTotal -= Integer.parseInt(split[3]);
                     }
 
@@ -450,8 +454,39 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         }
 
+        boolean equipo=false, montura=false;
+        for (Object item : listaDatos){
+            if (item instanceof ItemEquipo){
+                if (((ItemEquipo) item).getCheckbox().equals("true")) {
+                    equipo = true;
+                }
+            }else {
+                if (((ItemMontura) item).getCheckbox().equals("true")) {
+                    montura = true;
+                }
+            }
+        }
+
+        for (Object item : listaDatos){
+            if (item instanceof ItemEquipo){
+                if (equipo) {
+                    if (!((ItemEquipo) item).getCheckbox().equals("true")) {
+                        ((ItemEquipo) item).setCheckbox("disabled");
+                    }
+                }
+            }else {
+                if (montura) {
+                    if (!((ItemMontura) item).getCheckbox().equals("true")) {
+                        ((ItemMontura) item).setCheckbox("disabled");
+                    }
+                }
+            }
+        }
+
         //Añade los objetos equipados al Recycler
         adapter = new AdapterRecyclerEquipo(listaDatos, this, getContext());
+        //TODO: No se llegar al checkbox para añadir un onClickListener()
+
         recycler.setAdapter(adapter);
 
         return v;
