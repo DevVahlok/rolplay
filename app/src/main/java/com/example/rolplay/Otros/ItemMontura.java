@@ -8,13 +8,15 @@ public class ItemMontura {
     private float velocidad;
     private int capacidadCarga;
     private String url;
+    private String Checkbox;
 
-    public ItemMontura(String nombre, int coste, float velocidad, int capacidadCarga, String url) {
+    public ItemMontura(String nombre, int coste, float velocidad, int capacidadCarga, String url,String Checkbox) {
         this.nombre = nombre;
         this.coste = coste;
         this.velocidad = velocidad;
         this.capacidadCarga = capacidadCarga;
         this.url = url;
+        this.Checkbox = Checkbox;
     }
 
     public String getNombre() {
@@ -55,5 +57,13 @@ public class ItemMontura {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getCheckbox() {
+        return Checkbox;
+    }
+
+    public void setCheckbox(String checkbox) {
+        Checkbox = checkbox;
     }
 }
