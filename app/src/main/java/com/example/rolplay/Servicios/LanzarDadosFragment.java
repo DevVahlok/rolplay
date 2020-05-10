@@ -46,6 +46,8 @@ public class LanzarDadosFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_lanzar_dados, container, false);
 
+        //TODO: Falta dado 1d100 y 1d?
+
         md4 = v.findViewById(R.id.LanzarDados_lanzar_1d4_btn);
         md6 = v.findViewById(R.id.LanzarDados_lanzar_1d6_btn);
         md8 = v.findViewById(R.id.LanzarDados_lanzar_1d8_btn);

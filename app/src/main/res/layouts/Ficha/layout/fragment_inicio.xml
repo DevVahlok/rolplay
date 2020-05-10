@@ -173,7 +173,6 @@
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
         android:layout_marginStart="325dp"
         android:layout_marginTop="114dp"
-        android:text="@string/correoElectronico"
         android:textColor="@color/colorBlanco"
         android:textSize="7sp" />
 
@@ -184,7 +183,6 @@
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
         android:layout_marginStart="260dp"
         android:layout_marginTop="114dp"
-        android:text="@string/trasfondo"
         android:textColor="@color/colorBlanco"
         android:textSize="7sp" />
 
@@ -195,7 +193,6 @@
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
         android:layout_marginStart="180dp"
         android:layout_marginTop="114dp"
-        android:text="@string/clase"
         android:textColor="@color/colorBlanco"
         android:textSize="7sp" />
 
@@ -206,7 +203,6 @@
         android:layout_below="@id/ActivityInicio_claseNivelPersonaje_TV"
         android:layout_marginStart="190dp"
         android:layout_marginTop="10dp"
-        android:text="@string/raza"
         android:textColor="@color/colorBlanco"
         android:textSize="7sp" />
 
@@ -217,7 +213,6 @@
         android:layout_below="@id/ActivityInicio_trasfondoPersonaje_TV"
         android:layout_marginStart="270dp"
         android:layout_marginTop="10dp"
-        android:text="@string/alineamiento"
         android:textColor="@color/colorBlanco"
         android:textSize="7sp" />
 
@@ -239,7 +234,6 @@
         android:layout_alignStart="@id/ActivityInicio_cabecera_btn"
         android:layout_marginStart="40dp"
         android:layout_marginTop="124dp"
-        android:text="@string/nombre"
         android:textColor="@color/colorBlanco"
         android:textSize="10sp" />
 
