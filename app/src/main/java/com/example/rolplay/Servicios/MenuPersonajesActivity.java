@@ -59,6 +59,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
     private String codigoGenerado;
     private boolean recordarMenu = true;
     static final HashMap<String, Object> recordar = new HashMap<>();
+    private boolean crearpj = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         mBotonCrearPersonaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                crearpj=false;
                 //Muestra un dialog para que el usuario selecciona cuál quiere añadir
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(v.getContext()));
 
@@ -194,8 +195,11 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                                                             mDatabase.getReference("users/" +  mAuth.getCurrentUser().getUid()).updateChildren(ultimo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                                    startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", ""));
-                                                                    MenuPersonajesActivity.this.finish();
+                                                                    if (!crearpj) {
+                                                                        crearpj=true;
+                                                                        startActivity(new Intent(MenuPersonajesActivity.this, ContenedorInicioActivity.class).putExtra("codigo", codigoGenerado).putExtra("origen", ""));
+                                                                        MenuPersonajesActivity.this.finish();
+                                                                    }
                                                                 }
                                                             });
                                                         }
