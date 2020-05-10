@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
     private ImageView imgViewRemoveIcon;
     private OnItemListener mOnItemListener;
     private Context context;
+    private int lastSelectedPosition = -1;
 
     //Constructor
     public AdapterRecyclerEquipo(ArrayList<Object> listaDatos, OnItemListener mOnItemListener, Context context) {
@@ -50,6 +53,18 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
         holder.asignarDatos(listaDatos.get(position));
 
+        //listaItemsArmadura [1,3,5]
+
+        //for
+
+        //TODO: Raúl: Control de checkboxes
+
+        if(position==1){
+            holder.radio.setChecked(true);
+        }else if(position==2){
+            holder.radio.setChecked(true);
+        }
+
     }
 
     @Override
@@ -69,6 +84,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
         private ImageView mFotoEquipo;
         private OnItemListener onItemListener;
+        private CheckBox radio;
 
         public ViewHolderEquipo(@NonNull View itemView, final OnItemListener onItemListener) {
 
@@ -81,6 +97,8 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             mFotoEquipo = itemView.findViewById(R.id.ListaEquipo_foto);
             itemView.setOnClickListener(this);
             imgViewRemoveIcon = itemView.findViewById(R.id.ListaEquipo_borrar);
+            radio = itemView.findViewById(R.id.listaEquipo_equipado);
+
 
             //Al hacer click en la imagen de la X
             imgViewRemoveIcon.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +110,15 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
                 }
             });
+
+            radio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    lastSelectedPosition = getAdapterPosition();
+                    notifyDataSetChanged();
+                }
+            });
+
         }
 
         @SuppressLint("StringFormatInvalid")
