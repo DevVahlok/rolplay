@@ -56,8 +56,6 @@ public class CombateFragment extends Fragment {
     private String codigoPJ;
     private ArrayList<Object> listaDatos = new ArrayList<>();
 
-    private DialogCarga mDialogCarga;
-
     //Constructor
     public CombateFragment() {
 
@@ -80,7 +78,6 @@ public class CombateFragment extends Fragment {
         mGolpesTotales = v.findViewById(R.id.Combate_golpeMaximo_valor);
         mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
         mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
-        mDialogCarga = new DialogCarga();
 
         mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
         mIniciativa.setText(recuperados.getString("Iniciativa"));
@@ -110,17 +107,14 @@ public class CombateFragment extends Fragment {
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
         for (final Object ie: listaDatos){
             if (((ItemEquipo)ie).getCheckbox().equals("true") ){
-                mDialogCarga.show(getFragmentManager(), null);
                 mDatabase.getReference("DungeonAndDragons/Objeto/Armaduras").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds: dataSnapshot.getChildren()){
                             if (ds.child(((ItemEquipo) ie).getNombre()).getValue()!=null) {
-                                //TODO: Alex este puto split está sudando de mi cara
-                                String[] claseArmadura = ds.child(((ItemEquipo) ie).getNombre()).child("Clase").getValue().toString().split(" + ");
-                                Log.d("---------", String.valueOf(claseArmadura));
+                                String[] claseArmadura = ds.child(((ItemEquipo) ie).getNombre()).child("Clase").getValue().toString().split(" \\+ ");
+                                Log.d("---------", String.valueOf(claseArmadura[0]));
                                 mClaseArmadura.setText(claseArmadura[0]);
-                                mDialogCarga.dismiss();
                             }
                         }
                     }

@@ -31,7 +31,8 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
     private ImageView imgViewRemoveIcon;
     private OnItemListener mOnItemListener;
     private Context context;
-    private int lastSelectedPosition = -1;
+    private int lastSelectedPositionE = -1;
+    private int lastSelectedPositionM = -1;
 
     //Constructor
     public AdapterRecyclerEquipo(ArrayList<Object> listaDatos, OnItemListener mOnItemListener, Context context) {
@@ -58,13 +59,13 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
         if (listaItemsArmadura.contains(position)){
             for(int i: listaItemsArmadura){
-                holder.radio.setChecked(lastSelectedPosition==position);
+                holder.radio.setChecked(lastSelectedPositionE==position);
             }
         }
 
         if (listaItemsMontura.contains(position)){
             for(int i: listaItemsMontura){
-                holder.radio.setChecked(lastSelectedPosition==position);
+                holder.radio.setChecked(lastSelectedPositionM==position);
             }
         }
 
@@ -125,10 +126,11 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             radio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    lastSelectedPosition = getAdapterPosition();
                     if (listaDatos.get(getAdapterPosition()) instanceof ItemEquipo) {
+                        lastSelectedPositionE = getAdapterPosition();
                         ((ItemEquipo) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
                     }else if (listaDatos.get(getAdapterPosition()) instanceof ItemMontura) {
+                        lastSelectedPositionM = getAdapterPosition();
                         ((ItemMontura) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
                     }
                     notifyDataSetChanged();
@@ -148,6 +150,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
                 if (s.getCheckbox().equals("true")){
+                    lastSelectedPositionE = getAdapterPosition();
                     mCheckbox.setChecked(true);
                 } else if (s.getCheckbox().equals("false")){
                     mCheckbox.setChecked(false);
@@ -161,6 +164,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mPesoEquipo.setText(context.getResources().getString(R.string.velocidadDosPuntos, Float.toString(s.getVelocidad())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
                 if (s.getCheckbox().equals("true")){
+                    lastSelectedPositionM = getAdapterPosition();
                     mCheckbox.setChecked(true);
                 } else if (s.getCheckbox().equals("false")){
                     mCheckbox.setChecked(false);

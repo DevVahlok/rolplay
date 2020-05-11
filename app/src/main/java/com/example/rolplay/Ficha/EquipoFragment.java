@@ -1,6 +1,7 @@
 package com.example.rolplay.Ficha;
 
 
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
