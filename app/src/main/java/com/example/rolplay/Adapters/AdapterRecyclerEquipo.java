@@ -2,14 +2,13 @@ package com.example.rolplay.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.audiofx.DynamicsProcessing;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +21,8 @@ import com.example.rolplay.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import static com.example.rolplay.Ficha.EquipoFragment.listaItemsArmadura;
+import static com.example.rolplay.Ficha.EquipoFragment.listaItemsMontura;
 
 public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo> {
 
@@ -55,17 +56,21 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
         holder.asignarDatos(listaDatos.get(position));
 
-        //listaItemsArmadura [1,3,5]
-
-        //for
-
-        //TODO: Raúl: Control de checkboxes
-
-        if(position==1){
-            holder.radio.setChecked(true);
-        }else if(position==2){
-            holder.radio.setChecked(true);
+        if (listaItemsArmadura.contains(position)){
+            for(int i: listaItemsArmadura){
+                holder.radio.setChecked(i==position);
+            }
         }
+
+        if (listaItemsMontura.contains(position)){
+            for(int i: listaItemsMontura){
+                holder.radio.setChecked(i==position);
+            }
+        }
+
+        Log.d("-----------", String.valueOf(listaItemsArmadura));
+        Log.d("-----------", String.valueOf(listaItemsMontura));
+        //TODO: Raúl: Control de checkboxes
 
     }
 

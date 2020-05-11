@@ -650,9 +650,9 @@ public class InicioFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     try {
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue());
+                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
                     }catch (Exception e){
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("velocidad").getValue()).toString()+";;;"+((Long) ds.child("capacidadCarga").getValue()).toString()+";;;"+(String) ds.child("url").getValue());
+                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("velocidad").getValue()).toString()+";;;"+((Long) ds.child("capacidadCarga").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
                     }
                 }
             }
