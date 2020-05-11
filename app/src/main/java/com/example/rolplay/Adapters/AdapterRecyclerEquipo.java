@@ -57,20 +57,15 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
         holder.asignarDatos(listaDatos.get(position));
 
+        //TODO: esta puta mierda no va
         if (listaItemsArmadura.contains(position)){
-            for(int i: listaItemsArmadura){
-                holder.radio.setChecked(lastSelectedPositionE==position);
-            }
+                holder.radio.setChecked(lastSelectedPositionE == position);
         }
 
         if (listaItemsMontura.contains(position)){
-            for(int i: listaItemsMontura){
-                holder.radio.setChecked(lastSelectedPositionM==position);
-            }
+                holder.radio.setChecked(position == lastSelectedPositionM);
         }
 
-        Log.d("-----------", String.valueOf(listaItemsArmadura));
-        Log.d("-----------", String.valueOf(listaItemsMontura));
 
     }
 
@@ -84,7 +79,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     public class ViewHolderEquipo extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //TODO: Raúl: Modificar Monturas/Vehículos. Usar checkbox para marcar si está equipado o no. Si no es montura o vehículo, deshabilitar checkbox.
         //TODO: Raúl: Modificar valor e img de moneda
 
         //Declaración de variables
@@ -93,10 +87,9 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         private ImageView mFotoEquipo;
         private OnItemListener onItemListener;
         private CheckBox radio;
+        private boolean desmarcar = false;
 
-        private EquipoFragment equipoFragment;
-
-        public ViewHolderEquipo(@NonNull View itemView, final OnItemListener onItemListener) {
+        public ViewHolderEquipo(@NonNull final View itemView, final OnItemListener onItemListener) {
 
             //Inicialización de variables
             super(itemView);
@@ -127,10 +120,14 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 @Override
                 public void onClick(View v) {
                     if (listaDatos.get(getAdapterPosition()) instanceof ItemEquipo) {
-                        lastSelectedPositionE = getAdapterPosition();
+                        if(mCheckbox.isChecked()) {
+                            lastSelectedPositionE = getAdapterPosition();
+                        }
                         ((ItemEquipo) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
                     }else if (listaDatos.get(getAdapterPosition()) instanceof ItemMontura) {
-                        lastSelectedPositionM = getAdapterPosition();
+                        if(mCheckbox.isChecked()) {
+                            lastSelectedPositionM = getAdapterPosition();
+                        }
                         ((ItemMontura) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
                     }
                     notifyDataSetChanged();

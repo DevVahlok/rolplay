@@ -341,6 +341,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     spinnerObjeto.setAdapter(adapter51);
                                     auxiliar=0;
                                     mObjetos[0] = mObjetos[0].child("Arreos, Guarniciones y Vehículos de Tiro");
+                                    EquipoEnabled=false;
                                     subtitle.setText(R.string.monturasVehiculos);
                                     break;
                                 case "Monturas y Otros Animales":
