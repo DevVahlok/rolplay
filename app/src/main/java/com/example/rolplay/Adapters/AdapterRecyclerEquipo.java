@@ -126,6 +126,11 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 @Override
                 public void onClick(View v) {
                     lastSelectedPosition = getAdapterPosition();
+                    if (listaDatos.get(getAdapterPosition()) instanceof ItemEquipo) {
+                        ((ItemEquipo) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
+                    }else if (listaDatos.get(getAdapterPosition()) instanceof ItemMontura) {
+                        ((ItemMontura) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
+                    }
                     notifyDataSetChanged();
                 }
             });

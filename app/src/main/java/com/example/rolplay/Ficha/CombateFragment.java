@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +20,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.rolplay.Otros.DialogCarga;
+import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,10 +50,13 @@ public class CombateFragment extends Fragment {
             mDadoTotal;
     private int mSalvaciones, mPeso, mDestreza;
     private ImageButton mIniciativaButon;
-    private FirebaseDatabase mDatabase;
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
     private View v;
     private String codigoPJ;
+    private ArrayList<Object> listaDatos = new ArrayList<>();
+
+    private DialogCarga mDialogCarga;
 
     //Constructor
     public CombateFragment() {
@@ -72,6 +80,7 @@ public class CombateFragment extends Fragment {
         mGolpesTotales = v.findViewById(R.id.Combate_golpeMaximo_valor);
         mDadoGolpe = v.findViewById(R.id.Combate_numDados_valor);
         mDadoTotal = v.findViewById(R.id.Combate_totalDados_valor);
+        mDialogCarga = new DialogCarga();
 
         mClaseArmadura.setText(recuperados.getString("Clase de Armadura"));
         mIniciativa.setText(recuperados.getString("Iniciativa"));
@@ -89,10 +98,40 @@ public class CombateFragment extends Fragment {
             
         }
 
-        //TODO: Raúl: Boolean para la armadura para que el apartado de Combate los coja (???)
+        ArrayList<String> auxi = recuperados.getStringArrayList("Equipo");
+
+        for(int i=0; i<auxi.size();i++){
+            String[] split = auxi.get(i).split(";;;");
+            if (split.length==5) {
+                listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3], split[4]));
+            }
+        }
 
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
+        for (final Object ie: listaDatos){
+            if (((ItemEquipo)ie).getCheckbox().equals("true") ){
+                mDialogCarga.show(getFragmentManager(), null);
+                mDatabase.getReference("DungeonAndDragons/Objeto/Armaduras").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds: dataSnapshot.getChildren()){
+                            if (ds.child(((ItemEquipo) ie).getNombre()).getValue()!=null) {
+                                //TODO: Alex este puto split está sudando de mi cara
+                                String[] claseArmadura = ds.child(((ItemEquipo) ie).getNombre()).child("Clase").getValue().toString().split(" + ");
+                                Log.d("---------", String.valueOf(claseArmadura));
+                                mClaseArmadura.setText(claseArmadura[0]);
+                                mDialogCarga.dismiss();
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
 
         //Iniciativa: random entre 1 y 20 + modificador [cuadrado] de Destreza
         mIniciativaButon.setOnClickListener(new View.OnClickListener() {

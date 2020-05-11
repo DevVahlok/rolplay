@@ -390,6 +390,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                         listaDatos.add(new ItemMontura(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Float.parseFloat(value[1]), Integer.parseInt(value[2]), value[3], "false"));
                                         pesoTotal -= Integer.parseInt(value[2]);
                                         listaItemsMontura.add(positionList);
+                                        positionList++;
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
                                     }
@@ -402,6 +403,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                         if (EquipoEnabled) {
                                             listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "false"));
                                             listaItemsArmadura.add(positionList);
+                                            positionList++;
                                         }else{
                                             listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "disable"));
                                         }
@@ -411,7 +413,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     }
                                 });
                             }
-                            positionList++;
                         }
                         mDialogCarga.dismiss();
                     }
@@ -451,47 +452,18 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     if (split.length==5) {
                         listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3], split[4]));
                         if (!split[4].equals("disable")) {
-                            listaItemsArmadura.add(positionList);
+                            listaItemsArmadura.add(i);
                         }
                         pesoTotal += Integer.parseInt(split[2]);
                     }else {
                         listaDatos.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4], split[5]));
-                        listaItemsMontura.add(positionList);
+                        listaItemsMontura.add(i);
                         pesoTotal -= Integer.parseInt(split[3]);
                     }
-                    positionList++;
                 }
+                positionList=aux.size();
             }
 
-        }
-
-        boolean equipo=false, montura=false;
-        for (Object item : listaDatos){
-            if (item instanceof ItemEquipo){
-                if (((ItemEquipo) item).getCheckbox().equals("true")) {
-                    equipo = true;
-                }
-            }else {
-                if (((ItemMontura) item).getCheckbox().equals("true")) {
-                    montura = true;
-                }
-            }
-        }
-
-        for (Object item : listaDatos){
-            if (item instanceof ItemEquipo){
-                if (equipo) {
-                    if (!((ItemEquipo) item).getCheckbox().equals("true")) {
-                        ((ItemEquipo) item).setCheckbox("disabled");
-                    }
-                }
-            }else {
-                if (montura) {
-                    if (!((ItemMontura) item).getCheckbox().equals("true")) {
-                        ((ItemMontura) item).setCheckbox("disabled");
-                    }
-                }
-            }
         }
 
         //Añade los objetos equipados al Recycler

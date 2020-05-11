@@ -909,6 +909,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             case R.id.nav_combate:
                 //Pasa los datos al fragment de destino
                 bundle = new Bundle();
+                bundle.putStringArrayList("Equipo", Equipo);
                 bundle.putStringArrayList("Ataque", Ataque);
                 bundle.putString("Clase de Armadura", ClaseDeArmadura);
                 bundle.putString("Iniciativa", Iniciativa);
