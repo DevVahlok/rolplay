@@ -485,7 +485,6 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         //Añade los objetos equipados al Recycler
         adapter = new AdapterRecyclerEquipo(listaDatos, this, getContext());
-        //TODO: No se llegar al checkbox para añadir un onClickListener()
 
         recycler.setAdapter(adapter);
 

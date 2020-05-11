@@ -78,8 +78,6 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mDatabase = FirebaseDatabase.getInstance();
 
-        //TODO: Alex y Raul Sistema de referidos está hecho pero genera varios activities
-
         try {
             mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

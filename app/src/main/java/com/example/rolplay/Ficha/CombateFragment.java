@@ -89,8 +89,6 @@ public class CombateFragment extends Fragment {
             
         }
 
-        //TODO: Raúl: Boolean para la armadura para que el apartado de Combate los coja (???)
-
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
 
 

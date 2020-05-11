@@ -59,8 +59,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
         //for
 
-        //TODO: Raúl: Control de checkboxes
-
         if(position==1){
             holder.radio.setChecked(true);
         }else if(position==2){
