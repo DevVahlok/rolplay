@@ -58,19 +58,18 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
         if (listaItemsArmadura.contains(position)){
             for(int i: listaItemsArmadura){
-                holder.radio.setChecked(i==position);
+                holder.radio.setChecked(lastSelectedPosition==position);
             }
         }
 
         if (listaItemsMontura.contains(position)){
             for(int i: listaItemsMontura){
-                holder.radio.setChecked(i==position);
+                holder.radio.setChecked(lastSelectedPosition==position);
             }
         }
 
         Log.d("-----------", String.valueOf(listaItemsArmadura));
         Log.d("-----------", String.valueOf(listaItemsMontura));
-        //TODO: Raúl: Control de checkboxes
 
     }
 
