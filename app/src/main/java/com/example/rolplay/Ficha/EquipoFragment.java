@@ -39,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.OnItemListener {
@@ -56,7 +57,9 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
     private View v;
     private String codigoPJ;
     private boolean montura, EquipoEnabled=true;
-    private int auxiliar = 0, pesoTotal=0;;
+    private int auxiliar = 0, pesoTotal=0, positionList=0;
+    public static HashSet<Integer> listaItemsArmadura = new HashSet<>();
+    public static HashSet<Integer>  listaItemsMontura = new HashSet<>();
 
     //Constructor
     public EquipoFragment() {
@@ -250,6 +253,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     spinnerObjeto.setAdapter(adapter1);
                                     auxiliar=0;
                                     subtitle.setText(R.string.armas);
+                                    EquipoEnabled=false;
                                     break;
                                 case "Armaduras Ligeras":
                                     ArrayAdapter<String> adapter11 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De ArmLig")));
@@ -385,6 +389,8 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                         //Añade objeto al Recycle
                                         listaDatos.add(new ItemMontura(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Float.parseFloat(value[1]), Integer.parseInt(value[2]), value[3], "false"));
                                         pesoTotal -= Integer.parseInt(value[2]);
+                                        listaItemsMontura.add(positionList);
+                                        positionList++;
                                         adapter.notifyItemInserted(listaDatos.size() - 1);
                                         mDialogCarga.dismiss();
                                     }
@@ -396,6 +402,8 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                         //Añade objeto al Recycle
                                         if (EquipoEnabled) {
                                             listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "false"));
+                                            listaItemsArmadura.add(positionList);
+                                            positionList++;
                                         }else{
                                             listaDatos.add(new ItemEquipo(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], "disable"));
                                         }
@@ -443,49 +451,23 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                     String[] split = aux.get(i).split(";;;");
                     if (split.length==5) {
                         listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3], split[4]));
+                        if (!split[4].equals("disable")) {
+                            listaItemsArmadura.add(i);
+                        }
                         pesoTotal += Integer.parseInt(split[2]);
                     }else {
                         listaDatos.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4], split[5]));
+                        listaItemsMontura.add(i);
                         pesoTotal -= Integer.parseInt(split[3]);
                     }
-
                 }
+                positionList=aux.size();
             }
 
-        }
-
-        boolean equipo=false, montura=false;
-        for (Object item : listaDatos){
-            if (item instanceof ItemEquipo){
-                if (((ItemEquipo) item).getCheckbox().equals("true")) {
-                    equipo = true;
-                }
-            }else {
-                if (((ItemMontura) item).getCheckbox().equals("true")) {
-                    montura = true;
-                }
-            }
-        }
-
-        for (Object item : listaDatos){
-            if (item instanceof ItemEquipo){
-                if (equipo) {
-                    if (!((ItemEquipo) item).getCheckbox().equals("true")) {
-                        ((ItemEquipo) item).setCheckbox("disabled");
-                    }
-                }
-            }else {
-                if (montura) {
-                    if (!((ItemMontura) item).getCheckbox().equals("true")) {
-                        ((ItemMontura) item).setCheckbox("disabled");
-                    }
-                }
-            }
         }
 
         //Añade los objetos equipados al Recycler
         adapter = new AdapterRecyclerEquipo(listaDatos, this, getContext());
-
         recycler.setAdapter(adapter);
 
         return v;
@@ -542,11 +524,31 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
             //Elimina el objeto del recycler
             pesoTotal-=((ItemEquipo)listaDatos.get(position)).getPeso();
             listaDatos.remove(position);
+            listaItemsArmadura.remove(position);
+            HashSet<Integer> aux = new HashSet();
+            for (int j : listaItemsArmadura){
+                if (j > position) {
+                    aux.add(j-1);
+                }else{
+                    aux.add(j);
+                }
+            }
+            listaItemsArmadura=aux;
             adapter.notifyItemRemoved(position);
-        }catch (Exception e){
+        }catch (Exception e) {
             //Elimina el objeto del recycler
-            pesoTotal+=((ItemMontura)listaDatos.get(position)).getCapacidadCarga();
+            pesoTotal += ((ItemMontura) listaDatos.get(position)).getCapacidadCarga();
             listaDatos.remove(position);
+            listaItemsMontura.remove(position);
+            HashSet<Integer> aux = new HashSet();
+            for (int j : listaItemsMontura){
+                if (j > position) {
+                    aux.add(j-1);
+                }else{
+                    aux.add(j);
+                }
+            }
+            listaItemsMontura=aux;
             adapter.notifyItemRemoved(position);
         }
     }
