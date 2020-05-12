@@ -185,10 +185,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
         //Posicionar en el JSON de Firebase
         mDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
-        final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-        final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
-        //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
         //Activa la barra superior
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -337,7 +333,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 navigationView.setCheckedItem(R.id.nav_cabecera);
             } else {
                 if (mAuth.getCurrentUser() != null) {
-                    mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+                    mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (codigoPersonaje == null) {
@@ -371,11 +367,15 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
 
         if (mAuth.getCurrentUser() != null) {
-            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+            mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
-                    cargarDatosFB();
+                    try {
+                        codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
+                        cargarDatosFB();
+                    }catch (Exception e){
+                        Log.e("------------", e.getMessage());
+                    }
 
                 }
 
@@ -421,13 +421,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         //Seteo datos en ficha
         mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
-        try {
-            Log.d("-------------", codigoPersonaje);
-        } catch (Exception e) {
 
-        }
-
-        //TODO: Raúl: Al borrar un personaje, peta lo siguiente:
         mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -512,7 +506,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
@@ -1019,8 +1013,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 break;
             case R.id.nav_salirPersonaje:
                 startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class));
-                final Activity activity = this;
-                activity.finish();
+                this.finish();
                 break;
             case R.id.nav_configuracion:
                 bundle = new Bundle();
