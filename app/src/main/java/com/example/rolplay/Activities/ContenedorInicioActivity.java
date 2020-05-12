@@ -665,6 +665,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Equipo.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
                         Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
@@ -684,6 +685,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         mAtaque.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Ataque.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Ataque.add((String) ds.child("nombre").getValue());
                     Ataque.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
