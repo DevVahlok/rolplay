@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.ItemEquipo;
+import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,6 +56,8 @@ public class CombateFragment extends Fragment {
     private View v;
     private String codigoPJ;
     private ArrayList<Object> listaDatos = new ArrayList<>();
+    private ArrayList<Object> listaDatosMontura = new ArrayList<>();
+    private boolean noEquipo = true;
 
     //Constructor
     public CombateFragment() {
@@ -104,16 +107,23 @@ public class CombateFragment extends Fragment {
             }
         }
 
+        for(int i=0; i<auxi.size();i++){
+            String[] split = auxi.get(i).split(";;;");
+            if (split.length==6) {
+                listaDatosMontura.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4], split[5]));
+            }
+        }
+
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
         for (final Object ie: listaDatos){
             if (((ItemEquipo)ie).getCheckbox().equals("true") ){
+                noEquipo=false;
                 mDatabase.getReference("DungeonAndDragons/Objeto/Armaduras").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds: dataSnapshot.getChildren()){
                             if (ds.child(((ItemEquipo) ie).getNombre()).getValue()!=null) {
                                 String[] claseArmadura = ds.child(((ItemEquipo) ie).getNombre()).child("Clase").getValue().toString().split(" \\+ ");
-                                Log.d("---------", String.valueOf(claseArmadura[0]));
                                 mClaseArmadura.setText(claseArmadura[0]);
                             }
                         }
@@ -124,6 +134,9 @@ public class CombateFragment extends Fragment {
 
                     }
                 });
+            }
+            if (noEquipo){
+                mClaseArmadura.setText("0");
             }
         }
 
@@ -153,6 +166,12 @@ public class CombateFragment extends Fragment {
             mVelocidad.setText("5");
         }else if (mPeso>=240.1) {
             mVelocidad.setText("0");
+        }
+
+        for (Object im: listaDatosMontura){
+            if (((ItemMontura)im).getCheckbox().equals("true") ){
+                mVelocidad.setText(String.valueOf((int)((ItemMontura) im).getVelocidad()));
+            }
         }
 
 

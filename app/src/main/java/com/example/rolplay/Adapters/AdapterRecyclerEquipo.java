@@ -57,15 +57,10 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
         holder.asignarDatos(listaDatos.get(position));
 
-        //TODO: esta puta mierda no va
-        if (listaItemsArmadura.contains(position)){
-                holder.radio.setChecked(lastSelectedPositionE == position);
+        holder.radio.setChecked(position == lastSelectedPositionM);
+        if(lastSelectedPositionE == position) {
+            holder.radio.setChecked(lastSelectedPositionE == position);
         }
-
-        if (listaItemsMontura.contains(position)){
-                holder.radio.setChecked(position == lastSelectedPositionM);
-        }
-
 
     }
 
