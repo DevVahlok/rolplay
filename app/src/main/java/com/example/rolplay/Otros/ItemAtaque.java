@@ -9,14 +9,16 @@ public class ItemAtaque {
     private String url;
     private String danyo;
     private String propiedades;
+    private String Checkbox;
 
-    public ItemAtaque(String nombre, int coste, int peso, String url, String danyo, String propiedades) {
+    public ItemAtaque(String nombre, int coste, int peso, String url, String danyo, String propiedades, String Checkbox) {
         this.nombre = nombre;
         this.coste = coste;
         this.peso = peso;
         this.url = url;
         this.danyo = danyo;
         this.propiedades = propiedades;
+        this.Checkbox = Checkbox;
     }
 
     public String getNombre() {
@@ -67,4 +69,11 @@ public class ItemAtaque {
         this.propiedades = propiedades;
     }
 
+    public String getCheckbox() {
+        return Checkbox;
+    }
+
+    public void setCheckbox(String checkbox) {
+        Checkbox = checkbox;
+    }
 }

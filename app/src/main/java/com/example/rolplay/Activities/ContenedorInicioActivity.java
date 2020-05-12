@@ -697,6 +697,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     Ataque.add((String) ds.child("url").getValue());
                     Ataque.add((String) ds.child("danyo").getValue());
                     Ataque.add((String) ds.child("propiedades").getValue());
+                    Ataque.add((String) ds.child("checkbox").getValue());
                 }
             }
 

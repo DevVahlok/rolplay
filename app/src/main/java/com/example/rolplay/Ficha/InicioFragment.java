@@ -2,8 +2,10 @@ package com.example.rolplay.Ficha;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,26 +50,26 @@ public class InicioFragment extends Fragment {
     private ArrayList<String> Ataque = new ArrayList<>();
     private ArrayList<String> Rasgos = new ArrayList<>();
     private ArrayList<String> Conjuro = new ArrayList<>();
-    private String[] listaRazas = new String[] {};
-    private String[] listaClases = new String[] {};
-    private String[] listaAlineamiento = new String[] {};
-    private String[] listaObjetos = new String[] {};
-    private String[] listaArmaduras = new String[] {};
-    private String[] listaArmas = new String[] {};
-    private String[] listaHerramientas = new String[] {};
-    private String[] listaMercancias = new String[] {};
-    private String[] listaMisceláneo = new String[] {};
-    private String[] listaMonturas = new String[] {};
+    private String[] listaRazas = new String[]{};
+    private String[] listaClases = new String[]{};
+    private String[] listaAlineamiento = new String[]{};
+    private String[] listaObjetos = new String[]{};
+    private String[] listaArmaduras = new String[]{};
+    private String[] listaArmas = new String[]{};
+    private String[] listaHerramientas = new String[]{};
+    private String[] listaMercancias = new String[]{};
+    private String[] listaMisceláneo = new String[]{};
+    private String[] listaMonturas = new String[]{};
     private String[] listaMonturasAGV = new String[]{};
     private String[] listaMonturasMOA = new String[]{};
     private String[] listaMonturasVA = new String[]{};
-    private String[] listaArmadurasLigeras = new String[] {};
-    private String[] listaArmadurasMedias = new String[] {};
-    private String[] listaArmadurasPesadas = new String[] {};
-    private String[] listaArmasDM = new String[] {};
-    private String[] listaArmasDS = new String[] {};
-    private String[] listaArmasCM = new String[] {};
-    private String[] listaArmasCS = new String[] {};
+    private String[] listaArmadurasLigeras = new String[]{};
+    private String[] listaArmadurasMedias = new String[]{};
+    private String[] listaArmadurasPesadas = new String[]{};
+    private String[] listaArmasDM = new String[]{};
+    private String[] listaArmasDS = new String[]{};
+    private String[] listaArmasCM = new String[]{};
+    private String[] listaArmasCS = new String[]{};
     private String ClaseDeArmadura, Iniciativa, Velocidad,
             PuntosGolpeActuales, PuntosGolpeMaximos, PuntosGolpeTemporales, DadoGolpe, TotalDadoGolpe,
             RasgosPersonalidad, Ideales, Defectos, Vinculos, mFuerzaPuntos, mDestrezaPuntos, mConstitucionPuntos,
@@ -226,7 +228,7 @@ public class InicioFragment extends Fragment {
                 bundle.putBoolean("CarismaCB", Boolean.parseBoolean(mCarismaCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
-                bundle.putString("Sabiduria Pasiva",mSabiduria);
+                bundle.putString("Sabiduria Pasiva", mSabiduria);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment Bonificador = new HabilidadesBonificadoresFragment();
                 Bonificador.setArguments(bundle);
@@ -272,7 +274,7 @@ public class InicioFragment extends Fragment {
                 bundle.putBoolean("CarismaCB", Boolean.parseBoolean(mCarismaCB));
                 bundle.putString("Inspiracion", mInspiracion);
                 bundle.putString("Bonificador Competencia", mBonificador);
-                bundle.putString("Sabiduria Pasiva",mSabiduria);
+                bundle.putString("Sabiduria Pasiva", mSabiduria);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment Bonificador = new HabilidadesBonificadoresFragment();
                 Bonificador.setArguments(bundle);
@@ -314,23 +316,23 @@ public class InicioFragment extends Fragment {
                 //Cambia de Fragment y lo marca en la navegación lateral
                 //Pasa los datos al fragment de destino
                 Bundle bundle = new Bundle();
-                bundle.putStringArray("Lista De Objetos",listaObjetos);
-                bundle.putStringArray("Lista De ArmLig",listaArmadurasLigeras);
-                bundle.putStringArray("Lista De ArmMed",listaArmadurasMedias);
-                bundle.putStringArray("Lista De ArmPes",listaArmadurasPesadas);
-                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
-                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
-                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
-                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
-                bundle.putStringArray("Lista De Herram",listaHerramientas);
-                bundle.putStringArray("Lista De Merc",listaMercancias);
-                bundle.putStringArray("Lista De Misc",listaMisceláneo);
-                bundle.putStringArray("Lista De Mont",listaMonturas);
+                bundle.putStringArray("Lista De Objetos", listaObjetos);
+                bundle.putStringArray("Lista De ArmLig", listaArmadurasLigeras);
+                bundle.putStringArray("Lista De ArmMed", listaArmadurasMedias);
+                bundle.putStringArray("Lista De ArmPes", listaArmadurasPesadas);
+                bundle.putStringArray("Lista De ArmDM", listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS", listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM", listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS", listaArmasCS);
+                bundle.putStringArray("Lista De Herram", listaHerramientas);
+                bundle.putStringArray("Lista De Merc", listaMercancias);
+                bundle.putStringArray("Lista De Misc", listaMisceláneo);
+                bundle.putStringArray("Lista De Mont", listaMonturas);
                 bundle.putStringArray("Lista De MontAGV", listaMonturasAGV);
                 bundle.putStringArray("Lista De MontMOA", listaMonturasMOA);
                 bundle.putStringArray("Lista De MontVA", listaMonturasVA);
-                bundle.putStringArray("Lista De Armaduras",listaArmaduras);
-                bundle.putStringArray("Lista De Armas",listaArmas);
+                bundle.putStringArray("Lista De Armaduras", listaArmaduras);
+                bundle.putStringArray("Lista De Armas", listaArmas);
                 bundle.putInt("Piezas de cobre", PCobre);
                 bundle.putInt("Piezas de plata", PPlata);
                 bundle.putInt("Piezas de esmeralda", PEsmeralda);
@@ -350,11 +352,11 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("Ataque", Ataque);
-                bundle.putStringArray("Lista De Armas",listaArmas);
-                bundle.putStringArray("Lista De ArmDM",listaArmasDM);
-                bundle.putStringArray("Lista De ArmDS",listaArmasDS);
-                bundle.putStringArray("Lista De ArmCM",listaArmasCM);
-                bundle.putStringArray("Lista De ArmCS",listaArmasCS);
+                bundle.putStringArray("Lista De Armas", listaArmas);
+                bundle.putStringArray("Lista De ArmDM", listaArmasDM);
+                bundle.putStringArray("Lista De ArmDS", listaArmasDS);
+                bundle.putStringArray("Lista De ArmCM", listaArmasCM);
+                bundle.putStringArray("Lista De ArmCS", listaArmasCS);
                 bundle.putStringArrayList("Conjuro", Conjuro);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment AtaquesConjuros = new AtaquesConjurosFragment();
@@ -387,9 +389,9 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("Rasgos de Personalidad",RasgosPersonalidad);
-                bundle.putString("Ideales",Ideales);
-                bundle.putString("Vínculos",Vinculos);
+                bundle.putString("Rasgos de Personalidad", RasgosPersonalidad);
+                bundle.putString("Ideales", Ideales);
+                bundle.putString("Vínculos", Vinculos);
                 bundle.putString("Defectos", Defectos);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment Personalidad = new PersonalidadFragment();
@@ -403,7 +405,7 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("Rasgos y Atributos",Rasgos );
+                bundle.putStringArrayList("Rasgos y Atributos", Rasgos);
                 bundle.putString("codigo", codigoPersonaje);
                 Fragment RasgosYAtributos = new RasgosAtributosFragment();
                 RasgosYAtributos.setArguments(bundle);
@@ -423,9 +425,9 @@ public class InicioFragment extends Fragment {
         final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
 
         //Seteo datos en ficha
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
-        mDatabase.getReference("users/"+ Objects.requireNonNull(mAuth.getCurrentUser()).getUid()+"/"+codigoPersonaje).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + codigoPersonaje).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -434,10 +436,10 @@ public class InicioFragment extends Fragment {
                 mAlineamientoPersonaje_TV.setText((String) dataSnapshot.child("Alineamiento").getValue());
                 mRazaPersonaje_TV.setText((String) dataSnapshot.child("Raza").getValue());
                 mClaseNivelPersonaje_TV.setText((String) dataSnapshot.child("Clase").getValue());
-                try{
+                try {
                     Nivel = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Nivel").getValue()));
                     PuntosExperiencia = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Puntos de Experiencia").getValue()));
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
                 Iniciativa = (String) dataSnapshot.child("Iniciativa").getValue();
@@ -455,7 +457,7 @@ public class InicioFragment extends Fragment {
                     PEsmeralda = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de esmeralda").getValue()));
                     POro = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de oro").getValue()));
                     PPlatino = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Piezas de platino").getValue()));
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
                 RasgosPersonalidad = (String) dataSnapshot.child("Rasgos de Personalidad").getValue();
                 Ideales = (String) dataSnapshot.child("Ideales").getValue();
@@ -498,7 +500,7 @@ public class InicioFragment extends Fragment {
                     mInteligenciaCB = ((Boolean) dataSnapshot.child("InteligenciaCB").getValue()).toString();
                     mSabiduriaCB = ((Boolean) dataSnapshot.child("SabiduriaCB").getValue()).toString();
                     mCarismaCB = ((Boolean) dataSnapshot.child("CarismaCB").getValue()).toString();
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
                 mInspiracion = (String) dataSnapshot.child("Inspiracion").getValue();
                 mBonificador = (String) dataSnapshot.child("Bonificador Competencia").getValue();
@@ -530,7 +532,7 @@ public class InicioFragment extends Fragment {
         cargarSpinnersAux(mClases, Clases, listaClases, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaClases=value;
+                listaClases = value;
             }
         });
 
@@ -538,7 +540,7 @@ public class InicioFragment extends Fragment {
         cargarSpinnersAux(mAlineamiento, Alineamiento, listaAlineamiento, new MyCallback() {
             @Override
             public void onCallback(String[] value) {
-                listaAlineamiento=value;
+                listaAlineamiento = value;
             }
         });
 
@@ -645,15 +647,15 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mEquipo = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Equipo");
+        final DatabaseReference mEquipo = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
-                    }catch (Exception e){
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("velocidad").getValue()).toString()+";;;"+((Long) ds.child("capacidadCarga").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
+                        Equipo.add((String) ds.child("nombre").getValue() + ";;;" + ((Long) ds.child("coste").getValue()).toString() + ";;;" + ((Long) ds.child("peso").getValue()).toString() + ";;;" + (String) ds.child("url").getValue() + ";;;" + (String) ds.child("checkbox").getValue());
+                    } catch (Exception e) {
+                        Equipo.add((String) ds.child("nombre").getValue() + ";;;" + ((Long) ds.child("coste").getValue()).toString() + ";;;" + ((Long) ds.child("velocidad").getValue()).toString() + ";;;" + ((Long) ds.child("capacidadCarga").getValue()).toString() + ";;;" + (String) ds.child("url").getValue() + ";;;" + (String) ds.child("checkbox").getValue());
                     }
                 }
             }
@@ -664,17 +666,18 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mAtaque = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Ataque");
+        final DatabaseReference mAtaque = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Ataque");
         mAtaque.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Ataque.add((String)ds.child("nombre").getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Ataque.add((String) ds.child("nombre").getValue());
                     Ataque.add(((Long) Objects.requireNonNull(ds.child("coste").getValue())).toString());
                     Ataque.add(((Long) Objects.requireNonNull(ds.child("peso").getValue())).toString());
-                    Ataque.add((String)ds.child("url").getValue());
-                    Ataque.add((String)ds.child("danyo").getValue());
-                    Ataque.add((String)ds.child("propiedades").getValue());
+                    Ataque.add((String) ds.child("url").getValue());
+                    Ataque.add((String) ds.child("danyo").getValue());
+                    Ataque.add((String) ds.child("propiedades").getValue());
+                    Ataque.add((String) ds.child("checkbox").getValue());
                 }
             }
 
@@ -684,12 +687,12 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mRasgos = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Rasgos");
+        final DatabaseReference mRasgos = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Rasgos.add((String)ds.getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Rasgos.add((String) ds.getValue());
                 }
             }
 
@@ -699,7 +702,7 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        final DatabaseReference mConjuro = mDatabase.getReference("users/"+mAuth.getCurrentUser().getUid()+"/"+codigoPersonaje+"/Conjuro");
+        final DatabaseReference mConjuro = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Conjuro");
         mConjuro.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -714,7 +717,7 @@ public class InicioFragment extends Fragment {
             }
         });
 
-        mExperienciaPersonaje_TV.setText(PuntosExperiencia+" / "+(Nivel * (Nivel+1)*500)+" exp");
+        mExperienciaPersonaje_TV.setText(PuntosExperiencia + " / " + (Nivel * (Nivel + 1) * 500) + " exp");
 
     }
 
@@ -724,7 +727,7 @@ public class InicioFragment extends Fragment {
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 ALS.add("Ninguno");
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -733,7 +736,7 @@ public class InicioFragment extends Fragment {
                     result = ALS.toArray(SS);
 
                 }
-                  callback.onCallback(result);
+                callback.onCallback(result);
                 ALS.clear();
             }
 
@@ -749,7 +752,7 @@ public class InicioFragment extends Fragment {
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String[] result = new String[] {};
+                String[] result = new String[]{};
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String valor = "" + ds.getKey();
@@ -778,7 +781,7 @@ public class InicioFragment extends Fragment {
 
         FirebaseUser usuari = mAuth.getCurrentUser();
 
-        if (usuari==null){
+        if (usuari == null) {
             //Pasa a la pantalla de Login si el usuario no está logueado
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();

@@ -95,6 +95,15 @@
         android:text="@string/propiedadesAtaque"
         android:textSize="18sp" />
 
+    <CheckBox
+        android:id="@+id/ListaAtaque_equipado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ListaAtaque_danyo"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/ListaAtaque_propiedades"
+        android:buttonTint="@color/colorPrimaryDark"/>
+
     <ImageView
         android:id="@+id/ListaAtaque_borrar"
         android:layout_width="30dp"

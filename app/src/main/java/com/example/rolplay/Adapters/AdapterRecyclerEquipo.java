@@ -62,6 +62,12 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             holder.radio.setChecked(lastSelectedPositionE == position);
         }
 
+        if (listaDatos.get(position) instanceof  ItemEquipo){
+            ((ItemEquipo)listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionE == position));
+        }else if (listaDatos.get(position) instanceof  ItemMontura){
+            ((ItemMontura)listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionM == position));
+        }
+
     }
 
     @Override
@@ -82,7 +88,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         private ImageView mFotoEquipo;
         private OnItemListener onItemListener;
         private CheckBox radio;
-        private boolean desmarcar = false;
 
         public ViewHolderEquipo(@NonNull final View itemView, final OnItemListener onItemListener) {
 
@@ -142,7 +147,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
                 if (s.getCheckbox().equals("true")){
-                    lastSelectedPositionE = getAdapterPosition();
                     mCheckbox.setChecked(true);
                 } else if (s.getCheckbox().equals("false")){
                     mCheckbox.setChecked(false);
@@ -156,7 +160,6 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mPesoEquipo.setText(context.getResources().getString(R.string.velocidadDosPuntos, Float.toString(s.getVelocidad())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
                 if (s.getCheckbox().equals("true")){
-                    lastSelectedPositionM = getAdapterPosition();
                     mCheckbox.setChecked(true);
                 } else if (s.getCheckbox().equals("false")){
                     mCheckbox.setChecked(false);

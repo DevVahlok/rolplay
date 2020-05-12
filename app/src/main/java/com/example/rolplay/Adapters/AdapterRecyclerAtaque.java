@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
     private ImageView imgViewRemoveIcon_ataque;
     private AdapterRecyclerAtaque.OnItemListener mOnItemListener;
     private Context context;
+    private int lastSelectedPosition = -1;
 
     //Constructor
     public AdapterRecyclerAtaque(ArrayList<ItemAtaque> listaAtaque, AdapterRecyclerAtaque.OnItemListener mOnItemListener, Context context) {
@@ -46,6 +48,10 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
 
         //Comunica AdapterRecyclerAtaque con el ViewHolderAtaque
         holder.asignarDatos(listaAtaque.get(position));
+
+        holder.radio.setChecked(position == lastSelectedPosition);
+
+        listaAtaque.get(position).setCheckbox(String.valueOf(lastSelectedPosition == position));
     }
 
     @Override
@@ -60,10 +66,12 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
 
         //Declaración de variables
         private TextView mNombreAtaque, mCosteAtaque, mPesoAtaque, mDanyoAtaque, mPropiedadesAtaque;
+        private CheckBox mCheckbox;
         private ImageView mFotoAtaque;
         private AdapterRecyclerAtaque.OnItemListener onItemListener;
+        private CheckBox radio;
 
-        ViewHolderAtaque(@NonNull View itemView, final AdapterRecyclerAtaque.OnItemListener onItemListener) {
+        public ViewHolderAtaque(@NonNull View itemView, final AdapterRecyclerAtaque.OnItemListener onItemListener) {
 
             //Inicialización de variables
             super(itemView);
@@ -74,8 +82,11 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             mFotoAtaque = itemView.findViewById(R.id.ListaAtaque_foto);
             mDanyoAtaque = itemView.findViewById(R.id.ListaAtaque_danyo);
             mPropiedadesAtaque = itemView.findViewById(R.id.ListaAtaque_propiedades);
+            mCheckbox = itemView.findViewById(R.id.ListaAtaque_equipado);
             itemView.setOnClickListener(this);
             imgViewRemoveIcon_ataque = itemView.findViewById(R.id.ListaAtaque_borrar);
+
+            radio = itemView.findViewById(R.id.ListaAtaque_equipado);
 
             //Al hacer click en la imagen de la X
             imgViewRemoveIcon_ataque.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +96,18 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
                     //Elimina el objeto del recycler
                     onItemListener.onItemClick(getAdapterPosition(),"ataque");
 
+                }
+            });
+
+            radio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCheckbox.isChecked()) {
+                        lastSelectedPosition = getAdapterPosition();
+                    }
+                    (listaAtaque.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
+
+                    notifyDataSetChanged();
                 }
             });
         }
@@ -97,8 +120,14 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             mPesoAtaque.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
             mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque,s.getDanyo()));
             mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque,s.getPropiedades()));
-
             Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoAtaque);
+            if (s.getCheckbox().equals("true")){
+                mCheckbox.setChecked(true);
+            } else if (s.getCheckbox().equals("false")){
+                mCheckbox.setChecked(false);
+            } else{
+                mCheckbox.setEnabled(false);
+            }
 
         }
 

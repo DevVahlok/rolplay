@@ -180,9 +180,12 @@ public class CombateFragment extends Fragment {
         //Al subir de nivel, se aumenta la vida (mirar chincheta)
 
         ArrayList<String> aux = recuperados.getStringArrayList("Ataque");
-        if(aux.size()>4) {
-            mDadoGolpe.setText(aux.get(4).split(" ")[0]);
+        for(int i=0; i<aux.size()/7;i++) {
+            if (aux.get((i*7)+6).equals("true")) {
+                mDadoGolpe.setText(aux.get((i*7)+4).split(" ")[0]);
+            }
         }
+
         //Inicialización de variables
         mBarraSalud = v.findViewById(R.id.Combate_puntosGolpe_barraProgreso);
         mCheckboxExito1 = v.findViewById(R.id.Combate_exito_checkbox_1);

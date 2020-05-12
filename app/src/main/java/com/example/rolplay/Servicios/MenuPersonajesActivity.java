@@ -169,14 +169,12 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
                             listaCodigos.add(codigoGenerado);
                         }
                         if (!(editText.getText().toString()).equals("")) {
-                            Log.d("-------------------", editText.getText().toString());
                             mDatabase.getReference("users").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                         for (DataSnapshot deese : ds.getChildren()) {
                                             if ((editText.getText().toString()).equals(deese.getKey())) {
-                                                Log.d("--------", String.valueOf(deese.getKey())+deese.getRef());
                                                 mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoGenerado).setValue(deese.getValue(), new DatabaseReference.CompletionListener()
                                                 {
                                                     @Override
@@ -336,7 +334,7 @@ public class MenuPersonajesActivity extends AppCompatActivity implements Adapter
 
     private void borrar(final int position) {
         //Elimina el objeto del recycler
-        mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + listaDatos.get(position).getCodigo()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+        (mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/" + listaDatos.get(position).getCodigo()).removeValue()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 listaDatos.remove(position);

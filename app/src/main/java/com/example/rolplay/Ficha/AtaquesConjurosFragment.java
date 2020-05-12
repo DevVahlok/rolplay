@@ -255,7 +255,7 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
                                     @Override
                                     public void onCallback(String[] value) {
                                         //Añade objeto al Recycle
-                                        listaAtaque.add(new ItemAtaque(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], value[3] ,value[4]));
+                                        listaAtaque.add(new ItemAtaque(spinnerObjeto.getSelectedItem().toString(), Integer.parseInt(value[0]), Integer.parseInt(value[1]), value[2], value[3] ,value[4], "false"));
                                         pesoTotal += Integer.parseInt(value[1]);
                                         adapter_ataque.notifyItemInserted(listaAtaque.size() - 1);
                                         mDialogCarga.dismiss();
@@ -290,9 +290,9 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
         ArrayList<String> aux = recuperados.getStringArrayList("Ataque");
 
         if(aux!=null){
-            for(int i=0; i<aux.size()/6;i++){
-                listaAtaque.add(new ItemAtaque(aux.get(i*6), Integer.parseInt(aux.get((i*6)+1)), Integer.parseInt(aux.get((i*6)+2)), aux.get((i*6)+3), aux.get((i*6)+4), aux.get((i*6)+5)));
-                pesoTotal+=Integer.parseInt(aux.get((i*6)+2));
+            for(int i=0; i<aux.size()/7;i++){
+                listaAtaque.add(new ItemAtaque(aux.get(i*7), Integer.parseInt(aux.get((i*7)+1)), Integer.parseInt(aux.get((i*7)+2)), aux.get((i*7)+3), aux.get((i*7)+4), aux.get((i*7)+5), aux.get((i*7)+6)));
+                pesoTotal+=Integer.parseInt(aux.get((i*7)+2));
             }
         }
 
