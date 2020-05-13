@@ -33,6 +33,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
     private Context context;
     private int lastSelectedPositionE = -1;
     private int lastSelectedPositionM = -1;
+    private boolean primeraVez = true;
 
     //Constructor
     public AdapterRecyclerEquipo(ArrayList<Object> listaDatos, OnItemListener mOnItemListener, Context context) {
@@ -57,15 +58,17 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         //Comunica AdapterRecyclerEquipo con el ViewHolderEquipo
         holder.asignarDatos(listaDatos.get(position));
 
-        holder.radio.setChecked(position == lastSelectedPositionM);
-        if(lastSelectedPositionE == position) {
-            holder.radio.setChecked(lastSelectedPositionE == position);
-        }
+        if (!primeraVez) {
+            holder.radio.setChecked(position == lastSelectedPositionM);
+            if (lastSelectedPositionE == position) {
+                holder.radio.setChecked(lastSelectedPositionE == position);
+            }
 
-        if (listaDatos.get(position) instanceof  ItemEquipo){
-            ((ItemEquipo)listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionE == position));
-        }else if (listaDatos.get(position) instanceof  ItemMontura){
-            ((ItemMontura)listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionM == position));
+            if (listaDatos.get(position) instanceof ItemEquipo) {
+                ((ItemEquipo) listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionE == position));
+            } else if (listaDatos.get(position) instanceof ItemMontura) {
+                ((ItemMontura) listaDatos.get(position)).setCheckbox(String.valueOf(lastSelectedPositionM == position));
+            }
         }
 
     }
@@ -119,6 +122,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             radio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    primeraVez=false;
                     if (listaDatos.get(getAdapterPosition()) instanceof ItemEquipo) {
                         if(mCheckbox.isChecked()) {
                             lastSelectedPositionE = getAdapterPosition();
