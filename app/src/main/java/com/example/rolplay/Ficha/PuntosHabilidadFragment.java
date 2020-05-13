@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -341,5 +342,7 @@ public class PuntosHabilidadFragment extends Fragment {
 
         ultimo.put("Ultimo personaje",codigoPJ);
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+
+        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
     }
 }

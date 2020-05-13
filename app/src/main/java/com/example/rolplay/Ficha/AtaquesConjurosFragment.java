@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Adapters.AdapterRecyclerAtaque;
 import com.example.rolplay.Adapters.AdapterRecyclerConjuro;
 import com.example.rolplay.Otros.DialogCarga;
@@ -405,6 +406,8 @@ public class AtaquesConjurosFragment extends Fragment implements AdapterRecycler
 
         ultimo.put("Ultimo personaje",codigoPJ);
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+
+        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
     }
 }
 

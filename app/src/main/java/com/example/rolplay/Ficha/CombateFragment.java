@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.Otros.ItemMontura;
@@ -534,5 +535,7 @@ public class CombateFragment extends Fragment {
 
         ultimo.put("Ultimo personaje", codigoPJ);
         mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
+
+        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
     }
 }

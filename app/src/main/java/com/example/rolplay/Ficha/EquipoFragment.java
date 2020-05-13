@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Adapters.AdapterRecyclerEquipo;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.ItemEquipo;
@@ -640,6 +641,8 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
 
         ultimo.put("Ultimo personaje",codigoPJ);
         mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+
+        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
     }
 
 

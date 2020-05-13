@@ -411,7 +411,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
 
     }
 
-    private void cargarDatosFB() {
+    public void cargarDatosFB() {
         //Posicionar en el JSON de Firebase
         final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
         final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Otros.MyCallback;
 import com.example.rolplay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -264,6 +265,8 @@ public class CabeceraFragment extends Fragment {
 
                 ultimo.put("Ultimo personaje",codigoPJ);
                 mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+
+                ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
             }
         });
 
