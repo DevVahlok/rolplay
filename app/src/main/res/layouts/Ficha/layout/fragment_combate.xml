@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:fillViewport="false"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Combate_layoutBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,376 +23,400 @@
             android:gravity="center_horizontal"
             android:text="@string/combate"
             android:textColor="@color/colorPrimary"
-            android:textSize="38sp" />
+            android:textSize="38sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/Combate_MarcoClaseArmadura"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:layout_below="@+id/Combate_titulo"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="36dp"
             android:contentDescription="@string/claseArmadura"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.853"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_titulo"
             app:srcCompat="@drawable/ic_marco2" />
 
         <ImageView
             android:id="@+id/Combate_Marco_ClaseArmadura"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="100dp"
-            android:layout_alignStart="@+id/Combate_MarcoClaseArmadura"
-            android:layout_alignBottom="@id/Combate_MarcoClaseArmadura"
-            android:layout_marginStart="-85dp"
-            android:layout_marginBottom="-13dp"
+            android:layout_marginTop="48dp"
             android:contentDescription="@string/claseArmadura"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoClaseArmadura"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_titulo"
             app:srcCompat="@drawable/ic_escudo" />
 
         <TextView
             android:id="@+id/Combate_textoInspiracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/Combate_MarcoClaseArmadura"
-            android:layout_alignBottom="@+id/Combate_MarcoClaseArmadura"
-            android:layout_marginStart="65dp"
-            android:layout_marginBottom="30dp"
             android:gravity="center_horizontal"
             android:text="@string/claseArmadura"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoClaseArmadura"
+            app:layout_constraintEnd_toEndOf="@+id/Combate_MarcoClaseArmadura"
+            app:layout_constraintStart_toStartOf="@+id/Combate_MarcoClaseArmadura"
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoClaseArmadura" />
 
         <TextView
             android:id="@+id/Combate_valor_inspiracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_Marco_ClaseArmadura"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="-60dp"
+            android:layout_marginBottom="10dp"
             android:text=""
             android:textColor="@color/colorBlanco"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_Marco_ClaseArmadura"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoClaseArmadura"
+            app:layout_constraintStart_toStartOf="@+id/Combate_Marco_ClaseArmadura"
+            app:layout_constraintTop_toTopOf="@+id/Combate_Marco_ClaseArmadura" />
 
         <ImageView
             android:id="@+id/Combate_MarcoIniciativa"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="100dp"
-            android:layout_below="@+id/Combate_MarcoClaseArmadura"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="40dp"
             android:contentDescription="@string/iniciativa"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_iniciativa_boton_editar"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_Marco_ClaseArmadura"
             app:srcCompat="@drawable/ic_marco5" />
 
         <ImageView
             android:id="@+id/Combate_Marco_Iniciativa"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_alignStart="@+id/Combate_MarcoIniciativa"
-            android:layout_alignBottom="@id/Combate_MarcoIniciativa"
-            android:layout_marginStart="-80dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="1dp"
             android:contentDescription="@string/iniciativa"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintHorizontal_bias="0.975"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@drawable/ic_marco4" />
 
         <TextView
             android:id="@+id/Combate_textoIniciativa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/Combate_MarcoIniciativa"
-            android:layout_alignBottom="@+id/Combate_MarcoIniciativa"
             android:layout_marginStart="55dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="57dp"
             android:text="@string/iniciativa"
             android:textColor="@color/colorPrimary"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintEnd_toEndOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintStart_toStartOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoIniciativa" />
 
         <TextView
             android:id="@+id/Combate_valor_iniciativa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_Marco_Iniciativa"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="-65dp"
             android:text=""
             android:textColor="@color/colorBlanco"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_Marco_Iniciativa"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoIniciativa"
+            app:layout_constraintStart_toStartOf="@+id/Combate_Marco_Iniciativa"
+            app:layout_constraintTop_toTopOf="@+id/Combate_Marco_Iniciativa" />
 
         <ImageButton
             android:id="@+id/Combate_iniciativa_boton_editar"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_alignBottom="@+id/Combate_MarcoIniciativa"
-            android:layout_marginBottom="15dp"
-            android:layout_toEndOf="@+id/Combate_MarcoIniciativa"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:contentDescription="@string/editar"
-            android:src="@mipmap/ic_dados_foreground" />
+            android:src="@mipmap/ic_dados_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_Marco_ClaseArmadura" />
 
         <ImageView
             android:id="@+id/Combate_MarcoVelocidad"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:layout_below="@+id/Combate_MarcoIniciativa"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginEnd="52dp"
             android:contentDescription="@string/velocidad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_MarcoIniciativa"
             app:srcCompat="@drawable/ic_marco5" />
 
         <ImageView
             android:id="@+id/Combate_Marco_Velocidad"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_alignStart="@+id/Combate_MarcoVelocidad"
-            android:layout_alignBottom="@id/Combate_MarcoVelocidad"
-            android:layout_marginStart="-80dp"
-            android:layout_marginBottom="5dp"
             android:contentDescription="@string/velocidad"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoVelocidad"
             app:srcCompat="@drawable/ic_marco4" />
 
         <TextView
             android:id="@+id/Combate_textoVelocidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/Combate_MarcoVelocidad"
-            android:layout_alignBottom="@+id/Combate_MarcoVelocidad"
-            android:layout_marginStart="55dp"
-            android:layout_marginBottom="35dp"
             android:text="@string/velocidad"
             android:textColor="@color/colorPrimary"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintEnd_toEndOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintStart_toStartOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoVelocidad" />
 
         <TextView
             android:id="@+id/Combate_valor_velocidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_Marco_Velocidad"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="-65dp"
             android:text=""
             android:textColor="@color/colorBlanco"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_Marco_Velocidad"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_MarcoVelocidad"
+            app:layout_constraintStart_toStartOf="@+id/Combate_Marco_Velocidad"
+            app:layout_constraintTop_toTopOf="@+id/Combate_Marco_Velocidad" />
 
         <TextView
             android:id="@+id/Combate_texto_puntosGolpe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_MarcoVelocidad"
             android:layout_marginTop="40dp"
             android:text="@string/puntosGolpeActuales"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_MarcoVelocidad" />
 
         <EditText
             android:id="@+id/Combate_golpeActuales_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_puntosGolpe"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/Combate_texto_puntosGolpe"
+            android:layout_marginStart="16dp"
             android:autofillHints=""
             android:inputType="number"
             android:text=""
-            android:textColor="@color/colorBlanco" />
+            android:textColor="@color/colorBlanco"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_puntosGolpe"
+            app:layout_constraintStart_toEndOf="@id/Combate_texto_puntosGolpe" />
 
         <TextView
             android:id="@+id/Combate_texto_barraDiagonal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_golpeActuales_valor"
-            android:layout_toEndOf="@id/Combate_golpeActuales_valor"
             android:text="@string/barraDiagonal"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_golpeActuales_valor"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_golpeMaximo_valor"
+            app:layout_constraintStart_toEndOf="@id/Combate_golpeActuales_valor" />
 
         <EditText
             android:id="@+id/Combate_golpeMaximo_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_barraDiagonal"
-            android:layout_toEndOf="@id/Combate_texto_barraDiagonal"
+            android:layout_marginEnd="52dp"
             android:autofillHints=""
             android:inputType="number"
             android:text=""
-            android:textColor="@color/colorBlanco" />
+            android:textColor="@color/colorBlanco"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_barraDiagonal"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/Combate_foto_salud"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_below="@id/Combate_texto_puntosGolpe"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
             android:contentDescription="@string/puntosGolpeActuales"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_puntosGolpe_barraProgreso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Combate_puntosGolpe_barraProgreso"
             app:srcCompat="@drawable/ic_cruz" />
 
         <ProgressBar
             android:id="@+id/Combate_puntosGolpe_barraProgreso"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Combate_texto_puntosGolpe"
-            android:layout_toEndOf="@+id/Combate_foto_salud"
-            android:paddingTop="10dp"
+            android:layout_marginTop="36dp"
             android:progress="0"
-            android:progressDrawable="@layout/progressbar_rojo" />
+            android:progressDrawable="@layout/progressbar_rojo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toEndOf="@+id/Combate_foto_salud"
+            app:layout_constraintTop_toBottomOf="@id/Combate_texto_puntosGolpe" />
 
         <TextView
             android:id="@+id/Combate_texto_puntosGolpeTemporales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_puntosGolpe_barraProgreso"
             android:layout_marginTop="40dp"
             android:text="@string/puntosGolpeTemporales"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_puntosGolpe_barraProgreso" />
 
         <EditText
             android:id="@+id/Combate_golpeTemporal_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_puntosGolpeTemporales"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/Combate_texto_puntosGolpeTemporales"
             android:autofillHints=""
             android:inputType="number"
             android:text=""
-            android:textColor="@color/colorBlanco" />
+            android:textColor="@color/colorBlanco"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_puntosGolpeTemporales"
+            app:layout_constraintStart_toEndOf="@id/Combate_texto_puntosGolpeTemporales" />
 
         <TextView
             android:id="@+id/Combate_texto_dadosGolpe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_texto_puntosGolpeTemporales"
             android:layout_marginTop="40dp"
             android:text="@string/dadosGolpe"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_texto_puntosGolpeTemporales" />
 
         <EditText
             android:id="@+id/Combate_numDados_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_dadosGolpe"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/Combate_texto_dadosGolpe"
             android:autofillHints=""
             android:inputType="text"
             android:text=""
-            android:textColor="@color/colorBlanco" />
+            android:textColor="@color/colorBlanco"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_dadosGolpe"
+            app:layout_constraintStart_toEndOf="@id/Combate_texto_dadosGolpe" />
 
         <TextView
             android:id="@+id/Combate_texto_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_numDados_valor"
             android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
-            android:layout_toEndOf="@id/Combate_numDados_valor"
             android:text="@string/total"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_numDados_valor"
+            app:layout_constraintStart_toEndOf="@id/Combate_numDados_valor" />
 
         <EditText
             android:id="@+id/Combate_totalDados_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_total"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/Combate_texto_total"
             android:autofillHints=""
             android:inputType="number"
             android:text=""
-            android:textColor="@color/colorBlanco" />
+            android:textColor="@color/colorBlanco"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_total"
+            app:layout_constraintStart_toEndOf="@id/Combate_texto_total" />
 
         <TextView
             android:id="@+id/Combate_texto_SalvacionesContraMuerte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_totalDados_valor"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:text="@string/salvacionesContraMuerte"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_totalDados_valor" />
 
         <View
             android:id="@+id/Combate_barra_SalvacionesContraMuerte"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@+id/Combate_texto_SalvacionesContraMuerte"
             android:layout_marginTop="5dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_texto_SalvacionesContraMuerte" />
 
         <TextView
             android:id="@+id/Combate_texto_Exito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_barra_SalvacionesContraMuerte"
             android:layout_marginTop="40dp"
             android:text="@string/exitos"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_barra_SalvacionesContraMuerte" />
 
         <CheckBox
             android:id="@+id/Combate_exito_checkbox_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_Exito"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/Combate_texto_Exito"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_Exito"
+            app:layout_constraintStart_toEndOf="@id/Combate_texto_Exito" />
 
         <CheckBox
             android:id="@+id/Combate_exito_checkbox_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_exito_checkbox_1"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/Combate_exito_checkbox_1"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_exito_checkbox_1"
+            app:layout_constraintStart_toEndOf="@id/Combate_exito_checkbox_1" />
 
         <CheckBox
             android:id="@+id/Combate_exito_checkbox_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_exito_checkbox_2"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/Combate_exito_checkbox_2"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_exito_checkbox_2"
+            app:layout_constraintStart_toEndOf="@id/Combate_exito_checkbox_2" />
 
         <TextView
             android:id="@+id/Combate_texto_fallo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Combate_texto_Exito"
             android:layout_marginTop="40dp"
             android:text="@string/fallos"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Combate_texto_Exito" />
 
         <CheckBox
             android:id="@+id/Combate_fallo_checkbox_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_texto_fallo"
-            android:layout_alignStart="@+id/Combate_exito_checkbox_1"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_texto_fallo"
+            app:layout_constraintStart_toStartOf="@+id/Combate_exito_checkbox_1" />
 
         <CheckBox
             android:id="@+id/Combate_fallo_checkbox_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_fallo_checkbox_1"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/Combate_fallo_checkbox_1"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_fallo_checkbox_1"
+            app:layout_constraintStart_toEndOf="@id/Combate_fallo_checkbox_1" />
 
         <CheckBox
             android:id="@+id/Combate_fallo_checkbox_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/Combate_fallo_checkbox_2"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/Combate_fallo_checkbox_2"
-            android:button="@drawable/custom_checkbox" />
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintBaseline_toBaselineOf="@id/Combate_fallo_checkbox_2"
+            app:layout_constraintStart_toEndOf="@id/Combate_fallo_checkbox_2" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
