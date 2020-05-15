@@ -283,6 +283,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia marciales");
                                     subtitle.setText(R.string.armasADistanciaMarciales);
                                     auxiliar = 0;
+                                    EquipoEnabled = false;
                                     break;
                                 case "Armas a distancia simples":
                                     ArrayAdapter<String> adapter22 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De ArmDS")));
@@ -290,6 +291,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas a distancia simples");
                                     subtitle.setText(R.string.armasADistanciaSimples);
                                     auxiliar = 0;
+                                    EquipoEnabled = false;
                                     break;
                                 case "Armas cuerpo cuerpo marciales":
                                     ArrayAdapter<String> adapter23 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De ArmCM")));
@@ -297,6 +299,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas cuerpo cuerpo marciales");
                                     subtitle.setText(R.string.armasCuerpoACuerpoMarciales);
                                     auxiliar = 0;
+                                    EquipoEnabled = false;
                                     break;
                                 case "Armas cuerpo cuerpo simples":
                                     ArrayAdapter<String> adapter24 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De ArmCS")));
@@ -304,6 +307,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                                     mObjetos[0] = mObjetos[0].child("Armas/Armas cuerpo cuerpo simples");
                                     subtitle.setText(R.string.armasCuerpoACuerpoSimples);
                                     auxiliar = 0;
+                                    EquipoEnabled = false;
                                     break;
                                 case "Herramientas":
                                     ArrayAdapter<String> adapter2 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_oscuro, Objects.requireNonNull(recuperados.getStringArray("Lista De Herram")));
