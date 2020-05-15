@@ -129,12 +129,12 @@
             android:id="@+id/Combate_iniciativa_boton_editar"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:contentDescription="@string/editar"
             android:src="@mipmap/ic_dados_foreground"
+            app:layout_constraintBottom_toBottomOf="@+id/Combate_MarcoIniciativa"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Combate_Marco_ClaseArmadura" />
+            app:layout_constraintTop_toTopOf="@+id/Combate_MarcoIniciativa" />
 
         <ImageView
             android:id="@+id/Combate_MarcoVelocidad"
