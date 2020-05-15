@@ -226,8 +226,6 @@
             android:text=""
             android:textColor="@color/colorBlanco"
             app:layout_constraintBottom_toBottomOf="@+id/Combate_texto_barraDiagonal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toEndOf="@+id/Combate_texto_barraDiagonal"
             app:layout_constraintTop_toTopOf="@+id/Combate_texto_barraDiagonal" />
 
@@ -277,8 +275,10 @@
             android:textColor="@color/colorBlanco"
             app:layout_constraintBottom_toBottomOf="@+id/Combate_texto_puntosGolpeTemporales"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.086"
             app:layout_constraintStart_toEndOf="@id/Combate_texto_puntosGolpeTemporales"
-            app:layout_constraintTop_toTopOf="@+id/Combate_texto_puntosGolpeTemporales" />
+            app:layout_constraintTop_toTopOf="@+id/Combate_texto_puntosGolpeTemporales"
+            app:layout_constraintVertical_bias="0.555" />
 
         <TextView
             android:id="@+id/Combate_texto_dadosGolpe"
@@ -308,11 +308,12 @@
             android:id="@+id/Combate_texto_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="20dp"
             android:text="@string/total"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/Combate_numDados_valor"
+            app:layout_constraintEnd_toStartOf="@+id/Combate_totalDados_valor"
             app:layout_constraintStart_toEndOf="@id/Combate_numDados_valor"
             app:layout_constraintTop_toTopOf="@+id/Combate_numDados_valor" />
 
@@ -320,15 +321,13 @@
             android:id="@+id/Combate_totalDados_valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:autofillHints=""
             android:inputType="number"
             android:text=""
             android:textColor="@color/colorBlanco"
             app:layout_constraintBottom_toBottomOf="@+id/Combate_texto_total"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.011"
-            app:layout_constraintStart_toEndOf="@id/Combate_texto_total"
+            app:layout_constraintEnd_toEndOf="@+id/Combate_golpeTemporal_valor"
+            app:layout_constraintStart_toStartOf="@+id/Combate_golpeTemporal_valor"
             app:layout_constraintTop_toTopOf="@+id/Combate_texto_total" />
 
         <TextView
