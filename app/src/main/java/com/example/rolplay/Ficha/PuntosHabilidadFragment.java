@@ -56,31 +56,7 @@ public class PuntosHabilidadFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_puntos_habilidad, container, false);
         final Bundle recuperados = getArguments();
         codigoPJ = recuperados.getString("codigo");
-        //Generación de estadísticas: si se quiere rerollear, hay que dar un número aleatorio entre 3-18 (ambos incluídos) [colocar en el círculo]
-        //Sí, el máximo es 18 pero las posibilidades llegan hasta 30. No tengo muy claro cómo funciona (maybe se puede aumentar subiendo de nivel?)
-        //Importante marcar el signo (+/-) en el modificador [cuadrado]
 
-        /*
-
-            Tabla de puntuación [círculo] -> modificador [cuadrado]
-            1 -> -5
-            2,3 -> -4
-            4,5 -> -3
-            6,7 -> -2
-            8,9 -> -1
-            10,11 -> 0
-            12,13 -> +1
-            14,15 -> +2
-            16,17 -> +3
-            18,19 -> +4
-            20,21 -> +5
-            22,23 -> +6
-            24,25 -> +7
-            26,27 -> +8
-            28,29 -> +9
-            30 -> +10
-
-        */
         //TextViews
         mFuerzaPuntos = v.findViewById(R.id.puntosHabilidadFragment_modificador1);
         mFuerzaBonus = v.findViewById(R.id.puntosHabilidadFragment_puntuacion1);
@@ -156,7 +132,7 @@ public class PuntosHabilidadFragment extends Fragment {
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -167,7 +143,7 @@ public class PuntosHabilidadFragment extends Fragment {
                 editText.setText(TVB.getText());
 
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -228,7 +204,7 @@ public class PuntosHabilidadFragment extends Fragment {
                                 default:
                                     break;
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             Toast.makeText(getActivity(), "Han de ser números", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -251,13 +227,13 @@ public class PuntosHabilidadFragment extends Fragment {
     }
 
     //Funcion que genera un random para cambiar el valor de dado
-    public void Bonus (ImageView IV, final TextView TVB, final TextView TVP){
+    public void Bonus(ImageView IV, final TextView TVB, final TextView TVP) {
         IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Random r = new Random();
-                mSoundPool.play(listaSonidos.get(r.nextInt(3)),volumen,volumen,1,0,1.0f);
-                int x = r.nextInt(15)+3;
+                mSoundPool.play(listaSonidos.get(r.nextInt(3)), volumen, volumen, 1, 0, 1.0f);
+                int x = r.nextInt(15) + 3;
                 switch (x) {
                     case 1:
                         TVB.setText(String.valueOf(x));
@@ -324,25 +300,25 @@ public class PuntosHabilidadFragment extends Fragment {
         FirebaseUser usuariActual = mAuth.getCurrentUser();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Fuerza puntos",mFuerzaPuntos.getText().toString());
-        hashMap.put("Fuerza bonus",mFuerzaBonus.getText().toString());
-        hashMap.put("Destreza puntos",mDestrezaPuntos.getText().toString());
-        hashMap.put("Destreza bonus",mDestrezaBonus.getText().toString());
-        hashMap.put("Constitucion puntos",mConstitucionPuntos.getText().toString());
-        hashMap.put("Constitucion bonus",mConstitucionBonus.getText().toString());
-        hashMap.put("Inteligencia puntos",mInteligenciaPuntos.getText().toString());
-        hashMap.put("Inteligencia bonus",mInteligenciaBonus.getText().toString());
-        hashMap.put("Sabiduria puntos",mSabiduriaPuntos.getText().toString());
-        hashMap.put("Sabiduria bonus",mSabiduriaBonus.getText().toString());
-        hashMap.put("Carisma puntos",mCarismaPuntos.getText().toString());
-        hashMap.put("Carisma bonus",mCarismaBonus.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+        hashMap.put("Fuerza puntos", mFuerzaPuntos.getText().toString());
+        hashMap.put("Fuerza bonus", mFuerzaBonus.getText().toString());
+        hashMap.put("Destreza puntos", mDestrezaPuntos.getText().toString());
+        hashMap.put("Destreza bonus", mDestrezaBonus.getText().toString());
+        hashMap.put("Constitucion puntos", mConstitucionPuntos.getText().toString());
+        hashMap.put("Constitucion bonus", mConstitucionBonus.getText().toString());
+        hashMap.put("Inteligencia puntos", mInteligenciaPuntos.getText().toString());
+        hashMap.put("Inteligencia bonus", mInteligenciaBonus.getText().toString());
+        hashMap.put("Sabiduria puntos", mSabiduriaPuntos.getText().toString());
+        hashMap.put("Sabiduria bonus", mSabiduriaBonus.getText().toString());
+        hashMap.put("Carisma puntos", mCarismaPuntos.getText().toString());
+        hashMap.put("Carisma bonus", mCarismaBonus.getText().toString());
+        mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPJ).updateChildren(hashMap);
 
         HashMap<String, Object> ultimo = new HashMap<>();
 
-        ultimo.put("Ultimo personaje",codigoPJ);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+        ultimo.put("Ultimo personaje", codigoPJ);
+        mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
-        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
+        ((ContenedorInicioActivity) getActivity()).cargarDatosFB();
     }
 }

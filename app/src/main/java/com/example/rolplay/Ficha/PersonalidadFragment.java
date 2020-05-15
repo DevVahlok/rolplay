@@ -28,7 +28,7 @@ public class PersonalidadFragment extends Fragment {
 
     private View v;
     private TextView mRasgosPersonalidadTV, mIdealesTV, mVinculosTV, mDefectosTV, mRasgosPersonalidadET,
-                    mIdealesET, mVinculosET, mDefectosET;
+            mIdealesET, mVinculosET, mDefectosET;
     private FirebaseDatabase mDatabase;
     private String codigoPJ;
 
@@ -65,7 +65,7 @@ public class PersonalidadFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogCambiarTexto(mRasgosPersonalidadTV, getString(R.string.rasgosPersonalidad));
-                }
+            }
         });
 
         mIdealesET.setOnClickListener(new View.OnClickListener() {
@@ -89,28 +89,12 @@ public class PersonalidadFragment extends Fragment {
             }
         });
 
-        /*
-
-            Aquí la funcionalidad es simple. El usuario le da a "editar texto" y le aparece un dialog para editarlo o borrarlo.
-
-            Ejemplo dialog:
-
-            +------------------------------------------+
-            | Editar Rasgos de personalidad:           |
-            |                                          |
-            |  [                           ]           |
-            |                                          |
-            |       [Cancelar] [Borrar] [Guardar]      |
-            |                                          |
-            +------------------------------------------+
-
-
-         */
-
         return v;
     }
 
-    public void DialogCambiarTexto(final TextView TV, String s){
+    public void DialogCambiarTexto(final TextView TV, String s) {
+
+        //Formato del dialog
         AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         TextView title = new TextView(getActivity());
@@ -119,7 +103,7 @@ public class PersonalidadFragment extends Fragment {
         title.setTextSize(20);
         title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
         title.setGravity(Gravity.CENTER_HORIZONTAL);
-        title.setPadding(0,40,0,0);
+        title.setPadding(0, 40, 0, 0);
 
         constructrorDialog.setCustomTitle(title);
 
@@ -130,7 +114,7 @@ public class PersonalidadFragment extends Fragment {
         editText.setText(TV.getText());
 
         linearLayout.addView(editText);
-        linearLayout.setPadding(120,10,120,10);
+        linearLayout.setPadding(120, 10, 120, 10);
 
         constructrorDialog.setView(linearLayout);
 
@@ -169,13 +153,13 @@ public class PersonalidadFragment extends Fragment {
         hashMap.put("Ideales", mIdealesTV.getText().toString());
         hashMap.put("Vínculos", mVinculosTV.getText().toString());
         hashMap.put("Defectos", mDefectosTV.getText().toString());
-        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+        mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPJ).updateChildren(hashMap);
 
         HashMap<String, Object> ultimo = new HashMap<>();
 
-        ultimo.put("Ultimo personaje",codigoPJ);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+        ultimo.put("Ultimo personaje", codigoPJ);
+        mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
-        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
+        ((ContenedorInicioActivity) getActivity()).cargarDatosFB();
     }
 }
