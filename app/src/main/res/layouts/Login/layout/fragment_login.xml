@@ -15,7 +15,6 @@
         android:paddingTop="40dp"
         android:paddingRight="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/MainActivity_registrar_btn"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".Activities.MainActivity">
 
@@ -33,7 +32,7 @@
 
         <ImageView
             android:id="@+id/MainActivity_logo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:contentDescription="@string/app_name"
@@ -49,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:paddingTop="40dp"
+
             android:textColorHint="@color/colorPrimary"
             app:hintTextColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +111,7 @@
             android:id="@+id/MainActivity_entrar_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/colorSecondaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
@@ -120,26 +119,26 @@
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MainActivity_recuperar_password_btn" />
 
+        <Button
+            android:id="@+id/MainActivity_registrar_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
+            android:text="@string/noTienesCuentaRegistrate"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/MainActivity_layoutArriba"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <Button
-        android:id="@+id/MainActivity_registrar_btn"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:paddingTop="20dp"
-        android:text="@string/noTienesCuentaRegistrate"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/MainActivity_layoutArriba"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

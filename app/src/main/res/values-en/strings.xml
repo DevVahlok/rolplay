@@ -18,8 +18,8 @@
     <string name="contrasena">Password</string>
     <string name="repetirContrasena">Repeat Contraseña</string>
     <string name="hasOlvidadoContrasena">Did you forget your password?</string>
-    <string name="noTienesCuentaRegistrate">You don\'t have a Rol &amp; Play account? Register.</string>
-    <string name="registrarse">Regisyer</string>
+    <string name="noTienesCuentaRegistrate">Don\'t you have a Rol &amp; Play account? Register.</string>
+    <string name="registrarse">Register</string>
     <string name="recuperarPassword">Recover password</string>
     <string name="recuperar">Recover</string>
 
