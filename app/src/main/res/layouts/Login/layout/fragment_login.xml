@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MainActivity_layoutBase"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MainActivity_layoutArriba"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +14,9 @@
         android:paddingLeft="40dp"
         android:paddingTop="40dp"
         android:paddingRight="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/MainActivity_registrar_btn"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".Activities.MainActivity">
 
         <TextView
@@ -24,15 +27,19 @@
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimary"
-            android:textSize="42sp" />
+            android:textSize="42sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/MainActivity_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/MainActivity_titulo"
             android:layout_marginTop="20dp"
             android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/MainActivity_titulo"
             app:srcCompat="@drawable/mainlogo" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -40,10 +47,16 @@
             android:id="@+id/RegistrarActivity_email_TIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:paddingTop="40dp"
             android:textColorHint="@color/colorPrimary"
-            app:hintTextColor="@color/colorPrimary">
+            app:hintTextColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MainActivity_logo"
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MainActivity_email_et"
@@ -60,10 +73,15 @@
             android:id="@+id/RegistrarActivity_password_TIL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/RegistrarActivity_email_TIL"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:textColorHint="@color/colorPrimary"
-            app:hintTextColor="@color/colorPrimary">
+            app:hintTextColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RegistrarActivity_email_TIL"
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MainActivity_password_et"
@@ -81,20 +99,19 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/RegistrarActivity_password_TIL"
-            android:layout_alignEnd="@+id/RegistrarActivity_password_TIL"
             android:backgroundTint="@color/colorPrimaryDark"
             android:gravity="end"
             android:text="@string/hasOlvidadoContrasena"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/RegistrarActivity_password_TIL"
+            app:layout_constraintTop_toBottomOf="@+id/RegistrarActivity_password_TIL" />
 
         <Button
             android:id="@+id/MainActivity_entrar_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/MainActivity_recuperar_password_btn"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorSecondaryDark"
             android:paddingTop="20dp"
@@ -102,29 +119,27 @@
             android:text="@string/entrar"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MainActivity_recuperar_password_btn" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RelativeLayout
-        android:id="@+id/MainActivity_layoutAbajo"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/MainActivity_registrar_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:context=".Activities.MainActivity">
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:paddingTop="20dp"
+        android:text="@string/noTienesCuentaRegistrate"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/MainActivity_layoutArriba"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/MainActivity_registrar_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:paddingTop="20dp"
-            android:text="@string/noTienesCuentaRegistrate"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp" />
 
-    </RelativeLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
