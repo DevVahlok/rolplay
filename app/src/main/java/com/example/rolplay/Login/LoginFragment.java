@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
 import android.text.InputType;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -35,7 +36,6 @@ import java.util.Objects;
 public class LoginFragment extends Fragment {
 
     //Declaración de variables
-    private TextView mTitulo;
     private Button mBotonRegistrar, mBotonEntrar, mBotonRecuperarPassword;
     private TextInputEditText mTextInputCorreo, mTextInputPassword;
     private FirebaseAuth mAuth;
@@ -53,7 +53,6 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Inicialización de variables
-        mTitulo = v.findViewById(R.id.MainActivity_titulo);
         mTextInputCorreo = v.findViewById(R.id.MainActivity_email_et);
         mTextInputPassword = v.findViewById(R.id.MainActivity_password_et);
 
@@ -72,13 +71,13 @@ public class LoginFragment extends Fragment {
                 String pass = Objects.requireNonNull(mTextInputPassword.getText()).toString();
 
                 //Comprobaciones de email y password
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     mTextInputCorreo.setError("El formato del email no es correcto.");
                     mTextInputCorreo.setFocusable(true);
-                }else if(pass.length()<6){
+                } else if (pass.length() < 6) {
                     mTextInputPassword.setError("La contraseña es demasiado corta");
                     mTextInputPassword.setFocusable(true);
-                }else{
+                } else {
                     LoginUsuari(email, pass);
                 }
             }
@@ -115,7 +114,7 @@ public class LoginFragment extends Fragment {
         title.setTextSize(20);
         title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
         title.setGravity(Gravity.CENTER_HORIZONTAL);
-        title.setPadding(0,40,0,0);
+        title.setPadding(0, 40, 0, 0);
 
         constructrorDialog.setCustomTitle(title);
 
@@ -127,7 +126,7 @@ public class LoginFragment extends Fragment {
         emailET.setMinEms(20);
 
         linearLayout.addView(emailET);
-        linearLayout.setPadding(120,10,120,10);
+        linearLayout.setPadding(120, 10, 120, 10);
 
         constructrorDialog.setView(linearLayout);
 
@@ -167,13 +166,13 @@ public class LoginFragment extends Fragment {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     //Funciona correctamente
                     mDialogCarga.dismiss();
                     Toast.makeText(getActivity(), "Correo para recuperar contraseña enviado", Toast.LENGTH_LONG).show();
 
-                }else {
+                } else {
 
                     //Da error el proceso
                     mDialogCarga.dismiss();
@@ -202,14 +201,14 @@ public class LoginFragment extends Fragment {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     //Login funciona correctamente
                     mDialogCarga.dismiss();
-                    startActivity(new Intent(getActivity(), MenuPersonajesActivity.class).putExtra("origen","login"));
+                    startActivity(new Intent(getActivity(), MenuPersonajesActivity.class).putExtra("origen", "login"));
                     getActivity().finish();
 
-                }else{
+                } else {
 
                     //Login fallido
                     mDialogCarga.dismiss();

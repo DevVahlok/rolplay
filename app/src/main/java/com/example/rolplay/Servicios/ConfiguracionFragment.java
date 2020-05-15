@@ -1,10 +1,8 @@
 package com.example.rolplay.Servicios;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -26,12 +23,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Activities.InformacionActivity;
 import com.example.rolplay.Activities.MainActivity;
 import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.R;
-import com.google.android.gms.common.stats.ConnectionTracker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -66,14 +61,6 @@ public class ConfiguracionFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_configuracion, container, false);
 
-        //Para el switch del sonido podríamos hacerlo en una variable global (o desde FireBase) y que haya un if() antes de reproducir un sonido.
-
-        //En el recibir información al correo, si está activado hay que guardar el correo en un nodo de FireBase que se llame "newsletter".
-        // Así se podrán recoger todos fácilmente y mandar correos si se quiere. (y borrarlo al desmarcarlo)
-
-        //Vamos a ser buena gente y poner el checkbox desmarcado como default
-
-
         //Para las estadísticas, meter un int en FireBase e ir sumando
         Bundle recuperados = getArguments();
 
@@ -92,24 +79,24 @@ public class ConfiguracionFragment extends Fragment {
         try {
             mSonido.setChecked(Objects.requireNonNull(recuperados).getBoolean("Sonido"));
             mCorreo.setChecked(recuperados.getBoolean("Correo"));
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Datos peta: ", e.getMessage());
         }
 
-        if (mSonido.isChecked()){
-            mMediaPlayer.setVolume(1,1);
-        }else{
-            mMediaPlayer.setVolume(0,0);
+        if (mSonido.isChecked()) {
+            mMediaPlayer.setVolume(1, 1);
+        } else {
+            mMediaPlayer.setVolume(0, 0);
         }
 
         mSonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    mMediaPlayer.setVolume(1,1);
+                if (isChecked) {
+                    mMediaPlayer.setVolume(1, 1);
                     volumen = 1;
-                }else{
-                    mMediaPlayer.setVolume(0,0);
+                } else {
+                    mMediaPlayer.setVolume(0, 0);
                     volumen = 0;
                 }
             }
@@ -148,7 +135,7 @@ public class ConfiguracionFragment extends Fragment {
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -159,7 +146,7 @@ public class ConfiguracionFragment extends Fragment {
 
 
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -169,15 +156,14 @@ public class ConfiguracionFragment extends Fragment {
                 constructrorDialog.setPositiveButton(getString(R.string.cambiarContrasenya), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
+                        mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
                         mDialogCarga.setCancelable(false);
                         usuariActual.updatePassword(editText.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     mDialogCarga.dismiss();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(getActivity(), "Cambio de contraseña fallido", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -256,9 +242,9 @@ public class ConfiguracionFragment extends Fragment {
 
         //Guarda datos en FireBase al salir
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Sonido",mSonido.isChecked());
-        hashMap.put("Correo",mCorreo.isChecked());
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(hashMap);
+        hashMap.put("Sonido", mSonido.isChecked());
+        hashMap.put("Correo", mCorreo.isChecked());
+        mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(hashMap);
     }
 
 }

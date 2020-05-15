@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RasgosAtributosFragment extends Fragment  implements AdapterRecyclerRasgosAtributos.OnItemListener{
+public class RasgosAtributosFragment extends Fragment implements AdapterRecyclerRasgosAtributos.OnItemListener {
 
     //Declaración de variables
     private ArrayList<String> listaRasgosAtributos;
@@ -57,14 +58,14 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
 
         //Inicialización de variables
         recycler = v.findViewById(R.id.RasgosAtributos_Recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mBotonAnadirObjeto = v.findViewById(R.id.RasgosAtributos_anadirObjeto_btn);
         valorTexto = v.findViewById(R.id.RasgosAtributos_valor);
         listaRasgosAtributos = recuperados.getStringArrayList("Rasgos y Atributos");
 
         //Limitación de los Rasgos / Atributos a 84 carácteres ~
 
-        adapter = new AdapterRecyclerRasgosAtributos(listaRasgosAtributos,this, getContext());
+        adapter = new AdapterRecyclerRasgosAtributos(listaRasgosAtributos, this, getContext());
         recycler.setAdapter(adapter);
 
         //Al pulsar el botón de añadir objeto
@@ -81,7 +82,7 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
+                title.setPadding(0, 40, 0, 0);
 
                 constructrorDialog.setCustomTitle(title);
 
@@ -92,7 +93,7 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
 
 
                 linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
+                linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
 
@@ -142,13 +143,13 @@ public class RasgosAtributosFragment extends Fragment  implements AdapterRecycle
         FirebaseUser usuariActual = mAuth.getCurrentUser();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Rasgos",listaRasgosAtributos);
-        mDatabase.getReference("users/"+usuariActual.getUid()+"/"+codigoPJ).updateChildren(hashMap);
+        hashMap.put("Rasgos", listaRasgosAtributos);
+        mDatabase.getReference("users/" + usuariActual.getUid() + "/" + codigoPJ).updateChildren(hashMap);
         HashMap<String, Object> ultimo = new HashMap<>();
 
-        ultimo.put("Ultimo personaje",codigoPJ);
-        mDatabase.getReference("users/"+usuariActual.getUid()).updateChildren(ultimo);
+        ultimo.put("Ultimo personaje", codigoPJ);
+        mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
-        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
+        ((ContenedorInicioActivity) getActivity()).cargarDatosFB();
     }
 }

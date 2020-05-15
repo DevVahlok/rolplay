@@ -64,23 +64,23 @@ public class RegistrarFragment extends Fragment {
                 String confirmpass = mTextInputConfirmPassword.getText().toString();
 
                 //Comprobaciones de mail y password
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
                     mTextInputCorreo.setError("El formato del email no es correcto.");
                     mTextInputCorreo.setFocusable(true);
 
-                }else if(pass.length()<6){
+                } else if (pass.length() < 6) {
 
                     mTextInputPassword.setError("La contraseña es demasiado corta");
                     mTextInputPassword.setFocusable(true);
 
-                }else if(!pass.equals(confirmpass)){
+                } else if (!pass.equals(confirmpass)) {
 
                     mTextInputPassword.setError("No coinciden las contraseñas");
                     mTextInputPassword.setFocusable(true);
                     mTextInputConfirmPassword.setFocusable(true);
 
-                }else{
+                } else {
                     RegistrarUsuari(email, pass);
                 }
             }
@@ -92,13 +92,13 @@ public class RegistrarFragment extends Fragment {
     //Accion de registrar
     private void RegistrarUsuari(String email, String pass) {
 
-        mDialogCarga.show(getActivity().getSupportFragmentManager(),null);
+        mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
         mDialogCarga.setCancelable(false);
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
 
                             //Caso de que registre correctamente
                             mDialogCarga.dismiss();
@@ -106,7 +106,7 @@ public class RegistrarFragment extends Fragment {
 
                             getActivity().finish();
 
-                        }else{
+                        } else {
 
                             //Caso de que falle el registro
                             mDialogCarga.dismiss();
@@ -120,15 +120,13 @@ public class RegistrarFragment extends Fragment {
 
                 //Fallo en firebase
                 mDialogCarga.dismiss();
-                Toast.makeText(getActivity(), e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
     }
-
-
 
 
 }
