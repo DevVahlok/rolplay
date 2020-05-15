@@ -25,8 +25,6 @@ import java.util.Objects;
 public class CompetenciasIdiomasFragment extends Fragment {
 
     //Declaración de variables
-    private String[] listaIdiomas;
-    private String[] listaIdiomasRegionales;
     private Button mModificar;
     private TextView mIdiomas, mArmadura, mArmas, mHerramientas, mEspecialidad, mRangoMilitar, mOtras;
     private FirebaseDatabase mDatabase;
@@ -65,12 +63,6 @@ public class CompetenciasIdiomasFragment extends Fragment {
             mRangoMilitar.setText(recuperados.getString("Rango militar"));
             mOtras.setText(recuperados.getString("Otras"));
         }
-
-        //Idiomas
-        //======================================================
-
-        //Placeholder (abajo están explicados todos)
-        listaIdiomas = new String[]{"Enano", "Infracomún", "Élfico", "Drow"};
 
         mModificar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,9 +232,6 @@ public class CompetenciasIdiomasFragment extends Fragment {
 
          */
 
-        //Estos son todos los idiomas regionales
-        listaIdiomasRegionales = new String[]{"Aglarondano", "Alzhedo", "Damarano", "Dambrazhano", "Durparí", "Halruyano", "Iluskano", "Khessentano", "Khondazhano", "Khultano", "Lantanés", "Midaní", "Mulhorandino", "Nexalano", "Rashemí", "Serusano", "Sheirano", "Tashalano", "Teigano", "Túrmico", "Úluik", "Unzhérico"};
-
         //Resto de elementos
         //======================================================
 
@@ -252,59 +241,6 @@ public class CompetenciasIdiomasFragment extends Fragment {
 
         return v;
     }
-
-    private void dialogModificar(Button button, final TextView TV, final String s) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-
-                TextView title = new TextView(getActivity());
-                title.setText(s);
-                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
-                title.setTextSize(20);
-                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
-                title.setGravity(Gravity.CENTER_HORIZONTAL);
-                title.setPadding(0,40,0,0);
-
-                constructrorDialog.setCustomTitle(title);
-
-                LinearLayout linearLayout = new LinearLayout(getActivity());
-
-                final EditText editText = new EditText(getActivity());
-                editText.setMinEms(20);
-                editText.setText(TV.getText());
-
-                linearLayout.addView(editText);
-                linearLayout.setPadding(120,10,120,10);
-
-                constructrorDialog.setView(linearLayout);
-
-                //Botón de añadir
-                constructrorDialog.setPositiveButton(getString(R.string.anadir), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        TV.setText(editText.getText());
-                    }
-                });
-
-                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                //Enseña el dialog de 'Añadir objeto'
-                AlertDialog cambiarTexto = constructrorDialog.create();
-                cambiarTexto.show();
-
-                Objects.requireNonNull(cambiarTexto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
-
-            }
-        });
-    }
-
 
     @Override
     public void onPause() {

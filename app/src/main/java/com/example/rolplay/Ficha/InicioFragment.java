@@ -92,8 +92,6 @@ public class InicioFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        Bundle recuperados = getArguments();
-
         //Incialización de variables
         mBotonPestanaCabecera = v.findViewById(R.id.ActivityInicio_cabecera_btn);
         mBotonPestanaPuntosHabilidad = v.findViewById(R.id.ActivityInicio_puntosHabilidad_btn);

@@ -21,6 +21,7 @@ import com.example.rolplay.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 import static com.example.rolplay.Ficha.EquipoFragment.listaItemsArmadura;
 import static com.example.rolplay.Ficha.EquipoFragment.listaItemsMontura;
 
@@ -122,14 +123,14 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             radio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    primeraVez=false;
+                    primeraVez = false;
                     if (listaDatos.get(getAdapterPosition()) instanceof ItemEquipo) {
-                        if(mCheckbox.isChecked()) {
+                        if (mCheckbox.isChecked()) {
                             lastSelectedPositionE = getAdapterPosition();
                         }
                         ((ItemEquipo) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
-                    }else if (listaDatos.get(getAdapterPosition()) instanceof ItemMontura) {
-                        if(mCheckbox.isChecked()) {
+                    } else if (listaDatos.get(getAdapterPosition()) instanceof ItemMontura) {
+                        if (mCheckbox.isChecked()) {
                             lastSelectedPositionM = getAdapterPosition();
                         }
                         ((ItemMontura) listaDatos.get(getAdapterPosition())).setCheckbox(String.valueOf(mCheckbox.isChecked()));
@@ -150,11 +151,11 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
-                if (s.getCheckbox().equals("true")){
+                if (s.getCheckbox().equals("true")) {
                     mCheckbox.setChecked(true);
-                } else if (s.getCheckbox().equals("false")){
+                } else if (s.getCheckbox().equals("false")) {
                     mCheckbox.setChecked(false);
-                } else{
+                } else {
                     mCheckbox.setEnabled(false);
                 }
             } catch (Exception e) {
@@ -163,11 +164,11 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
                 mPesoEquipo.setText(context.getResources().getString(R.string.velocidadDosPuntos, Float.toString(s.getVelocidad())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
-                if (s.getCheckbox().equals("true")){
+                if (s.getCheckbox().equals("true")) {
                     mCheckbox.setChecked(true);
-                } else if (s.getCheckbox().equals("false")){
+                } else if (s.getCheckbox().equals("false")) {
                     mCheckbox.setChecked(false);
-                } else{
+                } else {
                     mCheckbox.setEnabled(false);
                 }
             }

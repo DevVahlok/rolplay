@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,11 +89,12 @@ public class AdapterRecyclerRasgosAtributos extends RecyclerView.Adapter<Adapter
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+        }
     }
 
     //Interfaz para crear un OnClickListener en la foto de la X
-    public interface OnItemListener{
+    public interface OnItemListener {
         void onItemClick(int position);
     }
 

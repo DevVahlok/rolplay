@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecyclerPersonaje.ViewHolderPersonaje>{
+public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecyclerPersonaje.ViewHolderPersonaje> {
 
     //Declaración de variables
     private ArrayList<ItemPersonaje> listaDatos;
@@ -65,7 +66,7 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
 
     }
 
-    public class ViewHolderPersonaje extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolderPersonaje extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //Declaración de variables
         private TextView mNombrePersonaje, mJuegoPersonaje, mCodigoPersonaje;
@@ -111,11 +112,11 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
                             mCodigoPersonaje.getText().toString().split(": ")[1]
                     );
 
-                    ultimo.put("Recordar menu",false);
-                    mDatabase.getReference("users/"+ FirebaseAuth.getInstance().getUid()).updateChildren(ultimo);
+                    ultimo.put("Recordar menu", false);
+                    mDatabase.getReference("users/" + FirebaseAuth.getInstance().getUid()).updateChildren(ultimo);
 
                     context.startActivity(new Intent(context, ContenedorInicioActivity.class).putExtra("codigo", mCodigoPersonaje.getText().toString()));
-                    ((Activity)context).finish();
+                    ((Activity) context).finish();
 
                 }
             });
@@ -133,12 +134,13 @@ public class AdapterRecyclerPersonaje extends RecyclerView.Adapter<AdapterRecycl
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+        }
 
     }
 
     //Interfaz para crear un OnClickListener en la foto de la X
-    public interface OnItemListener{
+    public interface OnItemListener {
         void onItemClick(int position);
     }
 

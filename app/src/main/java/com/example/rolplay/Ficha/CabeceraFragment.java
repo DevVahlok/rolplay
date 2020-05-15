@@ -85,7 +85,6 @@ public class CabeceraFragment extends Fragment {
         if(recuperados.getString("origen").equals("seleccionPersonaje")) {
             final DatabaseReference mRazas = mDatabase.getReference().child("DungeonAndDragons/Raza");
             final DatabaseReference mClases = mDatabase.getReference().child("DungeonAndDragons/Clases");
-            //final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamiento");
 
             //Cargar listas de los dropdowns
             //Razas

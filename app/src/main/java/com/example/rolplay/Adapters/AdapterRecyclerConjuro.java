@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +47,7 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
 
         //Devuelve el tamaño del ArrayList
         return listaConjuro.size();
@@ -75,7 +76,7 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
                 public void onClick(View v) {
 
                     //Elimina el objeto del recycler
-                    onItemListener.onItemClick(getAdapterPosition(),"conjuro");
+                    onItemListener.onItemClick(getAdapterPosition(), "conjuro");
 
                 }
             });
@@ -87,11 +88,12 @@ public class AdapterRecyclerConjuro extends RecyclerView.Adapter<AdapterRecycler
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+        }
     }
 
     //Interfaz para crear un OnClickListener en la foto de la X
-    public interface OnItemListener{
+    public interface OnItemListener {
         void onItemClick(int position, String modo);
     }
 

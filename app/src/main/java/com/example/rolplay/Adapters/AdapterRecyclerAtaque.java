@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -94,7 +95,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
                 public void onClick(View v) {
 
                     //Elimina el objeto del recycler
-                    onItemListener.onItemClick(getAdapterPosition(),"ataque");
+                    onItemListener.onItemClick(getAdapterPosition(), "ataque");
 
                 }
             });
@@ -116,23 +117,24 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
 
             //Seteo de datos de cada objeto
             mNombreAtaque.setText(s.getNombre());
-            mCosteAtaque.setText(context.getResources().getString(R.string.costeEquipo,Integer.toString(s.getCoste())));
-            mPesoAtaque.setText(context.getResources().getString(R.string.pesoEquipo,Integer.toString(s.getPeso())));
-            mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque,s.getDanyo()));
-            mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque,s.getPropiedades()));
+            mCosteAtaque.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+            mPesoAtaque.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
+            mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque, s.getDanyo()));
+            mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque, s.getPropiedades()));
             Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoAtaque);
-            if (s.getCheckbox().equals("true")){
+            if (s.getCheckbox().equals("true")) {
                 mCheckbox.setChecked(true);
-            } else if (s.getCheckbox().equals("false")){
+            } else if (s.getCheckbox().equals("false")) {
                 mCheckbox.setChecked(false);
-            } else{
+            } else {
                 mCheckbox.setEnabled(false);
             }
 
         }
 
         @Override
-        public void onClick(View v) { }
+        public void onClick(View v) {
+        }
     }
 
     //Interfaz para crear un OnClickListener en la foto de la X

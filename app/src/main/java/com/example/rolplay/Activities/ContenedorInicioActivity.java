@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -19,7 +18,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,7 +31,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.rolplay.Ficha.AtaquesConjurosFragment;
 import com.example.rolplay.Ficha.CabeceraFragment;
@@ -205,13 +202,22 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             mDatabase.getReference("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/Recordar menu").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    recordarMenuInterno = (Boolean) dataSnapshot.getValue();
-                    if (!entrado[0]) {
-                        if (recordarMenuInterno) {
-                            startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
-                            RecordarMenu(new HashMap<String, Object>());
-                            entrado[0] = true;
-                            activity.finish();
+                    try {
+                        recordarMenuInterno = (Boolean) dataSnapshot.getValue();
+                        if (!entrado[0]) {
+                            if (recordarMenuInterno) {
+                                startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
+                                RecordarMenu(new HashMap<String, Object>());
+                                entrado[0] = true;
+                                activity.finish();
+                            }
+                        }
+                    }catch(Exception e){
+                        if (!entrado[0]) {
+                                startActivity(new Intent(ContenedorInicioActivity.this, MenuPersonajesActivity.class).putExtra("origen", "login"));
+                                RecordarMenu(new HashMap<String, Object>());
+                                entrado[0] = true;
+                                activity.finish();
                         }
                     }
                 }
@@ -231,6 +237,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser usuariActual = mAuth.getCurrentUser();
 
+                //Creamos un nodo con todos los datos que necesita leer un personaje
                 HashMap<String, Object> hashMap = new HashMap<>();
 
                 hashMap.put("Nombre", "");
@@ -317,6 +324,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 ultimo.put("Ultimo personaje", codigoPersonaje);
                 mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
+                //Redirijimos a cabecera
                 Bundle bundle = new Bundle();
                 bundle.putString("Nombre", "");
                 bundle.putString("Trasfondo", "");
@@ -373,7 +381,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     try {
                         codigoPersonaje = (String) dataSnapshot.child("Ultimo personaje").getValue();
                         cargarDatosFB();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Log.e("------------", e.getMessage());
                     }
 
@@ -418,7 +426,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         final DatabaseReference mAlineamiento = mDatabase.getReference().child("DungeonAndDragons/Alineamientos");
         final DatabaseReference mObjetos = mDatabase.getReference("DungeonAndDragons/Objeto");
 
-        //Seteo datos en ficha
+        //Seteo datos en ficha, llamada a firebase de todos los datos simples
         mAuth = FirebaseAuth.getInstance();
         ComprobarEstatUsuari();
 
@@ -513,11 +521,11 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     mCorreo = dataSnapshot.child("Correo").getValue().toString();
                     mSonido = dataSnapshot.child("Sonido").getValue().toString();
 
-                    if(Boolean.valueOf(mSonido)){
-                        mMediaPlayer.setVolume(1,1);
+                    if (Boolean.valueOf(mSonido)) {
+                        mMediaPlayer.setVolume(1, 1);
                         volumen = 1;
-                    }else{
-                        mMediaPlayer.setVolume(0,0);
+                    } else {
+                        mMediaPlayer.setVolume(0, 0);
                         volumen = 0;
                     }
 
@@ -661,6 +669,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
+        //Cargamos el equipo que llevamos
         final DatabaseReference mEquipo = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Equipo");
         mEquipo.addValueEventListener(new ValueEventListener() {
             @Override
@@ -668,9 +677,9 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 Equipo.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("peso").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
-                    }catch (Exception e){
-                        Equipo.add((String) ds.child("nombre").getValue()+";;;"+((Long) ds.child("coste").getValue()).toString()+";;;"+((Long) ds.child("velocidad").getValue()).toString()+";;;"+((Long) ds.child("capacidadCarga").getValue()).toString()+";;;"+(String) ds.child("url").getValue()+";;;"+(String) ds.child("checkbox").getValue());
+                        Equipo.add((String) ds.child("nombre").getValue() + ";;;" + ((Long) ds.child("coste").getValue()).toString() + ";;;" + ((Long) ds.child("peso").getValue()).toString() + ";;;" + (String) ds.child("url").getValue() + ";;;" + (String) ds.child("checkbox").getValue());
+                    } catch (Exception e) {
+                        Equipo.add((String) ds.child("nombre").getValue() + ";;;" + ((Long) ds.child("coste").getValue()).toString() + ";;;" + ((Long) ds.child("velocidad").getValue()).toString() + ";;;" + ((Long) ds.child("capacidadCarga").getValue()).toString() + ";;;" + (String) ds.child("url").getValue() + ";;;" + (String) ds.child("checkbox").getValue());
                     }
                 }
             }
@@ -681,6 +690,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
+        //Cargamos las armas que llevamos
         final DatabaseReference mAtaque = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Ataque");
         mAtaque.addValueEventListener(new ValueEventListener() {
             @Override
@@ -703,7 +713,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-
+        //Cargamos los rasgos y conjuros
         final DatabaseReference mRasgos = mDatabase.getReference("users/" + mAuth.getCurrentUser().getUid() + "/" + codigoPersonaje + "/Rasgos");
         mRasgos.addValueEventListener(new ValueEventListener() {
             @Override
@@ -819,6 +829,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        //Pasa los datos al fragment de destino
         Bundle bundle;
         switch (item.getItemId()) {
 
@@ -826,7 +837,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
                 break;
             case R.id.nav_cabecera:
-                //Pasa los datos al fragment de destino
                 bundle = new Bundle();
                 bundle.putString("Nombre", (String) mNombrePersonaje.getText());
                 bundle.putString("Trasfondo", Trasfondo);
@@ -904,7 +914,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Bonificador).commit();
                 break;
             case R.id.nav_combate:
-                //Pasa los datos al fragment de destino
                 bundle = new Bundle();
                 bundle.putStringArrayList("Equipo", Equipo);
                 bundle.putStringArrayList("Ataque", Ataque);

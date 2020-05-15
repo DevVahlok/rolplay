@@ -1,27 +1,20 @@
 package com.example.rolplay.Ficha;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.rolplay.Activities.ContenedorInicioActivity;
-import com.example.rolplay.Otros.DialogCarga;
 import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
@@ -95,35 +88,36 @@ public class CombateFragment extends Fragment {
         mPeso = recuperados.getInt("Peso total");
         try {
             mDestreza = Integer.parseInt(Objects.requireNonNull(recuperados.getString("Destreza puntos")));
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
 
+        //Cogemos los datos de equipo para setear campos
         ArrayList<String> auxi = recuperados.getStringArrayList("Equipo");
 
-        for(int i=0; i<auxi.size();i++){
+        for (int i = 0; i < auxi.size(); i++) {
             String[] split = auxi.get(i).split(";;;");
-            if (split.length==5) {
+            if (split.length == 5) {
                 listaDatos.add(new ItemEquipo(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3], split[4]));
             }
         }
 
-        for(int i=0; i<auxi.size();i++){
+        for (int i = 0; i < auxi.size(); i++) {
             String[] split = auxi.get(i).split(";;;");
-            if (split.length==6) {
+            if (split.length == 6) {
                 listaDatosMontura.add(new ItemMontura(split[0], Integer.parseInt(split[1]), Float.parseFloat(split[2]), Integer.parseInt(split[3]), split[4], split[5]));
             }
         }
 
         //Clase de armadura: lo determina la clase del objeto armadura (suele ser num + bonificador [cuadrado] de puntosHabilidad)
-        for (final Object ie: listaDatos){
-            if (((ItemEquipo)ie).getCheckbox().equals("true") ){
-                noEquipo=false;
+        for (final Object ie : listaDatos) {
+            if (((ItemEquipo) ie).getCheckbox().equals("true")) {
+                noEquipo = false;
                 mDatabase.getReference("DungeonAndDragons/Objeto/Armaduras").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds: dataSnapshot.getChildren()){
-                            if (ds.child(((ItemEquipo) ie).getNombre()).getValue()!=null) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if (ds.child(((ItemEquipo) ie).getNombre()).getValue() != null) {
                                 String[] claseArmadura = ds.child(((ItemEquipo) ie).getNombre()).child("Clase").getValue().toString().split(" \\+ ");
                                 mClaseArmadura.setText(claseArmadura[0]);
                             }
@@ -136,7 +130,7 @@ public class CombateFragment extends Fragment {
                     }
                 });
             }
-            if (noEquipo){
+            if (noEquipo) {
                 mClaseArmadura.setText("0");
             }
         }
@@ -148,30 +142,30 @@ public class CombateFragment extends Fragment {
 
                 Random r = new Random();
 
-                mSoundPool.play(listaSonidos.get(r.nextInt(3)),volumen,volumen,1,0,1.0f);
+                mSoundPool.play(listaSonidos.get(r.nextInt(3)), volumen, volumen, 1, 0, 1.0f);
 
-                mIniciativa.setText(String.valueOf(r.nextInt(19)+1+mDestreza));
+                mIniciativa.setText(String.valueOf(r.nextInt(19) + 1 + mDestreza));
             }
         });
 
         //Velocidad depende del peso de todos los objetos
-        if (mPeso<=40) {
+        if (mPeso <= 40) {
             mVelocidad.setText("40");
-        }else if (mPeso<=80 && mPeso>=40.1) {
+        } else if (mPeso <= 80 && mPeso >= 40.1) {
             mVelocidad.setText("30");
-        }else if (mPeso<=120 && mPeso>=80.1) {
+        } else if (mPeso <= 120 && mPeso >= 80.1) {
             mVelocidad.setText("20");
-        }else if (mPeso<=160 && mPeso>=120.1) {
+        } else if (mPeso <= 160 && mPeso >= 120.1) {
             mVelocidad.setText("10");
-        }else if (mPeso<=240 && mPeso>=160.1) {
+        } else if (mPeso <= 240 && mPeso >= 160.1) {
             mVelocidad.setText("5");
-        }else if (mPeso>=240.1) {
+        } else if (mPeso >= 240.1) {
             mVelocidad.setText("0");
         }
 
-        for (Object im: listaDatosMontura){
-            if (((ItemMontura)im).getCheckbox().equals("true") ){
-                mVelocidad.setText(String.valueOf((int)((ItemMontura) im).getVelocidad()));
+        for (Object im : listaDatosMontura) {
+            if (((ItemMontura) im).getCheckbox().equals("true")) {
+                mVelocidad.setText(String.valueOf((int) ((ItemMontura) im).getVelocidad()));
             }
         }
 
@@ -181,9 +175,9 @@ public class CombateFragment extends Fragment {
         //Al subir de nivel, se aumenta la vida (mirar chincheta)
 
         ArrayList<String> aux = recuperados.getStringArrayList("Ataque");
-        for(int i=0; i<aux.size()/7;i++) {
-            if (aux.get((i*7)+6).equals("true")) {
-                mDadoGolpe.setText(aux.get((i*7)+4).split(" ")[0]);
+        for (int i = 0; i < aux.size() / 7; i++) {
+            if (aux.get((i * 7) + 6).equals("true")) {
+                mDadoGolpe.setText(aux.get((i * 7) + 4).split(" ")[0]);
             }
         }
 
@@ -201,7 +195,7 @@ public class CombateFragment extends Fragment {
         mGolpesActuales.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     ActualizarBarraDeVida();
                 }
             }
@@ -210,7 +204,7 @@ public class CombateFragment extends Fragment {
         mGolpesTotales.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     ActualizarBarraDeVida();
                 }
             }
@@ -239,7 +233,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito3.setEnabled(false);
                 mCheckboxFallo2.setEnabled(false);
                 mCheckboxFallo3.setEnabled(false);
@@ -251,7 +244,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxFallo2.setEnabled(false);
                 mCheckboxFallo3.setEnabled(false);
                 break;
@@ -262,7 +254,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxFallo2.setEnabled(false);
                 mCheckboxFallo3.setEnabled(false);
                 break;
@@ -273,7 +264,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito2.setEnabled(false);
                 mCheckboxExito3.setEnabled(false);
                 mCheckboxFallo3.setEnabled(false);
@@ -285,7 +275,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito3.setEnabled(false);
                 mCheckboxFallo3.setEnabled(false);
                 break;
@@ -296,7 +285,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxFallo3.setEnabled(false);
                 break;
             case 7:
@@ -306,7 +294,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxFallo3.setEnabled(false);
                 break;
             case 8:
@@ -316,7 +303,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito2.setEnabled(false);
                 mCheckboxExito3.setEnabled(false);
                 break;
@@ -327,7 +313,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito3.setEnabled(false);
                 break;
             case 10:
@@ -353,7 +338,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(true);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito2.setEnabled(false);
                 mCheckboxExito3.setEnabled(false);
                 break;
@@ -364,7 +348,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(true);
                 mCheckboxFallo2.setChecked(true);
                 mCheckboxFallo3.setChecked(true);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito3.setEnabled(false);
                 break;
             case 14:
@@ -391,7 +374,6 @@ public class CombateFragment extends Fragment {
                 mCheckboxFallo1.setChecked(false);
                 mCheckboxFallo2.setChecked(false);
                 mCheckboxFallo3.setChecked(false);
-                //Desactiva los checkbox 2 y 3 por defecto
                 mCheckboxExito2.setEnabled(false);
                 mCheckboxExito3.setEnabled(false);
                 mCheckboxFallo2.setEnabled(false);
@@ -536,6 +518,6 @@ public class CombateFragment extends Fragment {
         ultimo.put("Ultimo personaje", codigoPJ);
         mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(ultimo);
 
-        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
+        ((ContenedorInicioActivity) getActivity()).cargarDatosFB();
     }
 }
