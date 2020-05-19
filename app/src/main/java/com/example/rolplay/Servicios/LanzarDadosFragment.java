@@ -78,10 +78,9 @@ public class LanzarDadosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-
-                //TODO: Alex: incorpora los string de los titulos de 1d100 y 1d?
+                
                 TextView title = new TextView(getActivity());
-                title.setText("1 de 100");
+                title.setText(getString(R.string.unodcien));
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -126,6 +125,13 @@ public class LanzarDadosFragment extends Fragment {
                         for (int i = 0; i < dados; i++) {
                             daus.setText(daus.getText() + String.valueOf(r.nextInt(100)));
                         }
+
+                        daus.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                        daus.setTextSize(16);
+                        daus.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                        daus.setGravity(Gravity.CENTER_HORIZONTAL);
+                        daus.setPadding(0,100,0,0);
+
                         linearLayout.addView(daus);
                         constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -169,7 +175,7 @@ public class LanzarDadosFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText("1 de 100");
+                title.setText(getString(R.string.unodcien));
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -195,7 +201,7 @@ public class LanzarDadosFragment extends Fragment {
 
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 final TextView subtitle2 = new TextView(getActivity());
-                subtitle2.setText("De cuantas caras?");
+                subtitle2.setText(getString(R.string.cuantasCarasDado));
                 subtitle2.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 subtitle2.setTextSize(16);
                 subtitle2.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
