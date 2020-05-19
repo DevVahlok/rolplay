@@ -46,8 +46,6 @@ public class LanzarDadosFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_lanzar_dados, container, false);
 
-        //TODO: Falta dado 1d100 y 1d?
-
         md4 = v.findViewById(R.id.LanzarDados_lanzar_1d4_btn);
         md6 = v.findViewById(R.id.LanzarDados_lanzar_1d6_btn);
         md8 = v.findViewById(R.id.LanzarDados_lanzar_1d8_btn);
@@ -75,6 +73,197 @@ public class LanzarDadosFragment extends Fragment {
         DialogDados(md10, getString(R.string.unoddiez), 10, dados10);
         DialogDados(md12, getString(R.string.unoddoce), 12, dados12);
         DialogDados(md20, getString(R.string.unodveinte), 20, dados20);
+
+        md100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                //TODO: Alex: incorpora los string de los titulos de 1d100 y 1d?
+                TextView title = new TextView(getActivity());
+                title.setText("1 de 100");
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0, 40, 0, 0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                final TextView subtitle = new TextView(getActivity());
+                subtitle.setText(R.string.cuantosDadosQuieresLanzar);
+                subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                subtitle.setTextSize(16);
+                subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                subtitle.setPadding(10, 10, 10, 0);
+
+                linearLayout.addView(subtitle);
+                final EditText editText = new EditText(getActivity());
+                editText.setMinEms(20);
+                linearLayout.addView(editText);
+                linearLayout.setPadding(120, 10, 120, 10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.lanzar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int dados = Integer.parseInt(editText.getText().toString());
+                        AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                        LinearLayout linearLayout = new LinearLayout(getActivity());
+                        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        linearLayout.setGravity(Gravity.CENTER);
+                        constructrorDialog.setView(linearLayout);
+
+                        Random r = new Random();
+
+                        mSoundPool.play(listaSonidos.get(r.nextInt(3)), volumen, volumen, 1, 0, 1.0f);
+                        TextView daus = new TextView(getActivity());
+                        daus.setText("");
+                        for (int i = 0; i < dados; i++) {
+                            daus.setText(daus.getText() + String.valueOf(r.nextInt(100)));
+                        }
+                        linearLayout.addView(daus);
+                        constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog lanzarDados = constructrorDialog.create();
+                        lanzarDados.show();
+
+                        Objects.requireNonNull(lanzarDados.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Lanzar dados'
+                constructrorDialog.setView(linearLayout);
+                AlertDialog lanzarDados = constructrorDialog.create();
+                lanzarDados.show();
+
+                Objects.requireNonNull(lanzarDados.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
+            }
+        });
+
+        mdCantidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                TextView title = new TextView(getActivity());
+                title.setText("1 de 100");
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0, 40, 0, 0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                final TextView subtitle = new TextView(getActivity());
+                subtitle.setText(R.string.cuantosDadosQuieresLanzar);
+                subtitle.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                subtitle.setTextSize(16);
+                subtitle.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                subtitle.setPadding(10, 10, 10, 0);
+
+                linearLayout.addView(subtitle);
+                final EditText editText = new EditText(getActivity());
+                editText.setMinEms(20);
+                linearLayout.addView(editText);
+                linearLayout.setPadding(120, 10, 120, 10);
+
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                final TextView subtitle2 = new TextView(getActivity());
+                subtitle2.setText("De cuantas caras?");
+                subtitle2.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                subtitle2.setTextSize(16);
+                subtitle2.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                subtitle2.setPadding(10, 10, 10, 0);
+
+                linearLayout.addView(subtitle);
+                final EditText editText2 = new EditText(getActivity());
+                editText2.setMinEms(20);
+                linearLayout.addView(editText2);
+                linearLayout.setPadding(120, 10, 120, 10);
+
+                constructrorDialog.setView(linearLayout);
+
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.lanzar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int dados = Integer.parseInt(editText.getText().toString());
+                        AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                        LinearLayout linearLayout = new LinearLayout(getActivity());
+                        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        linearLayout.setGravity(Gravity.CENTER);
+                        constructrorDialog.setView(linearLayout);
+
+                        Random r = new Random();
+
+                        mSoundPool.play(listaSonidos.get(r.nextInt(3)), volumen, volumen, 1, 0, 1.0f);
+                        TextView daus = new TextView(getActivity());
+                        daus.setText("");
+                        for (int i = 0; i < dados; i++) {
+                            daus.setText(daus.getText() + String.valueOf(r.nextInt(Integer.parseInt(String.valueOf(editText2.getText())))));
+                        }
+                        linearLayout.addView(daus);
+                        constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog lanzarDados = constructrorDialog.create();
+                        lanzarDados.show();
+
+                        Objects.requireNonNull(lanzarDados.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+                    }
+                });
+
+                constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Enseña el dialog de 'Lanzar dados'
+                constructrorDialog.setView(linearLayout);
+                AlertDialog lanzarDados = constructrorDialog.create();
+                lanzarDados.show();
+
+                Objects.requireNonNull(lanzarDados.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
+
+            }
+        });
 
         return v;
     }

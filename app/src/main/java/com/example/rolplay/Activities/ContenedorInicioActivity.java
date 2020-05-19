@@ -363,7 +363,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                     });
                 }
             }
-            //TODO: Alex y Raúl: Si viene de Login o del menú lateral, enseñar SeleccionarPersonaje. Si no, seleccionar Ficha (maybe guardar la ficha actual en alguna variable (código?) ?) -- Lo mismo al pulsar Back
         }
 
         //Declaración de variables de la cabecera de la barra de navegación

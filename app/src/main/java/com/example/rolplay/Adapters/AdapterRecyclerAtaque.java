@@ -22,7 +22,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
 
     //Declaración de variables
     private ArrayList<ItemAtaque> listaAtaque;
-    private ImageView imgViewRemoveIcon_ataque;
+    private ImageView imgViewRemoveIcon_ataque, imgViewMoneda;
     private AdapterRecyclerAtaque.OnItemListener mOnItemListener;
     private Context context;
     private int lastSelectedPosition = -1;
@@ -68,7 +68,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
         //Declaración de variables
         private TextView mNombreAtaque, mCosteAtaque, mPesoAtaque, mDanyoAtaque, mPropiedadesAtaque;
         private CheckBox mCheckbox;
-        private ImageView mFotoAtaque;
+        private ImageView mFotoAtaque, mFotoMonedas;
         private AdapterRecyclerAtaque.OnItemListener onItemListener;
         private CheckBox radio;
 
@@ -86,6 +86,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             mCheckbox = itemView.findViewById(R.id.ListaAtaque_equipado);
             itemView.setOnClickListener(this);
             imgViewRemoveIcon_ataque = itemView.findViewById(R.id.ListaAtaque_borrar);
+            mFotoMonedas = itemView.findViewById(R.id.ListaEquipo_foto_moneda);
 
             radio = itemView.findViewById(R.id.ListaAtaque_equipado);
 
@@ -117,7 +118,24 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
 
             //Seteo de datos de cada objeto
             mNombreAtaque.setText(s.getNombre());
-            mCosteAtaque.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+            int moneda = s.getCoste();
+            if (moneda > 10 && moneda % 10 == 0) {
+                moneda = moneda / 10;
+                mFotoMonedas.setImageResource(R.drawable.ic_monedas_plata);
+                if (moneda > 5 && moneda % 5 == 0) {
+                    moneda = moneda / 5;
+                    mFotoMonedas.setImageResource(R.drawable.ic_monedas_esmeralda);
+                    if (moneda > 2 && moneda % 2 == 0) {
+                        moneda = moneda / 2;
+                        mFotoMonedas.setImageResource(R.drawable.ic_monedas_oro);
+                        if (moneda > 10 && moneda % 10 == 0) {
+                            moneda = moneda / 10;
+                            mFotoMonedas.setImageResource(R.drawable.ic_monedas_platino);
+                        }
+                    }
+                }
+            }
+            mCosteAtaque.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(moneda)));
             mPesoAtaque.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
             mDanyoAtaque.setText(context.getResources().getString(R.string.danyoAtaque, s.getDanyo()));
             mPropiedadesAtaque.setText(context.getResources().getString(R.string.propiedadesAtaque, s.getPropiedades()));

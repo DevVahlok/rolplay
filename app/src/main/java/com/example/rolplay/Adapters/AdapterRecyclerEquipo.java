@@ -3,7 +3,6 @@ package com.example.rolplay.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rolplay.Ficha.EquipoFragment;
 import com.example.rolplay.Otros.ItemEquipo;
 import com.example.rolplay.Otros.ItemMontura;
 import com.example.rolplay.R;
@@ -22,14 +20,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import static com.example.rolplay.Ficha.EquipoFragment.listaItemsArmadura;
-import static com.example.rolplay.Ficha.EquipoFragment.listaItemsMontura;
-
 public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerEquipo.ViewHolderEquipo> {
 
     //Declaración de variables
     private ArrayList<Object> listaDatos;
-    private ImageView imgViewRemoveIcon;
+    private ImageView imgViewRemoveIcon, imgViewMoneda;
     private OnItemListener mOnItemListener;
     private Context context;
     private int lastSelectedPositionE = -1;
@@ -84,12 +79,10 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
 
     public class ViewHolderEquipo extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //TODO: Raúl: Modificar valor e img de moneda
-
         //Declaración de variables
         private TextView mNombreEquipo, mCosteEquipo, mPesoEquipo;
         private CheckBox mCheckbox;
-        private ImageView mFotoEquipo;
+        private ImageView mFotoEquipo, mFotoMonedas;
         private OnItemListener onItemListener;
         private CheckBox radio;
 
@@ -103,6 +96,7 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
             mPesoEquipo = itemView.findViewById(R.id.listaEquipo_peso);
             mFotoEquipo = itemView.findViewById(R.id.ListaEquipo_foto);
             mCheckbox = itemView.findViewById(R.id.listaEquipo_equipado);
+            mFotoMonedas = itemView.findViewById(R.id.ListaEquipo_foto_moneda);
 
             itemView.setOnClickListener(this);
             imgViewRemoveIcon = itemView.findViewById(R.id.ListaEquipo_borrar);
@@ -148,7 +142,24 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 ItemEquipo s = (ItemEquipo) o;
                 //Seteo de datos de cada objeto
                 mNombreEquipo.setText(s.getNombre());
-                mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(s.getCoste())));
+                int moneda = s.getCoste();
+                if (moneda > 10 && moneda % 10 == 0) {
+                    moneda = moneda / 10;
+                    mFotoMonedas.setImageResource(R.drawable.ic_monedas_plata);
+                    if (moneda > 5 && moneda % 5 == 0) {
+                        moneda = moneda / 5;
+                        mFotoMonedas.setImageResource(R.drawable.ic_monedas_esmeralda);
+                        if (moneda > 2 && moneda % 2 == 0) {
+                            moneda = moneda / 2;
+                            mFotoMonedas.setImageResource(R.drawable.ic_monedas_oro);
+                            if (moneda > 10 && moneda % 10 == 0) {
+                                moneda = moneda / 10;
+                                mFotoMonedas.setImageResource(R.drawable.ic_monedas_platino);
+                            }
+                        }
+                    }
+                }
+                mCosteEquipo.setText(context.getResources().getString(R.string.costeEquipo, Integer.toString(moneda)));
                 mPesoEquipo.setText(context.getResources().getString(R.string.pesoEquipo, Integer.toString(s.getPeso())));
                 Picasso.get().load(Uri.parse(s.getUrl())).into(mFotoEquipo);
                 if (s.getCheckbox().equals("true")) {
