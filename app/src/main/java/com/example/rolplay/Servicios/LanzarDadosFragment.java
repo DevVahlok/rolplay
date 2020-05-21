@@ -123,7 +123,7 @@ public class LanzarDadosFragment extends Fragment {
                         TextView daus = new TextView(getActivity());
                         daus.setText("");
                         for (int i = 0; i < dados; i++) {
-                            daus.setText(daus.getText() + String.valueOf(r.nextInt(100)));
+                            daus.setText(daus.getText() + " " + String.valueOf(r.nextInt(100)));
                         }
 
                         daus.setTextColor(getActivity().getColor(R.color.colorPrimary));
@@ -175,7 +175,7 @@ public class LanzarDadosFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText(getString(R.string.unodcien));
+                title.setText(getString(R.string.unodundefined));
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -207,7 +207,7 @@ public class LanzarDadosFragment extends Fragment {
                 subtitle2.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
                 subtitle2.setPadding(10, 10, 10, 0);
 
-                linearLayout.addView(subtitle);
+                linearLayout.addView(subtitle2);
                 final EditText editText2 = new EditText(getActivity());
                 editText2.setMinEms(20);
                 linearLayout.addView(editText2);
@@ -232,8 +232,14 @@ public class LanzarDadosFragment extends Fragment {
                         TextView daus = new TextView(getActivity());
                         daus.setText("");
                         for (int i = 0; i < dados; i++) {
-                            daus.setText(daus.getText() + String.valueOf(r.nextInt(Integer.parseInt(String.valueOf(editText2.getText())))));
+                            daus.setText(daus.getText() + " " + String.valueOf(r.nextInt(Integer.parseInt(String.valueOf(editText2.getText())))));
                         }
+                        daus.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                        daus.setTextSize(16);
+                        daus.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                        daus.setGravity(Gravity.CENTER_HORIZONTAL);
+                        daus.setPadding(0,100,0,0);
+
                         linearLayout.addView(daus);
                         constructrorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
