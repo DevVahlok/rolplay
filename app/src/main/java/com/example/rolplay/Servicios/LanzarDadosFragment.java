@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -101,6 +102,7 @@ public class LanzarDadosFragment extends Fragment {
                 linearLayout.addView(subtitle);
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
 
@@ -196,6 +198,7 @@ public class LanzarDadosFragment extends Fragment {
                 linearLayout.addView(subtitle);
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
 
@@ -210,6 +213,7 @@ public class LanzarDadosFragment extends Fragment {
                 linearLayout.addView(subtitle2);
                 final EditText editText2 = new EditText(getActivity());
                 editText2.setMinEms(20);
+                editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
                 linearLayout.addView(editText2);
                 linearLayout.setPadding(120, 10, 120, 10);
 
@@ -309,6 +313,7 @@ public class LanzarDadosFragment extends Fragment {
                 linearLayout.addView(subtitle);
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
 

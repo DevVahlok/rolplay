@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -152,6 +153,7 @@ public class CabeceraFragment extends Fragment {
 
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
@@ -162,19 +164,25 @@ public class CabeceraFragment extends Fragment {
                 constructrorDialog.setPositiveButton("Aumentar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mProgresoExperiencia = mProgresoExperiencia + Integer.parseInt(editText.getText().toString());
-                        if(mProgresoExperiencia>mExperienciaTotal){
-                            mNivel++;
-                            mProgresoExperiencia=mProgresoExperiencia-mExperienciaTotal;
-                            mExperienciaTotal = mNivel * (mNivel+1) * 500;
-                        }else if(mProgresoExperiencia<0){
-                            mNivel--;
-                            mExperienciaTotal = mNivel * (mNivel-1) * 500;
-                            mProgresoExperiencia=mProgresoExperiencia+mExperienciaTotal;
-                        }
+                        if (!editText.getText().toString().equals("")) {
+                            mProgresoExperiencia = mProgresoExperiencia + Integer.parseInt(editText.getText().toString());
+                            if (mProgresoExperiencia > mExperienciaTotal) {
+                                while (mProgresoExperiencia > mExperienciaTotal) {
+                                    mNivel++;
+                                    mProgresoExperiencia = mProgresoExperiencia - mExperienciaTotal;
+                                    mExperienciaTotal = mNivel * (mNivel + 1) * 500;
+                                    mBarraProgreso.setMax(mExperienciaTotal);
+                                    mBarraProgreso.setProgress(mProgresoExperiencia);
+                                }
+                            } else if (mProgresoExperiencia < 0) {
+                                mNivel--;
+                                mExperienciaTotal = mNivel * (mNivel - 1) * 500;
+                                mProgresoExperiencia = mProgresoExperiencia + mExperienciaTotal;
+                            }
                             mBarraProgreso.setProgress(mProgresoExperiencia);
                             mExperiencia_ET.setText(getString(R.string.experiencia, Integer.toString(mProgresoExperiencia), Integer.toString(mExperienciaTotal)));
                             mNivel_ET.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
+                        }
                     }
                 });
 

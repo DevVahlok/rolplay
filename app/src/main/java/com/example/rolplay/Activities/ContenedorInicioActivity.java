@@ -505,6 +505,10 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 mEspecialidad = (String) dataSnapshot.child("Especialidad").getValue();
                 mRangoMilitar = (String) dataSnapshot.child("Rango militar").getValue();
                 mOtras = (String) dataSnapshot.child("Otras").getValue();
+                int PuntosMaximos = mNivel * (mNivel + 1) * 500;
+                mProgressBar.setMax(PuntosMaximos);
+                mProgressBar.setProgress(PuntosExperiencia);
+                mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
             }
 
             @Override
@@ -539,7 +543,6 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
             }
         });
 
-        mNivelPersonajeNavBar.setText(getString(R.string.nivelPersonaje, Integer.toString(mNivel)));
         mCorreoElectronico.setText(mUsuario.getEmail());
 
         //Cargar listas de los dropdowns
@@ -753,9 +756,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
         cargarDados("1d12", dados12, mdados);
         cargarDados("1d20", dados20, mdados);
 
-        int PuntosMaximos = mNivel * (mNivel + 1) * 500;
-        mProgressBar.setMax(PuntosMaximos);
-        mProgressBar.setProgress(PuntosExperiencia);
+
 
     }
 
