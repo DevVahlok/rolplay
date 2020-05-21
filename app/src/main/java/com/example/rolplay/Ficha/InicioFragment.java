@@ -103,7 +103,7 @@ public class InicioFragment extends Fragment {
         mRazaPersonaje_TV = v.findViewById(R.id.ActivityInicio_razaPersonaje_TV);
         mAlineamientoPersonaje_TV = v.findViewById(R.id.ActivityInicio_alineamientoPersonaje_TV);
         mExperienciaPersonaje_TV = v.findViewById(R.id.ActivityInicio_experienciaPersonaje_TV);
-        mNombreJugador_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
+        mNombrePersonaje_TV = v.findViewById(R.id.ActivityInicio_NombrePersonaje_TV);
         mBotonPestanaCombate = v.findViewById(R.id.ActivityInicio_combate_btn);
         mBotonPestanaEquipo = v.findViewById(R.id.ActivityInicio_equipo_btn);
         mBotonPestanaAtaquesConjuros = v.findViewById(R.id.ActivityInicio_ataquesConjuros_btn);
@@ -136,6 +136,7 @@ public class InicioFragment extends Fragment {
             });
         }
 
+        mNombreJugador_TV.setText(mAuth.getCurrentUser().getEmail());
 
         mBotonPestanaCabecera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +146,7 @@ public class InicioFragment extends Fragment {
 
                 //Pasa los datos al fragment de destino
                 Bundle bundle = new Bundle();
-                bundle.putString("Nombre", (String) mNombreJugador_TV.getText());
+                bundle.putString("Nombre", (String) mNombrePersonaje_TV.getText());
                 bundle.putString("Trasfondo", (String) mTrasfondoPersonaje_TV.getText());
                 bundle.putString("Raza", (String) mRazaPersonaje_TV.getText());
                 bundle.putString("Clase", (String) mClaseNivelPersonaje_TV.getText());
@@ -429,7 +430,7 @@ public class InicioFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                mNombreJugador_TV.setText((String) dataSnapshot.child("Nombre").getValue());
+                mNombrePersonaje_TV.setText((String) dataSnapshot.child("Nombre").getValue());
                 mTrasfondoPersonaje_TV.setText((String) dataSnapshot.child("Trasfondo").getValue());
                 mAlineamientoPersonaje_TV.setText((String) dataSnapshot.child("Alineamiento").getValue());
                 mRazaPersonaje_TV.setText((String) dataSnapshot.child("Raza").getValue());
