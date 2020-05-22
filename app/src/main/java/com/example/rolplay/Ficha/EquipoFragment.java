@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,6 +119,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 final EditText cobreET = new EditText(getActivity());
                 cobreET.setMinEms(20);
                 cobreET.setText(mMonCobre.getText());
+                cobreET.setInputType(InputType.TYPE_CLASS_NUMBER);
                 TextView plata = new TextView(getActivity());
                 plata.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 plata.setTextSize(16);
@@ -127,6 +129,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 final EditText plataET = new EditText(getActivity());
                 plataET.setMinEms(20);
                 plataET.setText(mMonPlata.getText());
+                plataET.setInputType(InputType.TYPE_CLASS_NUMBER);
                 TextView esmeralda = new TextView(getActivity());
                 esmeralda.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 esmeralda.setTextSize(16);
@@ -136,6 +139,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 final EditText esmeraldaET = new EditText(getActivity());
                 esmeraldaET.setMinEms(20);
                 esmeraldaET.setText(mMonEsmeralda.getText());
+                esmeraldaET.setInputType(InputType.TYPE_CLASS_NUMBER);
                 TextView oro = new TextView(getActivity());
                 oro.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 oro.setTextSize(16);
@@ -145,6 +149,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 final EditText oroET = new EditText(getActivity());
                 oroET.setMinEms(20);
                 oroET.setText(mMonOro.getText());
+                oroET.setInputType(InputType.TYPE_CLASS_NUMBER);
                 TextView platino = new TextView(getActivity());
                 platino.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 platino.setTextSize(16);
@@ -154,6 +159,7 @@ public class EquipoFragment extends Fragment implements AdapterRecyclerEquipo.On
                 final EditText platinoET = new EditText(getActivity());
                 platinoET.setMinEms(20);
                 platinoET.setText(mMonPlatino.getText());
+                platinoET.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
