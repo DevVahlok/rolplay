@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,6 +142,7 @@ public class PuntosHabilidadFragment extends Fragment {
                 final EditText editText = new EditText(getActivity());
                 editText.setMinEms(20);
                 editText.setText(TVB.getText());
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
