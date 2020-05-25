@@ -203,6 +203,7 @@
     <string name="accedeApi">Accede a la API</string>
     <string name="cambiarContrasenya"><u>Cambiar contraseña</u></string>
     <string name="eliminarCuenta"><u>Eliminar cuenta</u></string>
+    <string name="estasSeguroQuieresBorrarCuenta">¿Estás segur@ de que quieres borrar la cuenta?</string>
 
     <!-- Menú de personajes -->
     <string name="seleccionarPersonaje">Seleccionar personaje</string>

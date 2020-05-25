@@ -16,7 +16,7 @@
     <!-- Control de cuentas -->
     <string name="correoElectronico">Email</string>
     <string name="contrasena">Password</string>
-    <string name="repetirContrasena">Repeat Contraseña</string>
+    <string name="repetirContrasena">Repeat password</string>
     <string name="hasOlvidadoContrasena">Did you forget your password?</string>
     <string name="noTienesCuentaRegistrate">Don\'t you have a Rol &amp; Play account? Register.</string>
     <string name="registrarse">Register</string>
@@ -203,6 +203,7 @@
     <string name="accedeApi">Get to the API</string>
     <string name="cambiarContrasenya"><u>Change password</u></string>
     <string name="eliminarCuenta"><u>Delete account</u></string>
+    <string name="estasSeguroQuieresBorrarCuenta">Are you sure you want to delete this account?</string>
 
     <!-- Menú de personajes -->
     <string name="seleccionarPersonaje">Choose character</string>

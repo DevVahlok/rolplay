@@ -108,7 +108,7 @@ public class ConfiguracionFragment extends Fragment {
                 AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
                 TextView title = new TextView(getActivity());
-                title.setText(getString(R.string.borrar));
+                title.setText(getString(R.string.estasSeguroQuieresBorrarCuenta));
                 title.setTextColor(getActivity().getColor(R.color.colorPrimary));
                 title.setTextSize(20);
                 title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
@@ -119,16 +119,12 @@ public class ConfiguracionFragment extends Fragment {
 
                 LinearLayout linearLayout = new LinearLayout(getActivity());
 
-                final EditText editText = new EditText(getActivity());
-                editText.setMinEms(20);
-
-
-                linearLayout.addView(editText);
                 linearLayout.setPadding(120, 10, 120, 10);
 
                 constructrorDialog.setView(linearLayout);
-                //Botón de añadir
-                constructrorDialog.setPositiveButton(getString(R.string.borrar), new DialogInterface.OnClickListener() {
+
+                //Botón borrar cuenta
+                constructrorDialog.setPositiveButton(getString(R.string.eliminarCuenta), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
@@ -140,6 +136,7 @@ public class ConfiguracionFragment extends Fragment {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
+                                                    mDialogCarga.dismiss();
                                                     startActivity(new Intent(getActivity(), MainActivity.class));
                                                     getActivity().finish();
                                                 }
