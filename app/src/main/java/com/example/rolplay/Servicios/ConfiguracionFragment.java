@@ -104,22 +104,63 @@ public class ConfiguracionFragment extends Fragment {
 
         mBorrarCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mDatabase.getReference("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            public void onClick(View v) {//Muestra un dialog para que el usuario selecciona cuál quiere añadir
+                AlertDialog.Builder constructrorDialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+
+                TextView title = new TextView(getActivity());
+                title.setText(getString(R.string.borrar));
+                title.setTextColor(getActivity().getColor(R.color.colorPrimary));
+                title.setTextSize(20);
+                title.setTypeface(getResources().getFont(R.font.chantelli_antiqua));
+                title.setGravity(Gravity.CENTER_HORIZONTAL);
+                title.setPadding(0, 40, 0, 0);
+
+                constructrorDialog.setCustomTitle(title);
+
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+
+                final EditText editText = new EditText(getActivity());
+                editText.setMinEms(20);
+
+
+                linearLayout.addView(editText);
+                linearLayout.setPadding(120, 10, 120, 10);
+
+                constructrorDialog.setView(linearLayout);
+                //Botón de añadir
+                constructrorDialog.setPositiveButton(getString(R.string.borrar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDialogCarga.show(getActivity().getSupportFragmentManager(), null);
+                        mDatabase.getReference("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            startActivity(new Intent(getActivity(), MainActivity.class));
-                                            getActivity().finish();
-                                        }
+                                    public void onSuccess(Void aVoid) {
+                                        FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    startActivity(new Intent(getActivity(), MainActivity.class));
+                                                    getActivity().finish();
+                                                }
+                                            }
+                                        });
                                     }
                                 });
+                        }
+                    });
+                        constructrorDialog.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                             }
                         });
+
+                        //Enseña el dialog de 'Añadir objeto'
+                        AlertDialog anadirObjeto = constructrorDialog.create();
+                        anadirObjeto.show();
+
+                        Objects.requireNonNull(anadirObjeto.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
             }
         });
 
