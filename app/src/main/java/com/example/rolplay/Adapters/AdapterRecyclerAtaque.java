@@ -86,7 +86,7 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             mCheckbox = itemView.findViewById(R.id.ListaAtaque_equipado);
             itemView.setOnClickListener(this);
             imgViewRemoveIcon_ataque = itemView.findViewById(R.id.ListaAtaque_borrar);
-            mFotoMonedas = itemView.findViewById(R.id.ListaEquipo_foto_moneda);
+            mFotoMonedas = itemView.findViewById(R.id.ListaAtaque_foto_moneda);
 
             radio = itemView.findViewById(R.id.ListaAtaque_equipado);
 
@@ -119,6 +119,9 @@ public class AdapterRecyclerAtaque extends RecyclerView.Adapter<AdapterRecyclerA
             //Seteo de datos de cada objeto
             mNombreAtaque.setText(s.getNombre());
             int moneda = s.getCoste();
+
+            mFotoMonedas.setImageResource(R.drawable.ic_monedas_cobre);
+
             if (moneda > 10 && moneda % 10 == 0) {
                 moneda = moneda / 10;
                 mFotoMonedas.setImageResource(R.drawable.ic_monedas_plata);

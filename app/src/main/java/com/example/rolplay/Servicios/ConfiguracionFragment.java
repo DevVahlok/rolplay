@@ -23,6 +23,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rolplay.Activities.ContenedorInicioActivity;
 import com.example.rolplay.Activities.InformacionActivity;
 import com.example.rolplay.Activities.MainActivity;
 import com.example.rolplay.Otros.DialogCarga;
@@ -283,6 +284,8 @@ public class ConfiguracionFragment extends Fragment {
         hashMap.put("Sonido", mSonido.isChecked());
         hashMap.put("Correo", mCorreo.isChecked());
         mDatabase.getReference("users/" + usuariActual.getUid()).updateChildren(hashMap);
+
+        ((ContenedorInicioActivity)getActivity()).cargarDatosFB();
     }
 
 }

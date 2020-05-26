@@ -143,6 +143,9 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
                 //Seteo de datos de cada objeto
                 mNombreEquipo.setText(s.getNombre());
                 int moneda = s.getCoste();
+
+                mFotoMonedas.setImageResource(R.drawable.ic_monedas_cobre);
+
                 if (moneda > 10 && moneda % 10 == 0) {
                     moneda = moneda / 10;
                     mFotoMonedas.setImageResource(R.drawable.ic_monedas_plata);
