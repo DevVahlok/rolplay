@@ -55,9 +55,11 @@ public class AdapterRecyclerEquipo extends RecyclerView.Adapter<AdapterRecyclerE
         holder.asignarDatos(listaDatos.get(position));
 
         if (!primeraVez) {
-            holder.radio.setChecked(position == lastSelectedPositionM);
-            if (lastSelectedPositionE == position) {
-                holder.radio.setChecked(lastSelectedPositionE == position);
+            if(listaDatos.get(position) instanceof ItemEquipo || listaDatos.get(position) instanceof ItemMontura) {
+                holder.radio.setChecked(position == lastSelectedPositionM);
+                if (lastSelectedPositionE == position) {
+                    holder.radio.setChecked(lastSelectedPositionE == position);
+                }
             }
 
             if (listaDatos.get(position) instanceof ItemEquipo) {
