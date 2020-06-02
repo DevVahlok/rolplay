@@ -438,6 +438,7 @@ public class InicioFragment extends Fragment {
                 try {
                     Nivel = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Nivel").getValue()));
                     PuntosExperiencia = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("Puntos de Experiencia").getValue()));
+                    mExperienciaPersonaje_TV.setText(getString(R.string.experiencia, Integer.toString(PuntosExperiencia), Integer.toString(Nivel * (Nivel+1) * 500)));
                 } catch (Exception e) {
                 }
                 ClaseDeArmadura = (String) dataSnapshot.child("Clase de Armadura").getValue();
