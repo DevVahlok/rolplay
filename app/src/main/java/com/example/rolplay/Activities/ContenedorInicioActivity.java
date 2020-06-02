@@ -879,7 +879,7 @@ public class ContenedorInicioActivity extends AppCompatActivity implements Navig
                 bundle.putString("Destreza puntos", mDestrezaPuntos);
                 bundle.putString("Constitucion puntos", mConstitucionPuntos);
                 bundle.putString("Inteligencia puntos", mInteligenciaPuntos);
-                bundle.putString("Sabiduria puntos", mSabiduriaPuntos);
+                bundle.putString("Sabiduría puntos", mSabiduriaPuntos);
                 bundle.putString("Carisma puntos", mCarismaPuntos);
                 bundle.putBoolean("AcrobaciasCB", Boolean.parseBoolean(mAcrobaciasCB));
                 bundle.putBoolean("AtletismoCB", Boolean.parseBoolean(mAtletismoCB));
